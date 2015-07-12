@@ -1,0 +1,5 @@
+# Local development dependencies go here
+-r test.txt
+django-debug-toolbar
+ipython==3.0.0
+Sphinx==1.2.2

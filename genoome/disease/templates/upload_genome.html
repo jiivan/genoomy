@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Upload your genome{% endblock title %}
+{% block page_title %}Upload your genome{% endblock page_title %}
+
+{% if analyzed %}
+    {% block extra_css %}<link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">{% endblock extra_css %}
+{% endif %}
+
+{% block content %}
+    {% if analyzed %}
+        <table id="genomeData" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>RSID</th>
+                <th>RISK ALLELE</th>
+                <th>GENOTYPE</th>
+                <th>DISEASE TRAIT</th>
+                <th>P VALUE</th>
+                <th>OR</th>
+                <th>RISK</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>RSID</th>
+                <th>RISK ALLELE</th>
+                <th>GENOTYPE</th>
+                <th>DISEASE TRAIT</th>
+                <th>P VALUE</th>
+                <th>OR</th>
+                <th>RISK</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            {% for row in table %}
+                <tr>
+                    <td>{{ row.rsid }}</td>
+                    <td>{{ row.risk_allele }}</td>
+                    <td>{{ row.genotype }}</td>
+                    <td>{{ row.disease_trait }}</td>
+                    <td>{{ row.p_value }}</td>
+                    <td>{{ row.or_or_beta }}</td>
+                    <td>{{ row.risk }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        {% include 'includes/upload_genome_form.html' %}
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;">
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+            $('#genomeData').dataTable();
+            var progressbar = $('.progress-bar');
+
+            function updateBar(values) {
+                console.log(values)
+                var l = values.length;
+                var tot = values.uploaded;
+
+                var perc = (tot / l) * (100.00);
+                console.log(perc);
+                progressbar.css('width', perc + '%');
+            }
+
+            $("form#upload_form").submit(function(e){
+                console.log('Form submitted');
+                var getProgress = function() {
+                    $.getJSON("{% url 'upload_progress' %}?X-Progress-ID={{ upload_id }}", function(data) {
+                        updateBar(data);
+                    });
+                };
+                setInterval(getProgress, 1000);
+{##}
+{#                var formData = new FormData($(this)[0]);#}
+{##}
+{#                $.ajax({#}
+{#                    url: window.location.pathname,#}
+{#                    type: 'POST',#}
+{#                    data: formData,#}
+{#                    async: false,#}
+{#                    cache: false,#}
+{#                    contentType: false,#}
+{#                    processData: false,#}
+{#                    headers: {'X-Progress-ID': '{{ upload_id }}'}#}
+{#                });#}
+            });
+
+
+            {#        $('#submitBtn').on('click', function(e) {#}
+            {#            e.PreventDefault();#}
+            {#            var getProgress = function() {#}
+            {#                $.getJSON("{% url 'upload_progress' %}?X-Progress-ID={{ upload_id }}", function(data) {#}
+            {#                    updateBar(data);#}
+            {#                });#}
+            {#            };#}
+            {#            setInterval(getProgress, 1000);#}
+            {#        });#}
+        });
+    </script>
+{% endblock extra_js %}

@@ -1,0 +1,8 @@
+{% extends 'generic_form.html' %}
+{% block form_action %}{% url "disease:upload_genome" %}?X-Progress-ID={{ upload_id }}{% endblock form_action %}
+{% block additional_attributes %}enctype="multipart/form-data" id="upload_form"{% endblock additional_attributes %}
+{% block form_fields %}
+    {{ block.super }}
+{#     <input type="hidden" id="X-Progress-ID" name="X-Progress-ID" value="{{ upload_id }}"/>#}
+{% endblock form_fields %}
+{% block submit_text %}Upload your genome{% endblock submit_text %}
