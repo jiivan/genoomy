@@ -35,9 +35,7 @@ def upload_progress(request):
         progress_id = request.META['X-Progress-ID']
     if progress_id:
         cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
-        print('Upload status cache key: {}'.format(cache_key))
         data = cache.get(cache_key)
-        print('Upload data ', data)
         if data is None:
             data = {'length': 1, 'uploaded': 1}
         return JsonResponse(data)
@@ -59,10 +57,10 @@ class UploadGenome(FormView):
 
     def form_valid(self, form):
         data = parse_raw_genome_file(self.request.FILES['file'])
-        markers = SNPMarker.objects.filter(rsid__in=data.keys())
-        print('STARTED PARSING FILE')
+        # markers = SNPMarker.objects.filter(rsid__in=data.keys())
         table = []
-        for marker in markers:
+        print('PROCESING MARKERS')
+        for marker in SNPMarker.objects.filter(rsid__in=data.keys()).iterator():
             mrsid = str(marker.rsid)
             if mrsid not in data:
                 continue
@@ -75,7 +73,7 @@ class UploadGenome(FormView):
              'risk': bool(marker.risk_allele in data[mrsid])
              }
             table.append(row)
+        print('MARKERS PROCESSED')
 
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
-        self.request.META
         return self.render_to_response(ctx)

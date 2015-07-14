@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
+
 from django.core.files.uploadhandler import FileUploadHandler
 from django.core.cache import cache
+
+log = logging.getLogger(__name__)
 
 class UploadProgressCachedHandler(FileUploadHandler):
     """
@@ -23,14 +27,15 @@ class UploadProgressCachedHandler(FileUploadHandler):
             self.progress_id = self.request.META['X-Progress-ID']
         if self.progress_id:
             self.cache_key = "%s_%s" % (self.request.META['REMOTE_ADDR'], self.progress_id )
-            print('Handler cache key: {}'.format(self.cache_key))
             cache.set(self.cache_key, {
                 'length': self.content_length,
-                'uploaded' : 0
+                'uploaded': 0
             })
+            log.debug('Handler cache key: %s', self.cache_key)
 
 
     def new_file(self, field_name, file_name, content_type, content_length, charset=None, content_type_extra=None):
+        print('CONTENT_LENGTH', content_length)
         pass
 
     def receive_data_chunk(self, raw_data, start):
@@ -38,6 +43,7 @@ class UploadProgressCachedHandler(FileUploadHandler):
             data = cache.get(self.cache_key)
             data['uploaded'] += self.chunk_size
             cache.set(self.cache_key, data)
+            log.debug('Cache Chunk %s', data)
         return raw_data
 
     def file_complete(self, file_size):
@@ -45,5 +51,5 @@ class UploadProgressCachedHandler(FileUploadHandler):
 
     def upload_complete(self):
         if self.cache_key:
-            print('Upload_complete')
+            log.debug('Upload_complete')
             cache.delete(self.cache_key)
