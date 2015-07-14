@@ -232,11 +232,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'filename': '/var/log/django/genoome.log',
-            'class': 'logging.FileHandler',
-        },
         'console': {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
@@ -250,7 +245,7 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'console', 'file'],
+            'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
             'propagate': True,
         },

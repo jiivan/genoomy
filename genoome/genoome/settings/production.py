@@ -21,7 +21,7 @@ def get_env_setting(setting):
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
-ALLOWED_HOSTS = ['www.genoomy.com']
+ALLOWED_HOSTS = ['.genoomy.com']
 ########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
@@ -73,6 +73,21 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION
+
+
+########## LOGGING CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING['handlers']['file'] = {
+    'level': 'DEBUG',
+    'filename': '/var/log/django/genoome.log',
+    'class': 'logging.FileHandler',
+}
+LOGGING['loggers']['django.request']['handlers'].append('file')
 
 
 ########## SECRET CONFIGURATION
