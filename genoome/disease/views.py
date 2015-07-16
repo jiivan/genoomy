@@ -38,6 +38,7 @@ def upload_progress(request):
     if progress_id:
         cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
         data = cache.get(cache_key)
+        log.debug('Upload progress cache %s', data)
         if data is None:
             data = {'length': 1, 'uploaded': 1}
         return JsonResponse(data)
