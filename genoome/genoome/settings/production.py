@@ -86,6 +86,7 @@ LOGGING['handlers']['file'] = {
     'level': 'DEBUG',
     'filename': '/var/log/django/genoome.log',
     'class': 'logging.FileHandler',
+    'formatter': 'verbose'
 }
 LOGGING['loggers']['django.request']['handlers'].append('file')
 LOGGING['loggers']['disease']['handlers'].append('file')
