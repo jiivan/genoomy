@@ -88,6 +88,7 @@ LOGGING['handlers']['file'] = {
     'class': 'logging.FileHandler',
 }
 LOGGING['loggers']['django.request']['handlers'].append('file')
+LOGGING['loggers']['disease']['handlers'].append('file')
 
 
 ########## SECRET CONFIGURATION

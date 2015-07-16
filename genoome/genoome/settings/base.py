@@ -236,6 +236,7 @@ LOGGING = {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -249,6 +250,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'disease': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'DEBUG',
+            'propagate': True
+        }
     }
 }
 ########## END LOGGING CONFIGURATION
