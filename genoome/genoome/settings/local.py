@@ -65,3 +65,4 @@ LOGGING['loggers']['django.db.backends'] = {
     'level': 'DEBUG',
     'propagate': True,
 }
+########## END LOGGING CONFIGURATION

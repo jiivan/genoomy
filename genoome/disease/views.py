@@ -1,4 +1,4 @@
-import json
+import logging
 import uuid
 
 from django.core.cache import cache
@@ -8,6 +8,8 @@ from django.utils.encoding import force_str
 
 from .forms import UploadGenomeForm
 from .models import SNPMarker
+
+log = logging.getLogger(__name__)
 
 def parse_raw_genome_file(file):
     RSID = 0
@@ -57,9 +59,8 @@ class UploadGenome(FormView):
 
     def form_valid(self, form):
         data = parse_raw_genome_file(self.request.FILES['file'])
-        # markers = SNPMarker.objects.filter(rsid__in=data.keys())
         table = []
-        print('PROCESING MARKERS')
+        log.debug('PROCESING MARKERS')
         for marker in SNPMarker.objects.filter(rsid__in=data.keys()).iterator():
             mrsid = str(marker.rsid)
             if mrsid not in data:
@@ -73,7 +74,7 @@ class UploadGenome(FormView):
              'risk': bool(marker.risk_allele in data[mrsid])
              }
             table.append(row)
-        print('MARKERS PROCESSED')
+        log.debug('MARKERS PROCESSED')
 
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
