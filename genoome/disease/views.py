@@ -1,5 +1,6 @@
 import logging
 import uuid
+import os
 
 from django.core.cache import cache
 from django.http import JsonResponse, HttpResponseServerError
@@ -38,7 +39,7 @@ def upload_progress(request):
     if progress_id:
         cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
         data = cache.get(cache_key)
-        log.debug('Upload progress cache %s', data)
+        log.debug('PID: %s, Upload progress cache %s',os.getpid(),  data)
         if data is None:
             data = {'length': 1, 'uploaded': 1}
         return JsonResponse(data)
@@ -61,7 +62,7 @@ class UploadGenome(FormView):
     def form_valid(self, form):
         data = parse_raw_genome_file(self.request.FILES['file'])
         table = []
-        log.debug('PROCESING MARKERS')
+        log.debug('PID: %s, PROCESING MARKERS', os.getpid())
         for marker in SNPMarker.objects.filter(rsid__in=data.keys()).iterator():
             mrsid = str(marker.rsid)
             if mrsid not in data:
@@ -75,7 +76,7 @@ class UploadGenome(FormView):
              'risk': bool(marker.risk_allele in data[mrsid])
              }
             table.append(row)
-        log.debug('MARKERS PROCESSED')
+        log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
 
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
