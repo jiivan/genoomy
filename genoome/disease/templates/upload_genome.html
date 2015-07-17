@@ -69,11 +69,32 @@
     <script>
         $(document).ready(function() {
             var genomeData = $('#genomeData');
-            genomeData.dataTable();
+            genomeData.dataTable({
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                                .appendTo( $(column.header()).empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                    );
+
+                                    column
+                                            .search( val ? '^'+val+'$' : '', true, false )
+                                            .draw();
+                                } );
+
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
+                }
+            });
             var progressbar = $('.progress-bar');
 
             function updateBar(values) {
-                console.log(values)
+                console.log(values);
                 var l = values.length;
                 var tot = values.uploaded;
 
