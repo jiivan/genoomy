@@ -5,7 +5,15 @@
 {% block page_title %}Upload your genome{% endblock page_title %}
 
 {% if analyzed %}
-    {% block extra_css %}<link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">{% endblock extra_css %}
+    {% block extra_css %}
+        <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
+        <style>
+            #genomeData tbody tr {
+                cursor: pointer;
+                cursor: hand;
+            }
+        </style>
+    {% endblock extra_css %}
 {% endif %}
 
 {% block content %}
@@ -35,7 +43,7 @@
             </tfoot>
             <tbody>
             {% for row in table %}
-                <tr>
+                <tr data-url="{{ row.link }}">
                     <td>{{ row.rsid }}</td>
                     <td>{{ row.risk_allele }}</td>
                     <td>{{ row.genotype }}</td>
@@ -60,7 +68,8 @@
 {% block extra_js %}
     <script>
         $(document).ready(function() {
-            $('#genomeData').dataTable();
+            var genomeData = $('#genomeData');
+            genomeData.dataTable();
             var progressbar = $('.progress-bar');
 
             function updateBar(values) {
@@ -80,32 +89,14 @@
                         updateBar(data);
                     });
                 };
-                setInterval(getProgress, 1000);
-{##}
-{#                var formData = new FormData($(this)[0]);#}
-{##}
-{#                $.ajax({#}
-{#                    url: window.location.pathname,#}
-{#                    type: 'POST',#}
-{#                    data: formData,#}
-{#                    async: false,#}
-{#                    cache: false,#}
-{#                    contentType: false,#}
-{#                    processData: false,#}
-{#                    headers: {'X-Progress-ID': '{{ upload_id }}'}#}
-{#                });#}
+                setInterval(getProgress, 3000);
             });
 
-
-            {#        $('#submitBtn').on('click', function(e) {#}
-            {#            e.PreventDefault();#}
-            {#            var getProgress = function() {#}
-            {#                $.getJSON("{% url 'upload_progress' %}?X-Progress-ID={{ upload_id }}", function(data) {#}
-            {#                    updateBar(data);#}
-            {#                });#}
-            {#            };#}
-            {#            setInterval(getProgress, 1000);#}
-            {#        });#}
+            $('#genomeData tbody tr').click(function(e) {
+                e.preventDefault();
+                var row = $(this);
+                window.open(row.data('url'));
+            });
         });
     </script>
 {% endblock extra_js %}

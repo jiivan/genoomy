@@ -73,7 +73,8 @@ class UploadGenome(FormView):
              'p_value': marker.p_value,
              'or_or_beta': marker.or_or_beta,
              'genotype': data[mrsid],
-             'risk': bool(marker.risk_allele in data[mrsid])
+             'risk': bool(marker.risk_allele in data[mrsid]),
+             'link': marker.link
              }
             table.append(row)
         log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
