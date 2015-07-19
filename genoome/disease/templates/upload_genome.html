@@ -12,12 +12,30 @@
                 cursor: pointer;
                 cursor: hand;
             }
+            #genomeData thead tr th span {
+                height: auto;
+            }
         </style>
     {% endblock extra_css %}
 {% endif %}
 
 {% block content %}
     {% if analyzed %}
+{#        <table border="0" cellpadding="5" cellspacing="5">#}
+{#            <tbody><tr>#}
+{#                <td>Minimum rsid:</td>#}
+{#                <td>#}
+{#                    <input id="min" name="min" type="text">#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Maximum rsid:</td>#}
+{#                <td>#}
+{#                    <input id="max" name="max" type="text">#}
+{#                </td>#}
+{#            </tr>#}
+{#            </tbody>#}
+{#        </table>#}
         <table id="genomeData" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -29,7 +47,18 @@
                 <th>OR</th>
                 <th>RISK</th>
             </tr>
+            <tr>
+                <th>RSID</th>
+                <th>RISK ALLELE</th>
+                <th>GENOTYPE</th>
+                <th>DISEASE TRAIT</th>
+                <th>P VALUE</th>
+                <th>OR</th>
+                <th>RISK</th>
+            </tr>
             </thead>
+
+
             <tfoot>
             <tr>
                 <th>RSID</th>
@@ -67,30 +96,97 @@
 
 {% block extra_js %}
     <script>
+{#        $.fn.dataTable.ext.search.push(#}
+{#                function( settings, data, dataIndex ) {#}
+{#                    var min = parseInt( $('#min').val(), 10 );#}
+{#                    var max = parseInt( $('#max').val(), 10 );#}
+{#                    var rsid = parseFloat( data[0] ) || 0; // use data for the age column#}
+{##}
+{#                    if ( ( isNaN( min ) && isNaN( max ) ) ||#}
+{#                            ( isNaN( min ) && rsid <= max ) ||#}
+{#                            ( min <= rsid   && isNaN( max ) ) ||#}
+{#                            ( min <= rsid   && rsid <= max ) )#}
+{#                    {#}
+{#                        return true;#}
+{#                    }#}
+{#                    return false;#}
+{#                }#}
+{#        );#}
+
+        $.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
+            if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
+
+            if (isNaN(x)) return 1;
+            if (isNaN(y)) return -1;
+
+            x = parseFloat( x );
+            y = parseFloat( y );
+            return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+        };
+
+        $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
+            if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
+
+            if (isNaN(x)) return 1;
+            if (isNaN(y)) return -1;
+
+            x = parseFloat( x );
+            y = parseFloat( y );
+            return ((x < y) ?  1 : ((x > y) ? -1 : 0));
+        };
+
         $(document).ready(function() {
+
             var genomeData = $('#genomeData');
-            genomeData.dataTable({
-                initComplete: function () {
-                    this.api().columns().every( function () {
-                        var column = this;
-                        var select = $('<select><option value=""></option></select>')
-                                .appendTo( $(column.header()) )
-                                .on( 'change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                            $(this).val()
-                                    );
+            var genomeTable = genomeData.dataTable({
+                "aoColumnDefs": [
+                    { "sType": "nqumeric_ignore_nan", "aTargets": [ 5 ] }
+                ],
+                "drawCallback": function( settings ) {
+                    var rows = $('#genomeData tbody tr');
 
-                                    column
-                                            .search( val ? '^'+val+'$' : '', true, false )
-                                            .draw();
-                                } );
+                    // Remove existing event handlers;
+                    rows.off('click');
 
-                        column.data().unique().sort().each( function ( d, j ) {
-                            select.append( '<option value="'+d+'">'+d+'</option>' )
-                        } );
-                    } );
+                    rows.click(function(e) {
+                        e.preventDefault();
+                        var row = $(this);
+                        window.open(row.data('url'));
+                    });
                 }
+            }).columnFilter({ sPlaceHolder: "head:after",
+                aoColumns: [
+                    { type: "number-range" },
+                    { type: "select" },
+                    { type: "select" },
+                    { type: "select" },
+                    { type: "number-range" },
+                    { type: "number-range" },
+                    { type: "select" }
+                ]
             });
+            {#            var genomeTable = genomeData.dataTable({#}
+            {#                initComplete: function () {#}
+            {#                    this.api().columns().every( function () {#}
+            {#                        var column = this;#}
+            {#                        var select = $('<select><option value=""></option></select>')#}
+            {#                                .appendTo( $(column.header()) )#}
+            {#                                .on( 'change', function () {#}
+            {#                                    var val = $.fn.dataTable.util.escapeRegex(#}
+            {#                                            $(this).val()#}
+            {#                                    );#}
+            {##}
+            {#                                    column#}
+            {#                                            .search( val ? '^'+val+'$' : '', true, false )#}
+            {#                                            .draw();#}
+            {#                                } );#}
+            {##}
+            {#                        column.data().unique().sort().each( function ( d, j ) {#}
+            {#                            select.append( '<option value="'+d+'">'+d+'</option>' )#}
+            {#                        } );#}
+            {#                    } );#}
+            {#                }#}
+            {#            });#}
             var progressbar = $('.progress-bar');
 
             function updateBar(values) {
@@ -113,11 +209,9 @@
                 setInterval(getProgress, 3000);
             });
 
-            $('#genomeData tbody tr').click(function(e) {
-                e.preventDefault();
-                var row = $(this);
-                window.open(row.data('url'));
-            });
+{#            $('#min, #max').keyup( function() {#}
+{#                genomeTable.draw();#}
+{#            } );#}
         });
     </script>
 {% endblock extra_js %}
