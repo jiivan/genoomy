@@ -187,7 +187,7 @@
                 var perc = (l / tot) * (100.00);
                 console.log(perc);
                 progressbar.css('width', perc + '%');
-                if (data.status === 'done') {
+                if (values.status === 'done') {
                     window.clearInterval(interval);
                 }
             }
