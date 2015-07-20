@@ -15,6 +15,7 @@ log = logging.getLogger(__name__)
 def parse_raw_genome_file(file):
     RSID = 0
     GENOTYPE = 3
+    POSITION = 2
     data = {}
     for line in file:
         line = force_str(line)
@@ -24,7 +25,7 @@ def parse_raw_genome_file(file):
         if not l[RSID].startswith('rs'):
             continue
         rsid = l[RSID].replace('rs', '', 1)
-        data[rsid] = l[GENOTYPE]
+        data[rsid] = {'genotype': l[GENOTYPE], 'position': l[POSITION]}
     return data
 
 def upload_progress(request):
@@ -68,14 +69,15 @@ class UploadGenome(FormView):
             if mrsid not in data:
                 continue
             row = {'rsid': mrsid,
-             'risk_allele': marker.risk_allele,
-             'disease_trait': marker.disease_trait,
-             'p_value': marker.p_value,
-             'or_or_beta': marker.or_or_beta,
-             'genotype': data[mrsid],
-             'risk': bool(marker.risk_allele in data[mrsid]),
-             'link': marker.link
-             }
+                   'risk_allele': marker.risk_allele,
+                   'chromosome_position': data[mrsid]['position'],
+                   'disease_trait': marker.disease_trait,
+                   'p_value': marker.p_value,
+                   'or_or_beta': marker.or_or_beta,
+                   'genotype': data[mrsid]['genotype'],
+                   'risk': data[mrsid]['genotype'].count(marker.risk_allele),
+                   'link': marker.link
+                   }
             table.append(row)
         log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
 

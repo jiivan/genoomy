@@ -40,6 +40,7 @@
             <thead>
             <tr>
                 <th>RSID</th>
+                <th>CHROMOSOME POS</th>
                 <th>RISK ALLELE</th>
                 <th>GENOTYPE</th>
                 <th>DISEASE TRAIT</th>
@@ -49,6 +50,7 @@
             </tr>
             <tr>
                 <th>RSID</th>
+                <th>CHROMOSOME POS</th>
                 <th>RISK ALLELE</th>
                 <th>GENOTYPE</th>
                 <th>DISEASE TRAIT</th>
@@ -62,6 +64,7 @@
             <tfoot>
             <tr>
                 <th>RSID</th>
+                <th>CHROMOSOME POS</th>
                 <th>RISK ALLELE</th>
                 <th>GENOTYPE</th>
                 <th>DISEASE TRAIT</th>
@@ -74,6 +77,7 @@
             {% for row in table %}
                 <tr data-url="{{ row.link }}">
                     <td>{{ row.rsid }}</td>
+                    <td>{{ row.chromosome_position }}</td>
                     <td>{{ row.risk_allele }}</td>
                     <td>{{ row.genotype }}</td>
                     <td>{{ row.disease_trait }}</td>
@@ -96,22 +100,6 @@
 
 {% block extra_js %}
     <script>
-{#        $.fn.dataTable.ext.search.push(#}
-{#                function( settings, data, dataIndex ) {#}
-{#                    var min = parseInt( $('#min').val(), 10 );#}
-{#                    var max = parseInt( $('#max').val(), 10 );#}
-{#                    var rsid = parseFloat( data[0] ) || 0; // use data for the age column#}
-{##}
-{#                    if ( ( isNaN( min ) && isNaN( max ) ) ||#}
-{#                            ( isNaN( min ) && rsid <= max ) ||#}
-{#                            ( min <= rsid   && isNaN( max ) ) ||#}
-{#                            ( min <= rsid   && rsid <= max ) )#}
-{#                    {#}
-{#                        return true;#}
-{#                    }#}
-{#                    return false;#}
-{#                }#}
-{#        );#}
 
         $.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
             if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
@@ -140,7 +128,7 @@
             var genomeData = $('#genomeData');
             var genomeTable = genomeData.dataTable({
                 "aoColumnDefs": [
-                    { "sType": "numeric_ignore_nan", "aTargets": [ 5 ] }
+                    { "sType": "numeric_ignore_nan", "aTargets": [ 6 ] }
                 ],
                 "drawCallback": function( settings ) {
                     var rows = $('#genomeData tbody tr');
@@ -156,6 +144,7 @@
                 }
             }).columnFilter({ sPlaceHolder: "head:after",
                 aoColumns: [
+                    { type: "number-range" },
                     { type: "number-range" },
                     { type: "select" },
                     { type: "select" },
