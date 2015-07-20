@@ -21,21 +21,21 @@
 
 {% block content %}
     {% if analyzed %}
-{#        <table border="0" cellpadding="5" cellspacing="5">#}
-{#            <tbody><tr>#}
-{#                <td>Minimum rsid:</td>#}
-{#                <td>#}
-{#                    <input id="min" name="min" type="text">#}
-{#                </td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <td>Maximum rsid:</td>#}
-{#                <td>#}
-{#                    <input id="max" name="max" type="text">#}
-{#                </td>#}
-{#            </tr>#}
-{#            </tbody>#}
-{#        </table>#}
+        {#        <table border="0" cellpadding="5" cellspacing="5">#}
+        {#            <tbody><tr>#}
+        {#                <td>Minimum rsid:</td>#}
+        {#                <td>#}
+        {#                    <input id="min" name="min" type="text">#}
+        {#                </td>#}
+        {#            </tr>#}
+        {#            <tr>#}
+        {#                <td>Maximum rsid:</td>#}
+        {#                <td>#}
+        {#                    <input id="max" name="max" type="text">#}
+        {#                </td>#}
+        {#            </tr>#}
+        {#            </tbody>#}
+        {#        </table>#}
         <table id="genomeData" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -177,30 +177,39 @@
             {#                }#}
             {#            });#}
             var progressbar = $('.progress-bar');
+            var interval;
 
             function updateBar(values) {
                 console.log(values);
-                var l = values.length;
-                var tot = values.uploaded;
+                var l = values.received;
+                var tot = values.size;
 
                 var perc = (tot / l) * (100.00);
                 console.log(perc);
                 progressbar.css('width', perc + '%');
+                if (data.status === 'done') {
+                    window.clearInterval(interval);
+                }
             }
 
             $("form#upload_form").submit(function(e){
                 console.log('Form submitted');
                 var getProgress = function() {
-                    $.getJSON("{% url 'upload_progress' %}?X-Progress-ID={{ upload_id }}", function(data) {
-                        updateBar(data);
+                    $.ajax({
+                        url: "/progress",
+                        headers: {"X-Progress-ID": "{{ upload_id }}"},
+                        dataType: 'json',
+                        success: function(data) {
+                            updateBar(data);
+                        }
                     });
                 };
-                setInterval(getProgress, 3000);
+                interval = window.setInterval(getProgress, 1000);
             });
 
-{#            $('#min, #max').keyup( function() {#}
-{#                genomeTable.draw();#}
-{#            } );#}
+            {#            $('#min, #max').keyup( function() {#}
+            {#                genomeTable.draw();#}
+            {#            } );#}
         });
     </script>
 {% endblock extra_js %}
