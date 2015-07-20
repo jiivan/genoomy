@@ -128,7 +128,7 @@
             var genomeData = $('#genomeData');
             var genomeTable = genomeData.dataTable({
                 "aoColumnDefs": [
-                    { "sType": "numeric_ignore_nan", "aTargets": [ 6 ] }
+                    { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
                 ],
                 "drawCallback": function( settings ) {
                     var rows = $('#genomeData tbody tr');
@@ -184,7 +184,7 @@
                 var l = values.received;
                 var tot = values.size;
 
-                var perc = (tot / l) * (100.00);
+                var perc = (l / tot) * (100.00);
                 console.log(perc);
                 progressbar.css('width', perc + '%');
                 if (data.status === 'done') {
