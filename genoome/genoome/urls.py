@@ -11,7 +11,7 @@ from disease.views import upload_progress
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name='base.html')),
+    url(r'^$', TemplateView.as_view(template_name='base.html'), name='landing_page'),
 
     # Examples:
     # url(r'^$', 'genoome.views.home', name='home'),

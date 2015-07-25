@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Genome{% endblock title %} </title>
+  <title>{% block title %}Genomy{% endblock title %} </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -49,7 +49,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Genoome</a>
+      <a class="navbar-brand" href="{% url 'landing_page' %}">Genoomy</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
@@ -63,7 +63,7 @@
 
 <div class="container">
 
-  <h1>{% block page_title %}Genoome{% endblock page_title %}</h1>
+  <h1>{% block page_title %}Genoomy{% endblock page_title %}</h1>
 
     {% block content %}
       <p>Use this document as a way to quick start any new project.</p>
