@@ -1,0 +1,22 @@
+{% extends 'generic_form.html' %}
+
+{% block form_action %}{% url "accounts:create_with_email" %}{% endblock form_action %}
+
+{% block additional_attributes %}
+id="email_form"
+{% endblock additional_attributes %}
+
+{% block form %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function() {
+            $('#email_form').ajaxForm({
+                target: '#modal_content'
+            });
+            console.log('form updated');
+        });
+    </script>
+{% endblock form %}
+
+
+{% block submit_text %}Save{% endblock submit_text %}

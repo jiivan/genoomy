@@ -194,6 +194,7 @@ DJANGO_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'accounts',
     'disease',
 
     'widget_tweaks',

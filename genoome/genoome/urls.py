@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'genoome.views.home', name='home'),
     url(r'^update-progress/$', upload_progress, name='upload_progress'),
     url(r'^disease/', include('disease.urls', namespace='disease')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

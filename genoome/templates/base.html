@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Genomy{% endblock title %} </title>
+  <title>{% block title %}Genoomy{% endblock title %} </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -30,6 +30,9 @@
 
 <body>
 {% block tracking_code %}
+    <script>
+  dataLayer = [{'&uid': {{ request.user.pk }} }];
+  </script>
   <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M9KMFL"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -68,7 +71,17 @@
     {% block content %}
       <p>Use this document as a way to quick start any new project.</p>
       <a class="btn btn-default btn-lg" href="{% url "disease:upload_genome" %}" role="button">Upload your genome</a>
+      <a class="btn btn-default btn-lg" data-toggle="modal" href="{% url "accounts:create_with_email" %}" data-target="#email-modal">Leave your email</a>
     {% endblock content %}
+
+
+<div class="modal fade" id="email-modal">
+  <div class="modal-dialog">
+    <div id="modal_content" class="modal-content">
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 </div> <!-- /container -->
 
@@ -76,6 +89,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static "js/jquery.form.js" %}"></script>
 <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 <script src="{% static "js/jquery.dataTables.columnFilter.js" %}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
