@@ -202,6 +202,7 @@ LOCAL_APPS = (
     'disease',
 
     'widget_tweaks',
+    'coupons',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
