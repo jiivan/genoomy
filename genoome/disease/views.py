@@ -1,16 +1,23 @@
+from io import BytesIO
 import logging
 import uuid
+import pickle
 import os
 
+from django.conf import settings
 from django.core.cache import cache
+from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
 from django.views.generic import FormView
+from django.views.generic import TemplateView
 from django.utils.encoding import force_str
 
 from .forms import UploadGenomeForm
 from .models import SNPMarker
 
 log = logging.getLogger(__name__)
+
+storage = FileSystemStorage()
 
 def parse_raw_genome_file(file):
     RSID = 0
@@ -59,6 +66,17 @@ class UploadGenome(FormView):
         upload_id = uuid.uuid4()
         return self.render_to_response(self.get_context_data(form=form, upload_id=upload_id))
 
+    def get_filepath(self):
+        app_dir = 'disease'
+        user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
+        filename = self.request.FILES['file'].name
+        return os.path.join(app_dir, user_subdir, filename)
+
+    def save_processed_data(self, data):
+        buffer = BytesIO()
+        pickle.dump(data, buffer)
+        storage.save(self.get_filepath(), buffer)
+
     def form_valid(self, form):
         data = parse_raw_genome_file(self.request.FILES['file'])
         table = []
@@ -80,5 +98,27 @@ class UploadGenome(FormView):
             table.append(row)
         log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
 
+        file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath()))
+        if self.request.user.is_authenticated() and not file_exists:
+            self.save_processed_data(table)
+
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
+
+
+class DisplayGenomeResult(TemplateView):
+    template_name = 'display_genome_result.html'
+
+    def get_genome_data(self):
+        app_dir = 'disease'
+        user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
+        filename = self.request.GET['file']
+        filepath = os.path.join(app_dir, user_subdir, filename)
+        with storage.open(filepath) as f:
+            data = pickle.load(f)
+        return data
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['table'] = self.get_genome_data()
+        return ctx

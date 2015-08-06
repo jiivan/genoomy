@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Browse your genome{% endblock title %}
+{% block page_title %}Browse your genome{% endblock page_title %}
+
+{% if analyzed %}
+    {% block extra_css %}
+        <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
+        <style>
+            #genomeData tbody tr {
+                cursor: pointer;
+                cursor: hand;
+            }
+            #genomeData thead tr th span {
+                height: auto;
+            }
+        </style>
+    {% endblock extra_css %}
+{% endif %}
+
+{% block content %}
+    <table id="genomeData" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+        </tr>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+        </tr>
+        </thead>
+
+
+        <tfoot>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        {% for row in table %}
+            <tr data-url="{{ row.link }}">
+                <td>{{ row.rsid }}</td>
+                <td>{{ row.chromosome_position }}</td>
+                <td>{{ row.risk_allele }}</td>
+                <td>{{ row.genotype }}</td>
+                <td>{{ row.disease_trait }}</td>
+                <td>{{ row.p_value }}</td>
+                <td>{{ row.or_or_beta }}</td>
+                <td>{{ row.risk }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock content %}

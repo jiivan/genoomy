@@ -1,3 +1,6 @@
+import os
+
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
@@ -7,6 +10,8 @@ from django.shortcuts import render_to_response
 
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
+
+storage = FileSystemStorage()
 
 # Create your views here.
 class UserCreateWithEmail(CreateView):
@@ -41,3 +46,18 @@ class SignUpView(CreateView):
 
 class SignupSuccessView(TemplateView):
     template_name = 'signup_success.html'
+
+
+class UserProfileView(TemplateView):
+    template_name = 'user_profile.html'
+
+    def get_genome_dirpath(self):
+        app_dir = 'disease'
+        user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
+        return os.path.join(app_dir, user_subdir)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        _, files = storage.listdir(self.get_genome_dirpath())
+        ctx['saved_genome_data'] = files
+        return ctx
