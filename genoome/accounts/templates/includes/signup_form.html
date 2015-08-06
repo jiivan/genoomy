@@ -1,22 +1,21 @@
 {% extends 'generic_form.html' %}
 
-{% block form_action %}{% url "accounts:create_with_email" %}{% endblock form_action %}
+{% block form_action %}{% url "accounts:signup" %}{% endblock form_action %}
+
+{% block submit_text %}Signup{% endblock submit_text %}
 
 {% block additional_attributes %}
-id="email_form"
+id="signup_form"
 {% endblock additional_attributes %}
 
 {% block form %}
     {{ block.super }}
     <script>
         $(document).ready(function() {
-            $('#email_form').ajaxForm({
-                target: '#modal-email #modal_content'
+            $('#signup_form').ajaxForm({
+                target: '#modal-signup #modal_content'
             });
             console.log('form updated');
         });
     </script>
 {% endblock form %}
-
-
-{% block submit_text %}Save{% endblock submit_text %}

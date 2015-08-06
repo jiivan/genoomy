@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth import models as auth_models
+from django.contrib.auth.forms import UserCreationForm
 
 class EmailUserCreateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
@@ -15,4 +16,12 @@ class EmailUserCreateForm(forms.ModelForm):
         return super().save(commit)
 
 
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True)
 
+    class Meta(UserCreationForm.Meta):
+        fields = ('email',)
+
+    def save(self, commit=True):
+        self.instance.username = self.cleaned_data.get('email', '')
+        return super().save(commit)

@@ -59,7 +59,6 @@ class UploadGenome(FormView):
         upload_id = uuid.uuid4()
         return self.render_to_response(self.get_context_data(form=form, upload_id=upload_id))
 
-
     def form_valid(self, form):
         data = parse_raw_genome_file(self.request.FILES['file'])
         table = []

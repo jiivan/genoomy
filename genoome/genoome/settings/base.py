@@ -76,6 +76,10 @@ USE_L10N = True
 USE_TZ = True
 ########## END GENERAL CONFIGURATION
 
+########## AUTHENTICATION CONFIGURATION
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
+                           'accounts.auth_backends.EmailBackend',)
+########## END AUTHENTICATION CONFIGURATION
 
 ########## MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
