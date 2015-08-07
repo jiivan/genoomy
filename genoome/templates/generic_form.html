@@ -5,13 +5,15 @@
     </p>
 {% endif %}
 
-{% if form.non_field_errors %}
-    {% for error in form.non_field_errors %}
-        <p class="errornote">
-            {{ error }}
-        </p>
-    {% endfor %}
-{% endif %}
+{% block non_form_errors %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="errornote">
+                {{ error }}
+            </p>
+        {% endfor %}
+    {% endif %}
+{% endblock non_form_errors %}
 
 {% block form %}
     <form action="{% block form_action %}{% endblock form_action %}" method="{% block form_method %}post{% endblock form_method %}" {% block additional_attributes %}{% endblock additional_attributes %}>

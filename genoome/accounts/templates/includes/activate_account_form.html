@@ -1,0 +1,5 @@
+{% extends 'generic_form.html' %}
+
+{% block form_action %}{% url "accounts:activate_account" %}{% endblock form_action %}
+
+{% block submit_text %}Activate account{% endblock submit_text %}

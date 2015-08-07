@@ -1,5 +1,18 @@
 {% extends 'generic_form.html' %}
 
+{% block non_form_errors %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors.as_data %}
+            <p class="errornote">
+                {{ error.message }}
+                {% if error.code == "inactive" %}
+                    <a class="btn btn-default " href="{% url "accounts:activate_account" %}" role="button">Activate your account</a>
+                {% endif %}
+            </p>
+        {% endfor %}
+    {% endif %}
+{% endblock non_form_errors %}
+
 {% block form_action %}{% url "accounts:signin" %}{% endblock form_action %}
 
 {% block submit_text %}Signin{% endblock submit_text %}

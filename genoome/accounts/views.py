@@ -4,10 +4,12 @@ from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
+from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
 
+from accounts.forms import ActivateAccountForm
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
 
@@ -37,6 +39,16 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('accounts:signup_success')
     template_name = 'signup.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        try:
+            user = self.model.objects.get(email=kwargs.get('data', {}).get('email', [None]))
+            kwargs.update({'instance': user})
+        except self.model.DoesNotExist:
+            pass
+
+        return kwargs
+
     def form_valid(self, form):
         resp = super().form_valid(form)
         template = get_template('signup_success.html')
@@ -58,6 +70,16 @@ class UserProfileView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        _, files = storage.listdir(self.get_genome_dirpath())
-        ctx['saved_genome_data'] = files
+        dirpath = self.get_genome_dirpath()
+        if os.path.exists(dirpath):
+            _, files = storage.listdir(dirpath)
+            ctx['saved_genome_data'] = files
         return ctx
+
+class AccountActivateView(FormView):
+    template_name = 'activate_account.html'
+    form_class = ActivateAccountForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update

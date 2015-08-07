@@ -4,10 +4,12 @@
 {% block page_title %}Your profile{% endblock page_title %}
 
 {% block content %}
-    <p>By clicking on items below you can browse previously uploaded data.</p>
+    {% if saved_genome_data %}
+        <p>By clicking on items below you can browse previously uploaded data.</p>
+    {% endif %}
     <div class="list-group">
-    {% for row in saved_genome_data %}
-        <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}" class="list-group-item">{{ row }}</a>
-    {% endfor %}
+        {% for row in saved_genome_data %}
+            <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}" class="list-group-item">{{ row }}</a>
+        {% endfor %}
     </div>
 {% endblock content %}
