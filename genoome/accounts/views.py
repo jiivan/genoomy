@@ -65,7 +65,7 @@ class UserProfileView(TemplateView):
     def get_genome_dirpath(self):
         app_dir = 'disease'
         user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
-        return os.path.join(app_dir, user_subdir)
+        return storage.path(os.path.join(app_dir, user_subdir))
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
