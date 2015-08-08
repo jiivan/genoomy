@@ -57,4 +57,8 @@ class ActivateAccountForm(CouponForm):
                 code='no_account')
         return email
 
-    def activate
+    def activate_user(self):
+        email = self.cleaned_data['email']
+        user = get_user_model().objects.get(email=email)
+        user.is_active = True
+        user.save()

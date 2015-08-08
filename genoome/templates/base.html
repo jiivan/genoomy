@@ -84,8 +84,9 @@
 
     {% block content %}
       <p>Use this document as a way to quick start any new project.</p>
-      <a class="btn btn-default btn-lg" href="{% url "disease:upload_genome" %}" role="button">Upload your genome</a>
-        {% if not request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
+          <a class="btn btn-default btn-lg" href="{% url "disease:upload_genome" %}" role="button">Upload your genome</a>
+        {% elif not request.user.is_authenticated %}
           <a class="btn btn-default btn-lg" data-toggle="modal" href="{% url "accounts:create_with_email" %}" data-target="#modal-email">Leave your email</a>
           <a class="btn btn-default btn-lg" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Signup</a>
         {% endif %}

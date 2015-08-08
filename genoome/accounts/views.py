@@ -15,7 +15,6 @@ from accounts.forms import SignUpForm
 
 storage = FileSystemStorage()
 
-# Create your views here.
 class UserCreateWithEmail(CreateView):
     template_name = 'save_email.html'
     form_class = EmailUserCreateForm
@@ -80,6 +79,6 @@ class AccountActivateView(FormView):
     template_name = 'activate_account.html'
     form_class = ActivateAccountForm
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update
+    def form_valid(self, form):
+        form.activate_user()
+        return super().form_valid(form)

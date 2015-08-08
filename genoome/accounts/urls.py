@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.conf.urls import url
 
 from django.contrib.auth.views import login, logout
+from django.contrib.auth.decorators import login_required
 from . import views
 from .forms import SignInForm
 
@@ -15,6 +16,6 @@ urlpatterns = [
     url(r'^signup-success/$', views.SignupSuccessView.as_view(), name='signup_success'),
     url(r'^save-email/$', views.UserCreateWithEmail.as_view(), name='create_with_email'),
     url(r'^save-email-succes/$', views.UserCreateSuccess.as_view(), name='create_with_email_success'),
-    url(r'^profile/$', views.UserProfileView.as_view(), name='profile'),
+    url(r'^profile/$', login_required(views.UserProfileView.as_view(), login_url='/accounts/signin'), name='profile'),
     # url(r'^view/$', views.special_case_2003),
 ]
