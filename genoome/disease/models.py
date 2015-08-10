@@ -6,6 +6,7 @@ class SNPMarker(models.Model):
     link = models.TextField()
     risk_allele = models.CharField(max_length=128)
     disease_trait = models.TextField()
+    comment = models.TextField()
     p_value = models.FloatField(blank=True, null=True)
     or_or_beta = models.FloatField(blank=True, null=True)
 
