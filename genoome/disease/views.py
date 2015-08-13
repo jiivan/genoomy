@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 from django.utils.encoding import force_str
 
 from .forms import UploadGenomeForm
-from .models import SNPMarker
+from .models import AlleleColor, SNPMarker
 
 log = logging.getLogger(__name__)
 
@@ -102,6 +102,11 @@ class UploadGenome(FormView):
         if self.request.user.is_authenticated() and not file_exists:
             self.save_processed_data(table)
 
+        allele_colors = {allele.allele: allele.color for allele in AlleleColor.objects.all()}
+
+        for row in table:
+            if row['genotype'] in allele_colors:
+                row.update({'color': allele_colors[row['genotype']]})
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
 
@@ -116,6 +121,12 @@ class DisplayGenomeResult(TemplateView):
         filepath = os.path.join(app_dir, user_subdir, filename)
         with storage.open(filepath) as f:
             data = pickle.load(f)
+
+        allele_colors = {allele.allele: allele.color for allele in AlleleColor.objects.all()}
+
+        for row in data:
+            if row['genotype'] in allele_colors:
+                row.update({'color': allele_colors[row['genotype']]})
         return data
 
     def get_context_data(self, **kwargs):

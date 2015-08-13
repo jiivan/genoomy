@@ -203,6 +203,7 @@ LOCAL_APPS = (
 
     'widget_tweaks',
     'coupons',
+    'colorful',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

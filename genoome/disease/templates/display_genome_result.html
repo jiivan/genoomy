@@ -59,7 +59,7 @@
         </tfoot>
         <tbody>
         {% for row in table %}
-            <tr data-url="{{ row.link }}">
+            <tr data-url="{{ row.link }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
                 <td>{{ row.rsid }}</td>
                 <td>{{ row.chromosome_position }}</td>
                 <td>{{ row.risk_allele }}</td>
