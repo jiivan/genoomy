@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from coupons.forms import CouponForm
+from coupons.models import Coupon
 from django import forms
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import models as auth_models
@@ -32,14 +33,24 @@ class EmailUserCreateForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    code = forms.CharField(label=_("Coupon code"))
 
     class Meta(UserCreationForm.Meta):
         fields = ('email',)
 
+    def clean_code(self):
+        code = self.cleaned_data['code']
+        try:
+            coupon = Coupon.objects.get(code=code)
+        except Coupon.DoesNotExist:
+            raise forms.ValidationError(_("This code is not valid."))
+        if coupon.expired():
+            raise forms.ValidationError(_("This code is expired."))
+        return code
+
     def save(self, commit=True):
         self.instance.username = self.cleaned_data.get('email', '')
         user = super().save(commit=False)
-        user.is_active = False
         if commit:
             user.save()
         return user
