@@ -3,3 +3,6 @@ psycopg2==2.6.1
 django-widget-tweaks==1.4.1
 django-coupons==1.1.0
 django-colorful==1.1.0
+Markdown==2.6.2
+django-blog-zinnia==0.15.2
+zinnia-wysiwyg-ckeditor==1.2

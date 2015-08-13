@@ -204,6 +204,11 @@ LOCAL_APPS = (
     'widget_tweaks',
     'coupons',
     'colorful',
+
+    'django_comments',
+    'mptt',
+    'tagging',
+    'zinnia',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -275,3 +280,4 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 FILE_UPLOAD_HANDLERS = ('disease.upload_handlers.UploadProgressCachedHandler', ) + ('django.core.files.uploadhandler.MemoryFileUploadHandler', 'django.core.files.uploadhandler.TemporaryFileUploadHandler')
 
+ZINNIA_MARKUP_LANGUAGE = 'markdown'
