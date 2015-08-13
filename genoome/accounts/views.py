@@ -45,7 +45,6 @@ class SignUpView(CreateView):
             kwargs.update({'instance': user})
         except self.model.DoesNotExist:
             pass
-
         return kwargs
 
     def form_valid(self, form):

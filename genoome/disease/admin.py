@@ -8,7 +8,8 @@ class SNPMarkerAdmin(admin.ModelAdmin):
     ordering = ('rsid',)
 
 class AlleleColorAdmin(admin.ModelAdmin):
-    list_display = ('allele', 'color')
+    list_display = ('allele', 'color', 'snp_marker')
+    raw_id_fields = ("snp_marker",)
 
 
 admin.site.register(SNPMarker, SNPMarkerAdmin)

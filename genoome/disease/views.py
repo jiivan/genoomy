@@ -81,10 +81,11 @@ class UploadGenome(FormView):
         data = parse_raw_genome_file(self.request.FILES['file'])
         table = []
         log.debug('PID: %s, PROCESING MARKERS', os.getpid())
-        for marker in SNPMarker.objects.filter(rsid__in=data.keys()).iterator():
+        for marker in SNPMarker.objects.prefetch_related('allele_colors').filter(rsid__in=data.keys()).iterator():
             mrsid = str(marker.rsid)
             if mrsid not in data:
                 continue
+
             row = {'rsid': mrsid,
                    'risk_allele': marker.risk_allele,
                    'chromosome_position': data[mrsid]['position'],
@@ -95,6 +96,13 @@ class UploadGenome(FormView):
                    'risk': data[mrsid]['genotype'].count(marker.risk_allele),
                    'link': marker.link
                    }
+
+            allele_colors = marker.allele_colors.all()
+            if allele_colors:
+                allele_color = allele_colors.get()
+                if row['genotype'] == allele_color.allele:
+                    row.update({'color': allele_color.color})
+
             table.append(row)
         log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
 
@@ -102,11 +110,6 @@ class UploadGenome(FormView):
         if self.request.user.is_authenticated() and not file_exists:
             self.save_processed_data(table)
 
-        allele_colors = {allele.allele: allele.color for allele in AlleleColor.objects.all()}
-
-        for row in table:
-            if row['genotype'] in allele_colors:
-                row.update({'color': allele_colors[row['genotype']]})
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
 
@@ -122,11 +125,6 @@ class DisplayGenomeResult(TemplateView):
         with storage.open(filepath) as f:
             data = pickle.load(f)
 
-        allele_colors = {allele.allele: allele.color for allele in AlleleColor.objects.all()}
-
-        for row in data:
-            if row['genotype'] in allele_colors:
-                row.update({'color': allele_colors[row['genotype']]})
         return data
 
     def get_context_data(self, **kwargs):
