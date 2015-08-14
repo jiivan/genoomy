@@ -25,7 +25,8 @@ $(document).ready(function() {
     var genomeData = $('#genomeData');
     var genomeTable = genomeData.dataTable({
         "aoColumnDefs": [
-            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
+            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
+            { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
         ],
         "order": [[ 8, "desc" ]],
         "columnDefs": [
