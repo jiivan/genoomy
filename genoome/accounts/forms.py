@@ -3,8 +3,7 @@
 from coupons.forms import CouponForm
 from coupons.models import Coupon
 from django import forms
-from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth import models as auth_models
+from django.core.validators import EMPTY_VALUES
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
@@ -34,7 +33,7 @@ class EmailUserCreateForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    code = forms.CharField(label=_("Coupon code"))
+    code = forms.CharField(label=_("Coupon code"), required=False)
 
     class Meta(UserCreationForm.Meta):
         model = user_model
@@ -42,6 +41,8 @@ class SignUpForm(UserCreationForm):
 
     def clean_code(self):
         code = self.cleaned_data['code']
+        if code in EMPTY_VALUES:
+            return code
         try:
             coupon = Coupon.objects.get(code=code)
         except Coupon.DoesNotExist:
@@ -53,6 +54,8 @@ class SignUpForm(UserCreationForm):
     def save(self, commit=True):
         self.instance.username = self.cleaned_data.get('email', '')
         user = super().save(commit=False)
+        if self.cleaned_data.get('code', '') in EMPTY_VALUES:
+            user.is_active = False
         if commit:
             user.save()
         return user

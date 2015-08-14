@@ -7,6 +7,22 @@
 {% block alert_message %}
     <p>
         Thank you for signup!
-        You can now login.
+        {% if activated %}
+            You can now login.
+            <script>
+                (function(){
+                    console.log('pushed');
+                    dataLayer.push({'event:': 'UserActivation'});
+                })();
+            </script>
+        {% else %}
+            To login you need activation code first.
+        {% endif %}
     </p>
+    <script>
+        (function(){
+            console.log('pushed');
+            dataLayer.push({'event:': 'UserRegistration'});
+        })();
+    </script>
 {% endblock alert_message %}

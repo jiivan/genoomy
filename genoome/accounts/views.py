@@ -49,9 +49,11 @@ class SignUpView(CreateView):
         return kwargs
 
     def form_valid(self, form):
-        resp = super().form_valid(form)
-        template = get_template('signup_success.html')
-        resp.template = template
+        self.object = form.save()
+        ctx = {}
+        if self.object.is_active:
+            ctx['activated'] = True
+        resp = render_to_response('signup_success.html', context=ctx)
         return resp
 
 
