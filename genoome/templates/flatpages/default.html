@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load django_markdown django_markdown_static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static css %}" />
+{% endblock extra_css %}
+
+
+{% block title %}{{ flatpage.title }}{% endblock title %}
+{% block page_title %}{{ flatpage.title }}{% endblock page_title %}
+
+{% block content %}
+    {{ flatpage.content|markdown }}
+{% endblock content %}
