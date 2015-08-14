@@ -15,6 +15,7 @@ class SNPMarker(models.Model):
         return '{} - {} - {}'.format(self.rsid, self.risk_allele, self.disease_trait)
 
 class AlleleColor(models.Model):
+    priority = models.PositiveIntegerField(default=100)
     color = RGBColorField()
     allele = models.CharField(max_length=128)
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')

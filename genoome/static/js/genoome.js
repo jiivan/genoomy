@@ -27,6 +27,14 @@ $(document).ready(function() {
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
         ],
+        "order": [[ 8, "desc" ]],
+        "columnDefs": [
+            {
+                "targets": [ 8 ],
+                "visible": false,
+                "searchable": false
+            }
+        ],
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
@@ -51,34 +59,34 @@ $(document).ready(function() {
             { type: "select" }
         ]
     });
-var progressbar = $('.progress-bar');
-var interval;
+    var progressbar = $('.progress-bar');
+    var interval;
 
-function updateBar(values) {
-    console.log(values);
-    var l = values.received;
-    var tot = values.size;
+    function updateBar(values) {
+        console.log(values);
+        var l = values.received;
+        var tot = values.size;
 
-    var perc = (l / tot) * (100.00);
-    console.log(perc);
-    progressbar.css('width', perc + '%');
-    if (values.status === 'done') {
-        window.clearInterval(interval);
+        var perc = (l / tot) * (100.00);
+        console.log(perc);
+        progressbar.css('width', perc + '%');
+        if (values.status === 'done') {
+            window.clearInterval(interval);
+        }
     }
-}
 
-$("form#upload_form").submit(function(e){
-    console.log('Form submitted');
-    var getProgress = function() {
-        $.ajax({
-            url: "/progress",
-            headers: {"X-Progress-ID": $('#progress-bar').data('upload_id')},
-            dataType: 'json',
-            success: function(data) {
-                updateBar(data);
-            }
-        });
-    };
-    interval = window.setInterval(getProgress, 1000);
-});
+    $("form#upload_form").submit(function(e){
+        console.log('Form submitted');
+        var getProgress = function() {
+            $.ajax({
+                url: "/progress",
+                headers: {"X-Progress-ID": $('#progress-bar').data('upload_id')},
+                dataType: 'json',
+                success: function(data) {
+                    updateBar(data);
+                }
+            });
+        };
+        interval = window.setInterval(getProgress, 1000);
+    });
 });

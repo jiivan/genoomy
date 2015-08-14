@@ -101,7 +101,7 @@ class UploadGenome(FormView):
             if allele_colors:
                 allele_color = allele_colors.get()
                 if row['genotype'] == allele_color.allele:
-                    row.update({'color': allele_color.color})
+                    row.update({'color': allele_color.color, 'priority': allele_color.priority})
 
             table.append(row)
         log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
