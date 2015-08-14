@@ -30,9 +30,6 @@
 
 <body>
 {% block tracking_code %}
-  <script>
-    dataLayer = [{'&uid': {{ request.user.pk }} }];
-  </script>
   <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M9KMFL"
                     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -42,6 +39,11 @@
           '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-M9KMFL');</script>
   <!-- End Google Tag Manager -->
+    {% if request.user.is_authenticated %}
+      <script>
+        dataLayer.push({'&uid': {{ request.user.pk }} });
+      </script>
+    {% endif %}
 {% endblock tracking_code %}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
