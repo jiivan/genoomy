@@ -12,7 +12,7 @@
             <script>
                 (function(){
                     console.log('pushed');
-                    dataLayer.push({'event:': 'UserActivation'});
+                    dataLayer.push({'event': 'UserActivation'});
                 })();
             </script>
         {% else %}
@@ -22,7 +22,7 @@
     <script>
         (function(){
             console.log('pushed');
-            dataLayer.push({'event:': 'UserRegistration'});
+            dataLayer.push({'event': 'UserRegistration'});
         })();
     </script>
 {% endblock alert_message %}
