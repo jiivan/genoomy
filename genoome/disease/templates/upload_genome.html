@@ -21,62 +21,10 @@
 
 {% block content %}
     {% if analyzed %}
-        <table id="genomeData" class="display" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th>RSID</th>
-                <th>CHROMOSOME POS</th>
-                <th>RISK ALLELE</th>
-                <th>GENOTYPE</th>
-                <th>DISEASE TRAIT</th>
-                <th>P VALUE</th>
-                <th>OR</th>
-                <th>RISK</th>
-            </tr>
-            <tr>
-                <th>RSID</th>
-                <th>CHROMOSOME POS</th>
-                <th>RISK ALLELE</th>
-                <th>GENOTYPE</th>
-                <th>DISEASE TRAIT</th>
-                <th>P VALUE</th>
-                <th>OR</th>
-                <th>RISK</th>
-            </tr>
-            </thead>
-
-
-            <tfoot>
-            <tr>
-                <th>RSID</th>
-                <th>CHROMOSOME POS</th>
-                <th>RISK ALLELE</th>
-                <th>GENOTYPE</th>
-                <th>DISEASE TRAIT</th>
-                <th>P VALUE</th>
-                <th>OR</th>
-                <th>RISK</th>
-            </tr>
-            </tfoot>
-            <tbody>
-            {% for row in table %}
-                <tr data-url="{{ row.link }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
-                    <td>{{ row.rsid }}</td>
-                    <td>{{ row.chromosome_position }}</td>
-                    <td>{{ row.risk_allele }}</td>
-                    <td>{{ row.genotype }}</td>
-                    <td>{{ row.disease_trait }}</td>
-                    <td>{{ row.p_value }}</td>
-                    <td>{{ row.or_or_beta }}</td>
-                    <td>{{ row.risk }}</td>
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
+        {% include 'includes/data_table.html' %}
     {% else %}
         {% include 'includes/upload_genome_form.html' %}
-        <div class="progress">
+        <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">
             <div class="progress-bar" role="progressbar" style="width: 0%;">
             </div>
         </div>

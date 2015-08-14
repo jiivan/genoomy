@@ -72,7 +72,7 @@ $("form#upload_form").submit(function(e){
     var getProgress = function() {
         $.ajax({
             url: "/progress",
-            headers: {"X-Progress-ID": "{{ upload_id }}"},
+            headers: {"X-Progress-ID": $('#progress-bar').data('upload_id')},
             dataType: 'json',
             success: function(data) {
                 updateBar(data);
