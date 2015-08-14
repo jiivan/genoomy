@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^update-progress/$', upload_progress, name='upload_progress'),
     url(r'^disease/', include('disease.urls', namespace='disease')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url('^markdown/', include( 'django_markdown.urls')),
 
 
     # Uncomment the admin/doc line below to enable admin documentation:
