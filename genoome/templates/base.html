@@ -58,8 +58,8 @@
       <ul class="nav navbar-nav">
           {% if request.user.is_authenticated %}
             <li class="active"><a href="{% url "accounts:profile" %}">Your profile</a></li>
-            <li class="active"><a href="{% url "faq" %}">FAQ</a></li>
           {% endif %}
+        <li class="active"><a href="{% url "faq" %}">FAQ</a></li>
       </ul>
         {% if not request.user.is_authenticated %}
           <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
