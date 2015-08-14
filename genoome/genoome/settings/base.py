@@ -79,6 +79,8 @@ USE_TZ = True
 ########## AUTHENTICATION CONFIGURATION
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
                            'accounts.auth_backends.EmailBackend',)
+
+AUTH_USER_MODEL = 'accounts.GenoomyUser'
 ########## END AUTHENTICATION CONFIGURATION
 
 ########## MEDIA CONFIGURATION

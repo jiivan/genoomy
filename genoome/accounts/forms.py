@@ -10,6 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
+user_model = get_user_model()
 
 class SignInForm(AuthenticationForm):
     error_messages = {
@@ -23,7 +24,7 @@ class EmailUserCreateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
 
     class Meta:
-        model = auth_models.User
+        model = user_model
         fields = ['email']
 
     def save(self, commit=True):
@@ -36,6 +37,7 @@ class SignUpForm(UserCreationForm):
     code = forms.CharField(label=_("Coupon code"))
 
     class Meta(UserCreationForm.Meta):
+        model = user_model
         fields = ('email',)
 
     def clean_code(self):
@@ -61,7 +63,6 @@ class ActivateAccountForm(CouponForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email', None)
-        user_model = get_user_model()
         if not user_model.objects.filter(email=email).exists():
             raise forms.ValidationError(
                 "Account does not exist",
@@ -70,6 +71,6 @@ class ActivateAccountForm(CouponForm):
 
     def activate_user(self):
         email = self.cleaned_data['email']
-        user = get_user_model().objects.get(email=email)
+        user = user_model.objects.get(email=email)
         user.is_active = True
         user.save()

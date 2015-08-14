@@ -2,7 +2,7 @@ import os
 
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.views.generic import CreateView
 from django.views.generic import FormView
 from django.views.generic import TemplateView
@@ -14,11 +14,12 @@ from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
 
 storage = FileSystemStorage()
+user_model = get_user_model()
 
 class UserCreateWithEmail(CreateView):
     template_name = 'save_email.html'
     form_class = EmailUserCreateForm
-    model = User
+    model = user_model
     # fields = ('email',)
     success_url = reverse_lazy('accounts:create_with_email_success')
 
@@ -34,7 +35,7 @@ class UserCreateSuccess(TemplateView):
 
 class SignUpView(CreateView):
     form_class = SignUpForm
-    model = User
+    model = get_user_model()
     success_url = reverse_lazy('accounts:signup_success')
     template_name = 'signup.html'
 
