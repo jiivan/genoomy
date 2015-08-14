@@ -64,7 +64,7 @@ TIME_ZONE = 'America/Los_Angeles'
 LANGUAGE_CODE = 'en-us'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
-SITE_ID = 1
+SITE_ID = 2
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
@@ -208,7 +208,9 @@ LOCAL_APPS = (
     'django_comments',
     'mptt',
     'tagging',
+    'ckeditor',
     'zinnia',
+    'zinnia_ckeditor',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -281,3 +283,26 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 FILE_UPLOAD_HANDLERS = ('disease.upload_handlers.UploadProgressCachedHandler', ) + ('django.core.files.uploadhandler.MemoryFileUploadHandler', 'django.core.files.uploadhandler.TemporaryFileUploadHandler')
 
 ZINNIA_MARKUP_LANGUAGE = 'markdown'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'zinnia-content': {
+        'toolbar_Zinnia': [
+            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+            ['Undo', 'Redo'],
+            ['Scayt'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
+            ['Source'],
+            ['Maximize'],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Strike',
+             'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-',
+             'Outdent', 'Indent', '-', 'Blockquote'],
+            ['Styles', 'Format'],
+        ],
+        'toolbar': 'Zinnia',
+    },
+}
