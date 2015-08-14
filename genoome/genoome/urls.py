@@ -19,10 +19,6 @@ urlpatterns = patterns('',
     url(r'^disease/', include('disease.urls', namespace='disease')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 
-    url(r'^weblog/', include('zinnia.urls', namespace='zinnia')),
-    url(r'^comments/', include('django_comments.urls')),
-    # url(r'^cke/', include('ckeditor.urls')),
-    url(r'^ckeditor/', include('ckeditor.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
