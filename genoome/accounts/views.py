@@ -74,7 +74,13 @@ class UserProfileView(TemplateView):
         dirpath = self.get_genome_dirpath()
         if os.path.exists(dirpath):
             _, files = storage.listdir(dirpath)
-            ctx['saved_genome_data'] = files
+            processed_files = []
+            for file in files:
+                filename, ext = file.rsplit('.', 1)
+                original_filename, suffix = filename.rsplit('_', 1)
+                if suffix == 'processed':
+                    processed_files.append(''.join([original_filename, '.', ext]))
+            ctx['saved_genome_data'] = processed_files
         return ctx
 
 class AccountActivateView(FormView):
