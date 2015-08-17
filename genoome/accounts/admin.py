@@ -22,6 +22,8 @@ csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
 from .models import GenoomyUser
+from disease.tasks import recompute_genome_files
+
 
 class GenoomyUserAdmin(admin.ModelAdmin):
     add_form_template = 'admin/auth/user/add_form.html'
@@ -47,6 +49,13 @@ class GenoomyUserAdmin(admin.ModelAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
     filter_horizontal = ('groups', 'user_permissions',)
+    actions = ['refresh_user_genome_data']
+
+    def refresh_user_genome_data(self, request, queryset):
+        for user in queryset:
+            recompute_genome_files.delay(user.pk, user.email)
+        self.message_user(request, 'Successfully added recomputation tasks for %s users', len(queryset))
+    refresh_user_genome_data.short_descrition = 'Schedule recomputation of user genome data'
 
     def get_fieldsets(self, request, obj=None):
         if not obj:

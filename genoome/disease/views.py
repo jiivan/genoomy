@@ -19,11 +19,10 @@ log = logging.getLogger(__name__)
 
 storage = FileSystemStorage()
 
-def parse_raw_genome_file(file):
+def parse_raw_genome_file_gen(file):
     RSID = 0
     GENOTYPE = 3
     POSITION = 2
-    data = {}
     for line in file:
         line = force_str(line)
         if line.startswith('#'):
@@ -32,8 +31,48 @@ def parse_raw_genome_file(file):
         if not l[RSID].startswith('rs'):
             continue
         rsid = l[RSID].replace('rs', '', 1)
-        data[rsid] = {'genotype': l[GENOTYPE], 'position': l[POSITION]}
+        yield rsid, {'genotype': l[GENOTYPE], 'position': l[POSITION]}
+
+def parse_raw_genome_file(file):
+    data = {}
+    for rsid, line in parse_raw_genome_file_gen(file):
+        data[rsid] = line
     return data
+
+def process_genoome_data_gen(data):
+    log.debug('PID: %s, PROCESING MARKERS', os.getpid())
+    markers = SNPMarker.objects.prefetch_related('allele_colors').filter(rsid__in=data.keys())
+    for marker in markers:
+        mrsid = str(marker.rsid)
+        if mrsid not in data:
+            continue
+
+        row = {'rsid': mrsid,
+               'risk_allele': marker.risk_allele,
+               'chromosome_position': data[mrsid]['position'],
+               'disease_trait': marker.disease_trait,
+               'p_value': marker.p_value,
+               'or_or_beta': marker.or_or_beta,
+               'genotype': data[mrsid]['genotype'],
+               'risk': data[mrsid]['genotype'].count(marker.risk_allele),
+               'link': marker.link
+               }
+
+        allele_colors = marker.allele_colors.all()
+        for allele_color in allele_colors:
+            if row['genotype'] == allele_color.allele:
+                row.update({'color': allele_color.color, 'priority': allele_color.priority})
+                break
+
+        yield row
+    log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
+
+def process_genoome_data(data):
+    table = []
+    for row in process_genoome_data_gen(data):
+        table.append(row)
+    return table
+
 
 def upload_progress(request):
     """
@@ -54,19 +93,32 @@ def upload_progress(request):
     else:
         return HttpResponseServerError('Server Error: You must provide X-Progress-ID header or query param.')
 
+
+def process_filename(filename, filename_suffix=None):
+    if filename_suffix is not None:
+        filename, ext = filename.split('.')
+        filename = '{}{}.{}'.format(filename, filename_suffix, ext)
+    return filename
+
+def get_genome_dirpath(user):
+    app_dir = 'disease'
+    user_subdir = '{}:{}'.format(user.pk, user.email)
+    return os.path.join(app_dir, user_subdir)
+
+def get_genome_filepath(user, filename):
+    return os.path.join(get_genome_dirpath(user), filename)
+
+
 class GenomeFilePathMixin(object):
 
     def process_filename(self, filename, filename_suffix=None):
-        if filename_suffix is not None:
-            filename, ext = filename.split('.')
-            filename = '{}{}.{}'.format(filename, filename_suffix, ext)
-        return filename
+        return process_filename(filename, filename_suffix)
+
+    def get_dirpath(self):
+        return get_genome_dirpath(self.request.user)
 
     def get_filepath(self, filename):
-        app_dir = 'disease'
-        user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
-        filename = filename
-        return os.path.join(app_dir, user_subdir, filename)
+        return get_genome_filepath(self.request.user, filename)
 
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
@@ -90,34 +142,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         data = parse_raw_genome_file(self.request.FILES['file'])
         raw_filename = self.request.FILES['file'].name
         storage.save(self.get_filepath(raw_filename), self.request.FILES['file'])
-        table = []
-        log.debug('PID: %s, PROCESING MARKERS', os.getpid())
-        markers = SNPMarker.objects.prefetch_related('allele_colors').filter(rsid__in=data.keys())
-        for marker in markers:
-            mrsid = str(marker.rsid)
-            if mrsid not in data:
-                continue
-
-            row = {'rsid': mrsid,
-                   'risk_allele': marker.risk_allele,
-                   'chromosome_position': data[mrsid]['position'],
-                   'disease_trait': marker.disease_trait,
-                   'p_value': marker.p_value,
-                   'or_or_beta': marker.or_or_beta,
-                   'genotype': data[mrsid]['genotype'],
-                   'risk': data[mrsid]['genotype'].count(marker.risk_allele),
-                   'link': marker.link
-                   }
-
-            allele_colors = marker.allele_colors.all()
-            for allele_color in allele_colors:
-                if row['genotype'] == allele_color.allele:
-                    row.update({'color': allele_color.color, 'priority': allele_color.priority})
-                    break
-
-            table.append(row)
-        log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
-
+        table = process_genoome_data(data)
         file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
         if self.request.user.is_authenticated() and not file_exists:
             self.save_processed_data(table)
