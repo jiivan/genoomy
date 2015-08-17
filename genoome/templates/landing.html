@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+    <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
+    <style>
+        #genomeData tbody tr {
+            cursor: pointer;
+            cursor: hand;
+        }
+        #genomeData thead tr th span {
+            height: auto;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+    <p>Use this document as a way to quick start any new project.</p>
+    {% if request.user.is_authenticated %}
+        <div class="navbar navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <a class="btn btn-default btn-lg center-block" href="{% url "disease:upload_genome" %}" role="button">Upload your genome</a>
+                </div>
+
+            </div>
+        </div>
+    {% elif not request.user.is_authenticated %}
+        <a class="btn btn-default btn-lg" data-toggle="modal" href="{% url "accounts:create_with_email" %}" data-target="#modal-email">Leave your email</a>
+        <a class="btn btn-default btn-lg" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Signup</a>
+    {% endif %}
+
+    <table id="genomeData" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+            <th>PRIORITY</th>
+        </tr>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+            <th>PRIORITY</th>
+        </tr>
+        </thead>
+
+
+        <tfoot>
+        <tr>
+            <th>RSID</th>
+            <th>CHROMOSOME POS</th>
+            <th>RISK ALLELE</th>
+            <th>GENOTYPE</th>
+            <th>DISEASE TRAIT</th>
+            <th>P VALUE</th>
+            <th>OR</th>
+            <th>RISK</th>
+            <th>PRIORITY</th>
+        </tr>
+        </tfoot>
+        <tbody>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/21700618" >
+            <td>1805007</td>
+            <td>89986117</td>
+            <td>T</td>
+            <td>CC</td>
+            <td>Basal cell carcinoma </td>
+            <td>4e-17</td>
+            <td>1.55</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/20585627" >
+            <td>12913832</td>
+            <td>28365618</td>
+            <td>A</td>
+            <td>GG</td>
+            <td>Eye color</td>
+            <td>3e-52</td>
+            <td>8.43</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/20585627" >
+            <td>12913832</td>
+            <td>28365618</td>
+            <td>A</td>
+            <td>GG</td>
+            <td>Eye color</td>
+            <td>1e-300</td>
+            <td>2.49</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/20081858?itool=EntrezSystem2.PEntrez.Pubmed.Pubmed_ResultsPanel.Pubmed_RVDocSum&amp;ordinalpos=1" >
+            <td>4506565</td>
+            <td>114756041</td>
+            <td>T</td>
+            <td>AT</td>
+            <td>Fasting glucose-related traits</td>
+            <td>1e-08</td>
+            <td>None</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/22581228" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>?</td>
+            <td>CT</td>
+            <td>Fasting glucose-related traits (interaction with BMI)</td>
+            <td>2e-14</td>
+            <td>None</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/22581228" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>?</td>
+            <td>CT</td>
+            <td>Fasting insulin-related traits (interaction with BMI)</td>
+            <td>3e-06</td>
+            <td>None</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/20585627" >
+            <td>12913832</td>
+            <td>28365618</td>
+            <td>A</td>
+            <td>GG</td>
+            <td>Hair color</td>
+            <td>9e-88</td>
+            <td>0.97</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/21102462" >
+            <td>9939609</td>
+            <td>53820527</td>
+            <td>A</td>
+            <td>AT</td>
+            <td>Menarche (age at onset)</td>
+            <td>3e-08</td>
+            <td>2.1</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/21873549" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>T</td>
+            <td>CT</td>
+            <td>Proinsulin levels</td>
+            <td>2e-20</td>
+            <td>None</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/22101970" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>T</td>
+            <td>CT</td>
+            <td>Type 2 diabetes</td>
+            <td>2e-15</td>
+            <td>1.46</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/20581827" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>T</td>
+            <td>CT</td>
+            <td>Type 2 diabetes</td>
+            <td>2e-51</td>
+            <td>1.4</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/21804548" >
+            <td>204993</td>
+            <td>32155581</td>
+            <td>A</td>
+            <td>AA</td>
+            <td>Asthma</td>
+            <td>2e-15</td>
+            <td>1.17</td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="http://www.ncbi.nlm.nih.gov/pubmed/19401414" >
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>T</td>
+            <td>CT</td>
+            <td>Type 2 diabetes</td>
+            <td>8e-12</td>
+            <td>1.54</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+
+        <tr data-url="/disease/athletic-performance-actn3/" style="background-color: #ffff00">
+            <td>1815739</td>
+            <td>66328095</td>
+            <td>C</td>
+            <td>CT</td>
+            <td>athletic performance</td>
+            <td>0.54</td>
+            <td>0.006</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/memory-and-attention-tasks-comt/" style="background-color: #ffff00">
+            <td>4680</td>
+            <td>19951271</td>
+            <td>A</td>
+            <td>AG</td>
+            <td>memory and attention tasks</td>
+            <td>None</td>
+            <td>None</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/stress-resistance-and-longevity-foxo3/" style="background-color: #ffff00">
+            <td>2802292</td>
+            <td>108908518</td>
+            <td>T</td>
+            <td>GT</td>
+            <td>stress resistance and longevity</td>
+            <td>9e-05</td>
+            <td>2.75</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/caffeine-metabolism-cyp1a2/" style="background-color: #00ff00">
+            <td>762551</td>
+            <td>75041917</td>
+            <td>C</td>
+            <td>AA</td>
+            <td>caffeine metabolism</td>
+            <td>None</td>
+            <td>None</td>
+            <td>0</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/conversion-of-beta-carotene-into-vitamin-a-bcmo1-rs7501331/" style="background-color: #00ff00">
+            <td>7501331</td>
+            <td>81314496</td>
+            <td>T</td>
+            <td>CC</td>
+            <td>conversion of beta-carotene into vitamin A</td>
+            <td>None</td>
+            <td>None</td>
+            <td>0</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/vitamin-b12-absorption-fut2/" style="background-color: #00ff00">
+            <td>602662</td>
+            <td>49206985</td>
+            <td>G</td>
+            <td>AA</td>
+            <td>vitamin B12 absorption</td>
+            <td>0.0001</td>
+            <td>None</td>
+            <td>0</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/social-behavior-and-personality-oxtr/" style="background-color: #ff8000">
+            <td>53576</td>
+            <td>8804371</td>
+            <td>A</td>
+            <td>AA</td>
+            <td>social behavior and personality</td>
+            <td>0.005</td>
+            <td>None</td>
+            <td>2</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/response-to-anesthetics-mc1r/" style="background-color: #00ff00">
+            <td>1805007</td>
+            <td>89986117</td>
+            <td>T</td>
+            <td>CC</td>
+            <td>response to anesthetics</td>
+            <td>None</td>
+            <td>None</td>
+            <td>0</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/obesity-and-type-2-diabetes-fto/" style="background-color: #ff8000">
+            <td>9939609</td>
+            <td>53820527</td>
+            <td>A</td>
+            <td>AT</td>
+            <td>obesity and type-2 diabetes</td>
+            <td>2e-20</td>
+            <td>0.36</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/blue-or-green-eyes-color-oca2/" style="background-color: #0080ff">
+            <td>7495174</td>
+            <td>28344238</td>
+            <td>A</td>
+            <td>AA</td>
+            <td>blue or green eyes color</td>
+            <td>None</td>
+            <td>None</td>
+            <td>2</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/blue-or-brown-eyes-color-oca2/" style="background-color: #0080ff">
+            <td>12913832</td>
+            <td>28365618</td>
+            <td>G</td>
+            <td>GG</td>
+            <td>blue or brown eyes color</td>
+            <td>None</td>
+            <td>None</td>
+            <td>2</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/earwax-and-body-odour-g180r/" style="background-color: #00ff00">
+            <td>17822931</td>
+            <td>48258198</td>
+            <td>C</td>
+            <td>CT</td>
+            <td>earwax and body odour</td>
+            <td>None</td>
+            <td>None</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/risk-of-type-2-diabetes-tcf7l2-rs7903146/" style="background-color: #ff8000">
+            <td>7903146</td>
+            <td>114758349</td>
+            <td>T</td>
+            <td>CT</td>
+            <td>risk of Type 2 Diabetes</td>
+            <td>None</td>
+            <td>None</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+
+        <tr data-url="/disease/risk-for-type-2-diabetes-tcf7l2-rs4506565/" style="background-color: #ff8000">
+            <td>4506565</td>
+            <td>114756041</td>
+            <td>A</td>
+            <td>AT</td>
+            <td>risk of Type 2 Diabetes</td>
+            <td>None</td>
+            <td>1.88</td>
+            <td>1</td>
+            <td>100</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock content %}

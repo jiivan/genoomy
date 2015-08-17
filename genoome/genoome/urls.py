@@ -13,7 +13,7 @@ admin.autodiscover()
 flatpages.register()
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name='base.html'), name='landing_page'),
+    url(r'^$', TemplateView.as_view(template_name='landing.html'), name='landing_page'),
     url(r'^faq/$', TemplateView.as_view(template_name='faq.html'), name='faq'),
 
     # Examples:
