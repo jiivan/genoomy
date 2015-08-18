@@ -13,8 +13,9 @@
     </style>
 {% endblock extra_css %}
 
+{% block page_title %}Sample data{% endblock page_title %}
+
 {% block content %}
-    <p>Use this document as a way to quick start any new project.</p>
     {% if request.user.is_authenticated %}
         <div class="navbar navbar-fixed-bottom">
             <div class="container">

@@ -77,8 +77,8 @@ class UserProfileView(TemplateView):
             processed_files = []
             for file in files:
                 filename, ext = file.rsplit('.', 1)
-                original_filename, suffix = filename.rsplit('_', 1)
-                if suffix == 'processed':
+                if filename.endswith('_processed'):
+                    original_filename, _ = filename.rsplit('_', 1)
                     processed_files.append(''.join([original_filename, '.', ext]))
             ctx['saved_genome_data'] = processed_files
         return ctx
