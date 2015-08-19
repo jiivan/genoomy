@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin, messages
@@ -8,6 +10,7 @@ from django.contrib.auth.forms import (
     AdminPasswordChangeForm, UserChangeForm, UserCreationForm,
 )
 from django.core.exceptions import PermissionDenied
+from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.http import Http404, HttpResponseRedirect
 from django.template.response import TemplateResponse
@@ -22,8 +25,10 @@ csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
 from .models import GenoomyUser
+from disease.files_utils import get_genome_dirpath
 from disease.tasks import recompute_genome_files
 
+storage = FileSystemStorage()
 
 class GenoomyUserAdmin(admin.ModelAdmin):
     add_form_template = 'admin/auth/user/add_form.html'
@@ -44,7 +49,7 @@ class GenoomyUserAdmin(admin.ModelAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'date_joined', 'last_login')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
@@ -75,6 +80,7 @@ class GenoomyUserAdmin(admin.ModelAdmin):
     def get_urls(self):
         return [
             url(r'^(.+)/password/$', self.admin_site.admin_view(self.user_change_password), name='auth_user_password_change'),
+            url(r'^(.+)/uploaded-files/$', self.admin_site.admin_view(self.user_uploaded_files), name='user_uploaded_files'),
         ] + super(GenoomyUserAdmin, self).get_urls()
 
     def lookup_allowed(self, lookup, value):
@@ -181,5 +187,26 @@ class GenoomyUserAdmin(admin.ModelAdmin):
             request.POST['_continue'] = 1
         return super(GenoomyUserAdmin, self).response_add(request, obj,
                                                    post_url_continue)
+
+    def user_uploaded_files(self, request, id):
+        user = self.get_object(request, unquote(id))
+        if user is None:
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {
+                'name': force_text(self.model._meta.verbose_name),
+                'key': escape(id),
+            })
+        dirpath = storage.path(get_genome_dirpath(user))
+        ctx = {'is_admin': True, 'user_pk': user.pk}
+        if os.path.exists(dirpath):
+            _, files = storage.listdir(dirpath)
+            processed_files = []
+            for file in files:
+                filename, ext = file.rsplit('.', 1)
+                if filename.endswith('_processed'):
+                    original_filename, _ = filename.rsplit('_', 1)
+                    processed_files.append(''.join([original_filename, '.', ext]))
+            ctx['saved_genome_data'] = processed_files
+        return TemplateResponse(request, 'user_profile.html', ctx)
+
 
 admin.site.register(GenoomyUser, GenoomyUserAdmin)

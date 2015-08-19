@@ -20,5 +20,9 @@
 {% endif %}
 
 {% block content %}
+    {% if is_admin %}
+        <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
+    {% endif %}
+    {% include 'includes/color_legend.html' %}
     {% include 'includes/data_table.html' %}
 {% endblock content %}

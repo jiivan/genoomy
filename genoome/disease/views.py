@@ -5,74 +5,23 @@ import pickle
 import os
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
 from django.views.generic import FormView
 from django.views.generic import TemplateView
-from django.utils.encoding import force_str
 
+from .files_utils import parse_raw_genome_file
+from .files_utils import process_genoome_data
+from .files_utils import process_filename
+from .files_utils import get_genome_dirpath
+from .files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
-from .models import AlleleColor, SNPMarker
 
 log = logging.getLogger(__name__)
 
 storage = FileSystemStorage()
-
-def parse_raw_genome_file_gen(file):
-    RSID = 0
-    GENOTYPE = 3
-    POSITION = 2
-    for line in file:
-        line = force_str(line)
-        if line.startswith('#'):
-            continue
-        l = line.strip().split('\t')
-        if not l[RSID].startswith('rs'):
-            continue
-        rsid = l[RSID].replace('rs', '', 1)
-        yield rsid, {'genotype': l[GENOTYPE], 'position': l[POSITION]}
-
-def parse_raw_genome_file(file):
-    data = {}
-    for rsid, line in parse_raw_genome_file_gen(file):
-        data[rsid] = line
-    return data
-
-def process_genoome_data_gen(data):
-    log.debug('PID: %s, PROCESING MARKERS', os.getpid())
-    markers = SNPMarker.objects.prefetch_related('allele_colors').filter(rsid__in=data.keys())
-    for marker in markers:
-        mrsid = str(marker.rsid)
-        if mrsid not in data:
-            continue
-
-        row = {'rsid': mrsid,
-               'risk_allele': marker.risk_allele,
-               'chromosome_position': data[mrsid]['position'],
-               'disease_trait': marker.disease_trait,
-               'p_value': marker.p_value,
-               'or_or_beta': marker.or_or_beta,
-               'genotype': data[mrsid]['genotype'],
-               'risk': data[mrsid]['genotype'].count(marker.risk_allele),
-               'link': marker.link
-               }
-
-        allele_colors = marker.allele_colors.all()
-        for allele_color in allele_colors:
-            if row['genotype'] == allele_color.allele:
-                row.update({'color': allele_color.color, 'priority': allele_color.priority})
-                break
-
-        yield row
-    log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
-
-def process_genoome_data(data):
-    table = []
-    for row in process_genoome_data_gen(data):
-        table.append(row)
-    return table
-
 
 def upload_progress(request):
     """
@@ -94,21 +43,6 @@ def upload_progress(request):
         return HttpResponseServerError('Server Error: You must provide X-Progress-ID header or query param.')
 
 
-def process_filename(filename, filename_suffix=None):
-    if filename_suffix is not None:
-        filename, ext = filename.split('.')
-        filename = '{}{}.{}'.format(filename, filename_suffix, ext)
-    return filename
-
-def get_genome_dirpath(user):
-    app_dir = 'disease'
-    user_subdir = '{}:{}'.format(user.pk, user.email)
-    return os.path.join(app_dir, user_subdir)
-
-def get_genome_filepath(user, filename):
-    return os.path.join(get_genome_dirpath(user), filename)
-
-
 class GenomeFilePathMixin(object):
 
     def process_filename(self, filename, filename_suffix=None):
@@ -123,6 +57,11 @@ class GenomeFilePathMixin(object):
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
     form_class = UploadGenomeForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get(self, request, *args, **kwargs):
         """
@@ -161,7 +100,18 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             data = pickle.load(f)
         return data
 
+    def is_browsing_via_admin(self):
+        return bool(self.request.GET['file'] and self.request.user.is_staff and self.request.user.is_active)
+
+    def get_filepath(self, filename):
+        if self.is_browsing_via_admin():
+            user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
+            return get_genome_filepath(user, filename)
+        return super().get_filepath(filename)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['table'] = self.get_genome_data()
+        if self.is_browsing_via_admin():
+            ctx['is_admin'] = True
         return ctx

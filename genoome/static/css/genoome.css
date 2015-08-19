@@ -1,1 +1,52 @@
-/*! project specific CSS goes here. */
+.legend {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #ccc;
+    padding: 14px;
+    position: fixed;
+    right: -250px;
+    top: 137px;
+    width: 250px;
+    z-index: 999;
+}
+
+.toggle-legend {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ccc -moz-use-text-color #ccc #ccc;
+    border-image: none;
+    border-style: solid none solid solid;
+    border-width: 1px medium 1px 1px;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    left: -40px;
+    position: absolute;
+    width: 40px;
+}
+.toggle-legend > .glyphicon-question-sign {
+    font-size: 38px;
+}
+.legend-active {
+    right: 0px;
+    -webkit-transition: right 500ms linear;
+    -moz-transition: right 500ms linear;
+    -o-transition: right 500ms linear;
+    transition: right 500ms linear;
+}
+.label-positive {
+    background-color: #00ff00;
+}
+.label-neutral {
+    background-color: #ffff00;
+}
+.label-disadvantage {
+    background-color: #ff8000;
+}
+.label-negative {
+    background-color: #ff0000;
+}
+.label-interesting {
+    background-color: #0080ff;
+}

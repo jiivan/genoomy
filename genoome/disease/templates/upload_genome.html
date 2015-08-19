@@ -21,6 +21,7 @@
 
 {% block content %}
     {% if analyzed %}
+        {% include 'includes/color_legend.html' %}
         {% include 'includes/data_table.html' %}
     {% else %}
         {% include 'includes/upload_genome_form.html' %}

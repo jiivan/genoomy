@@ -91,4 +91,9 @@ $(document).ready(function() {
         };
         interval = window.setInterval(getProgress, 1000);
     });
+
+    $('div.legend').hover(function(e) {
+        e.preventDefault();
+        $('div.legend').toggleClass('legend-active');
+    });
 });
