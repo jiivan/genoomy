@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 import os
 
 from django.utils.encoding import force_str
 
 from .models import SNPMarker
+
+log = logging.getLogger(__name__)
 
 def parse_raw_genome_file_gen(file):
     RSID = 0

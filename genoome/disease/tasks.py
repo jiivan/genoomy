@@ -24,8 +24,7 @@ def recompute_genome_files(user_pk, user_email):
         _, files = storage.listdir(genome_dirpath)
         for file in files:
             filename, ext = file.rsplit('.', 1)
-            original_filename, suffix = filename.rsplit('_', 1)
-            if suffix == 'processed':
+            if filename.endswith('_processed'):
                 continue
             with storage.open(get_genome_filepath(task_user, file), 'r') as raw_file:
                 data = process_genoome_data(parse_raw_genome_file(raw_file))

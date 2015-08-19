@@ -101,7 +101,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         return data
 
     def is_browsing_via_admin(self):
-        return bool(self.request.GET['file'] and self.request.user.is_staff and self.request.user.is_active)
+        return bool(('pk' in self.request.GET) and self.request.user.is_staff and self.request.user.is_active)
 
     def get_filepath(self, filename):
         if self.is_browsing_via_admin():
