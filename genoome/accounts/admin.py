@@ -59,7 +59,7 @@ class GenoomyUserAdmin(admin.ModelAdmin):
     def refresh_user_genome_data(self, request, queryset):
         for user in queryset:
             recompute_genome_files.delay(user.pk, user.email)
-        self.message_user(request, 'Successfully added recomputation tasks for %s users', len(queryset))
+        self.message_user(request, 'Successfully added recomputation tasks for %s users' % len(queryset), level='SUCCESS')
     refresh_user_genome_data.short_descrition = 'Schedule recomputation of user genome data'
 
     def get_fieldsets(self, request, obj=None):
