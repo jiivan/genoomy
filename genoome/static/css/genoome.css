@@ -68,4 +68,5 @@ ul.list-group > li {
 
 ul.list-group > li > span.label {
     font-size: 20pt;
+    color: #000000;
 }
