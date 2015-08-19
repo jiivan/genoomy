@@ -3,7 +3,7 @@
     border: 1px solid #ccc;
     padding: 14px;
     position: fixed;
-    right: -250px;
+    right: -210px;
     top: 137px;
     width: 250px;
     z-index: 999;
@@ -35,6 +35,8 @@
     -o-transition: right 500ms linear;
     transition: right 500ms linear;
 }
+
+
 .label-positive {
     background-color: #00ff00;
 }
@@ -49,4 +51,21 @@
 }
 .label-interesting {
     background-color: #0080ff;
+}
+.row > .btn-danger {
+    font-size: 38pt;
+}
+
+.legend > ul.list-group > li.list-group-item {
+    border: none;
+    padding: 0 0;
+}
+
+ul.list-group > li {
+    margin: 5px;
+    padding: 5px;
+}
+
+ul.list-group > li > span.label {
+    font-size: 20pt;
 }

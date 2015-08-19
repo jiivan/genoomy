@@ -56,10 +56,14 @@ class SignUpView(CreateView):
         resp = render_to_response('signup_success.html', context=ctx)
         return resp
 
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return 'signup_modal.html'
+        return 'signup.html'
+
 
 class SignupSuccessView(TemplateView):
     template_name = 'signup_success.html'
-
 
 class UserProfileView(TemplateView):
     template_name = 'user_profile.html'
