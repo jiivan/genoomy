@@ -23,6 +23,9 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
 $(document).ready(function() {
 
     var genomeData = $('#genomeData');
+    genomeData.on( 'init.dt', function () {
+        genomeData.fadeIn(850);
+    } );
     var genomeTable = genomeData.dataTable({
         "pageLength": 50,
         "aoColumnDefs": [
@@ -30,6 +33,7 @@ $(document).ready(function() {
             { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
         ],
         "order": [[ 8, "desc" ]],
+        "processing": true,
         "columnDefs": [
             {
                 "targets": [ 8 ],
