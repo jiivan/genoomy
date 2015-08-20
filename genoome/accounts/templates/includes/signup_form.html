@@ -12,8 +12,10 @@ id="signup_form"
     {{ block.super }}
     <script>
         $(document).ready(function() {
-            $('#signup_form').ajaxForm({
-                target: '#modal-signup #modal_content'
+            var form = $('#signup_form');
+            form.ajaxForm({
+{#                target: '#modal-signup #modal_content'#}
+                target: form.closest('.modal-content')
             });
             console.log('form updated');
         });

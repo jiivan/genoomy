@@ -23,7 +23,7 @@
         <div class="navbar navbar-fixed-bottom">
             <div class="container">
                 <div class="row">
-                    <a class="btn btn-danger btn-lg center-block" href="{% url "disease:upload_genome" %}" role="button">Upload your genome</a>
+                    <a class="btn btn-danger btn-lg center-block" data-toggle="modal" href="{% url "disease:upload_genome" %}" data-target="#modal-upload-genome">Upload your genome</a>
                 </div>
 
             </div>
@@ -400,3 +400,12 @@
         </tbody>
     </table>
 {% endblock content %}
+
+{% block modals %}
+    <div class="modal fade" id="modal-upload-genome">
+    <div class="modal-dialog">
+      <div id="modal_content" class="modal-content">
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+{% endblock modals %}

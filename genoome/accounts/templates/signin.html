@@ -5,4 +5,14 @@
 
 {% block content %}
     {% include 'includes/signin_form.html' %}
+    <a class="btn btn-primary" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Don't hava an account?</a>
 {% endblock content %}
+
+{% block modals %}
+    <div class="modal fade" id="modal-signup">
+        <div class="modal-dialog">
+            <div id="modal_content" class="modal-content">
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+{% endblock modals %}
