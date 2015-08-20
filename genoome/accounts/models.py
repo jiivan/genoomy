@@ -1,9 +1,14 @@
 from django.contrib.auth import models as auth_models
 from django.core import validators
+from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+
+from disease.files_utils import get_genome_dirpath
+
+storage = FileSystemStorage()
 
 class GenoomyAbstractUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
@@ -61,6 +66,13 @@ class GenoomyAbstractUser(auth_models.AbstractBaseUser, auth_models.PermissionsM
 
 
 class GenoomyUser(GenoomyAbstractUser):
+    FILES_PER_USER = 1
 
     class Meta(GenoomyAbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
+    @property
+    def can_upload_files(self):
+        dirpath = get_genome_dirpath(self)
+        _, files = storage.listdir(storage.path(dirpath))
+        return bool(len(files) < self.FILES_PER_USER or (self.is_staff and self.is_active))

@@ -7,6 +7,9 @@
     {% if is_admin %}
         <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
     {% endif %}
+    {% if request.user.can_upload_files %}
+        <a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}" >Upload your genome</a>
+    {% endif %}
     {% if saved_genome_data %}
         <p>By clicking on items below you can browse previously uploaded data.</p>
     {% endif %}

@@ -18,9 +18,7 @@ class UploadGenomeForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_file(self):
-        dirpath = get_genome_dirpath(self.user)
-        _, files = storage.listdir(os.path.join(settings.MEDIA_ROOT, dirpath))
-        if len(files) > 0:
+        if not self.user.can_upload_files:
             raise forms.ValidationError('You already have uploaded genome file.', 'invalid')
         return self.cleaned_data['file']
 
