@@ -4,24 +4,26 @@ import uuid
 import pickle
 import os
 
+from bitpay.client import Client
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
 from django.views.generic import FormView
+
 from django.views.generic import TemplateView
 
-from .files_utils import parse_raw_genome_file
-from .files_utils import process_genoome_data
-from .files_utils import process_filename
-from .files_utils import get_genome_dirpath
-from .files_utils import get_genome_filepath
+from disease.files_utils import process_filename
+from disease.files_utils import get_genome_dirpath
+from disease.files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
+from .models import AnalyzeDataOrder
 
 log = logging.getLogger(__name__)
 
 storage = FileSystemStorage()
+bitpay_client = Client(settings.BITPAY_API)
 
 def upload_progress(request):
     """
@@ -48,15 +50,20 @@ class GenomeFilePathMixin(object):
     def process_filename(self, filename, filename_suffix=None):
         return process_filename(filename, filename_suffix)
 
-    def get_dirpath(self):
-        return get_genome_dirpath(self.request.user)
+    def get_dirpath(self, user=None):
+        if user is None:
+            user = self.request.user
+        return get_genome_dirpath(user)
 
-    def get_filepath(self, filename):
-        return get_genome_filepath(self.request.user, filename)
+    def get_filepath(self, filename, user=None):
+        if user is None:
+            user = self.request.user
+        return get_genome_filepath(user, filename)
 
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
     form_class = UploadGenomeForm
+    success_url = reversed('disease:genome_payment')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -78,13 +85,32 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         storage.save(self.get_filepath(filename), buffer)
 
     def form_valid(self, form):
-        data = parse_raw_genome_file(self.request.FILES['file'])
-        raw_filename = self.request.FILES['file'].name
-        storage.save(self.get_filepath(raw_filename), self.request.FILES['file'])
-        table = process_genoome_data(data)
-        file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
-        if self.request.user.is_authenticated() and not file_exists:
-            self.save_processed_data(table)
+        # save file
+        # create AnalyzeFileOrder
+        # raw_filepath = self.get_filepath(raw_filename)
+        cd = form.cleaned_data
+        email = cd.get('email', None)
+        raw_file = cd.get('file', None)
+        raw_filename = getattr(raw_file, 'name', None)
+        user_model = get_user_model()
+        if not self.request.user.is_authenticated():
+            try:
+                user = user_model.objects.get(email=email)
+            except user_model.DoesNotExist:  # user doesn't have an account, create one
+                user = user_model(email=email, username=email)
+                user = user.save()
+        else:
+            user = self.request.user
+        storage.save(self.get_filepath(raw_filename, user=user), raw_file)
+        analyze_order = AnalyzeDataOrder(filepath=raw_filename, user=self.request.user)
+        analyze_order.save()
+        # TODO (kniski) create bitpay invoice?
+
+
+        # table = process_genoome_data(data)
+        # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
+        # if self.request.user.is_authenticated() and not file_exists:
+        #     self.save_processed_data(table)
 
         ctx = self.get_context_data(form=form, table=table, analyzed=True)
         return self.render_to_response(ctx)
