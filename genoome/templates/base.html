@@ -84,6 +84,14 @@
 
   <h1>{% block page_title %}Genoomy{% endblock page_title %}</h1>
 
+    {% block messages %}
+        {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.level_tag|lower }}" role="alert">{{ message }}</div>
+              {% endfor %}
+        {% endif %}
+    {% endblock messages %}
+
     {% block content %}
     {% endblock content %}
 
@@ -103,8 +111,8 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-{% block modals %}
-{% endblock modals %}
+    {% block modals %}
+    {% endblock modals %}
 
 
 </div> <!-- /container -->

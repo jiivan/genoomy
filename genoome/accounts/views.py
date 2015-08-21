@@ -3,6 +3,8 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView
 from django.views.generic import FormView
 from django.views.generic import TemplateView
@@ -53,6 +55,7 @@ class SignUpView(CreateView):
         ctx = {}
         if self.object.is_active:
             ctx['activated'] = True
+            messages.success(self.request, 'Your account is now active.You can now log in.')
         resp = render_to_response('signup_success.html', context=ctx)
         return resp
 
@@ -87,9 +90,11 @@ class UserProfileView(TemplateView):
             ctx['saved_genome_data'] = processed_files
         return ctx
 
-class AccountActivateView(FormView):
+class AccountActivateView(SuccessMessageMixin, FormView):
     template_name = 'activate_account.html'
     form_class = ActivateAccountForm
+    success_url = reverse_lazy('accounts:profile')
+    success_message = 'Your account is now active.You can no log in.'
 
     def form_valid(self, form):
         form.activate_user()
