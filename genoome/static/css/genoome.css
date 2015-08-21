@@ -74,3 +74,7 @@ ul.list-group > li > span.label {
 #genomeData {
     display: none;;
 }
+.navbar .btn-success{
+    margin-top: 7.5px;
+	}
+	
