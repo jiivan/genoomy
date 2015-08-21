@@ -1,6 +1,6 @@
 .legend {
-    background: none repeat scroll 0 0 white;
-    border: 1px solid #ccc;
+   /* background: none repeat scroll 0 0 white;*/
+    border: 0px solid #ccc;
     padding: 14px;
     position: fixed;
     right: -210px;
@@ -62,15 +62,21 @@
 }
 
 ul.list-group > li {
-    margin: 5px;
+  /*  margin: 5px;*/
     padding: 5px;
 }
 
 ul.list-group > li > span.label {
     font-size: 20pt;
     color: #000000;
+	    display: block;
+    width: 100%;
 }
 
 #genomeData {
     display: none;;
 }
+.navbar .btn-success{
+    margin-top: 7.5px;
+	}
+	
