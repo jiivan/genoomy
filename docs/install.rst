@@ -1,4 +1,5 @@
 Install
 =========
 
-This is where you write how to get a new laptop to run this project.
+Test Bitcoin address
+http://tpfaucet.appspot.com/a/XPSHydBWkLTC5N91VuKstM
