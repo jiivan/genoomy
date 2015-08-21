@@ -60,7 +60,27 @@
     border: none;
     padding: 0 0;
 }
+.legend > ul{width: 90%;
+    float: right;}
+.titleoflegend{
+display:block;
+float:left;
+width:10%;
+/* Safari */
+-webkit-transform: rotate(-90deg);
 
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
 ul.list-group > li {
   /*  margin: 5px;*/
     padding: 5px;
@@ -79,4 +99,6 @@ ul.list-group > li > span.label {
 .navbar .btn-success{
     margin-top: 7.5px;
 	}
-	
+	.navbar-fixed-bottom{       background: rgba(215, 210, 210, 0.44);}
+	.navbar-fixed-bottom .row{    padding: 1% 3% 1% 3%;}
+	.navbar-fixed-bottom .container {width:100%;}
