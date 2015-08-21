@@ -1,12 +1,14 @@
 .legend {
    /* background: none repeat scroll 0 0 white;*/
     border: 0px solid #ccc;
-    padding: 14px;
+    /*padding: 14px;*/
+	  padding: 0;
     position: fixed;
-    right: -210px;
+    right: -183px;
     top: 137px;
     width: 250px;
     z-index: 999;
+	
 }
 
 .toggle-legend {
@@ -60,7 +62,34 @@
     border: none;
     padding: 0 0;
 }
+.legend > ul{width: 90%;
+    float: right;}
+.titleoflegend{
+display: inline-block;
+    float: left;
+    margin-left: -7%;
+    text-align: center;
+    margin-right: -41%;
+    z-index: 10000;
+    margin-top: 33%;
+    background: rgba(255, 255, 255, 0.74);
+    width: 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    padding-right: 2%;
+    -ms-transform: rotate(-90deg);
+    font-size: 30px;
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
 
+.legend-active .titleoflegend {
+    margin-left: -44px;
+    -webkit-transition: margin-left 500ms linear;
+    -moz-transition: margin-left 500ms linear;
+    -o-transition: margin-left 500ms linear;
+    transition: margin-left 500ms linear;
+}
 ul.list-group > li {
   /*  margin: 5px;*/
     padding: 5px;
@@ -79,4 +108,23 @@ ul.list-group > li > span.label {
 .navbar .btn-success{
     margin-top: 7.5px;
 	}
+	.navbar-fixed-bottom{       background: rgba(215, 210, 210, 0.44);}
+	.navbar-fixed-bottom .row{    padding: 1% 3% 1% 3%;}
+	.navbar-fixed-bottom .container {}
 	
+span.form-control{
+border:0;
+padding:0;
+}
+
+.labeloftable{
+ position: absolute;
+    padding-top: 20px;
+    font-size: 20px;
+    line-height: 2em;
+    font-weight: 600;
+    color: #555;
+    text-align: right;
+    left: -59px;
+
+}
