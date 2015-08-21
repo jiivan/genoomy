@@ -74,5 +74,9 @@ class GenoomyUser(GenoomyAbstractUser):
     @property
     def can_upload_files(self):
         dirpath = get_genome_dirpath(self)
-        _, files = storage.listdir(storage.path(dirpath))
-        return bool(len(files) < self.FILES_PER_USER or (self.is_staff and self.is_active))
+        if storage.exists(dirpath):
+            _, files = storage.listdir(storage.path(dirpath))
+            can_upload = bool(len(files) < self.FILES_PER_USER)
+        else:
+            can_upload = True
+        return bool(can_upload or (self.is_staff and self.is_active))
