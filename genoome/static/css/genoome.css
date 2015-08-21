@@ -2,12 +2,13 @@
    /* background: none repeat scroll 0 0 white;*/
     border: 0px solid #ccc;
     /*padding: 14px;*/
-	    padding: .2em 1.6em .3em;
+	  padding: 0;
     position: fixed;
     right: -183px;
     top: 137px;
     width: 250px;
     z-index: 999;
+	
 }
 
 .toggle-legend {
@@ -83,7 +84,7 @@ display: inline-block;
 }
 
 .legend-active .titleoflegend {
-    margin-left: -25px;
+    margin-left: -44px;
     -webkit-transition: margin-left 500ms linear;
     -moz-transition: margin-left 500ms linear;
     -o-transition: margin-left 500ms linear;
