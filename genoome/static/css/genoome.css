@@ -128,6 +128,8 @@ border:0;
 padding:0;
 line-height: 1em;
     color: rgba(255, 255, 255, 0);
+	    -webkit-box-shadow: 0;
+    box-shadow: 0;
 }
 
 .labeloftable{
