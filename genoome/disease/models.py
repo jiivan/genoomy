@@ -1,6 +1,5 @@
 from colorful.fields import RGBColorField
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -28,7 +27,11 @@ class AlleleColor(models.Model):
 class AnalyzeDataOrder(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     uploaded_filename = models.CharField(max_length=256)
-    status = models.BooleanField(default=False)
+    paid = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return 'User: {} Payment: {} For: {}'.format(self.user, self.paid, self.uploaded_filename)
 
     class Meta:
         unique_together = (('user', 'uploaded_filename'),)
