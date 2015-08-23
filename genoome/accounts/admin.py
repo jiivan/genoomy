@@ -25,7 +25,6 @@ csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
 from .models import GenoomyUser
-from disease.files_utils import get_genome_dirpath
 from disease.tasks import recompute_genome_files
 
 storage = FileSystemStorage()
@@ -195,17 +194,8 @@ class GenoomyUserAdmin(admin.ModelAdmin):
                 'name': force_text(self.model._meta.verbose_name),
                 'key': escape(id),
             })
-        dirpath = storage.path(get_genome_dirpath(user))
         ctx = {'is_admin': True, 'user_pk': user.pk}
-        if os.path.exists(dirpath):
-            _, files = storage.listdir(dirpath)
-            processed_files = []
-            for file in files:
-                filename, ext = file.rsplit('.', 1)
-                if filename.endswith('_processed'):
-                    original_filename, _ = filename.rsplit('_', 1)
-                    processed_files.append(''.join([original_filename, '.', ext]))
-            ctx['saved_genome_data'] = processed_files
+        ctx['saved_genome_data'] = user.uploaded_files
         return TemplateResponse(request, 'user_profile.html', ctx)
 
 
