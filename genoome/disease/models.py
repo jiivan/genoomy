@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from colorful.fields import RGBColorField
 from django.conf import settings
 from django.db import models
@@ -35,3 +37,7 @@ class AnalyzeDataOrder(models.Model):
 
     class Meta:
         unique_together = (('user', 'uploaded_filename'),)
+
+    @property
+    def is_paid(self):
+        return bool(self.paid and self.paid < datetime.now())
