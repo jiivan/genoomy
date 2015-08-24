@@ -5,7 +5,7 @@ import os
 
 from django.utils.encoding import force_str
 
-from .models import SNPMarker
+from disease.models import SNPMarker
 
 log = logging.getLogger(__name__)
 

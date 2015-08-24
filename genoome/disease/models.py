@@ -1,8 +1,10 @@
 from datetime import datetime
+import json
 
 from colorful.fields import RGBColorField
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 
 class SNPMarker(models.Model):
@@ -38,6 +40,9 @@ class AnalyzeDataOrder(models.Model):
     class Meta:
         unique_together = (('user', 'uploaded_filename'),)
 
+    def posData(self):
+        return json.dumps({'analyze_order_pk': self.pk, 'user_pk': self.user.pk})
+
     @property
     def is_paid(self):
-        return bool(self.paid and self.paid < datetime.now())
+        return bool(self.paid and self.paid < timezone.now())

@@ -204,6 +204,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'accounts',
     'disease',
+    'payment_bitpay',
 
     'widget_tweaks',
     'coupons',

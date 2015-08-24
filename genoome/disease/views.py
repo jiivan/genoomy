@@ -1,4 +1,6 @@
+from datetime import datetime
 from io import BytesIO
+import json
 import logging
 import uuid
 import pickle
@@ -10,15 +12,18 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
+from django.http import HttpResponse
 from django.views.generic import FormView
-
+from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
+from django.utils import timezone
 
 from disease.files_utils import process_filename
 from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
 from .models import AnalyzeDataOrder
+from .tasks import recompute_genome_files
 
 log = logging.getLogger(__name__)
 
@@ -102,22 +107,35 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         else:
             user = self.request.user
         storage.save(self.get_filepath(raw_filename, user=user), raw_file)
-        analyze_order = AnalyzeDataOrder(filepath=raw_filename, user=self.request.user)
+        analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user)
+
+        if user.is_staff and user.is_active:
+            log('User %s skipping payment due to staff membership', user)
+            analyze_order.paid = datetime.now()
         analyze_order.save()
-        # TODO (kniski) create bitpay invoice?
-
-
+        recompute_genome_files.delay(user.pk, user.email)
         # table = process_genoome_data(data)
         # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
         # if self.request.user.is_authenticated() and not file_exists:
         #     self.save_processed_data(table)
 
-        ctx = self.get_context_data(form=form, table=table, analyzed=True)
+        # ctx = self.get_context_data(form=form, table=table, analyzed=True)
+        pos_data = analyze_order.posData()
+        ctx = self.get_context_data(form=form, analyzed=True, pos_data=pos_data)
         return self.render_to_response(ctx)
+
+class GenomePaymentView(TemplateView):
+    template_name = 'upload_success.html'
 
 
 class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
     template_name = 'display_genome_result.html'
+
+    def get(self, request, *args, **kwargs):
+        self.user = self.request.user
+        if self.is_browsing_via_admin():
+            self.user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
+        return super().get(request, *args, **kwargs)
 
     def get_genome_data(self):
         filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
@@ -131,13 +149,35 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
     def get_filepath(self, filename):
         if self.is_browsing_via_admin():
-            user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
-            return get_genome_filepath(user, filename)
+            return get_genome_filepath(self.user, filename)
         return super().get_filepath(filename)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['table'] = self.get_genome_data()
-        if self.is_browsing_via_admin():
-            ctx['is_admin'] = True
+        ctx['is_admin'] = is_admin = self.is_browsing_via_admin()
+
+        analyze_data_order = AnalyzeDataOrder.objects.get(uploaded_filename=self.request.GET['file'],
+                                                          user=self.user)
+        ctx['paid'] = paid = analyze_data_order.is_paid
+        if paid or is_admin:
+            ctx['table'] = self.get_genome_data()
+        ctx['pos_data'] = analyze_data_order.posData()
         return ctx
+
+
+class PaymentStatusView(ProcessFormView, TemplateView):
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        post_data = self.request.POST
+        print(post_data)
+        if post_data['status'] in {'paid', 'complete', 'confirmed'}:
+            posData = json.loads(post_data['posData'])
+            analyze_order_pk = posData['analyze_order_pk']
+            user_pk = posData['user_pk']
+
+            analyze_order = AnalyzeDataOrder.objects.get(pk=analyze_order_pk)
+            analyze_order.paid = timezone.now()
+            analyze_order.save()
+        return HttpResponse('OK')
+

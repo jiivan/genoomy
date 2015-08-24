@@ -9,7 +9,7 @@ from celery import shared_task
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-from .views import get_genome_dirpath, get_genome_filepath, process_filename, parse_raw_genome_file, process_genoome_data
+from disease.files_utils import get_genome_dirpath, get_genome_filepath, process_filename, parse_raw_genome_file, process_genoome_data
 
 log = logging.getLogger(__name__)
 

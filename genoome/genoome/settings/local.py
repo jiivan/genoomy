@@ -66,3 +66,7 @@ LOGGING['loggers']['django.db.backends'] = {
     'propagate': True,
 }
 ########## END LOGGING CONFIGURATION
+
+########## BITPAY CONFIGURATION
+BITPAY_API = 'https://test.bitpay.com'
+########## END BITPAY CONFIGURATION
