@@ -6,8 +6,6 @@ import uuid
 import pickle
 import os
 
-from bitpay.client import Client
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
@@ -28,7 +26,6 @@ from .tasks import recompute_genome_files
 log = logging.getLogger(__name__)
 
 storage = FileSystemStorage()
-bitpay_client = Client(settings.BITPAY_API)
 
 def upload_progress(request):
     """
