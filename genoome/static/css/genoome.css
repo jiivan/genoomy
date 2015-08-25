@@ -147,9 +147,10 @@ line-height: 1em;
 .container{    position: relative;
 	}
 	.container h1:first-child{float:left;}
-	.container a.btn-lg:first-child{float:right;}
+	.leavemail{float:right;}
 	.container table.dataTable thead th, table.dataTable thead td {
     padding: 1px 5px;
     border-bottom: 1px solid #111;
 }
 span.form-control:not(input){line-height:0;}
+span.form-control input{margin: 2px;}
