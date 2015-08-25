@@ -73,15 +73,16 @@
 .legend > ul{width: 90%;
     float: right;}
 .titleoflegend{
-    display: inline-block;
+      display: inline-block;
     float: left;
-    margin-left: -33%;
+    margin-left: -34%;
     text-align: center;
-    margin-right: -84%;
+    margin-right: -83%;
     z-index: 10000;
-    margin-top: 27%;
+    margin-top: 31%;
     background: rgba(255, 255, 255, 0.74);
-    width: 86%;
+    width: 79%;
+
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     padding-right: 2%;
