@@ -73,15 +73,15 @@
 .legend > ul{width: 90%;
     float: right;}
 .titleoflegend{
-display: inline-block;
+    display: inline-block;
     float: left;
-    margin-left: -7%;
+    margin-left: -33%;
     text-align: center;
-    margin-right: -41%;
+    margin-right: -84%;
     z-index: 10000;
-    margin-top: 33%;
+    margin-top: 27%;
     background: rgba(255, 255, 255, 0.74);
-    width: 50%;
+    width: 86%;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     padding-right: 2%;
@@ -92,7 +92,7 @@ display: inline-block;
 }
 
 .legend-active .titleoflegend {
-    margin-left: -44px;
+    margin-left: -39%;
     -webkit-transition: margin-left 500ms linear;
     -moz-transition: margin-left 500ms linear;
     -o-transition: margin-left 500ms linear;
@@ -134,7 +134,7 @@ line-height: 1em;
 
 .labeloftable{
  position: absolute;
-    padding-top: 90px;
+    padding-top: 114px;
     font-size: 20px;
     line-height: 2em;
     font-weight: 600;
@@ -154,3 +154,4 @@ line-height: 1em;
 }
 span.form-control:not(input){line-height:0;}
 span.form-control input{margin: 2px;}
+body > .container{padding-bottom: 150px;}
