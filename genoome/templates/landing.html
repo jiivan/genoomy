@@ -410,3 +410,11 @@
     </div><!-- /.modal-dialog -->
   </div>
 {% endblock modals %}
+
+<script>
+$(document).ready(function(){
+$('.form-control input[type=text]:first-child').attr(placeholder,'from');
+$('.form-control input[type=text]:last-child').attr(placeholder,'to');
+})
+
+</script>
