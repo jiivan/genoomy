@@ -155,3 +155,8 @@ line-height: 1em;
 span.form-control:not(input){line-height:0;}
 span.form-control input{margin: 2px;}
 body > .container{padding-bottom: 150px;}
+
+.container table.dataTable thead th,table.dataTable thead td {
+    /* padding: 10px 18px; */
+    border-bottom: 1px solid #111;
+}
