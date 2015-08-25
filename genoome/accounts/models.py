@@ -72,11 +72,18 @@ class GenoomyUser(GenoomyAbstractUser):
         swappable = 'AUTH_USER_MODEL'
 
     @property
-    def can_upload_files(self):
+    def uploaded_files(self):
+        files = []
         dirpath = get_genome_dirpath(self)
         if storage.exists(dirpath):
             _, files = storage.listdir(storage.path(dirpath))
-            can_upload = bool(len(files) < self.FILES_PER_USER)
-        else:
-            can_upload = True
+        for file in files:
+            filename, ext = file.rsplit('.', 1)
+            if not filename.endswith('_processed'):
+                yield file
+
+    @property
+    def can_upload_files(self):
+        files = list(self.uploaded_files)
+        can_upload = bool(len(files) < self.FILES_PER_USER)
         return bool(can_upload or (self.is_staff and self.is_active))

@@ -6,7 +6,6 @@
 
 {% if analyzed %}
     {% block extra_css %}
-        <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
         <style>
             #genomeData tbody tr {
                 cursor: pointer;
@@ -21,8 +20,9 @@
 
 {% block content %}
     {% if analyzed %}
-        {% include 'includes/color_legend.html' %}
-        {% include 'includes/data_table.html' %}
+        {% include 'includes/payment_button.html' %}
+        {#        {% include 'includes/color_legend.html' %}#}
+        {#        {% include 'includes/data_table.html' %}#}
     {% else %}
         {% include 'includes/upload_genome_form.html' %}
         <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">

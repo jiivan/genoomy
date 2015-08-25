@@ -71,23 +71,9 @@ class SignupSuccessView(TemplateView):
 class UserProfileView(TemplateView):
     template_name = 'user_profile.html'
 
-    def get_genome_dirpath(self):
-        app_dir = 'disease'
-        user_subdir = '{}:{}'.format(self.request.user.pk, self.request.user.email)
-        return storage.path(os.path.join(app_dir, user_subdir))
-
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        dirpath = self.get_genome_dirpath()
-        if os.path.exists(dirpath):
-            _, files = storage.listdir(dirpath)
-            processed_files = []
-            for file in files:
-                filename, ext = file.rsplit('.', 1)
-                if filename.endswith('_processed'):
-                    original_filename, _ = filename.rsplit('_', 1)
-                    processed_files.append(''.join([original_filename, '.', ext]))
-            ctx['saved_genome_data'] = processed_files
+        ctx['saved_genome_data'] = self.request.user.uploaded_files
         return ctx
 
 class AccountActivateView(SuccessMessageMixin, FormView):

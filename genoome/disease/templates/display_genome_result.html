@@ -6,7 +6,6 @@
 
 {% if analyzed %}
     {% block extra_css %}
-        <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
         <style>
             #genomeData tbody tr {
                 cursor: pointer;
@@ -23,6 +22,10 @@
     {% if is_admin %}
         <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
     {% endif %}
+    {% if paid or is_admin %}
     {% include 'includes/color_legend.html' %}
     {% include 'includes/data_table.html' %}
+    {% else %}
+        {% include 'includes/payment_button.html' %}
+    {% endif %}
 {% endblock content %}

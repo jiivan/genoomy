@@ -1,23 +1,27 @@
+from datetime import datetime
 from io import BytesIO
+import json
 import logging
 import uuid
 import pickle
 import os
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
+from django.http import HttpResponse
 from django.views.generic import FormView
+from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
+from django.utils import timezone
 
-from .files_utils import parse_raw_genome_file
-from .files_utils import process_genoome_data
-from .files_utils import process_filename
-from .files_utils import get_genome_dirpath
-from .files_utils import get_genome_filepath
+from disease.files_utils import process_filename
+from disease.files_utils import get_genome_dirpath
+from disease.files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
+from .models import AnalyzeDataOrder
+from .tasks import recompute_genome_files
 
 log = logging.getLogger(__name__)
 
@@ -48,15 +52,20 @@ class GenomeFilePathMixin(object):
     def process_filename(self, filename, filename_suffix=None):
         return process_filename(filename, filename_suffix)
 
-    def get_dirpath(self):
-        return get_genome_dirpath(self.request.user)
+    def get_dirpath(self, user=None):
+        if user is None:
+            user = self.request.user
+        return get_genome_dirpath(user)
 
-    def get_filepath(self, filename):
-        return get_genome_filepath(self.request.user, filename)
+    def get_filepath(self, filename, user=None):
+        if user is None:
+            user = self.request.user
+        return get_genome_filepath(user, filename)
 
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
     form_class = UploadGenomeForm
+    success_url = reversed('disease:genome_payment')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -78,20 +87,52 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         storage.save(self.get_filepath(filename), buffer)
 
     def form_valid(self, form):
-        data = parse_raw_genome_file(self.request.FILES['file'])
-        raw_filename = self.request.FILES['file'].name
-        storage.save(self.get_filepath(raw_filename), self.request.FILES['file'])
-        table = process_genoome_data(data)
-        file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
-        if self.request.user.is_authenticated() and not file_exists:
-            self.save_processed_data(table)
+        # save file
+        # create AnalyzeFileOrder
+        # raw_filepath = self.get_filepath(raw_filename)
+        cd = form.cleaned_data
+        email = cd.get('email', None)
+        raw_file = cd.get('file', None)
+        raw_filename = getattr(raw_file, 'name', None)
+        user_model = get_user_model()
+        if not self.request.user.is_authenticated():
+            try:
+                user = user_model.objects.get(email=email)
+            except user_model.DoesNotExist:  # user doesn't have an account, create one
+                user = user_model(email=email, username=email)
+                user = user.save()
+        else:
+            user = self.request.user
+        storage.save(self.get_filepath(raw_filename, user=user), raw_file)
+        analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user)
 
-        ctx = self.get_context_data(form=form, table=table, analyzed=True)
+        if user.is_staff and user.is_active:
+            log('User %s skipping payment due to staff membership', user)
+            analyze_order.paid = datetime.now()
+        analyze_order.save()
+        recompute_genome_files.delay(user.pk, user.email)
+        # table = process_genoome_data(data)
+        # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
+        # if self.request.user.is_authenticated() and not file_exists:
+        #     self.save_processed_data(table)
+
+        # ctx = self.get_context_data(form=form, table=table, analyzed=True)
+        pos_data = analyze_order.posData()
+        ctx = self.get_context_data(form=form, analyzed=True, pos_data=pos_data)
         return self.render_to_response(ctx)
+
+class GenomePaymentView(TemplateView):
+    template_name = 'upload_success.html'
 
 
 class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
     template_name = 'display_genome_result.html'
+
+    def get(self, request, *args, **kwargs):
+        self.user = self.request.user
+        if self.is_browsing_via_admin():
+            self.user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
+        return super().get(request, *args, **kwargs)
 
     def get_genome_data(self):
         filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
@@ -105,13 +146,35 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
     def get_filepath(self, filename):
         if self.is_browsing_via_admin():
-            user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
-            return get_genome_filepath(user, filename)
+            return get_genome_filepath(self.user, filename)
         return super().get_filepath(filename)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['table'] = self.get_genome_data()
-        if self.is_browsing_via_admin():
-            ctx['is_admin'] = True
+        ctx['is_admin'] = is_admin = self.is_browsing_via_admin()
+
+        analyze_data_order = AnalyzeDataOrder.objects.get(uploaded_filename=self.request.GET['file'],
+                                                          user=self.user)
+        ctx['paid'] = paid = analyze_data_order.is_paid
+        if paid or is_admin:
+            ctx['table'] = self.get_genome_data()
+        ctx['pos_data'] = analyze_data_order.posData()
         return ctx
+
+
+class PaymentStatusView(ProcessFormView, TemplateView):
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        post_data = self.request.POST
+        print(post_data)
+        if post_data['status'] in {'paid', 'complete', 'confirmed'}:
+            posData = json.loads(post_data['posData'])
+            analyze_order_pk = posData['analyze_order_pk']
+            user_pk = posData['user_pk']
+
+            analyze_order = AnalyzeDataOrder.objects.get(pk=analyze_order_pk)
+            analyze_order.paid = timezone.now()
+            analyze_order.save()
+        return HttpResponse('OK')
+

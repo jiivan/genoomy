@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block extra_css %}
-    <link href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
     <style>
         #genomeData tbody tr {
             cursor: pointer;
@@ -23,7 +22,7 @@
         <div class="navbar navbar-fixed-bottom">
             <div class="container">
                 <div class="row">
-                    <a class="btn btn-danger btn-lg center-block" data-toggle="modal" href="{% url "disease:upload_genome" %}" data-target="#modal-upload-genome">Upload your genome</a>
+                    <a class="btn btn-danger btn-lg center-block" href="{% url "disease:upload_genome" %}">Upload your genome</a>
                 </div>
 
             </div>
