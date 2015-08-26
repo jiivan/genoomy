@@ -155,7 +155,7 @@ line-height: 1em;
 }
 span.form-control:not(input){line-height:0;}
 span.form-control input{margin: 2px;}
-body > .container{padding-bottom: 150px;}
+.footer{padding-bottom: 150px;}
 
 .container table.dataTable thead th,table.dataTable thead td {
     /* padding: 10px 18px; */
@@ -163,4 +163,5 @@ body > .container{padding-bottom: 150px;}
 }
 
 h1{    color: #555555;
+padding-right:2px;
 }}
