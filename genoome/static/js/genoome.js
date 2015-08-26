@@ -105,7 +105,7 @@ $(document).ready(function() {
 $('.form-control input:last-child').attr("placeholder","to");
 
 $(".checkbox-row").change(function() {
-    $("#genomeData").toggleClass(this.val);
+    $("#genomeData").toggleClass(this.val(););
 });
 	
 	});
