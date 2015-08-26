@@ -104,6 +104,8 @@ $(document).ready(function() {
 	$('.form-control input:first-child').attr("placeholder","from");
 $('.form-control input:last-child').attr("placeholder","to");
 
-
+$(".checkbox-row").change(function() {
+    $(#genomeData).toggleClass("ci"+this.val, this.checked);
+});
 	
 	});
