@@ -169,3 +169,7 @@ span.form-control input{margin: 2px;}
 h1{    color: #555555;
 padding-right:2px;
 }}
+
+table#genomeData th:nth-child(2), table#genomeData td:nth-child(2) {
+    display: none;
+}

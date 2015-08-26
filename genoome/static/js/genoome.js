@@ -103,5 +103,22 @@ $(document).ready(function() {
 
 	$('.form-control input:first-child').attr("placeholder","from");
 $('.form-control input:last-child').attr("placeholder","to");
+
+$(document).ready(function() {
+    var table = $('#genomeData').DataTable( {
+        "scrollY": "200px",
+        "paging": false
+    } );
+ 
+    $('a.toggle-vis').on( 'click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table.column( $(this).attr('data-column') );
+ 
+        // Toggle the visibility
+        column.visible( ! column.visible() );
+    } );
+} );
 	
 	});
