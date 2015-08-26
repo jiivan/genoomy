@@ -195,7 +195,7 @@ table#genomeData.ci6 th:nth-child(6), table#genomeData.ci6 td:nth-child(6) {
     list-style: none;
 }
 .checkbox-list label{
-width:112px;
+width:132px;
 }
 .checkbox-list input{
 float:right;
