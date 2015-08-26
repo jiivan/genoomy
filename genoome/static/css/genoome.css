@@ -170,15 +170,15 @@ h1{    color: #555555;
 padding-right:2px;
 }}
 
-table#genomeData.ci1 th:nth-child(1), table#genomeData td:nth-child(1) {
+table#genomeData.ci1 th:nth-child(1), table#genomeData.ci1 td:nth-child(1) {
     display: none;
 }
-table#genomeData.ci2 th:nth-child(2), table#genomeData td:nth-child(2) {
+table#genomeData.ci2 th:nth-child(2), table#genomeData.ci2 td:nth-child(2) {
     display: none;
 }
-table#genomeData.ci3 th:nth-child(3), table#genomeData td:nth-child(3) {
+table#genomeData.ci3 th:nth-child(3), table#genomeData.ci3 td:nth-child(3) {
     display: none;
 }
-table#genomeData.ci4 th:nth-child(4), table#genomeData td:nth-child(4) {
+table#genomeData.ci4 th:nth-child(4), table#genomeData.ci4 td:nth-child(4) {
     display: none;
 }
