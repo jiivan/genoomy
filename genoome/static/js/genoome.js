@@ -116,7 +116,7 @@ $("#genomeData").toggleClass('ci1');
 	$('#ch7').attr('checked', true);
 	$('#ch8').attr('checked', true);
 	
-$(".checkbox-list").click(function(){
+$(".checkbox-list:not(.checkbox-listinn)").click(function(){
 	$(".checkbox-listinn").toggleClass('active');
 	
 	
