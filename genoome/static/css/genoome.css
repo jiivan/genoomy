@@ -198,11 +198,17 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 .checkbox-list{
     float: right;
     padding-right: 100px;
-    list-style: none;
+    position:relative;
 }
-.checkbox-list label{
+.checkbox-listinn{
+list-style: none;
+display:none;
+position:absolute;
+}
+.checkbox-listinn.active{display:block;}
+.checkbox-listinn label{
 width:155px;
 }
-.checkbox-list input{
+.checkbox-listinn input{
 float:right;
 }
