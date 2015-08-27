@@ -155,7 +155,7 @@ line-height: 1em;
 }
 span.form-control:not(input){line-height:0;}
 span.form-control input{margin: 2px;}
-.footer{padding-bottom: 140px;}
+.footer{padding-bottom: 155px;}
 
 .container table.dataTable thead th,table.dataTable thead td {
     /* padding: 10px 18px; */
@@ -168,7 +168,7 @@ span.form-control input{margin: 2px;}
     line-height: 20px;}
 h1{    color: #555555;
 padding-right:2px;
-}}
+}
 
 table#genomeData.ci1 th:nth-child(1), table#genomeData.ci1 td:nth-child(1){
     display: none;
