@@ -107,6 +107,10 @@ $('.form-control input:last-child').attr("placeholder","to");
 $(".checkbox-row").change(function() {
     $("#genomeData").toggleClass($(this).val());
 });
+$("#genomeData").toggleClass(ci2);
+$("#genomeData").toggleClass(ci3);
+$("#genomeData").toggleClass(ci1);
 	$('#ch1').attr('checked', true);
 	$('#ch2').attr('checked', true);
+	$('#ch3').attr('checked', true);
 	});
