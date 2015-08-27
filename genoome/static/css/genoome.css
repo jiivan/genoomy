@@ -170,7 +170,7 @@ h1{    color: #555555;
 padding-right:2px;
 }}
 
-table#genomeData.ci1 th:first-child, table#genomeData.ci1 td:first-child{
+table#genomeData.ci1 th:nth-child(1), table#genomeData.ci1 td:nth-child(1){
     display: none;
 }
 table#genomeData.ci2 th:nth-child(2), table#genomeData.ci2 td:nth-child(2) {
