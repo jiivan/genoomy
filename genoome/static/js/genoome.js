@@ -110,7 +110,10 @@ $(".checkbox-row").change(function() {
 $("#genomeData").toggleClass('ci2');
 $("#genomeData").toggleClass('ci3');
 $("#genomeData").toggleClass('ci1');
-	$('#ch1').attr('checked', true);
-	$('#ch2').attr('checked', true);
-	$('#ch3').attr('checked', true);
+	$('#ch4').attr('checked', true);
+	$('#ch5').attr('checked', true);
+	$('#ch6').attr('checked', true);
+	$('#ch7').attr('checked', true);
+	$('#ch8').attr('checked', true);
+	
 	});

@@ -191,6 +191,9 @@ table#genomeData.ci6 th:nth-child(6), table#genomeData.ci6 td:nth-child(6) {
 table#genomeData.ci7 th:nth-child(7), table#genomeData.ci7 td:nth-child(7) {
     display: none;
 }
+table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
+    display: none;
+}
 
 .checkbox-list{
     float: right;
