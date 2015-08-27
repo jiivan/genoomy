@@ -48,19 +48,19 @@
 
 
 .label-positive {
-    background-color: #00ff00;
+    background-color: #74e95c;
 }
 .label-neutral {
-    background-color: #ffff00;
+    background-color: #f8f885;
 }
 .label-disadvantage {
-    background-color: #ff8000;
+    background-color: #fea348;
 }
 .label-negative {
-    background-color: #ff0000;
+    background-color: #f54949;
 }
 .label-interesting {
-    background-color: #0080ff;
+    background-color: #4aa1f6;
 }
 .row > .btn-danger {
     font-size: 38pt;
