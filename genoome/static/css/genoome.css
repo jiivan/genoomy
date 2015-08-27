@@ -199,11 +199,17 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
     float: right;
     padding-right: 100px;
     position:relative;
+	cursor:pointer;
 }
 .checkbox-listinn{
 list-style: none;
 display:none;
 position:absolute;
+    background: #4CAE4C;
+    z-index: 10;
+    right: 30px;
+    /* text-align: center; */
+    padding: 10px;
 }
 .checkbox-listinn.active{display:block;}
 .checkbox-listinn label{
