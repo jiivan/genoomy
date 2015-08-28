@@ -5,5 +5,5 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
-    url(r'^paypal-callback/', include('paypal.standard.ipn.urls'), name='paypal-callback'),
+    url(r'^paypal-callback/', include('paypal.standard.ipn.urls'), name='paypal_callback'),
 ]
