@@ -107,7 +107,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user)
 
         if user.is_staff and user.is_active:
-            log('User %s skipping payment due to staff membership', user)
+            log.info('User %s skipping payment due to staff membership', user)
             analyze_order.paid = datetime.now()
         analyze_order.save()
         recompute_genome_files.delay(user.pk, user.email)

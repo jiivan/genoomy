@@ -210,6 +210,8 @@ LOCAL_APPS = (
     'coupons',
     'colorful',
     'django_markdown',
+
+    'paypal.standard.ipn',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -291,3 +293,7 @@ BROKER_URL = 'redis://localhost:6379/1'
 CELERY_TIMEZONE = 'Europe/Warsaw'
 CELERY_ENABLE_UTC = True
 ########## END CELERY CONFIGURATION
+
+########## PAYPAL CONFIGURATION
+PAYPAL_RECEIVER_EMAIL = "yourpaypalemail@example.com"
+########## END PAYPAL CONFIGURATION
