@@ -205,12 +205,12 @@ LOCAL_APPS = (
     'accounts',
     'disease',
     'payment_bitpay',
+    'payments',
 
     'widget_tweaks',
     'coupons',
     'colorful',
     'django_markdown',
-
     'paypal.standard.ipn',
 )
 
