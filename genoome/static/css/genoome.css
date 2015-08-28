@@ -204,7 +204,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 .checkbox-listinn{
 list-style: none;
 display:none;
-cursor:pointer;
+
 position:absolute;
     background: #4CAE4C;
     z-index: 10;
@@ -215,6 +215,7 @@ position:absolute;
 .checkbox-listinn.active{display:block;}
 .checkbox-listinn label{
 width:155px;
+cursor:pointer;
 }
 .checkbox-listinn input{
 float:right;
