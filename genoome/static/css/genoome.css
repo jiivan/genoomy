@@ -48,19 +48,19 @@
 
 
 .label-positive {
-    background-color: #00ff00;
+    background-color: #74e95c;
 }
 .label-neutral {
-    background-color: #ffff00;
+    background-color: #f8f885;
 }
 .label-disadvantage {
-    background-color: #ff8000;
+    background-color: #fea348;
 }
 .label-negative {
-    background-color: #ff0000;
+    background-color: #f54949;
 }
 .label-interesting {
-    background-color: #0080ff;
+    background-color: #4aa1f6;
 }
 .row > .btn-danger {
     font-size: 38pt;
@@ -111,9 +111,9 @@ ul.list-group > li > span.label {
     width: 100%;
 }
 
-#genomeData {
-    display: none;;
-}
+/*#genomeData {
+    display: none;
+}*/
 .navbar .btn-success{
     margin-top: 7.5px;
 	}
@@ -135,7 +135,7 @@ line-height: 1em;
 
 .labeloftable{
  position: absolute;
-    padding-top: 114px;
+    padding-top: 118px;
     font-size: 20px;
     line-height: 2em;
     font-weight: 600;
@@ -147,7 +147,7 @@ line-height: 1em;
 
 .container{    position: relative;
 	}
-	.container h1:first-child{float:left;}
+	.container h1:first-child{}
 	.leavemail{float:right;}
 	.container table.dataTable thead th, table.dataTable thead td {
     padding: 1px 5px;
@@ -155,9 +155,89 @@ line-height: 1em;
 }
 span.form-control:not(input){line-height:0;}
 span.form-control input{margin: 2px;}
-body > .container{padding-bottom: 150px;}
+.footer{padding-bottom: 155px;}
 
 .container table.dataTable thead th,table.dataTable thead td {
     /* padding: 10px 18px; */
     border-bottom: 1px solid #111;
+}
+.footer a{    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;}
+h1{    color: #555555;
+padding-right:2px;
+}
+
+table#genomeData.ci1 th:nth-child(1), table#genomeData.ci1 td:nth-child(1){
+    display: none;
+}
+table#genomeData.ci2 th:nth-child(2), table#genomeData.ci2 td:nth-child(2) {
+    display: none;
+}
+table#genomeData.ci3 th:nth-child(3), table#genomeData.ci3 td:nth-child(3) {
+    display: none;
+}
+table#genomeData.ci4 th:nth-child(4), table#genomeData.ci4 td:nth-child(4) {
+    display: none;
+}
+table#genomeData.ci5 th:nth-child(5), table#genomeData.ci5 td:nth-child(5) {
+    display: none;
+}
+table#genomeData.ci6 th:nth-child(6), table#genomeData.ci6 td:nth-child(6) {
+    display: none;
+}
+table#genomeData.ci7 th:nth-child(7), table#genomeData.ci7 td:nth-child(7) {
+    display: none;
+}
+table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
+    display: none;
+}
+
+.checkbox-list{
+    float: right;
+    padding-right: 100px;
+    position:relative;
+	cursor:pointer;
+}
+.checkbox-listinn{
+list-style: none;
+display:none;
+
+position:absolute;
+    background: #4CAE4C;
+    z-index: 10;
+    right: 30px;
+    /* text-align: center; */
+    padding: 10px;
+}
+.checkbox-listinn.active{display:block;}
+.checkbox-listinn label{
+width:155px;
+cursor:pointer;
+}
+.checkbox-listinn input{
+float:right;
+}
+.container{min-width:900px;}
+
+select{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    float: left;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }

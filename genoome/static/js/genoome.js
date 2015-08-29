@@ -103,5 +103,23 @@ $(document).ready(function() {
 
 	$('.form-control input:first-child').attr("placeholder","from");
 $('.form-control input:last-child').attr("placeholder","to");
+
+$(".checkbox-row").change(function() {
+    $("#genomeData").toggleClass($(this).val());
+});
+$("#genomeData").toggleClass('ci2');
+$("#genomeData").toggleClass('ci3');
+$("#genomeData").toggleClass('ci1');
+	$('#ch4').attr('checked', true);
+	$('#ch5').attr('checked', true);
+	$('#ch6').attr('checked', true);
+	$('#ch7').attr('checked', true);
+	$('#ch8').attr('checked', true);
+	
+$(".checkbox-list:not(.checkbox-listinn)").click(function(){
+	$(".checkbox-listinn").toggleClass('active');
+	
+	
+})	
 	
 	});

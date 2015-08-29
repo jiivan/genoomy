@@ -12,7 +12,7 @@
     </style>
 {% endblock extra_css %}
 
-{% block page_title %}Example interpretation of sample data{% endblock page_title %}
+{% block page_title %}<span style="float:left;display:block;">Color Your Genome <span style="font-size:75%; color:#B7B7B7;">sample:</span></span>{% endblock page_title %}
 
 {% block content %}
     {% if request.user.is_authenticated %}
@@ -30,15 +30,29 @@
     {% endif %}
 
     {% include 'includes/color_legend.html' %}
+	<div class="checkbox-list"><span class="glyphicon glyphicon-cog" style="
+    font-size: 2em;
+    line-height: 1em;
+	top:8px;
+"></span>Change table fields
+	<ul class="checkbox-listinn">
+	  <li><label class="rounded-all">Rsid<input class="checkbox-row" id="ch3" name="3" type="checkbox" value="ci1"></label></li>
+	<li><label class="rounded-all">Chromosome pos.<input class="checkbox-row" id="ch1" name="1" type="checkbox" value="ci2"></label></li>
+    <li><label class="rounded-all">Risk Allele<input class="checkbox-row" id="ch2" name="2" type="checkbox" value="ci3"></label></li>
+  
+    <li><label class="rounded-all">P walue <input class="checkbox-row" id="ch4" name="4" type="checkbox" value="ci6"></label> </li> 
+	 <li><label class="rounded-all">OR<input class="checkbox-row" id="ch5" name="5" type="checkbox" value="ci7"></label> </li> 
+	 <li><label class="rounded-all">Risk<input class="checkbox-row" id="ch6" name="6" type="checkbox" value="ci8"></label> </li> 
+</ul></div>
 <div class="labeloftable">From: <br>To:</div>
     <table id="genomeData" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th>RSID</th>
             <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
+            <th>R/A</th>
+            <th>G.</th>
+            <th>Description</th>
             <th>P VALUE</th>
             <th>OR</th>
             <th>RISK</th>
@@ -51,7 +65,7 @@
             <th>CHROMOSOME POS</th>
             <th>RISK ALLELE</th>
             <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
+            <th>DESCRIPTION</th>
             <th>P VALUE</th>
             <th>OR</th>
             <th>RISK</th>
@@ -231,7 +245,7 @@
             <td>0</td>
         </tr>
 
-        <tr data-url="/disease/athletic-performance-actn3/" style="background-color: #ffff00">
+        <tr data-url="/disease/athletic-performance-actn3/" style="background-color: #f8f885">
             <td>1815739</td>
             <td>66328095</td>
             <td>C</td>
@@ -243,7 +257,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/memory-and-attention-tasks-comt/" style="background-color: #ffff00">
+        <tr data-url="/disease/memory-and-attention-tasks-comt/" style="background-color: #f8f885">
             <td>4680</td>
             <td>19951271</td>
             <td>A</td>
@@ -255,7 +269,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/stress-resistance-and-longevity-foxo3/" style="background-color: #ffff00">
+        <tr data-url="/disease/stress-resistance-and-longevity-foxo3/" style="background-color: #f8f885">
             <td>2802292</td>
             <td>108908518</td>
             <td>T</td>
@@ -267,7 +281,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/caffeine-metabolism-cyp1a2/" style="background-color: #00ff00">
+        <tr data-url="/disease/caffeine-metabolism-cyp1a2/" style="background-color: #74e95c">
             <td>762551</td>
             <td>75041917</td>
             <td>C</td>
@@ -279,7 +293,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/conversion-of-beta-carotene-into-vitamin-a-bcmo1-rs7501331/" style="background-color: #00ff00">
+        <tr data-url="/disease/conversion-of-beta-carotene-into-vitamin-a-bcmo1-rs7501331/" style="background-color: #74e95c">
             <td>7501331</td>
             <td>81314496</td>
             <td>T</td>
@@ -291,7 +305,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/vitamin-b12-absorption-fut2/" style="background-color: #00ff00">
+        <tr data-url="/disease/vitamin-b12-absorption-fut2/" style="background-color: #74e95c">
             <td>602662</td>
             <td>49206985</td>
             <td>G</td>
@@ -303,7 +317,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/social-behavior-and-personality-oxtr/" style="background-color: #ff8000">
+        <tr data-url="/disease/social-behavior-and-personality-oxtr/" style="background-color: #fea348">
             <td>53576</td>
             <td>8804371</td>
             <td>A</td>
@@ -315,7 +329,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/response-to-anesthetics-mc1r/" style="background-color: #00ff00">
+        <tr data-url="/disease/response-to-anesthetics-mc1r/" style="background-color: #74e95c">
             <td>1805007</td>
             <td>89986117</td>
             <td>T</td>
@@ -327,7 +341,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/obesity-and-type-2-diabetes-fto/" style="background-color: #ff8000">
+        <tr data-url="/disease/obesity-and-type-2-diabetes-fto/" style="background-color: #fea348">
             <td>9939609</td>
             <td>53820527</td>
             <td>A</td>
@@ -339,7 +353,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/blue-or-green-eyes-color-oca2/" style="background-color: #0080ff">
+        <tr data-url="/disease/blue-or-green-eyes-color-oca2/" style="background-color: #4aa1f6">
             <td>7495174</td>
             <td>28344238</td>
             <td>A</td>
@@ -351,7 +365,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/blue-or-brown-eyes-color-oca2/" style="background-color: #0080ff">
+        <tr data-url="/disease/blue-or-brown-eyes-color-oca2/" style="background-color: #4aa1f6">
             <td>12913832</td>
             <td>28365618</td>
             <td>G</td>
@@ -363,7 +377,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/earwax-and-body-odour-g180r/" style="background-color: #00ff00">
+        <tr data-url="/disease/earwax-and-body-odour-g180r/" style="background-color: #74e95c">
             <td>17822931</td>
             <td>48258198</td>
             <td>C</td>
@@ -375,7 +389,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/risk-of-type-2-diabetes-tcf7l2-rs7903146/" style="background-color: #ff8000">
+        <tr data-url="/disease/risk-of-type-2-diabetes-tcf7l2-rs7903146/" style="background-color: #fea348">
             <td>7903146</td>
             <td>114758349</td>
             <td>T</td>
@@ -387,7 +401,7 @@
             <td>100</td>
         </tr>
 
-        <tr data-url="/disease/risk-for-type-2-diabetes-tcf7l2-rs4506565/" style="background-color: #ff8000">
+        <tr data-url="/disease/risk-for-type-2-diabetes-tcf7l2-rs4506565/" style="background-color: #fea348">
             <td>4506565</td>
             <td>114756041</td>
             <td>A</td>
