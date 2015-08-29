@@ -15,6 +15,7 @@ from django.views.generic import FormView
 from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
 from django.utils import timezone
+from paypal.standard.forms import PayPalPaymentsForm
 
 from disease.files_utils import process_filename
 from disease.files_utils import get_genome_dirpath
@@ -118,7 +119,10 @@ class UploadGenome(GenomeFilePathMixin, FormView):
 
         # ctx = self.get_context_data(form=form, table=table, analyzed=True)
         pos_data = analyze_order.posData()
-        ctx = self.get_context_data(form=form, analyzed=True, pos_data=pos_data)
+        ctx = self.get_context_data(
+            form=form, analyzed=True, pos_data=pos_data,
+            paypal_form=PayPalPaymentsForm(initial=analyze_order.paypal_data())
+            )
         return self.render_to_response(ctx)
 
 class GenomePaymentView(TemplateView):
@@ -159,6 +163,8 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         if paid or is_admin:
             ctx['table'] = self.get_genome_data()
         ctx['pos_data'] = analyze_data_order.posData()
+        ctx['paypal_form'] = PayPalPaymentsForm(
+            initial=analyze_data_order.paypal_data())
         return ctx
 
 

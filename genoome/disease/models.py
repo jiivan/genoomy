@@ -5,7 +5,7 @@ from colorful.fields import RGBColorField
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
+from django.core.urlresolvers import reverse
 
 class SNPMarker(models.Model):
     rsid = models.BigIntegerField()
@@ -42,6 +42,19 @@ class AnalyzeDataOrder(models.Model):
 
     def posData(self):
         return json.dumps({'analyze_order_pk': self.pk, 'user_pk': self.user.pk})
+
+    def paypal_data(self, request):
+        return {
+            "business": settings.PAYPAL_RECEIVER_EMAIL,
+            "amount": "19.00",  # TODO move to settings
+            "item_name": "Genoomy analysis",
+            "invoice": self.id,
+            "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+
+            # TODO add informative flashes
+            "return_url": request.build_absolute_uri(reverse('profile')),
+            "cancel_return": request.build_absolute_uri(reverse('profile')),
+            }
 
     @property
     def is_paid(self):

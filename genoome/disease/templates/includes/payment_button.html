@@ -1,6 +1,14 @@
+<div class="text-center">
+<h3>It's only 19$!</h3>
+<div class="col-md-6">
 <form action="https://test.bitpay.com/checkout" method="post" >
     <input type="hidden" name="action" value="checkout" />
     <input type="hidden" name="posData" value="{{ pos_data }}" />
     <input type="hidden" name="data" value="b/EqsuWucDOtIz59WzCgRjZk6b/fJ1/a7cKOxJXs9Bvx66fqRI/QvpN0oLoOdnn8C0D3tZPZp9r2Pssjtx+2Xi37MYD6NMjt6bd64hSeTSGTSXO1HHFcDdkE9W3cq7uvweltodaKlWIE/6RMkZjmsaikcYBox2B8IMsTy2e3jkRo/dPy5u0ppxg2w7Qz/ntblu2jir4ve8zSq1Ogqgk0z9IBSjKY7s6xdR9dXWNdoGbOpeXx/R60A8TTLHbA76mXSMsyBufEcDnA+AeCE2njLJDmnHdEvYvAr0mS7L4eJjZlrlOJgbMMbnX2DjsEX6hVXPqvdH71Z67OxQiUPjxTeqtBpVVCrp+Bb1exDsw74eI=" />
-    <input class="btn btn-success" type="submit" value="It's only 19$" />
+    <input class="btn btn-success" type="submit" value="Pay using Bitpay" />
 </form>
+</div>
+<div class="col-md-6">
+{{ paypal_form.render }}
+</div>
+</div>
