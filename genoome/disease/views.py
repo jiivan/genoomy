@@ -15,6 +15,8 @@ from django.views.generic import FormView
 from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
 from django.utils import timezone
+from django.contrib.auth import login
+
 from paypal.standard.forms import PayPalPaymentsForm
 
 from disease.files_utils import process_filename
@@ -101,9 +103,17 @@ class UploadGenome(GenomeFilePathMixin, FormView):
                 user = user_model.objects.get(email=email)
             except user_model.DoesNotExist:  # user doesn't have an account, create one
                 user = user_model(email=email, username=email)
-                user = user.save()
+                user.save()
+
+                # Dirty hack to allow user login by model
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(self.request, user)
+
+            # Dirty hack to fix some parts requiring request.user...
+            self.request.user = user
         else:
             user = self.request.user
+
         storage.save(self.get_filepath(raw_filename, user=user), raw_file)
         analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user)
 
