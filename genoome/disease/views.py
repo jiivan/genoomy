@@ -131,7 +131,8 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         pos_data = analyze_order.posData()
         ctx = self.get_context_data(
             form=form, analyzed=True, pos_data=pos_data,
-            paypal_form=PayPalPaymentsForm(initial=analyze_order.paypal_data())
+            paypal_form=PayPalPaymentsForm(
+                initial=analyze_order.paypal_data(self.request))
             )
         return self.render_to_response(ctx)
 
@@ -174,7 +175,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             ctx['table'] = self.get_genome_data()
         ctx['pos_data'] = analyze_data_order.posData()
         ctx['paypal_form'] = PayPalPaymentsForm(
-            initial=analyze_data_order.paypal_data())
+            initial=analyze_data_order.paypal_data(self.request))
         return ctx
 
 

@@ -52,8 +52,10 @@ class AnalyzeDataOrder(models.Model):
             "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
 
             # TODO add informative flashes
-            "return_url": request.build_absolute_uri(reverse('profile')),
-            "cancel_return": request.build_absolute_uri(reverse('profile')),
+            "return_url": request.build_absolute_uri(
+                reverse('accounts:profile')),
+            "cancel_return": request.build_absolute_uri(
+                reverse('accounts:profile')),
             }
 
     @property
