@@ -7,6 +7,8 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import get_user_model
 
+from disease.files_utils import get_genome_filepath
+
 storage = FileSystemStorage()
 
 class UploadGenomeForm(forms.Form):
@@ -21,6 +23,11 @@ class UploadGenomeForm(forms.Form):
     def clean_file(self):
         if self.user.is_authenticated() and not self.user.can_upload_files:
             raise forms.ValidationError('You already have uploaded genome file.', 'invalid')
+
+        raw_file = self.cleaned_data.get('file', None)
+        raw_filename = getattr(raw_file, 'name', None)
+        if storage.exists(get_genome_filepath(self.user, raw_filename)):
+            raise forms.ValidationError('You have already uploaded this file', 'invalid')
         return self.cleaned_data['file']
 
     def clean_email(self):

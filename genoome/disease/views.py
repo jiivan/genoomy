@@ -119,7 +119,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
 
         if user.is_staff and user.is_active:
             log.info('User %s skipping payment due to staff membership', user)
-            analyze_order.paid = datetime.now()
+            analyze_order.paid = timezone.now()
         analyze_order.save()
         recompute_genome_files.delay(user.pk, user.email)
         # table = process_genoome_data(data)
@@ -145,7 +145,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.user = self.request.user
-        if self.is_browsing_via_admin():
+        if self.is_browsing_via_admin:
             self.user = get_user_model().objects.get(pk=int(self.request.GET['pk']))
         return super().get(request, *args, **kwargs)
 
@@ -156,21 +156,36 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             data = pickle.load(f)
         return data
 
+    @property
+    def is_admin(self):  # TODO use permissions?
+        return bool(self.request.user.is_staff and self.request.user.is_active)
+
+    @property
     def is_browsing_via_admin(self):
-        return bool(('pk' in self.request.GET) and self.request.user.is_staff and self.request.user.is_active)
+        return bool(('pk' in self.request.GET) and self.is_admin)
 
     def get_filepath(self, filename):
-        if self.is_browsing_via_admin():
+        if self.is_browsing_via_admin:
             return get_genome_filepath(self.user, filename)
         return super().get_filepath(filename)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['is_admin'] = is_admin = self.is_browsing_via_admin()
+        ctx['is_admin'] = is_admin = self.is_admin
 
-        analyze_data_order = AnalyzeDataOrder.objects.get(uploaded_filename=self.request.GET['file'],
-                                                          user=self.user)
-        ctx['paid'] = paid = analyze_data_order.is_paid
+        order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
+        paid = False
+
+        try:
+            analyze_data_order = AnalyzeDataOrder.objects.get(**order_kwargs)
+            paid = analyze_data_order.is_paid
+        except AnalyzeDataOrder.DoesNotExist:
+            if not self.is_browsing_via_admin:
+                analyze_data_order = AnalyzeDataOrder(**order_kwargs)
+                analyze_data_order.save()
+                paid = analyze_data_order.is_paid
+
+        ctx['paid'] = paid
         if paid or is_admin:
             ctx['table'] = self.get_genome_data()
         ctx['pos_data'] = analyze_data_order.posData()
