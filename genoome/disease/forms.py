@@ -26,8 +26,10 @@ class UploadGenomeForm(forms.Form):
 
         raw_file = self.cleaned_data.get('file', None)
         raw_filename = getattr(raw_file, 'name', None)
-        if storage.exists(get_genome_filepath(self.user, raw_filename)):
+        if self.user.is_authenticated() and storage.exists(get_genome_filepath(self.user, raw_filename)):
             raise forms.ValidationError('You have already uploaded this file', 'invalid')
+        if len(raw_filename.rsplit('.', 1)) != 2:
+            raise forms.ValidationError('Provide file with correct extension', 'invalid')
         return self.cleaned_data['file']
 
     def clean_email(self):
