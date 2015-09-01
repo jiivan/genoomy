@@ -190,6 +190,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         if paid or is_admin:
             ctx['table'] = self.get_genome_data()
         ctx['bitpay_checkout_url'] = settings.BITPAY_API
+        ctx['analyze_data_order_pk'] = analyze_data_order.pk
         ctx['pos_data'] = analyze_data_order.posData()
         ctx['paypal_form'] = PayPalPaymentsForm(
             initial=analyze_data_order.paypal_data(self.request))

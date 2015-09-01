@@ -49,7 +49,7 @@ class AnalyzeDataOrder(models.Model):
             "amount": "19.00",  # TODO move to settings
             "item_name": "Genoomy analysis",
             "invoice": self.id,
-            "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+            "notify_url": request.build_absolute_uri(reverse('payments:paypal-ipn')),
 
             # TODO add informative flashes
             "return_url": request.build_absolute_uri(

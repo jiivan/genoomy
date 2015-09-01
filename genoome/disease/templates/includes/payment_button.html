@@ -1,6 +1,6 @@
 <div class="text-center">
 <h3>It's only 19$!</h3>
-<div class="col-md-6">
+<div class="col-md-4">
 <form action="{{ bitpay_checkout_url }}/checkout" method="post" >
     <input type="hidden" name="action" value="checkout" />
     <input type="hidden" name="posData" value="{{ pos_data }}" />
@@ -8,7 +8,10 @@
     <input class="btn btn-success" type="submit" value="Pay using Bitpay" />
 </form>
 </div>
-<div class="col-md-6">
+<div class="col-md-4">
+    <a class="btn btn-success" href="{% url "payments:redeem_coupon" %}?order_id={{ analyze_data_order_pk }}">Use coupon code</a>
+</div>
+<div class="col-md-4">
 {{ paypal_form.render }}
 </div>
 </div>

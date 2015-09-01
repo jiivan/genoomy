@@ -12,5 +12,4 @@ urlpatterns = [
     # url(r'^upload-success/$', login_required(views.UploadGenomeSuccessView.as_view(), login_url=reverse_lazy('accounts:signin')), name='upload_success'),
     url(r'^browse/$', login_required(views.DisplayGenomeResult.as_view(), login_url=reverse_lazy('accounts:signin')), name='browse_genome'),
     url(r'^payment-status/$', csrf_exempt(views.PaymentStatusView.as_view()), name='payment_status'),
-    # url(r'^view/$', views.special_case_2003),
 ]

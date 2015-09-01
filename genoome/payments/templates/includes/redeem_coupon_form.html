@@ -1,0 +1,5 @@
+{% extends 'generic_form.html' %}
+
+{% block form_action %}{% url "payments:redeem_coupon" %}?order_id={{ analyze_data_order_pk }}{% endblock form_action %}
+
+{% block submit_text %}Use coupon{% endblock submit_text %}

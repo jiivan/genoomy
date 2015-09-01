@@ -44,7 +44,7 @@ class SignUpForm(UserCreationForm):
         return user
 
 
-class ActivateAccountForm(CouponForm):
+class ActivateAccountForm(forms.Form):
     email = forms.EmailField()
 
     def clean_email(self):

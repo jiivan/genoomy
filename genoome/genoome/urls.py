@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^update-progress/$', upload_progress, name='upload_progress'),
     url(r'^disease/', include('disease.urls', namespace='disease')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^payments/', include('payments.urls')),
+    url(r'^payments/', include('payments.urls', namespace='payments')),
 
     url('^markdown/', include('django_markdown.urls')),
 
