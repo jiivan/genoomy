@@ -294,6 +294,10 @@ CELERY_TIMEZONE = 'Europe/Warsaw'
 CELERY_ENABLE_UTC = True
 ########## END CELERY CONFIGURATION
 
+########## BITPAY CONFIGURATION
+BITPAY_API = 'https://bitpay.com'
+########## END BITPAY CONFIGURATION
+
 ########## PAYPAL CONFIGURATION
 PAYPAL_RECEIVER_EMAIL = "yourpaypalemail@example.com"
 ########## END PAYPAL CONFIGURATION
