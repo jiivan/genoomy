@@ -8,8 +8,6 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coupons', '0004_auto_20150901_1453'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
