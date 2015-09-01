@@ -6,6 +6,7 @@ import uuid
 import pickle
 import os
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
@@ -130,7 +131,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         # ctx = self.get_context_data(form=form, table=table, analyzed=True)
         pos_data = analyze_order.posData()
         ctx = self.get_context_data(
-            form=form, analyzed=True, pos_data=pos_data,
+            form=form, analyzed=True, pos_data=pos_data, bitpay_checkout_url=settings.BITPAY_API,
             paypal_form=PayPalPaymentsForm(
                 initial=analyze_order.paypal_data(self.request))
             )
@@ -188,6 +189,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         ctx['paid'] = paid
         if paid or is_admin:
             ctx['table'] = self.get_genome_data()
+        ctx['bitpay_checkout_url'] = settings.BITPAY_API
         ctx['pos_data'] = analyze_data_order.posData()
         ctx['paypal_form'] = PayPalPaymentsForm(
             initial=analyze_data_order.paypal_data(self.request))
