@@ -132,6 +132,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         pos_data = analyze_order.posData()
         ctx = self.get_context_data(
             form=form, analyzed=True, pos_data=pos_data, bitpay_checkout_url=settings.BITPAY_API,
+            analyze_data_order_pk=analyze_order.pk,
             paypal_form=PayPalPaymentsForm(
                 initial=analyze_order.paypal_data(self.request))
             )
