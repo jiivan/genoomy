@@ -282,7 +282,7 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 
 FILE_UPLOAD_HANDLERS = ('disease.upload_handlers.UploadProgressCachedHandler', ) + ('django.core.files.uploadhandler.MemoryFileUploadHandler', 'django.core.files.uploadhandler.TemporaryFileUploadHandler')
-FILE_UPOAD_PERMISSIONS = 0644
+FILE_UPOLAD_PERMISSIONS = 0644
 
 ########## CELERY CONFIGURATION
 # http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
