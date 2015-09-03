@@ -117,9 +117,13 @@ $("#genomeData").toggleClass('ci1');
 	$('#ch8').attr('checked', true);
 	
 $(".checkbox-list:not(.checkbox-listinn)").click(function(){
-	$(".checkbox-listinn").toggleClass('active');
+	$(".checkbox-listinn").addClass('active');
 	
 	
 })	
+	$("#savebutton").click(function(){
+	$(".checkbox-listinn").addClass('active');
 	
+	
+})	
 	});
