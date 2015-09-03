@@ -204,7 +204,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 .checkbox-listinn{
 list-style: none;
 display:none;
-
+border-radius:3px;
 position:absolute;
     background: #4CAE4C;
     z-index: 10;
@@ -240,4 +240,13 @@ select{
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#savebutton{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #FFFFFF;
+    border: 1px solid;
+    text-align: center;
+    border-radius: 3px;
 }
