@@ -120,10 +120,10 @@ $(".checkbox-list:not(.checkbox-listinn)").click(function(){
 	$(".checkbox-listinn").addClass('active');
 	
 	
-})	
+});	
 	$("#savebutton").click(function(){
-	$(".checkbox-listinn").addClass('active');
+	$(".checkbox-listinn").removeClass('active');
 	
 	
-})	
+});	
 	});
