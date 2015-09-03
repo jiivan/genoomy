@@ -23,6 +23,7 @@ def recompute_genome_files(user_pk, user_email):
     if os.path.exists(os.path.join(settings.MEDIA_ROOT, genome_dirpath)):
         _, files = storage.listdir(genome_dirpath)
         for file in files:
+            log.debug('Processing file: %s', file)
             filename, ext = file.rsplit('.', 1)
             if filename.endswith('_processed'):
                 continue
