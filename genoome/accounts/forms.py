@@ -33,35 +33,18 @@ class EmailUserCreateForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    code = forms.CharField(label=_("Coupon code"), required=False)
 
     class Meta(UserCreationForm.Meta):
         model = user_model
         fields = ('email',)
 
-    def clean_code(self):
-        code = self.cleaned_data['code']
-        if code in EMPTY_VALUES:
-            return code
-        try:
-            coupon = Coupon.objects.get(code=code)
-        except Coupon.DoesNotExist:
-            raise forms.ValidationError(_("This code is not valid."))
-        if coupon.expired():
-            raise forms.ValidationError(_("This code is expired."))
-        return code
-
     def save(self, commit=True):
         self.instance.username = self.cleaned_data.get('email', '')
-        user = super().save(commit=False)
-        if self.cleaned_data.get('code', '') in EMPTY_VALUES:
-            user.is_active = False
-        if commit:
-            user.save()
+        user = super().save(commit=commit)
         return user
 
 
-class ActivateAccountForm(CouponForm):
+class ActivateAccountForm(forms.Form):
     email = forms.EmailField()
 
     def clean_email(self):

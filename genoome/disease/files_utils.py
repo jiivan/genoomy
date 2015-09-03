@@ -69,7 +69,7 @@ def process_genoome_data(data):
 
 def process_filename(filename, filename_suffix=None):
     if filename_suffix is not None:
-        filename, ext = filename.split('.')
+        filename, ext = filename.rsplit('.', 1)
         filename = '{}{}.{}'.format(filename, filename_suffix, ext)
     return filename
 

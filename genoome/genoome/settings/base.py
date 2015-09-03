@@ -205,11 +205,13 @@ LOCAL_APPS = (
     'accounts',
     'disease',
     'payment_bitpay',
+    'payments',
 
     'widget_tweaks',
     'coupons',
     'colorful',
     'django_markdown',
+    'paypal.standard.ipn',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -260,7 +262,7 @@ LOGGING = {
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins', 'console'],
-            'level': 'ERROR',
+            'level': 'WARNING',
             'propagate': True,
         },
         'disease': {
@@ -280,6 +282,8 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 
 FILE_UPLOAD_HANDLERS = ('disease.upload_handlers.UploadProgressCachedHandler', ) + ('django.core.files.uploadhandler.MemoryFileUploadHandler', 'django.core.files.uploadhandler.TemporaryFileUploadHandler')
+FILE_UPLOAD_PERMISSIONS = 0o770
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o770
 
 ########## CELERY CONFIGURATION
 # http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
@@ -291,3 +295,11 @@ BROKER_URL = 'redis://localhost:6379/1'
 CELERY_TIMEZONE = 'Europe/Warsaw'
 CELERY_ENABLE_UTC = True
 ########## END CELERY CONFIGURATION
+
+########## BITPAY CONFIGURATION
+BITPAY_API = 'https://bitpay.com'
+########## END BITPAY CONFIGURATION
+
+########## PAYPAL CONFIGURATION
+PAYPAL_RECEIVER_EMAIL = "yourpaypalemail@example.com"
+########## END PAYPAL CONFIGURATION
