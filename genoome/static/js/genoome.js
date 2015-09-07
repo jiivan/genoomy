@@ -96,6 +96,48 @@ $(document).ready(function() {
         interval = window.setInterval(getProgress, 1000);
     });
 
+    function purchase_data(payment) {
+        var container = $('.payment-choice'),
+            tid = container.data('tid'),
+            sku = container.data('sku');
+        dataLayer.push({
+            'ecommerce': {
+                'purchase': {
+                    'actionField': {
+                        'id': tid,
+                        'revenue': 19.00,
+                        'option': payment
+                    },
+                    'products': [
+                        {
+                            'name': 'Genome Data Analysis',
+                            'id': sku,
+                        }
+                    ]
+                }
+            }
+        });
+    }
+
+    $(document).on('submit', '.payment-choice .payment-bitpay form', function(e) {
+        //e.preventDefault();
+        e.stopPropagation();
+        purchase_data('Bitpay');
+        //console.log('Bitpay submitted');
+    });
+    $(document).on('click', '.payment-choice .payment-coupon a', function(e) {
+        //e.preventDefault();
+        e.stopPropagation();
+        purchase_data('Coupon');
+        //console.log('Coupon submitted');
+    });
+    $(document).on('submit', '.payment-choice .payment-paypal form', function(e) {
+        //e.preventDefault();
+        e.stopPropagation();
+        purchase_data('Paypal');
+        //console.log('Paypal submitted');
+    });
+
     $('div.legend').hover(function(e) {
         e.preventDefault();
         $('div.legend').toggleClass('legend-active');
