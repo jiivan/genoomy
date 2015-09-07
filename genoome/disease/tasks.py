@@ -4,6 +4,7 @@ import logging
 from io import BytesIO
 import pickle
 import os
+import zipfile
 
 from celery import shared_task
 from django.conf import settings
@@ -27,8 +28,15 @@ def recompute_genome_files(user_pk, user_email):
             filename, ext = file.rsplit('.', 1)
             if filename.endswith('_processed'):
                 continue
-            with storage.open(get_genome_filepath(task_user, file), 'r') as raw_file:
-                data = process_genoome_data(parse_raw_genome_file(raw_file))
+            with storage.open(get_genome_filepath(task_user, file), 'rb') as raw_file:
+                if zipfile.is_zipfile(raw_file):
+                    log.debug('Zip file detected')
+                    with zipfile.ZipFile(raw_file) as zipped_file,\
+                            zipped_file.open('{}.txt'.format(filename)) as unzipped_file:
+                        data = process_genoome_data(parse_raw_genome_file(unzipped_file))
+                else:
+                    data = process_genoome_data(parse_raw_genome_file(raw_file))
+
                 buffer = BytesIO()
                 pickle.dump(data, buffer)
                 filename = process_filename(file, filename_suffix='_processed')
