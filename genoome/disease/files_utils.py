@@ -26,8 +26,10 @@ def parse_raw_genome_file_gen(file):
 
 def parse_raw_genome_file(file):
     data = {}
+    log.debug('PID: %s, PARSING GENOME FILE STARTED', os.getpid())
     for rsid, line in parse_raw_genome_file_gen(file):
         data[rsid] = line
+    log.debug('PID: %s, PARSING GENOME FILE FINISHED', os.getpid())
     return data
 
 
