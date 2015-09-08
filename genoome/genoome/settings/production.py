@@ -85,7 +85,7 @@ CACHES = {
 LOGGING['handlers']['file'] = {
     'level': 'DEBUG',
     'filename': '/var/log/django/genoome.log',
-    'class': 'logging.RotatingFileHandler',
+    'class': 'logging.handlers.RotatingFileHandler',
     'maxBytes': 5242880,
     'formatter': 'verbose'
 }
