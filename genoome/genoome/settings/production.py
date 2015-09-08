@@ -85,7 +85,8 @@ CACHES = {
 LOGGING['handlers']['file'] = {
     'level': 'DEBUG',
     'filename': '/var/log/django/genoome.log',
-    'class': 'logging.FileHandler',
+    'class': 'logging.RotatingFileHandler',
+    'maxBytes': 5242880,
     'formatter': 'verbose'
 }
 LOGGING['loggers']['django.request']['handlers'].append('file')
