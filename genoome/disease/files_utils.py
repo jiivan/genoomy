@@ -104,5 +104,6 @@ def handle_zipped_genome_file(genome_file):
                     parsed_file = parse_raw_genome_file(unzipped_file)
 
     if parsed_file is None:
+        log.error('No valid genome files found: %s', namelist)
         raise KeyError('There is no valid genome file in the archive')
     return parsed_file
