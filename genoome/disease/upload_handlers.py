@@ -35,9 +35,7 @@ class UploadProgressCachedHandler(FileUploadHandler):
             log.debug('PID: %s, Handler cache key: %s', os.getpid(), self.cache_key)
             log.debug('PID: %s, Handle cache: %s', os.getpid(), cache.get(self.cache_key))
 
-
     def new_file(self, field_name, file_name, content_type, content_length, charset=None, content_type_extra=None):
-        print('CONTENT_LENGTH', content_length)
         pass
 
     def receive_data_chunk(self, raw_data, start):

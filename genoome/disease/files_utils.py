@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import zipfile
 
 from django.utils.encoding import force_str
 
@@ -84,3 +85,24 @@ def get_genome_dirpath(user):
 
 def get_genome_filepath(user, filename):
     return os.path.join(get_genome_dirpath(user), filename)
+
+
+def handle_zipped_genome_file(genome_file):
+    parsed_file = None
+
+    with zipfile.ZipFile(genome_file) as zipped_file:
+        #Get filename without extension
+        _, zipped_filename = os.path.split(zipped_file.filename)
+        zipped_filename, _ = zipped_filename.rsplit('.', 1)
+
+        # Check if archive contains .txt file with the same filename as archive
+        namelist = zipped_file.namelist()
+        for unzipped_full_filename in namelist:
+            unzipped_filename, unzipped_ext = unzipped_full_filename.rsplit('.', 1)
+            if unzipped_ext == 'txt' and unzipped_filename == zipped_filename:
+                with zipped_file.open(unzipped_full_filename) as unzipped_file:
+                    parsed_file = parse_raw_genome_file(unzipped_file)
+
+    if parsed_file is None:
+        raise KeyError('There is no valid genome file in the archive')
+    return parsed_file
