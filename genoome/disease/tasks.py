@@ -23,7 +23,7 @@ def recompute_genome_files(user_pk, user_email):
     task_user = type('TaskUser', (object, ), dict(pk=user_pk, email=user_email))
     genome_dirpath = get_genome_dirpath(task_user)
 
-    if os.path.exists(os.path.join(settings.MEDIA_ROOT, genome_dirpath)):
+    if storage.exists(genome_dirpath):
         _, files = storage.listdir(genome_dirpath)
         for file in files:
             log.debug('Processing file: %s', file)

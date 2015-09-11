@@ -68,6 +68,7 @@ class SignUpView(CreateView):
 class SignupSuccessView(TemplateView):
     template_name = 'signup_success.html'
 
+
 class UserProfileView(TemplateView):
     template_name = 'user_profile.html'
 
