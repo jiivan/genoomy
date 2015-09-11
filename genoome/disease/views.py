@@ -25,7 +25,7 @@ from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
 from .models import AnalyzeDataOrder
-from .tasks import recompute_genome_files
+from .tasks import recompute_genome_file
 
 log = logging.getLogger(__name__)
 
@@ -122,7 +122,7 @@ class UploadGenome(GenomeFilePathMixin, FormView):
             log.info('User %s skipping payment due to staff membership', user)
             analyze_order.paid = timezone.now()
         analyze_order.save()
-        recompute_genome_files.delay(user.pk, user.email)
+        recompute_genome_file.delay(self.get_filepath(raw_filename, user=user))
         # table = process_genoome_data(data)
         # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
         # if self.request.user.is_authenticated() and not file_exists:
