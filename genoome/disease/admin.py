@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django import forms
+from django_markdown.widgets import AdminMarkdownWidget
 
 from .models import AlleleColor, SNPMarker, AnalyzeDataOrder
 
@@ -8,9 +10,16 @@ class SNPMarkerAdmin(admin.ModelAdmin):
     ordering = ('rsid',)
 
 
+class AlleleColorAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=AdminMarkdownWidget)
+
+
 class AlleleColorAdmin(admin.ModelAdmin):
     list_display = ('allele', 'color', 'priority', 'snp_marker')
     raw_id_fields = ("snp_marker",)
+    search_fields = ('allele',)
+    list_filter = ('allele',)
+    form = AlleleColorAdminForm
 
 
 class AnalyzeDataOrderAdmin(admin.ModelAdmin):
