@@ -1,28 +1,71 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import csv
 import logging
 import os
 import zipfile
-
-from django.utils.encoding import force_str
 
 from disease.models import SNPMarker
 
 log = logging.getLogger(__name__)
 
-def parse_raw_genome_file_gen(file):
+def parse_ancestrydna(file):
+    RSID = 0
+    ALLELE1 = 3
+    ALLELE2 = 4
+    POSITION = 2
+    COLUMNS = ['rsid', 'chromosome', 'position', 'allele1', 'allele2']
+    for line in file:
+        if len(line) == 1:
+            continue
+        if line == COLUMNS:
+            continue
+        if not line[RSID].startswith('rs'):
+            continue
+        rsid = line[RSID].replace('rs', '', 1)
+        genotype = ''.join((line[ALLELE1], line[ALLELE2]))
+        yield rsid, {'genotype': genotype, 'position': line[POSITION]}
+
+
+def parse_23andme(file):
     RSID = 0
     GENOTYPE = 3
     POSITION = 2
     for line in file:
-        line = force_str(line)
-        if line.startswith('#'):
+        if len(line) == 1:
             continue
-        l = line.strip().split('\t')
-        if not l[RSID].startswith('rs'):
+        if not line[RSID].startswith('rs'):
             continue
-        rsid = l[RSID].replace('rs', '', 1)
-        yield rsid, {'genotype': l[GENOTYPE], 'position': l[POSITION]}
+        rsid = line[RSID].replace('rs', '', 1)
+        yield rsid, {'genotype': line[GENOTYPE], 'position': line[POSITION]}
+
+
+parsers = {'23andme': parse_23andme,
+           'ancestrydna': parse_ancestrydna}
+
+def get_parser(file):
+    choosen_parser = None
+    break_outer = False
+    for line in file:
+        for key, parser in parsers.items():
+            if key in line.lower():
+                choosen_parser = parser
+                log.debug('%s file detected, chosing apropriate parser', key)
+                break_outer = True
+                break
+        if break_outer:
+            break
+
+    file.seek(0, 0)
+    if choosen_parser is None:
+        raise ValueError('Cannot determine file format')
+    return choosen_parser
+
+
+def parse_raw_genome_file_gen(file):
+    parser = get_parser(file)
+    reader = csv.reader(file, delimiter='\t')
+    return parser(reader)
 
 
 def parse_raw_genome_file(file):
@@ -94,12 +137,11 @@ def handle_zipped_genome_file(genome_file):
         # Check if archive contains .txt file with the same filename as archive
         namelist = zipped_file.namelist()
         for unzipped_full_filename in namelist:
-            unzipped_filename, unzipped_ext = unzipped_full_filename.rsplit('.', 1)
-            if unzipped_ext == 'txt' and unzipped_filename.startswith('genome'):
-                with zipped_file.open(unzipped_full_filename) as unzipped_file:
-                    parsed_file = parse_raw_genome_file(unzipped_file)
+            with zipped_file.open(unzipped_full_filename) as unzipped_file:
+                parsed_file = parse_raw_genome_file(unzipped_file)
+                break
 
     if parsed_file is None:
-        log.error('No valid genome files found: %s', namelist)
+        log.error('No valid genome files found: %s in archive', namelist)
         raise KeyError('There is no valid genome file in the archive')
     return parsed_file
