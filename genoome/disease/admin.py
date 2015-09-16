@@ -5,7 +5,7 @@ from django_markdown.widgets import AdminMarkdownWidget
 from .models import AlleleColor, SNPMarker, AnalyzeDataOrder
 
 class SNPMarkerAdmin(admin.ModelAdmin):
-    list_display = ('rsid', 'risk_allele', 'p_value', 'or_or_beta', 'disease_trait')
+    list_display = ('rsid', 'risk_allele', 'link', 'p_value', 'or_or_beta', 'disease_trait')
     search_fields = ('rsid', 'risk_allele', 'p_value', 'or_or_beta', 'disease_trait')
     ordering = ('rsid',)
 
