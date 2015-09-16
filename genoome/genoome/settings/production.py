@@ -97,3 +97,8 @@ LOGGING['loggers']['disease']['handlers'].append('file')
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY')
 ########## END SECRET CONFIGURATION
+
+########## PAYPAL CONFIGURATION
+PAYPAL_RECEIVER_EMAIL = "info@genoomy.com"
+PAYPAL_TEST = False
+########## END PAYPAL CONFIGURATION
