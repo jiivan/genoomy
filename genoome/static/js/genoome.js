@@ -138,9 +138,13 @@ $(document).ready(function() {
         //console.log('Paypal submitted');
     });
 
-    $('div.legend').hover(function(e) {
+    $('div.legend').mouseenter(function(e) {
         e.preventDefault();
-        $('div.legend').toggleClass('legend-active');
+        $('div.legend').addClass('legend-active');
+    });
+	  $('div.legend').mouseleave(function(e) {
+        e.preventDefault();
+        $('div.legend').removeClass('legend-active');
     });
 
     $('.form-control input:first-child').attr("placeholder","from");
