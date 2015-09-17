@@ -23,6 +23,7 @@ class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
     color = RGBColorField()
     allele = models.CharField(max_length=128)
+    description = models.TextField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')
 
     def __str__(self):

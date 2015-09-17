@@ -1,4 +1,4 @@
-import os
+import logging
 
 from django.conf import settings
 from django.conf.urls import url
@@ -25,8 +25,13 @@ csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
 from .models import GenoomyUser
-from disease.tasks import recompute_genome_files
+from disease.tasks import recompute_genome_file
+from disease.files_utils import get_genome_dirpath, get_genome_filepath, \
+    process_filename, parse_raw_genome_file, \
+    process_genoome_data, handle_zipped_genome_file
 
+
+log = logging.getLogger(__name__)
 storage = FileSystemStorage()
 
 class GenoomyUserAdmin(admin.ModelAdmin):
@@ -57,7 +62,16 @@ class GenoomyUserAdmin(admin.ModelAdmin):
 
     def refresh_user_genome_data(self, request, queryset):
         for user in queryset:
-            recompute_genome_files.delay(user.pk, user.email)
+            genome_dirpath = get_genome_dirpath(user)
+            if storage.exists(genome_dirpath):
+                _, files = storage.listdir(genome_dirpath)
+                for file in files:
+                    filename, ext = file.rsplit('.', 1)
+                    if filename.endswith('_processed'):
+                        continue
+                    log.debug('Processing file: %s', file)
+                    genome_filepath = get_genome_filepath(user, file)
+                    recompute_genome_file.delay(genome_filepath)
         self.message_user(request, 'Successfully added recomputation tasks for %s users' % len(queryset), level='SUCCESS')
     refresh_user_genome_data.short_descrition = 'Schedule recomputation of user genome data'
 

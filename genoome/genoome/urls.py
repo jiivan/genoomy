@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.contrib.flatpages.views import flatpage
 from django_markdown import flatpages
 
 from disease.views import upload_progress
@@ -15,6 +16,7 @@ flatpages.register()
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='landing.html'), name='landing_page'),
     url(r'^faq/$', TemplateView.as_view(template_name='faq.html'), name='faq'),
+    url(r'^genotype-description', flatpage, name='genotype_description'),
 
     # Examples:
     # url(r'^$', 'genoome.views.home', name='home'),
