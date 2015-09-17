@@ -18,9 +18,10 @@ storage = FileSystemStorage()
 
 @shared_task
 def recompute_genome_file(genome_filepath):
-    with storage.open(genome_filepath, 'rb') as raw_file:
-        if zipfile.is_zipfile(raw_file):
-            parsed_data = handle_zipped_genome_file(raw_file)
+    log.debug('Genome filepath: %s', genome_filepath)
+    with storage.open(genome_filepath, 'r') as raw_file:
+        if zipfile.is_zipfile(storage.path(genome_filepath)):
+            parsed_data = handle_zipped_genome_file(storage.path(genome_filepath))
         else:
             parsed_data = parse_raw_genome_file(raw_file)
 

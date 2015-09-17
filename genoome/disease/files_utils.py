@@ -2,20 +2,23 @@
 # -*- coding: utf-8 -*-
 import csv
 import logging
+import io
 import os
 import zipfile
+
+from django.utils.encoding import force_text
 
 from disease.models import SNPMarker
 
 log = logging.getLogger(__name__)
 
-def parse_ancestrydna(file):
+def parse_ancestrydna(csv_reader):
     RSID = 0
     ALLELE1 = 3
     ALLELE2 = 4
     POSITION = 2
     COLUMNS = ['rsid', 'chromosome', 'position', 'allele1', 'allele2']
-    for line in file:
+    for line in csv_reader:
         if len(line) == 1:
             continue
         if line == COLUMNS:
@@ -27,11 +30,11 @@ def parse_ancestrydna(file):
         yield rsid, {'genotype': genotype, 'position': line[POSITION]}
 
 
-def parse_23andme(file):
+def parse_23andme(csv_reader):
     RSID = 0
     GENOTYPE = 3
     POSITION = 2
-    for line in file:
+    for line in csv_reader:
         if len(line) == 1:
             continue
         if not line[RSID].startswith('rs'):
@@ -44,11 +47,12 @@ parsers = {'23andme': parse_23andme,
            'ancestrydna': parse_ancestrydna}
 
 def get_parser(file):
+    # log.debug('%s, file mod %s', get_parser.__name__, file.mode)
     choosen_parser = None
     break_outer = False
     for line in file:
         for key, parser in parsers.items():
-            if key in line.lower():
+            if key in force_text(line).lower():
                 choosen_parser = parser
                 log.debug('%s file detected, chosing apropriate parser', key)
                 break_outer = True
@@ -56,13 +60,14 @@ def get_parser(file):
         if break_outer:
             break
 
-    file.seek(0, 0)
+    # file.seek(0, 0)
     if choosen_parser is None:
         raise ValueError('Cannot determine file format')
     return choosen_parser
 
 
 def parse_raw_genome_file_gen(file):
+    # log.debug('%s, file mod %s', parse_raw_genome_file_gen.__name__, file.mode)
     parser = get_parser(file)
     reader = csv.reader(file, delimiter='\t')
     return parser(reader)
@@ -70,6 +75,7 @@ def parse_raw_genome_file_gen(file):
 
 def parse_raw_genome_file(file):
     data = {}
+    # log.debug('%s, file mod %s', parse_raw_genome_file.__name__, file.mode)
     log.debug('PID: %s, PARSING GENOME FILE STARTED', os.getpid())
     for rsid, line in parse_raw_genome_file_gen(file):
         data[rsid] = line
@@ -132,13 +138,13 @@ def get_genome_filepath(user, filename):
 
 def handle_zipped_genome_file(genome_file):
     parsed_file = None
-
     with zipfile.ZipFile(genome_file) as zipped_file:
-        # Check if archive contains .txt file with the same filename as archive
+        log.debug('%s, zipped file mod %s', handle_zipped_genome_file.__name__, zipped_file.mode)
         namelist = zipped_file.namelist()
         for unzipped_full_filename in namelist:
             with zipped_file.open(unzipped_full_filename) as unzipped_file:
-                parsed_file = parse_raw_genome_file(unzipped_file)
+                log.debug('%s, unzipped file mod %s', handle_zipped_genome_file.__name__, unzipped_file.mode)
+                parsed_file = parse_raw_genome_file(io.TextIOWrapper(unzipped_file))
                 break
 
     if parsed_file is None:
