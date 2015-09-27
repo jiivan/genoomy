@@ -1,4 +1,3 @@
-from datetime import datetime
 from io import BytesIO
 import json
 import logging
@@ -8,15 +7,19 @@ import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
 from django.http import HttpResponse
+from django.http import Http404
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import FormView
 from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
 from django.utils import timezone
-from django.contrib.auth import login
 
 from paypal.standard.forms import PayPalPaymentsForm
 
@@ -25,6 +28,9 @@ from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .forms import UploadGenomeForm
 from .models import AnalyzeDataOrder
+from .models import AlleleColor
+from .models import SNPMarker
+from .models import SNPMarkerArticle
 from .tasks import recompute_genome_file
 
 log = logging.getLogger(__name__)
@@ -65,6 +71,7 @@ class GenomeFilePathMixin(object):
         if user is None:
             user = self.request.user
         return get_genome_filepath(user, filename)
+
 
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
@@ -137,6 +144,27 @@ class UploadGenome(GenomeFilePathMixin, FormView):
                 initial=analyze_order.paypal_data(self.request))
             )
         return self.render_to_response(ctx)
+
+
+def allele_description(request, pk):
+    """
+    login_required
+    user should be able to view only his files
+    """
+    allele = request.GET['allele']
+    marker = get_object_or_404(SNPMarker, pk=pk)
+    try:
+        article = get_object_or_404(SNPMarkerArticle, snp_marker=marker)
+    except Http404:
+        return redirect(marker.link)
+    colours = AlleleColor.objects.filter(snp_marker=marker)
+    your_allele = colours.get(allele=allele)
+    ctx = {'marker': marker,
+           'article': article,
+           'colors': colours,
+           'your_allele': your_allele}
+    return render(request, 'allele_description.html', ctx)
+
 
 class GenomePaymentView(TemplateView):
     template_name = 'upload_success.html'
@@ -213,4 +241,3 @@ class PaymentStatusView(ProcessFormView, TemplateView):
             analyze_order.paid = timezone.now()
             analyze_order.save()
         return HttpResponse('OK')
-

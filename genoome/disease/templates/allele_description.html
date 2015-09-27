@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load django_markdown django_markdown_static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static css %}" />
+{% endblock extra_css %}
+
+
+{% block title %}{{ article.title }}{% endblock title %}
+{% block page_title %}{{ article.title }}{% endblock page_title %}
+
+{% block content %}
+    <strong>Your genotype: </strong>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+{#            <h3 class="panel-title">{{ your_allele.header }}</h3>#}
+            <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b> genotype</span>
+        </div>
+        <div class="panel-body">
+            <p>{{ your_allele.description }}</p>
+        </div>
+    </div>
+    <hr>
+    {{ article.header|markdown }}
+    <hr>
+    {% for allele in colors %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
+                <span style="background: {{ allele.color }};"><b>{{ allele.allele }}</b> genotype</span>
+            </div>
+            <div class="panel-body">
+                <p>{{ allele.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    {{ article.footer|markdown }}
+{% endblock content %}

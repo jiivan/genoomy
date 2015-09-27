@@ -99,7 +99,7 @@ def process_genoome_data_gen(data):
                'or_or_beta': marker.or_or_beta,
                'genotype': data[mrsid]['genotype'],
                'risk': data[mrsid]['genotype'].count(marker.risk_allele),
-               'link': marker.link
+               'link': marker.get_absolute_url()
                }
 
         allele_colors = marker.allele_colors.all()

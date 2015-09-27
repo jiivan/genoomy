@@ -2,10 +2,12 @@ from datetime import datetime
 import json
 
 from colorful.fields import RGBColorField
+from django.contrib.sites.models import Site
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.utils import timezone, http
+from django.core.urlresolvers import reverse, resolve, Resolver404
+from django_markdown.models import MarkdownField
 
 class SNPMarker(models.Model):
     rsid = models.BigIntegerField()
@@ -19,15 +21,37 @@ class SNPMarker(models.Model):
     def __str__(self):
         return '{} - {} - {}'.format(self.rsid, self.risk_allele, self.disease_trait)
 
+    def get_absolute_url(self):
+        """
+        If url is not from our
+        """
+        url = reverse('disease:description', kwargs={'pk': self.pk})
+        # link = self.link
+        # url_info = http.urlparse(link)
+        # try:
+        #     resolve(url_info.path)
+        # except Resolver404:
+        #     url = link
+        return url
+
+
 class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
     color = RGBColorField()
     allele = models.CharField(max_length=128)
-    description = models.TextField()
+    description = MarkdownField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')
 
     def __str__(self):
         return self.color
+
+
+class SNPMarkerArticle(models.Model):
+    snp_marker = models.ForeignKey(SNPMarker, related_name='snp_article')
+    title = models.CharField(max_length=128, help_text='Title for SNM description page')
+    header = MarkdownField(help_text='Introductory text appearing in header section of SNP description')
+    footer = MarkdownField(help_text='Place for footer, bibliography etc.')
+
 
 class AnalyzeDataOrder(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
