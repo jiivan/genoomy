@@ -11,19 +11,19 @@
 
 {% block content %}
     <h3>Your genotype: </h3>
+            {#            <h3 class="panel-title">{{ your_allele.header }}</h3>#}
+            <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b> genotype</span>
+            <p>{{ your_allele.description|markdown }}</p>
+    <hr>
+    <hr>
     <div class="panel panel-default">
         <div class="panel-heading">
-{#            <h3 class="panel-title">{{ your_allele.header }}</h3>#}
-            <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b> genotype</span>
+            <h4>Description: </h4>
         </div>
         <div class="panel-body">
-            <p>{{ your_allele.description|markdown }}</p>
+            {{ article.header|markdown }}
         </div>
     </div>
-    <hr>
-    <h3>Description: </h3>
-    <hr>
-    {{ article.header|markdown }}
     <hr>
     {% for allele in colors %}
         <div class="panel panel-default">
