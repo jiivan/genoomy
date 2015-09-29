@@ -273,3 +273,13 @@ select{
 .btn-logout {
     margin-top: 7.5px;
 }
+
+.btn-register {
+    color: #FFF;
+    border: 2px solid;
+    border-color: #398439;
+}
+
+.btn-register:hover {
+    color: #FFF;
+}

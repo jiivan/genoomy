@@ -15,4 +15,7 @@
 
 {% block form_action %}{% url "accounts:signin" %}{% endblock form_action %}
 
-{% block submit_text %}Signin{% endblock submit_text %}
+{% block submit_button %}
+    <input class="btn btn-primary" type="submit" value="Submit" />
+    <a class="btn btn-default" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Don't hava an account?</a>
+{% endblock submit_button %}%}

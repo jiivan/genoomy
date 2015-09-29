@@ -31,7 +31,9 @@
             {% endfor %}
         {% endblock form_fields %}
         <div class="form-row">
+            {% block submit_button %}
             <input class="btn btn-default" type="submit" value="{% block submit_text %}{% endblock submit_text %}" />
+            {% endblock submit_button %}
         </div>
     </form>
 {% endblock form %}
