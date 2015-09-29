@@ -72,11 +72,11 @@
             <div class="form-group">
               <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-			 <a class="btn btn-default btn-success" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Signup</a>
+            <button type="submit" class="btn btn-inverse">Sign in</button>
+			 <a class="btn btn-inverse" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Signup</a>
           </form>
         {% elif request.user.is_authenticated %}
-          <a type="button" class="btn btn-success navbar-right" href="{% url "accounts:logout" %}">Logout</a>
+          <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "accounts:logout" %}">Logout</a>
         {% endif %}
     </div><!--/.nav-collapse -->
   </div>

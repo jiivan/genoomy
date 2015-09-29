@@ -258,3 +258,18 @@ select{
 .label-genome {
     color: #000;
 }
+
+.btn-inverse {
+    color: #FFF;
+    background-color: #222;
+    border-color: #ccc;
+}
+
+.btn-inverse:hover {
+    color: #000;
+    background-color: #ccc;
+}
+
+.btn-logout {
+    margin-top: 7.5px;
+}
