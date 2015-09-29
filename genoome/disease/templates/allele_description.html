@@ -12,9 +12,11 @@
 {% block content %}
     <h3>Your genotype: <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b></span></h3>
     <p>{{ your_allele.description|markdown }}</p>
-    <hr>
-    <hr>
-    <div class="well">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{ article.title }}
+        </div>
+        <div class="panel-body" style="background-color: #f5f5f5;">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4>Description: </h4>
@@ -35,6 +37,7 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
     </div>
     {{ article.footer|markdown }}
     <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
