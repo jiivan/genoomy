@@ -2,10 +2,12 @@
 
 {% block form_action %}{% url "accounts:signup" %}{% endblock form_action %}
 
-{% block submit_text %}Signup{% endblock submit_text %}
+{% block submit_button %}
+    <input class="btn btn-primary" type="submit" value="Signup" />
+{% endblock submit_button %}
 
 {% block additional_attributes %}
-id="signup_form"
+    id="signup_form"
 {% endblock additional_attributes %}
 
 {% block form %}
@@ -14,7 +16,7 @@ id="signup_form"
         $(document).ready(function() {
             var form = $('#signup_form');
             form.ajaxForm({
-{#                target: '#modal-signup #modal_content'#}
+                {#                target: '#modal-signup #modal_content'#}
                 target: form.closest('.modal-content')
             });
             console.log('form updated');
