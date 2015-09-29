@@ -254,3 +254,7 @@ select{
     text-align: center;
     border-radius: 3px;
 }
+
+.label-genome {
+    color: #000;
+}
