@@ -11,29 +11,31 @@
 
 {% block content %}
     <h3>Your genotype: <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b></span></h3>
-            <p>{{ your_allele.description|markdown }}</p>
+    <p>{{ your_allele.description|markdown }}</p>
     <hr>
     <hr>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>Description: </h4>
-        </div>
-        <div class="panel-body">
-            {{ article.header|markdown }}
-        </div>
-    </div>
-    <hr>
-    {% for allele in colors %}
+    <div class="well">
         <div class="panel panel-default">
             <div class="panel-heading">
-                {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                <span style="background: {{ allele.color }};"><b>{{ allele.allele }}</b> genotype</span>
+                <h4>Description: </h4>
             </div>
             <div class="panel-body">
-                <p>{{ allele.description|markdown }}</p>
+                {{ article.header|markdown }}
             </div>
         </div>
-    {% endfor %}
+        <hr>
+        {% for allele in colors %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
+                    <span style="background: {{ allele.color }};"><b>{{ allele.allele }}</b> genotype</span>
+                </div>
+                <div class="panel-body">
+                    <p>{{ allele.description|markdown }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     {{ article.footer|markdown }}
     <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
 {% endblock content %}
