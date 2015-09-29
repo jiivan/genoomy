@@ -17,7 +17,7 @@
             <span style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b> genotype</span>
         </div>
         <div class="panel-body">
-            <p>{{ your_allele.description }}</p>
+            <p>{{ your_allele.description|markdown }}</p>
         </div>
     </div>
     <hr>
@@ -30,7 +30,7 @@
                 <span style="background: {{ allele.color }};"><b>{{ allele.allele }}</b> genotype</span>
             </div>
             <div class="panel-body">
-                <p>{{ allele.description }}</p>
+                <p>{{ allele.description|markdown }}</p>
             </div>
         </div>
     {% endfor %}
