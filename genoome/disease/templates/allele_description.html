@@ -10,7 +10,7 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <strong>Your genotype: </strong>
+    <h3>Your genotype: </h3>
     <div class="panel panel-default">
         <div class="panel-heading">
 {#            <h3 class="panel-title">{{ your_allele.header }}</h3>#}
@@ -21,6 +21,7 @@
         </div>
     </div>
     <hr>
+    <h3>Description: </h3>
     {{ article.header|markdown }}
     <hr>
     {% for allele in colors %}
