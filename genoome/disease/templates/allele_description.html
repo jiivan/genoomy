@@ -26,9 +26,9 @@
         <hr>
         {% for allele in colors %}
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" style="background-color: {{ allele.color }}">
                     {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                    <span style="background: {{ allele.color }};"><b>{{ allele.allele }}</b> genotype</span>
+                    <b>{{ allele.allele }}</b>
                 </div>
                 <div class="panel-body">
                     <p>{{ allele.description|markdown }}</p>
