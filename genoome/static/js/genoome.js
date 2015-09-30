@@ -76,6 +76,7 @@ $(document).ready(function() {
         var perc = (l / tot) * (100.00);
         console.log(perc);
         progressbar.css('width', perc + '%');
+        progressbar.text(perc + '%');
         if (values.status === 'done') {
             window.clearInterval(interval);
         }

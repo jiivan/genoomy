@@ -3,16 +3,16 @@ p {
 }
 
 .legend {
-   /* background: none repeat scroll 0 0 white;*/
+    /* background: none repeat scroll 0 0 white;*/
     border: 0px solid #ccc;
     /*padding: 14px;*/
-	  padding: 0;
+    padding: 0;
     position: fixed;
     right: -183px;
     top: 137px;
     width: 250px;
     z-index: 999;
-	
+
 }
 
 .toggle-legend {
@@ -35,13 +35,13 @@ p {
     font-size: 2.1em;
 }
 @media screen and (min-width: 1600px) {
-.legend {
- right: 0px;
- -webkit-transition: right 500ms linear;
-    -moz-transition: right 500ms linear;
-    -o-transition: right 500ms linear;
-    transition: right 500ms linear;
-}}
+    .legend {
+        right: 0px;
+        -webkit-transition: right 500ms linear;
+        -moz-transition: right 500ms linear;
+        -o-transition: right 500ms linear;
+        transition: right 500ms linear;
+    }}
 .legend-active {
     right: 0px;
     -webkit-transition: right 500ms linear;
@@ -77,7 +77,7 @@ p {
 .legend > ul{width: 90%;
     float: right;}
 .titleoflegend{
-      display: inline-block;
+    display: inline-block;
     float: left;
     margin-left: -34%;
     text-align: center;
@@ -104,14 +104,14 @@ p {
     transition: margin-left 500ms linear;
 }
 ul.list-group > li {
-  /*  margin: 5px;*/
+    /*  margin: 5px;*/
     padding: 5px;
 }
 
 ul.list-group > li > span.label {
     font-size: 20pt;
     color: #000000;
-	    display: block;
+    display: block;
     width: 100%;
 }
 
@@ -120,25 +120,25 @@ ul.list-group > li > span.label {
 }*/
 .navbar .btn-success{
     margin-top: 7.5px;
-	}
-	.navbar .navbar-form .btn-success{
+}
+.navbar .navbar-form .btn-success{
     margin-top: 0px;
-	}
-	.navbar-fixed-bottom{       background: rgba(215, 210, 210, 0.44);}
-	.navbar-fixed-bottom .row{    padding: 1% 3% 1% 3%;}
-	.navbar-fixed-bottom .container {}
-	
+}
+.navbar-fixed-bottom{       background: rgba(215, 210, 210, 0.44);}
+.navbar-fixed-bottom .row{    padding: 1% 3% 1% 3%;}
+.navbar-fixed-bottom .container {}
+
 span.form-control{
-border:0;
-padding:0;
-line-height: 1em;
+    border:0;
+    padding:0;
+    line-height: 1em;
     color: rgba(255, 255, 255, 0);
-	    -webkit-box-shadow: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.labeloftable{
- position: absolute;
+.labeloftable {
+    position: absolute;
     padding-top: 118px;
     font-size: 20px;
     line-height: 2em;
@@ -149,29 +149,42 @@ line-height: 1em;
 
 }
 
-.container{    position: relative;
-	}
-	.container h1:first-child{}
-	.leavemail{float:right;}
-	.container table.dataTable thead th, table.dataTable thead td {
+.container {
+    position: relative;
+}
+
+.leavemail {
+    float:right;
+}
+.container table.dataTable thead th, table.dataTable thead td {
     padding: 1px 5px;
     border-bottom: 1px solid #111;
 }
-span.form-control:not(input){line-height:0;}
-span.form-control input{margin: 2px;}
-.footer{padding-bottom: 155px;}
+span.form-control:not(input){
+    line-height:0;
+}
+span.form-control input {
+    margin: 2px;
+}
+.footer{
+
+}
 
 .container table.dataTable thead th,table.dataTable thead td {
     /* padding: 10px 18px; */
     border-bottom: 1px solid #111;
 }
-.footer a{    float: left;
+.footer a{
+    float: left;
     height: 50px;
     padding: 15px 15px;
     font-size: 18px;
-    line-height: 20px;}
-h1{    color: #555555;
-padding-right:2px;
+    line-height: 20px;
+}
+
+h1{
+    color: #555555;
+    padding-right:2px;
 }
 
 table#genomeData.ci1 th:nth-child(1), table#genomeData.ci1 td:nth-child(1){
@@ -203,13 +216,13 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
     float: right;
     padding-right: 100px;
     position:relative;
-	cursor:pointer;
+    cursor:pointer;
 }
 .checkbox-listinn{
-list-style: none;
-display:none;
-border-radius:3px; 
-position:absolute;
+    list-style: none;
+    display:none;
+    border-radius:3px;
+    position:absolute;
     background: #F4F4F4;
     z-index: 10;
     right: 30px;
@@ -218,11 +231,11 @@ position:absolute;
 }
 .checkbox-listinn.active{display:block;}
 .checkbox-listinn label{
-width:155px;
-cursor:pointer;
+    width:155px;
+    cursor:pointer;
 }
 .checkbox-listinn input{
-float:right;
+    float:right;
 }
 .container{min-width:900px;}
 
@@ -282,4 +295,8 @@ select{
 
 .btn-register:hover {
     color: #FFF;
+}
+
+.progress {
+    margin-top: 10px;
 }
