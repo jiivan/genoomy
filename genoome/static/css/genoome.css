@@ -307,3 +307,8 @@ select{
     width: 100%;
 
 }
+
+ table.dataTable.display tbody td {
+    border-top: 1px solid #ddd;
+    border-bottom: 5px solid #fff;
+}
