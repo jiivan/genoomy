@@ -145,8 +145,32 @@
 <script src="{% static "js/genoome.js" %}"></script>
 
 <!-- place project specific Javascript in this file -->
+<script>
+$(document).ready(function(){
+  var h1 = $(window).height();
+    var h2 = $(document).height() -50;
+if( h1 > h2 ){
+$('.footer').addClass('fixed');
+}else{
+    $('.footer').removeClass('fixed');
+  
+}
+})
+$( window ).resize(function() {
+  var h1 = $(window).height();
+    var h2 = $(document).height() -50;
+if( h1 > h2 ){
+$('.footer').addClass('fixed');
+}else{
+    $('.footer').removeClass('fixed');
+  
+}
+  
+});
+
+</script>
 {#    <script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>#}
 {% block extra_js %}{% endblock extra_js %}
- <div class="container"><div class="footer"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
+ <div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
 </body>
 </html>
