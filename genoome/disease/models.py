@@ -78,9 +78,9 @@ class AnalyzeDataOrder(models.Model):
 
             # TODO add informative flashes
             "return_url": request.build_absolute_uri(
-                reverse('accounts:profile')),
+                reverse('disease:upload_success', kwargs={'pk': self.pk})),
             "cancel_return": request.build_absolute_uri(
-                reverse('accounts:profile')),
+                reverse('disease:upload_success', kwargs={'pk': self.pk})),
             }
 
     @property

@@ -4,30 +4,10 @@
 {% block title %}Upload your genome{% endblock title %}
 {% block page_title %}Upload your genome{% endblock page_title %}
 
-{% if analyzed %}
-    {% block extra_css %}
-        <style>
-            #genomeData tbody tr {
-                cursor: pointer;
-                cursor: hand;
-            }
-            #genomeData thead tr th span {
-                height: auto;
-            }
-        </style>
-    {% endblock extra_css %}
-{% endif %}
-
 {% block content %}
-    {% if analyzed %}
-        {% include 'includes/payment_button.html' %}
-        {#        {% include 'includes/color_legend.html' %}#}
-        {#        {% include 'includes/data_table.html' %}#}
-    {% else %}
-        {% include 'includes/upload_genome_form.html' %}
-        <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">
-            <div class="progress-bar" role="progressbar" style="width: 0%;">
-            </div>
+    {% include 'includes/upload_genome_form.html' %}
+    <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">
+        <div class="progress-bar" role="progressbar" style="width: 0%;">
         </div>
-    {% endif %}
+    </div>
 {% endblock content %}

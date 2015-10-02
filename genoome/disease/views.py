@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login
 from django.core.cache import cache
+from django.core.urlresolvers import reverse_lazy
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseServerError
 from django.http import HttpResponse
@@ -76,7 +77,7 @@ class GenomeFilePathMixin(object):
 class UploadGenome(GenomeFilePathMixin, FormView):
     template_name = 'upload_genome.html'
     form_class = UploadGenomeForm
-    success_url = reversed('disease:genome_payment')
+    # success_url = reverse_lazy('disease:upload_success')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -96,6 +97,9 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         pickle.dump(data, buffer)
         filename = self.process_filename(self.request.FILES['file'].name, filename_suffix='_processed')
         storage.save(self.get_filepath(filename), buffer)
+
+    def get_success_url(self):
+        return reverse_lazy('disease:upload_success', kwargs={'pk': self.analyze_order_pk})
 
     def form_valid(self, form):
         # save file
@@ -136,14 +140,8 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         #     self.save_processed_data(table)
 
         # ctx = self.get_context_data(form=form, table=table, analyzed=True)
-        pos_data = analyze_order.posData()
-        ctx = self.get_context_data(
-            form=form, analyzed=True, pos_data=pos_data, bitpay_checkout_url=settings.BITPAY_API,
-            analyze_order=analyze_order,
-            paypal_form=PayPalPaymentsForm(
-                initial=analyze_order.paypal_data(self.request))
-            )
-        return self.render_to_response(ctx)
+        self.analyze_order_pk = analyze_order.pk
+        return super().form_valid(form)
 
 
 def allele_description(request, pk):
@@ -166,8 +164,24 @@ def allele_description(request, pk):
     return render(request, 'allele_description.html', ctx)
 
 
-class GenomePaymentView(TemplateView):
+class UploadGenomeSuccessView(TemplateView):
     template_name = 'upload_success.html'
+
+    def get(self, request, *args, **kwargs):
+        self.analyze_data_order = AnalyzeDataOrder.objects.get(pk=kwargs['pk'])
+        user = request.user
+        if self.analyze_data_order.is_paid or (user.is_staff and user.is_active):
+            return redirect('{}?file={}'.format(reverse_lazy('disease:browse_genome'),
+                                                self.analyze_data_order.uploaded_filename))
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        kwargs.update(dict(bitpay_checkout_url=settings.BITPAY_API,
+                           analyze_order=self.analyze_data_order,
+                           paypal_form=PayPalPaymentsForm(
+                               initial=self.analyze_data_order.paypal_data(self.request))
+                           ))
+        return super().get_context_data(**kwargs)
 
 
 class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):

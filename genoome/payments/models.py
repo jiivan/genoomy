@@ -13,3 +13,6 @@ class CouponRedeemed(models.Model):
 
     class Meta:
         unique_together = (('user', 'coupon',),)
+
+    def __str__(self):
+        return '{} {}'.format(self.user, self.coupon)
