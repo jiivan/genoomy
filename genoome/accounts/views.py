@@ -77,6 +77,9 @@ class UserProfileView(TemplateView):
         ctx['saved_genome_data'] = self.request.user.uploaded_files
         return ctx
 
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
 class AccountActivateView(SuccessMessageMixin, FormView):
     template_name = 'activate_account.html'
     form_class = ActivateAccountForm

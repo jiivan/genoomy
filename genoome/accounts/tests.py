@@ -47,3 +47,12 @@ class UserSignUpTests(TestCase):
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
+
+
+class UserProfileViewtest(TestCase):
+
+    def test_post_is_csrf_exempt(self):
+        get_user_model().objects.create_user(username='test_profile', password='testpassword')
+        self.client.login(username='test_profile', password='testpassword')
+        response = self.client.post(reverse('accounts:profile'), {})
+        self.assertEqual(response.status_code, 200)
