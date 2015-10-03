@@ -280,6 +280,7 @@ select{
     color: #FFF;
     background-color: #222;
     border-color: #ccc;
+    border-width: 2px;
 }
 
 .btn-inverse:hover {
