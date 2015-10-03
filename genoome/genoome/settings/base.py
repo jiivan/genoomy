@@ -302,4 +302,5 @@ BITPAY_API = 'https://bitpay.com'
 
 ########## PAYPAL CONFIGURATION
 PAYPAL_RECEIVER_EMAIL = "yourpaypalemail@example.com"
+PAYPAL_IMAGE = PAYPAL_SANDBOX_IMAGE = '/static/imgs/paypal.jpg'
 ########## END PAYPAL CONFIGURATION

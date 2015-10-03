@@ -1,3 +1,7 @@
+html, body {
+    min-height: 100%;
+}
+
 p {
     font-size: 18px;
 }
@@ -237,7 +241,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 .checkbox-listinn input{
     float:right;
 }
-.container{min-width:900px;}
+.container{min-width:100%;}
 
 select{
     display: block;
@@ -311,4 +315,37 @@ select{
  table.dataTable.display tbody td {
     border-top: 1px solid #ddd;
     border-bottom: 5px solid #fff;
+}
+
+#genomeData tbody tr {
+    cursor: hand;
+}
+#genomeData thead tr th span {
+    height: auto;
+}
+
+.payment-choice {
+    min-height: 100%
+}
+
+.payment-coupon a {
+    background-color: transparent;
+    color: #4cae4c;
+}
+
+.payment-coupon:before {
+    min-height: 56px;
+    display: block;
+    content: " ";
+}
+
+.payment-bitpay:before {
+    min-height: 56px;
+    display: block;
+    content: " ";
+}
+
+.payment-paypal form input[type="image"] {
+    max-width: 100%;
+    max-height: auto;
 }

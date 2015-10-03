@@ -1,17 +1,19 @@
-<div class="text-center payment-choice" data-tid="{{ analyze_order.pk }}" data-sku="{{ analyze_order.uploaded_filename }}">
+<div class="text-center payment-choices" data-tid="{{ analyze_order.pk }}" data-sku="{{ analyze_order.uploaded_filename }}">
     <h2>It's only 19$!</h2>
-    <div class="col-md-4 payment-bitpay">
-        <form action="{{ bitpay_checkout_url }}/checkout" method="post" >
-            <input type="hidden" name="action" value="checkout" />
-            <input type="hidden" name="posData" value="{{ analyze_order.posData }}" />
-            <input type="hidden" name="data" value="b/EqsuWucDOtIz59WzCgRjZk6b/fJ1/a7cKOxJXs9Bvx66fqRI/QvpN0oLoOdnn8C0D3tZPZp9r2Pssjtx+2Xi37MYD6NMjt6bd64hSeTSGTSXO1HHFcDdkE9W3cq7uvweltodaKlWIE/6RMkZjmsaikcYBox2B8IMsTy2e3jkRo/dPy5u0ppxg2w7Qz/ntblu2jir4ve8zSq1Ogqgk0z9IBSjKY7s6xdR9dXWNdoGbOpeXx/R60A8TTLHbA76mXSMsyBufEcDnA+AeCE2njLJDmnHdEvYvAr0mS7L4eJjZlrlOJgbMMbnX2DjsEX6hVXPqvdH71Z67OxQiUPjxTeqtBpVVCrp+Bb1exDsw74eI=" />
-            <input class="btn btn-success" type="submit" value="Pay using Bitpay" />
-        </form>
-    </div>
-    <div class="col-md-4 payment-paypal">
-        {{ paypal_form.render }}
-    </div>
-    <div class="col-md-4 payment-coupon">
-        <a class="btn btn-success" href="{% url "payments:redeem_coupon" %}?order_id={{ analyze_order.pk }}">Use coupon code</a>
+    <div class="row">
+        <div class="col-md-4 payment-choice payment-bitpay">
+            <form action="{{ bitpay_checkout_url }}/checkout" method="post" >
+                <input type="hidden" name="action" value="checkout" />
+                <input type="hidden" name="posData" value="{{ analyze_order.posData }}" />
+                <input type="hidden" name="data" value="b/EqsuWucDOtIz59WzCgRjZk6b/fJ1/a7cKOxJXs9Bvx66fqRI/QvpN0oLoOdnn8C0D3tZPZp9r2Pssjtx+2Xi37MYD6NMjt6bd64hSeTSGTSXO1HHFcDdkE9W3cq7uvweltodaKlWIE/6RMkZjmsaikcYBox2B8IMsTy2e3jkRo/dPy5u0ppxg2w7Qz/ntblu2jir4ve8zSq1Ogqgk0z9IBSjKY7s6xdR9dXWNdoGbOpeXx/R60A8TTLHbA76mXSMsyBufEcDnA+AeCE2njLJDmnHdEvYvAr0mS7L4eJjZlrlOJgbMMbnX2DjsEX6hVXPqvdH71Z67OxQiUPjxTeqtBpVVCrp+Bb1exDsw74eI=" />
+                <input class="btn btn-success" type="submit" value="Pay using Bitcoin" />
+            </form>
+        </div>
+        <div class="col-md-4 payment-choice payment-paypal">
+            {{ paypal_form.render }}
+        </div>
+        <div class="col-md-4 payment-choice payment-coupon">
+            <a class="btn btn-success" href="{% url "payments:redeem_coupon" %}?order_id={{ analyze_order.pk }}">Use coupon code</a>
+        </div>
     </div>
 </div>

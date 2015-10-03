@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
 
     function purchase_data(payment) {
-        var container = $('.payment-choice'),
+        var container = $('.payment-choices'),
             tid = container.data('tid'),
             sku = container.data('sku');
         dataLayer.push({
@@ -120,19 +120,19 @@ $(document).ready(function() {
         });
     }
 
-    $(document).on('submit', '.payment-choice .payment-bitpay form', function(e) {
+    $(document).on('submit', '.payment-choices .payment-bitpay form', function(e) {
         //e.preventDefault();
         e.stopPropagation();
         purchase_data('Bitpay');
         //console.log('Bitpay submitted');
     });
-    $(document).on('click', '.payment-choice .payment-coupon a', function(e) {
+    $(document).on('click', '.payment-choices .payment-coupon a', function(e) {
         //e.preventDefault();
         e.stopPropagation();
         purchase_data('Coupon');
         //console.log('Coupon submitted');
     });
-    $(document).on('submit', '.payment-choice .payment-paypal form', function(e) {
+    $(document).on('submit', '.payment-choices .payment-paypal form', function(e) {
         //e.preventDefault();
         e.stopPropagation();
         purchase_data('Paypal');
