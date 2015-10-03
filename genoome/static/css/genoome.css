@@ -141,18 +141,6 @@ span.form-control{
     box-shadow: none;
 }
 
-.labeloftable {
-    position: absolute;
-    padding-top: 118px;
-    font-size: 20px;
-    line-height: 2em;
-    font-weight: 600;
-    color: #555;
-    text-align: right;
-    left: -59px;
-
-}
-
 .container {
     position: relative;
 }
