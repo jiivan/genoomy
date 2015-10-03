@@ -173,4 +173,8 @@ $(document).ready(function() {
 
 
     });
+
+    $(document).on('reload-page', function(e) {
+        location.reload();
+    })
 });

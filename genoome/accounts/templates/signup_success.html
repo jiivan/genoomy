@@ -11,8 +11,8 @@
             You can now login.
             <script>
                 (function(){
-                    console.log('pushed');
                     dataLayer.push({'event': 'UserActivation'});
+                    $(document).trigger('reload-page');
                 })();
             </script>
         {% else %}
@@ -21,7 +21,6 @@
     </p>
     <script>
         (function(){
-            console.log('pushed');
             dataLayer.push({'event': 'UserRegistration'});
         })();
     </script>

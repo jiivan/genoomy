@@ -3,6 +3,7 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView
@@ -51,11 +52,16 @@ class SignUpView(CreateView):
         return kwargs
 
     def form_valid(self, form):
-        self.object = form.save()
+        self.object = form.save()  # User
+
+        # Dirty way to login user
+        self.object.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(self.request, self.object)
+
         ctx = {}
         if self.object.is_active:
             ctx['activated'] = True
-            messages.success(self.request, 'Your account is now active.You can now log in.')
+            messages.success(self.request, 'Your account is now active. You are logged in.')
         resp = render_to_response('signup_success.html', context=ctx)
         return resp
 
