@@ -352,8 +352,8 @@ font-size:0;
 	.landing #genomeData_wrapper{    margin-top: -30px;}
 	.landing  #genomeData_filter{    margin-bottom: 30px;}
 	
-	.fullwidth{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
-    background-size: 60%;}
+	.ratiokeeper{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
+    background-size: auto 100%;}
 	
 	.ratiokeeper{    padding-bottom: 23%;}
 	.landing .checkbox-list{    margin-bottom: -30px;}
@@ -368,6 +368,8 @@ font-size:0;
 		background: #d54747;
 		color: #fff;
 		display: block;
+		 border-radius: .25em;
+
 	}
 	.fullwidth .uploadgenome a:hover{
 	text-decoration:none;
