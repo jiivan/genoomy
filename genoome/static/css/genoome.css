@@ -353,18 +353,18 @@ font-size:0;
 	.landing  #genomeData_filter{    margin-bottom: 30px;}
 	
 	.fullwidth{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
-    background-size: 50%;}
+    background-size: 60%;}
 	
 	.ratiokeeper{    padding-bottom: 23%;}
 	.landing .checkbox-list{    margin-bottom: -30px;}
 	
-	.fullwidth h1{text-allign:center;}
-	.fullwidth h2{text-allign:center; font-size:24px;}
+	.fullwidth h1{text-align:center;}
+	.fullwidth h2{text-align:center; font-size:24px;}
 	.fullwidth .uploadgenome{
 	    width: 100%;
-    font-size: 2.4em;
-    padding: 1em 0;
-    text-align: center;
-    background: #d54747;
-    color: #fff;
+		font-size: 2.4em;
+		padding: 1em 0;
+		text-align: center;
+		background: #d54747;
+		color: #fff;
 	}
