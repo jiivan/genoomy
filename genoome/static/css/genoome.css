@@ -205,7 +205,8 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 }
 
 .checkbox-list{
-    float: right;
+    float: left;
+	clear: left;
     padding-right: 100px;
     position:relative;
     cursor:pointer;
@@ -217,7 +218,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
     position:absolute;
     background: #F4F4F4;
     z-index: 10;
-    right: 30px;
+    /*right: 30px;*/
     /* text-align: center; */
     padding: 10px;
 }
@@ -338,3 +339,17 @@ select{
     max-width: 100%;
     max-height: auto;
 }
+.filter_number_range.form-control{
+font-size:0;
+}
+.filter_number_range.form-control input{
+    float: left;
+    width: 48%;
+    margin: 1px;
+	}
+	
+	.landing #genomeData_length{display:none; }
+	.landing #genomeData_wrapper{    margin-top: -30px;}
+	.landing  #genomeData_filter{    margin-bottom: 30px;}
+	
+	.fullwidth{background: url('');}
