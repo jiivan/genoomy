@@ -377,7 +377,7 @@ font-size:0;
 position:absolute;
 bottom:0;
 	}
-	.fullwidth .uploadgenome a:hover{
+	.fullwidth  a.uploadgenome:hover{
 	text-decoration:none;
 	}
 	
