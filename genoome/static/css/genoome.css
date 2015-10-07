@@ -382,6 +382,6 @@ bottom:0;
 	}
 	
 	.col-sm-6.smaller{max-width: 585px; padding-bottom: 23%;}
-	.glyphicon{ font-size: 4.5em;
+	.glyphicon-cog{ font-size: 4.5em;
     line-height: 1em;
 	top:8px;}
