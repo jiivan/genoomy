@@ -368,7 +368,7 @@ font-size:0;
 	.fullwidth .uploadgenome span{
 	       width: 100%;
 		font-size: 2.2em;
-		padding: 0.8em 0;
+		padding: 17.8% 0;
 		text-align: center;
 		background: #d54747;
 		color: #fff;
@@ -380,8 +380,12 @@ bottom:0;
 	.fullwidth  a.uploadgenome:hover{
 	text-decoration:none;
 	}
-	
-	.col-sm-6.smaller{max-width: 585px; padding-bottom: 23%;}
+	.uploadgenome{    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* padding-bottom: 25%; */}
+	.col-sm-6.smaller{max-width: 555px; padding-bottom: 23%;}
 	.glyphicon-cog{ font-size: 4.5em;
     line-height: 1em;
 	top:8px;}
