@@ -105,7 +105,7 @@ def process_genoome_data_gen(data):
         allele_colors = marker.allele_colors.all()
         for allele_color in allele_colors:
             if row['genotype'] == allele_color.allele:
-                row.update({'color': allele_color.color, 'priority': allele_color.priority})
+                row.update({'color': allele_color.color_alias.color, 'priority': allele_color.priority})
                 break
 
         yield row

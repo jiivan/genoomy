@@ -10,7 +10,7 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <h2>Your genotype: <span class="label label-genome" style="background: {{ your_allele.color }};"><b>{{ your_allele.allele }}</b></span></h2>
+    <h2>Your genotype: <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span></h2>
     <p>{{ your_allele.description|markdown }}</p>
     <br>
     <br>
@@ -19,27 +19,30 @@
             <h4>{{ article.title }}</h4>
         </div>
         <div class="panel-body" style="background-color: #f5f5f5;">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Description:
-            </div>
-            <div class="panel-body">
-                {{ article.header|markdown }}
-            </div>
-        </div>
-        <hr>
-        {% for allele in colors %}
             <div class="panel panel-default">
-                <div class="panel-heading" style="background-color: {{ allele.color }}">
-                    {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                    <b>{{ allele.allele }}</b>
+                <div class="panel-heading">
+                    Description:
                 </div>
                 <div class="panel-body">
-                    <p>{{ allele.description|markdown }}</p>
+                    <p>
+                    </p>
+                    {{ article.header|markdown }}
+
                 </div>
             </div>
-        {% endfor %}
-    </div>
+            <hr>
+            {% for allele in colors %}
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
+                        {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
+                        <b>{{ allele.allele }}</b>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ allele.description|markdown }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
     {{ article.footer|markdown }}
     <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
