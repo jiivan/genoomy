@@ -352,7 +352,7 @@ font-size:0;
 	.landing #genomeData_wrapper{    margin-top: -30px;}
 	.landing  #genomeData_filter{    margin-bottom: 30px;}
 	
-	.ratiokeeper{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
+	.ratiokeeper{        background: url('../imgs/Layer-4.jpg') #fff no-repeat right top;
     background-size: auto 100%;}
 	
 	.ratiokeeper{    padding-bottom: 23%;}
@@ -374,3 +374,5 @@ font-size:0;
 	.fullwidth .uploadgenome a:hover{
 	text-decoration:none;
 	}
+	
+	.col-sm-6.smaller{max-width: 585px;}
