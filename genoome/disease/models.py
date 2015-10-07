@@ -9,6 +9,8 @@ from django.utils import timezone, http
 from django.core.urlresolvers import reverse, resolve, Resolver404
 from django_markdown.models import MarkdownField
 
+from color_aliases.models import ColorAlias
+
 class SNPMarker(models.Model):
     rsid = models.BigIntegerField()
     link = models.TextField()
@@ -38,6 +40,7 @@ class SNPMarker(models.Model):
 class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
     color = RGBColorField()
+    color_alias = models.ForeignKey(ColorAlias, default=1)
     allele = models.CharField(max_length=128)
     description = MarkdownField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')
