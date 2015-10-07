@@ -360,13 +360,20 @@ font-size:0;
 	.landing .checkbox-list{    margin-bottom: 20px;}
 	
 	.fullwidth h1{text-align:center; position: absolute;
-    top: 5%;
-    width: 100%;}
+    top: 0%;
+    width: 100%;
+	font-family: 'Libre Baskerville', serif;
+	font-weight:400;
+	}
 	.fullwidth h2{text-align:center; font-size:24px;    position: absolute;
-    top: 63px;
+    top: 14%;
+	font-family: 'Libre Baskerville', serif;
+	font-weight:600;
 }
 	.fullwidth .uploadgenome span{
 	       width: 100%;
+		   font-family: 'Libre Baskerville', serif;
+		   font-weight:700;
 		font-size: 3.9em;
 		padding: 17.8% 0;
 		line-height:0;
