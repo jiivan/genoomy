@@ -357,7 +357,7 @@ font-size:0;
     background-size: auto 100%;}
 	
 	.ratiokeeper{    padding-bottom: 23%;}
-	.landing .checkbox-list{    margin-bottom: -30px;}
+	.landing .checkbox-list{    margin-bottom: 20px;}
 	
 	.fullwidth h1{text-align:center; position: absolute;
     top: 5%;
@@ -374,7 +374,8 @@ font-size:0;
 		color: #fff;
 		display: block;
 		 border-radius: .25em;
-
+position:absolute;
+bottom:0;
 	}
 	.fullwidth .uploadgenome a:hover{
 	text-decoration:none;
