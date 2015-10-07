@@ -352,4 +352,7 @@ font-size:0;
 	.landing #genomeData_wrapper{    margin-top: -30px;}
 	.landing  #genomeData_filter{    margin-bottom: 30px;}
 	
-	.fullwidth{background: url('');}
+	.fullwidth{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
+    background-size: 50% 100%;}
+	
+	.ratiokeeper{    padding-bottom: 40%;}
