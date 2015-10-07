@@ -102,7 +102,7 @@
 <h2>Colour your genes and get short human 
 readable desription how they work.</h2>
 
-<p class="uploadgenome" >Upload genome</p>
+<p class="uploadgenome" ><a class="btn btn-danger btn-lg center-block" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a></p>
 </div></div> </div>{% endif %}
 <div class="container   {% if not request.user.is_authenticated %} landing{% endif %}">
 

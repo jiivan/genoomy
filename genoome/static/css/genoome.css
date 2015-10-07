@@ -360,7 +360,7 @@ font-size:0;
 	
 	.fullwidth h1{text-align:center;}
 	.fullwidth h2{text-align:center; font-size:24px;}
-	.fullwidth .uploadgenome{
+	.fullwidth .uploadgenome span{
 	    width: 100%;
 		font-size: 2.4em;
 		padding: 1em 0;
