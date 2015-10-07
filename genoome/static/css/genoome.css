@@ -369,3 +369,6 @@ font-size:0;
 		color: #fff;
 		display: block;
 	}
+	.fullwidth .uploadgenome a:hover{
+	text-decoration:none;
+	}
