@@ -364,9 +364,10 @@ font-size:0;
     width: 100%;
 	font-family: 'Libre Baskerville', serif;
 	font-weight:400;
+	font-size:41px;
 	}
 	.fullwidth h2{text-align:center; font-size:24px;    position: absolute;
-    top: 14%;
+    top: 16%;
 	font-family: 'Libre Baskerville', serif;
 	font-weight:600;
 }
