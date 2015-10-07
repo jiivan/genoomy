@@ -353,6 +353,7 @@ font-size:0;
 	.landing  #genomeData_filter{    margin-bottom: 30px;}
 	
 	.fullwidth{    background: url('../imgs/Layer-4.jpg') #fff no-repeat;
-    background-size: 50% 100%;}
+    background-size: 50%;}
 	
-	.ratiokeeper{    padding-bottom: 40%;}
+	.ratiokeeper{    padding-bottom: 29%;}
+	.landing .checkbox-list{    margin-bottom: -30px;}
