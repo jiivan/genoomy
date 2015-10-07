@@ -358,7 +358,7 @@ font-size:0;
 	
 	.ratiokeeper{    padding-bottom: 23%;}
 	.landing .checkbox-list{    margin-bottom: 20px;}
-	
+	/* Czcionka nagłówka */
 	.fullwidth h1{text-align:center; position: absolute;
     top: 0%;
     width: 100%;
@@ -366,11 +366,13 @@ font-size:0;
 	font-weight:400;
 	font-size:41px;
 	}
+	/* Czcionka nagłówka */
 	.fullwidth h2{text-align:center; font-size:24px;    position: absolute;
     top: 16%;
 	font-family: 'Libre Baskerville', serif;
 	font-weight:600;
 }
+	/* Czcionka nagłówka */
 	.fullwidth .uploadgenome span{
 	       width: 100%;
 		   font-family: 'Libre Baskerville', serif;
