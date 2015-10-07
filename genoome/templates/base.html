@@ -156,6 +156,15 @@ readable desription how they work.</h2>
 <!-- place project specific Javascript in this file -->
 <script>
 $(document).ready(function(){
+
+  
+  var h3 = $('.ratiokeeper').outerHeight();
+
+  var h4 = parseInt(h3 , 10) / parseInt(2, 10); 
+    console.log(h3+ '/' + h4);
+  $('.uploadgenome span').height(h4);
+  
+  
   var h1 = $(window).height();
     var h2 = $(document).height() -50;
 if( h1 > h2 ){
@@ -177,7 +186,7 @@ $('.footer').addClass('fixed');
   
   var h3 = $('.ratiokeeper').outerHeight();
 
-  var h4 = parseInt(h3 , 10)/ 2; 
+  var h4 = parseInt(h3 , 10) / parseInt(2, 10); 
     console.log(h3+ '/' + h4);
   $('.uploadgenome span').height(h4);
   
