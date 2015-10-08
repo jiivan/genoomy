@@ -208,6 +208,7 @@ LOCAL_APPS = (
     'disease',
     'payment_bitpay',
     'payments',
+    'taggit',
 
     'widget_tweaks',
     'coupons',
