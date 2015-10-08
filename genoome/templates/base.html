@@ -164,7 +164,8 @@ $(document).ready(function(){
 /* wysokość przycisku */
   var h4 = parseInt(h3 , 10) / parseInt(2, 10); 
     console.log(h3+ '/' + h4);
-  $('.uploadgenome span').outerHeight(h4);
+  $('.uploadgenome').outerHeight(h4);
+    $('.uploadgenome span').css('line-height',h4+'px');
   
   
   
@@ -193,7 +194,7 @@ $('.footer').addClass('fixed');
    h4 = parseInt(h3 , 10) / parseInt(2, 10); 
     console.log(h3+ '/' + h4);
   $('.uploadgenome').outerHeight(h4);
-   $('.uploadgenome span').css('line-height',h4);
+   $('.uploadgenome span').css('line-height',h4+'px');
   
   
 });
