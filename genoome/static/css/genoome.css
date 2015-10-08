@@ -377,7 +377,7 @@ font-size:0;
 	          width: 100%;
     font-family: 'Libre Baskerville', serif;
     font-weight: 700;
-    font-size: 3.9em;
+    
     /*padding-top: 6.8%;*/
     /* line-height: 0; */
     text-align: center;
@@ -395,6 +395,7 @@ font-size:0;
 	text-decoration:none;
 	}
 	.uploadgenome{      display: block;
+	font-size: 3.9em;
     position: absolute;
     bottom: 0;
     width: 100%;
