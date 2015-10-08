@@ -15,6 +15,7 @@ from django.shortcuts import render_to_response
 from accounts.forms import ActivateAccountForm
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
+from configurable_elements.models import get_legend_rows
 
 storage = FileSystemStorage()
 user_model = get_user_model()
@@ -95,3 +96,11 @@ class AccountActivateView(SuccessMessageMixin, FormView):
     def form_valid(self, form):
         form.activate_user()
         return super().form_valid(form)
+
+
+class LandingView(TemplateView):
+    template_name = 'landing.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['legend_rows'] = get_legend_rows()
+        return super().get_context_data(**kwargs)

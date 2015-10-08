@@ -24,6 +24,7 @@ from django.utils import timezone
 
 from paypal.standard.forms import PayPalPaymentsForm
 
+from configurable_elements.models import get_legend_rows
 from disease.files_utils import process_filename
 from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
@@ -215,6 +216,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        ctx['legend_rows'] = get_legend_rows()
         ctx['is_admin'] = is_admin = self.is_admin
 
         order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
