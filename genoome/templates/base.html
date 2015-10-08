@@ -1,4 +1,6 @@
 {% load static from staticfiles %}
+{% load flatpages %}
+{% get_flatpages '/navbar/' as nav_pages %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,9 @@
             <ul class="nav navbar-nav">
                 <li ><a href="{% url "faq" %}">FAQ</a></li>
                 <li><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></li>
+                {% for nav_page in nav_pages %}
+                   <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
+                {% endfor %}
             </ul>
             {% if not request.user.is_authenticated %}
                 <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
