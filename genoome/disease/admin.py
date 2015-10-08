@@ -23,7 +23,7 @@ class AlleleColorAdmin(admin.ModelAdmin):
 
 
 class SNPMarkerArticleAdmin(admin.ModelAdmin):
-    list_display = ('snp_marker', 'title')
+    list_display = ('snp_marker', 'title', 'gene_area')
     raw_id_fields = ("snp_marker",)
 
 

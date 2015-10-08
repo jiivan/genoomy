@@ -10,6 +10,7 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
+    {{ article.gene_area }}
     <h2>Your genotype: <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span></h2>
     <p>{{ your_allele.description|markdown }}</p>
     <br>

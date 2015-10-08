@@ -52,6 +52,7 @@ class AlleleColor(models.Model):
 class SNPMarkerArticle(models.Model):
     snp_marker = models.ForeignKey(SNPMarker, related_name='snp_article')
     title = models.CharField(max_length=128, help_text='Title for SNM description page')
+    gene_area = models.CharField(max_length=256, blank=True, null=True)
     header = MarkdownField(help_text='Introductory text appearing in header section of SNP description')
     footer = MarkdownField(help_text='Place for footer, bibliography etc.')
 
