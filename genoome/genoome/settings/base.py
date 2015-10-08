@@ -203,6 +203,7 @@ DJANGO_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'accounts',
+    'configurable_elements',
     'color_aliases',
     'disease',
     'payment_bitpay',

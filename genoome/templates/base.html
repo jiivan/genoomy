@@ -11,7 +11,7 @@
     <!-- Le styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/genoome.css" %}">
     <style>
         body {
@@ -97,14 +97,14 @@
     </div>
 </div>
 {% if not request.user.is_authenticated %}<div class="fullwidth">
-<div class="col-sm-6 ratiokeeper"></div>
-<div class="col-sm-6 smaller">
-<h1>Understand your genes!</h1>
-<h2>Colour your genes and get short human 
-readable desription how they work.</h2>
+    <div class="col-sm-6 ratiokeeper"></div>
+    <div class="col-sm-6 smaller">
+        <h1>Understand your genes!</h1>
+        <h2>Colour your genes and get short human
+            readable desription how they work.</h2>
 
-<a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
-</div></div> {% endif %}
+        <a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
+    </div></div> {% endif %}
 <div style="clear:both"></div>
 <div class="container   {% if not request.user.is_authenticated %} landing{% endif %}">
 
@@ -156,6 +156,7 @@ readable desription how they work.</h2>
 
 <!-- place project specific Javascript in this file -->
 <script>
+
 $(document).ready(function(){
 
   
@@ -198,9 +199,10 @@ $('.footer').addClass('fixed');
 });
 
 
+
 </script>
 {#    <script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>#}
 {% block extra_js %}{% endblock extra_js %}
- <div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
+<div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
 </body>
 </html>

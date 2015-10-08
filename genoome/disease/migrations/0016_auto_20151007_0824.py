@@ -7,7 +7,8 @@ color_map = [
     ('#0080ff', 'blue'),
     ('#00ff00', 'green'),
     ('#ff8000', 'orange'),
-    ('#ffff00', 'yellow')
+    ('#ffff00', 'yellow'),
+    ('#f54949', 'red')
 ]
 
 def forward_migrate_colors(apps, schema_editor):
