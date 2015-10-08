@@ -205,8 +205,10 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 }
 
 .checkbox-list{
-    float: right;
-    padding-right: 100px;
+        display: block;
+    margin-top: -7px;
+    margin-bottom: 20px;
+	float:right;
     position:relative;
     cursor:pointer;
 }
@@ -217,7 +219,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
     position:absolute;
     background: #F4F4F4;
     z-index: 10;
-    right: 30px;
+    /*right: 30px;*/
     /* text-align: center; */
     padding: 10px;
 }
@@ -338,3 +340,63 @@ select{
     max-width: 100%;
     max-height: auto;
 }
+.filter_number_range.form-control{
+font-size:0;
+}
+.filter_number_range.form-control input{
+    float: left;
+    width: 48%;
+    margin: 1px;
+	}
+	
+	.landing #genomeData_length{display:none; }
+	.landing #genomeData_wrapper{    margin-top: -30px;}
+	.landing  #genomeData_filter{    margin-bottom: 30px;}
+	
+	.ratiokeeper{        background: url('../imgs/Layer-4.jpg') #fff no-repeat right top;
+    background-size: auto 100%;}
+	
+	.ratiokeeper{    padding-bottom: 23%;}
+	.landing .checkbox-list{    margin-bottom: 20px;}
+	/* Czcionka nagłówka */
+	.fullwidth h1{text-align:center; position: absolute;
+    top: 0%;
+    width: 100%;
+	font-family: 'Libre Baskerville', serif;
+	font-weight:400;
+	font-size:41px;
+	}
+	/* Czcionka nagłówka */
+	.fullwidth h2{text-align:center; font-size:24px;    position: absolute;
+    top: 16%;
+	font-family: 'Libre Baskerville', serif;
+	font-weight:600;
+}
+	/* Czcionka nagłówka */
+	.fullwidth .uploadgenome span{
+	       width: 100%;
+		   font-family: 'Libre Baskerville', serif;
+		   font-weight:700;
+		font-size: 3.9em;
+		padding: 17.8% 0;
+		line-height:0;
+		text-align: center;
+		background: #d54747;
+		color: #fff;
+		display: block;
+		 border-radius: .25em;
+position:absolute;
+bottom:0;
+	}
+	.fullwidth  a.uploadgenome:hover{
+	text-decoration:none;
+	}
+	.uploadgenome{    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* padding-bottom: 25%; */}
+	.col-sm-6.smaller{max-width: 555px; padding-bottom: 23%;}
+	.glyphicon-cog{ font-size: 4.5em;
+    line-height: 1em;
+	top:8px;}
