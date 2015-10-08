@@ -172,6 +172,7 @@ span.form-control input {
     padding: 15px 15px;
     font-size: 18px;
     line-height: 20px;
+    color: #808080;
 }
 
 h1{
@@ -407,3 +408,8 @@ font-size:0;
 	.glyphicon-cog{ font-size: 4.5em;
     line-height: 1em;
 	top:8px;}
+
+.choose-payment-sub {
+    color: #808080;
+
+}
