@@ -14,12 +14,26 @@
 
 {% block page_title %}<span style="float:left;display:block;">Color Your Genome <span style="font-size:75%; color:#B7B7B7;">sample:</span></span>{% endblock page_title %}
 
+{% block banner %}
+    {% if not request.user.is_authenticated %}<div class="fullwidth">
+        <div class="col-sm-6 ratiokeeper"></div>
+        <div class="col-sm-6 smaller">
+            <h1>Understand your genes!</h1>
+            <h2>Colour your genes and get short human
+                readable desription how they work.</h2>
+
+            <a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
+        </div></div>
+    {% endif %}
+    <div style="clear:both"></div>
+{% endblock banner %}
+
 {% block content %}
     {% if request.user.is_authenticated %}
     {% elif not request.user.is_authenticated %}
-      <!--  <a class="btn btn-default btn-lg leavemail" data-toggle="modal" href="{% url "accounts:create_with_email" %}" data-target="#modal-email">Leave your email</a>-->
-       
-      <!--  <div class="navbar navbar-fixed-bottom">
+        <!--  <a class="btn btn-default btn-lg leavemail" data-toggle="modal" href="{% url "accounts:create_with_email" %}" data-target="#modal-email">Leave your email</a>-->
+
+        <!--  <div class="navbar navbar-fixed-bottom">
             <div class="container">
                 <div class="row">
                     <a class="btn btn-danger btn-lg center-block" href="{% url "disease:upload_genome" %}">Upload your genome</a>
@@ -30,19 +44,19 @@
     {% endif %}
 
     {% include 'includes/color_legend.html' %}
-	<div class="checkbox-list"><div class="checkbox-lister"><span class="glyphicon glyphicon-cog " style="
+    <div class="checkbox-list"><div class="checkbox-lister"><span class="glyphicon glyphicon-cog " style="
    
 "></span></div>
-	<ul class="checkbox-listinn">
-	  <li><label class="rounded-all">Rsid<input class="checkbox-row" id="ch3" name="3" type="checkbox" value="ci1"></label></li>
-	<li><label class="rounded-all">Chromosome pos.<input class="checkbox-row" id="ch1" name="1" type="checkbox" value="ci2"></label></li>
-    <li><label class="rounded-all">Risk Allele<input class="checkbox-row" id="ch2" name="2" type="checkbox" value="ci3"></label></li>
-  
-    <li><label class="rounded-all">P walue <input class="checkbox-row" id="ch4" name="4" type="checkbox" value="ci6"></label> </li> 
-	 <li><label class="rounded-all">OR<input class="checkbox-row" id="ch5" name="5" type="checkbox" value="ci7"></label> </li> 
-	 <li><label class="rounded-all">Risk<input class="checkbox-row" id="ch6" name="6" type="checkbox" value="ci8"></label> </li> 
-	 <li id="savebutton">Save</li>
-</ul></div>
+        <ul class="checkbox-listinn">
+            <li><label class="rounded-all">Rsid<input class="checkbox-row" id="ch3" name="3" type="checkbox" value="ci1"></label></li>
+            <li><label class="rounded-all">Chromosome pos.<input class="checkbox-row" id="ch1" name="1" type="checkbox" value="ci2"></label></li>
+            <li><label class="rounded-all">Risk Allele<input class="checkbox-row" id="ch2" name="2" type="checkbox" value="ci3"></label></li>
+
+            <li><label class="rounded-all">P walue <input class="checkbox-row" id="ch4" name="4" type="checkbox" value="ci6"></label> </li>
+            <li><label class="rounded-all">OR<input class="checkbox-row" id="ch5" name="5" type="checkbox" value="ci7"></label> </li>
+            <li><label class="rounded-all">Risk<input class="checkbox-row" id="ch6" name="6" type="checkbox" value="ci8"></label> </li>
+            <li id="savebutton">Save</li>
+        </ul></div>
     <table id="genomeData" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -56,7 +70,7 @@
             <th>RISK</th>
             <th>PRIORITY</th>
         </tr>
-			
+
 
         <tr>
             <th>RSID</th>
@@ -416,10 +430,10 @@
 
 {% block modals %}
     <div class="modal fade" id="modal-upload-genome">
-    <div class="modal-dialog">
-      <div id="modal_content" class="modal-content">
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div>
+        <div class="modal-dialog">
+            <div id="modal_content" class="modal-content">
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 {% endblock modals %}
 

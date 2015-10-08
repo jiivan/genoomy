@@ -96,16 +96,10 @@
 
     </div>
 </div>
-{% if not request.user.is_authenticated %}<div class="fullwidth">
-    <div class="col-sm-6 ratiokeeper"></div>
-    <div class="col-sm-6 smaller">
-        <h1>Understand your genes!</h1>
-        <h2>Colour your genes and get short human
-            readable desription how they work.</h2>
 
-        <a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
-    </div></div> {% endif %}
-<div style="clear:both"></div>
+{% block banner %}
+{% endblock banner %}
+
 <div class="container   {% if not request.user.is_authenticated %} landing{% endif %}">
 
     <h1>{% block page_title %}Genoomy{% endblock page_title %}</h1>
