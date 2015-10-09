@@ -48,8 +48,9 @@ $.fn.dataTableExt.afnFiltering.push(
 $(document).ready(function() {
 
     var genomeData = $('#genomeData');
-    genomeData.on( 'init.dt', function () {
-        genomeData.fadeIn(850);
+    genomeData.on( 'draw.dt', function () {
+        genomeData.css('visibility', 'visible');
+        $('.sk-circle').css('display', 'none');
     } );
     var genomeTable = genomeData.dataTable({
         "pageLength": 50,
