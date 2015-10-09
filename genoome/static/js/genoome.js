@@ -20,6 +20,31 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
     return ((x < y) ?  1 : ((x > y) ? -1 : 0));
 };
 
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex) {
+        var selected_tags = $('.filter_labels span.label-warning').map(function(k, v) {
+            return $(this).text();
+        }).get(),
+            row_tags = aData[9].split(';');
+
+        if (!selected_tags.length) { // nothing to filter out
+            return true;
+        } else {
+            if (!row_tags.length || (row_tags.length === 1 && row_tags[0] === "")) {
+                return false;
+            }
+            for (var i = 0; i < selected_tags.length; i++) {
+                for (var j = 0; j < row_tags.length; j++) {
+                    if (selected_tags[i] === row_tags[j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+);
+
 $(document).ready(function() {
 
     var genomeData = $('#genomeData');
@@ -30,13 +55,13 @@ $(document).ready(function() {
         "pageLength": 50,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
-            { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
+            { "bSearchable": true, "bVisible": false, "aTargets": [ 8, 9 ] }
         ],
         "order": [[ 8, "desc" ]],
         "processing": true,
         "columnDefs": [
             {
-                "targets": [ 8 ],
+                "targets": [ 8, 9 ],
                 "visible": false,
                 "searchable": false
             }
@@ -176,5 +201,11 @@ $(document).ready(function() {
 
     $(document).on('reload-page', function(e) {
         location.reload();
-    })
+    });
+
+    $('.filter_labels span').on('click', function(e) {
+        var label = $(e.delegateTarget);
+        label.toggleClass('label-warning label-primary');
+        genomeData.DataTable().draw();
+    });
 });

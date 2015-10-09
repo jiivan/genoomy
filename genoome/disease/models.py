@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse, resolve, Resolver404
 from django_markdown.models import MarkdownField
 
 from color_aliases.models import ColorAlias
+from taggit.managers import TaggableManager
 
 class SNPMarker(models.Model):
     rsid = models.BigIntegerField()
@@ -39,14 +40,14 @@ class SNPMarker(models.Model):
 
 class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
-    color = RGBColorField()
     color_alias = models.ForeignKey(ColorAlias, default=1)
     allele = models.CharField(max_length=128)
     description = MarkdownField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')
+    tags = TaggableManager()
 
     def __str__(self):
-        return self.color
+        return self.color_alias.alias
 
 
 class SNPMarkerArticle(models.Model):

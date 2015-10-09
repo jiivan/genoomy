@@ -1,3 +1,9 @@
+<div class="container filter_labels">
+    {% for tag in allele_tags %}
+        <span class="label label-primary"><b>{{ tag.slug }}</b></span>
+    {% endfor %}
+</div>
+
 <div class="checkbox-list"><div class="checkbox-lister"><span class="glyphicon glyphicon-cog " style="
     font-size: 2em;
     line-height: 1em;
@@ -26,6 +32,7 @@
         <th>OR</th>
         <th>RISK</th>
         <th>PRIORITY</th>
+        <th>TAGS</th>
     </tr>
     <tr>
 	
@@ -38,6 +45,7 @@
         <th>OR</th>
         <th>RISK</th>
         <th>PRIORITY</th>
+        <th>TAGS</th>
     </tr>
     </thead>
 
@@ -53,6 +61,7 @@
         <th>OR</th>
         <th>RISK</th>
         <th>PRIORITY</th>
+        <th>TAGS</th>
     </tr>
     </tfoot>
     <tbody>
@@ -67,6 +76,7 @@
             <td>{{ row.or_or_beta }}</td>
             <td>{{ row.risk }}</td>
             <td>{{ row.priority|default:0 }}</td>
+            <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
         </tr>
     {% endfor %}
 

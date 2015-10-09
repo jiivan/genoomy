@@ -34,6 +34,7 @@ from .models import AlleleColor
 from .models import SNPMarker
 from .models import SNPMarkerArticle
 from .tasks import recompute_genome_file
+from taggit.models import Tag
 
 log = logging.getLogger(__name__)
 
@@ -217,6 +218,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['legend_rows'] = get_legend_rows()
+        ctx['allele_tags'] = Tag.objects.all()
         ctx['is_admin'] = is_admin = self.is_admin
 
         order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
