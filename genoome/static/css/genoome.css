@@ -219,7 +219,7 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
     border-radius:3px;
     position:absolute;
     background: #F4F4F4;
-    z-index: 10;
+    z-index: 1050;
     /*right: 30px;*/
     /* text-align: center; */
     padding: 10px;

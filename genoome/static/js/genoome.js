@@ -190,14 +190,21 @@ $(document).ready(function() {
 
     $(".checkbox-lister").click(function(){
         $(".checkbox-listinn").addClass('active');
+        $(document.createElement('div'))
+            .addClass('modal-backdrop in')
+            .appendTo($(document.body));
+        $('.modal-backdrop').click(function(e) {
+            $(".checkbox-listinn").removeClass('active');
+            $(e.target).remove();
+        });
 
 
     });
     $("#savebutton").click(function(){
         $(".checkbox-listinn").removeClass('active');
-
-
+        $('.modal-backdrop').remove();
     });
+
 
     $(document).on('reload-page', function(e) {
         location.reload();
