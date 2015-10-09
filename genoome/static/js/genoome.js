@@ -94,12 +94,12 @@ $(document).ready(function() {
     var interval;
 
     function updateBar(values) {
-        console.log(values);
+        //console.log(values);
         var l = values.received;
         var tot = values.size;
 
         var perc = (l / tot) * (100.00);
-        console.log(perc);
+        //console.log(perc);
         progressbar.css('width', perc + '%');
         progressbar.text(perc + '%');
         if (values.status === 'done') {
@@ -108,7 +108,7 @@ $(document).ready(function() {
     }
 
     $("form#upload_form").submit(function(e){
-        console.log('Form submitted');
+        //console.log('Form submitted');
         var getProgress = function() {
             $.ajax({
                 url: "/progress",
@@ -177,16 +177,8 @@ $(document).ready(function() {
     $('.form-control input:last-child').attr("placeholder","to");
 
     $(".checkbox-row").change(function() {
-        $("#genomeData").toggleClass($(this).val());
+        genomeData.toggleClass($(this).val());
     });
-    $("#genomeData").toggleClass('ci2');
-    $("#genomeData").toggleClass('ci3');
-    $("#genomeData").toggleClass('ci1');
-    $('#ch4').attr('checked', true);
-    $('#ch5').attr('checked', true);
-    $('#ch6').attr('checked', true);
-    $('#ch7').attr('checked', true);
-    $('#ch8').attr('checked', true);
 
     $(".checkbox-lister").click(function(){
         $(".checkbox-listinn").addClass('active');
@@ -205,6 +197,20 @@ $(document).ready(function() {
         $('.modal-backdrop').remove();
     });
 
+    $('#defaultbutton').click(function() {
+        genomeData.addClass('ci1 ci2 ci3');
+        genomeData.removeClass('ci4 ci5 ci6 ci7 ci8');
+        $('#ch1').attr('checked', false);
+        $('#ch2').attr('checked', false);
+        $('#ch3').attr('checked', false);
+        $('#ch4').attr('checked', true);
+        $('#ch5').attr('checked', true);
+        $('#ch6').attr('checked', true);
+        $('#ch7').attr('checked', true);
+        $('#ch8').attr('checked', true);
+    });
+
+    $('#defaultbutton').trigger('click');
 
     $(document).on('reload-page', function(e) {
         location.reload();
