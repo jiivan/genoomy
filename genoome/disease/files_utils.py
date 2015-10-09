@@ -4,9 +4,11 @@ import csv
 import logging
 import io
 import os
+import pickle
 import zipfile
 
 from django.utils.encoding import force_text
+from django.core.files.storage import FileSystemStorage
 
 from disease.models import SNPMarker
 
@@ -136,6 +138,13 @@ def get_genome_dirpath(user):
 
 def get_genome_filepath(user, filename):
     return os.path.join(get_genome_dirpath(user), filename)
+
+
+def get_genome_data(filepath):
+    storage = FileSystemStorage()
+    with storage.open(filepath) as f:
+        data = pickle.load(f)
+    return data
 
 
 def handle_zipped_genome_file(genome_file):
