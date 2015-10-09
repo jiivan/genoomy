@@ -1,4 +1,6 @@
 {% load static from staticfiles %}
+{% load flatpages %}
+{% get_flatpages '/navbar/' as nav_pages %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,9 @@
             <ul class="nav navbar-nav">
                 <li ><a href="{% url "faq" %}">FAQ</a></li>
                 <li><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></li>
+                {% for nav_page in nav_pages %}
+                   <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
+                {% endfor %}
             </ul>
             {% if not request.user.is_authenticated %}
                 <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
@@ -96,16 +101,10 @@
 
     </div>
 </div>
-{% if not request.user.is_authenticated %}<div class="fullwidth">
-    <div class="col-sm-6 ratiokeeper"></div>
-    <div class="col-sm-6 smaller">
-        <h1>Understand your genes!</h1>
-        <h2>Colour your genes and get short human
-            readable desription how they work.</h2>
 
-        <a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
-    </div></div> {% endif %}
-<div style="clear:both"></div>
+{% block banner %}
+{% endblock banner %}
+
 <div class="container   {% if not request.user.is_authenticated %} landing{% endif %}">
 
     <h1>{% block page_title %}Genoomy{% endblock page_title %}</h1>
@@ -156,46 +155,49 @@
 
 <!-- place project specific Javascript in this file -->
 <script>
-    $(document).ready(function(){
 
+$(document).ready(function(){
 
-        var h3 = $('.ratiokeeper').outerHeight();
-        /* wysokość przycisku */
-        var h4 = parseInt(h3 , 10) / parseInt(2, 10);
-        {#        console.log(h3+ '/' + h4); commented by kamiln #}
-        $('.uploadgenome span').outerHeight(h4);
+  
+  var h3 = $('.ratiokeeper').outerHeight();
+/* wysokość przycisku */
+  var h4 = parseInt(h3 , 10) / parseInt(2, 10); 
+    console.log(h3+ '/' + h4);
+  $('.uploadgenome').outerHeight(h4);
+    $('.uploadgenome span').css('line-height',h4+'px');
+  
+  
+  
+  var h1 = $(window).height();
+    var h2 = $(document).height() -50;
+if( h1 > h2 ){
+$('.footer').addClass('fixed');
+}else{
+    $('.footer').removeClass('fixed');
+  
+}
+})
+$( window ).resize(function() {
+  var h1 = $(window).height();
+    var h2 = $(document).height() -50;
+if( h1 > h2 ){
+$('.footer').addClass('fixed');
+}else{
+    $('.footer').removeClass('fixed');
+  
+}
+  
+  var h3 = $('.ratiokeeper').outerHeight();
+	var h4;
+	/* wysokość przycisku */
+   h4 = parseInt(h3 , 10) / parseInt(2, 10); 
+    console.log(h3+ '/' + h4);
+  $('.uploadgenome').outerHeight(h4);
+   $('.uploadgenome span').css('line-height',h4+'px');
+  
+  
+});
 
-
-
-        var h1 = $(window).height();
-        var h2 = $(document).height() -50;
-        if( h1 > h2 ){
-            $('.footer').addClass('fixed');
-        }else{
-            $('.footer').removeClass('fixed');
-
-        }
-    })
-    $( window ).resize(function() {
-        var h1 = $(window).height();
-        var h2 = $(document).height() -50;
-        if( h1 > h2 ){
-            $('.footer').addClass('fixed');
-        }else{
-            $('.footer').removeClass('fixed');
-
-        }
-
-        var h3 = $('.ratiokeeper').outerHeight();
-        var h4;
-        /* wysokość przycisku */
-        h4 = parseInt(h3 , 10) / parseInt(2, 10);
-        {#        console.log(h3+ '/' + h4); commented by kamiln #}
-        $('.uploadgenome span').outerHeight(h4);
-
-
-
-    });
 
 
 </script>

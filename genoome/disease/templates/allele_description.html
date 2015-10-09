@@ -10,6 +10,7 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
+    {{ article.gene_area|default_if_none:"" }}
     <h2>Your genotype: <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span></h2>
     <p>{{ your_allele.description|markdown }}</p>
     <br>
@@ -24,13 +25,12 @@
                     Description:
                 </div>
                 <div class="panel-body">
-                    <p>
-                    </p>
                     {{ article.header|markdown }}
 
                 </div>
             </div>
             <hr>
+            <h4>What others see<h4>
             {% for allele in colors %}
                 <div class="panel panel-default">
                     <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
