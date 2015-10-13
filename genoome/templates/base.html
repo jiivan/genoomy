@@ -15,11 +15,11 @@
     <link href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/genoome.css" %}">
-    <style>
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-    </style>
+{#    <style>#}
+{#        body {#}
+{#            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */#}
+{#        }#}
+{#    </style>#}
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -50,6 +50,9 @@
         </script>
     {% endif %}
 {% endblock tracking_code %}
+
+<div class="wrapper-push">
+
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -82,7 +85,11 @@
                     <a class="btn btn-register" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
+                {% if request.user.is_staff %}
+                    <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "admin:index" %}">Admin</a>
+                {% endif %}
                 <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "accounts:logout" %}">Logout</a>
+
             {% endif %}
         </div><!--/.nav-collapse -->
     </div>
@@ -117,6 +124,13 @@
         {% endif %}
     {% endblock messages %}
 
+
+    <div class="blog-btn">
+        <div class="blog-btn-bg">
+        <span class="glyphicon glyphicon-envelope"></span>
+            </div>
+    </div>
+
     {% block content %}
     {% endblock content %}
 
@@ -141,6 +155,13 @@
 
 
 </div> <!-- /container -->
+
+<div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
+</div>
+
+<div class="banner-push">
+    <h2>Checkout our blog!</h2>
+</div>
 
 <!-- Le javascript
 ================================================== -->
@@ -203,6 +224,5 @@ $('.footer').addClass('fixed');
 </script>
 {#    <script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>#}
 {% block extra_js %}{% endblock extra_js %}
-<div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
 </body>
 </html>

@@ -217,6 +217,14 @@ $(document).ready(function() {
         location.reload();
     });
 
+    $('.blog-btn').click(function(e) {
+        e.preventDefault();
+        $('.blog-btn span.glyphicon').toggleClass('glyphicon-envelope glyphicon-remove');
+        $('.wrapper-push').toggleClass('wrapper-pushed-right');
+        $('.banner-push').toggleClass('banner-pushed-right');
+
+    });
+
     $('.filter_labels span').on('click', function(e) {
         var label = $(e.delegateTarget);
         label.toggleClass('label-warning label-primary');
