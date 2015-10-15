@@ -45,41 +45,41 @@
 
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+<div>
+    <div>
+        <div>
+            <button type="button" >
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
+            <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div>
             <div>
                 <div ><a href="{% url "faq" %}">FAQ</a></div>
-                <div><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></>
+                <div><a href="mailto:info@genoomy.com"><span></span> info@genoomy.com</a></>
                 {% for nav_page in nav_pages %}
                    <div ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></div>
                 {% endfor %}
             </div>
             {% if not request.user.is_authenticated %}
-                <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
+                <form  method="post" action="{% url "accounts:signin" %}">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                    <div>
+                        <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
+                    <div>
+                        <input id="id_password" name="password" placeholder="Password" type="password">
                     </div>
-                    <button type="submit" class="btn btn-success">Login</button>
-                    <a class="btn btn-register" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
+                    <button type="submit" >Login</button>
+                    <a data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
                 {% if request.user.is_staff %}
-                    <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "admin:index" %}">Admin</a>
+                    <a type="button"  href="{% url "admin:index" %}">Admin</a>
                 {% endif %}
-                <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "accounts:logout" %}">Logout</a>
+                <a type="button" href="{% url "accounts:logout" %}">Logout</a>
 
             {% endif %}
         </div><!--/.nav-collapse -->
@@ -90,14 +90,14 @@
 {% block banner %}
 {% endblock banner %}
 
-<div class="container   {% if not request.user.is_authenticated %} landing{% endif %}">
+<div  {% if not request.user.is_authenticated %} landing{% endif %}>
 
     <h1>{% block page_title %}Genoomy{% endblock page_title %}</h1>
 
     {% block messages %}
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.level_tag|lower }}" role="alert">{{ message }}</div>
+                <div role="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
     {% endblock messages %}
@@ -106,17 +106,17 @@
     {% endblock content %}
 
 
-    <div class="modal fade" id="modal-email">
-        <div class="modal-dialog">
-            <div id="modal_content" class="modal-content">
+    <div>
+        <div>
+            <div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 
-    <div class="modal fade" id="modal-signup">
-        <div class="modal-dialog">
-            <div id="modal_content" class="modal-content">
+    <div>
+        <div>
+            <div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -127,7 +127,7 @@
 
 </div> <!-- /container -->
 
-<div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
+<div><div> <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span></span> info@genoomy.com</a></div></div>
 
 <!-- Le javascript
 ================================================== -->
