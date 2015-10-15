@@ -51,7 +51,6 @@
     {% endif %}
 {% endblock tracking_code %}
 
-<div class="wrapper-push">
 
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -137,11 +136,6 @@
 </div> <!-- /container -->
 
 <div class="footer"><div class="container"> <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></div></div>
-</div>
-
-<div class="banner-push">
-    <h2>Checkout our blog!</h2>
-</div>
 
 <!-- Le javascript
 ================================================== -->
