@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 
 from colorful.fields import RGBColorField
@@ -6,11 +5,14 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from django.db import models
 from django.utils import timezone, http
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, resolve, Resolver404
 from django_markdown.models import MarkdownField
 
 from color_aliases.models import ColorAlias
 from taggit.managers import TaggableManager
+from taggit.models import GenericTaggedItemBase
+from taggit.models import TagBase
 
 class SNPMarker(models.Model):
     rsid = models.BigIntegerField()
@@ -20,6 +22,9 @@ class SNPMarker(models.Model):
     comment = models.TextField()
     p_value = models.FloatField(blank=True, null=True)
     or_or_beta = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Trai'
 
     def __str__(self):
         return '{} - {} - {}'.format(self.rsid, self.risk_allele, self.disease_trait)
@@ -38,13 +43,33 @@ class SNPMarker(models.Model):
         return url
 
 
+class CustomizedTag(TagBase):
+    color_off = RGBColorField()
+    color_on = RGBColorField()
+    show_on_data = models.BooleanField(default=True)
+    show_on_landing = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='tags/')
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
+
+class TaggedWhatever(GenericTaggedItemBase):
+    tag = models.ForeignKey(CustomizedTag,
+                            related_name="%(app_label)s_%(class)s_items")
+
+
 class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
     color_alias = models.ForeignKey(ColorAlias, default=1)
     allele = models.CharField(max_length=128)
     description = MarkdownField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')
-    tags = TaggableManager()
+    tags = TaggableManager(through=TaggedWhatever)
+
+    class Meta:
+        verbose_name = 'Variant'
 
     def __str__(self):
         return self.color_alias.alias

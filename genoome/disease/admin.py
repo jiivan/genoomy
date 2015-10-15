@@ -2,10 +2,11 @@ from django.contrib import admin
 from django import forms
 from django_markdown.widgets import AdminMarkdownWidget
 
-from .models import AlleleColor, SNPMarker, AnalyzeDataOrder, SNPMarkerArticle
+from .models import AlleleColor, SNPMarker, AnalyzeDataOrder, SNPMarkerArticle, CustomizedTag
+
 
 class SNPMarkerAdmin(admin.ModelAdmin):
-    list_display = ('rsid', 'risk_allele', 'link', 'p_value', 'or_or_beta', 'disease_trait')
+    list_display = ('pk', 'rsid', 'risk_allele', 'link', 'p_value', 'or_or_beta', 'disease_trait')
     search_fields = ('rsid', 'risk_allele', 'p_value', 'or_or_beta', 'disease_trait')
     ordering = ('rsid',)
 
@@ -32,6 +33,7 @@ class AnalyzeDataOrderAdmin(admin.ModelAdmin):
     search_fields = ('user', 'uploaded_filename')
 
 
+admin.site.register(CustomizedTag)
 admin.site.register(SNPMarker, SNPMarkerAdmin)
 admin.site.register(SNPMarkerArticle, SNPMarkerArticleAdmin)
 admin.site.register(AlleleColor, AlleleColorAdmin)
