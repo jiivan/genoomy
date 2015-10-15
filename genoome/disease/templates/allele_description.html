@@ -10,8 +10,10 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span> @ Rsid {{ marker.rsid }}{% if article.gene_area %} @ {{ article.gene_area|default_if_none:"" }}{% endif %}</h2>
-    <p>{{ your_allele.description|markdown }}</p>
+    <div class="panel-body">
+        <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 26px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in{{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
+        <p>{{ your_allele.description|markdown }}</p>
+    </div>
     <br>
     <br>
     <div class="panel panel-default">
