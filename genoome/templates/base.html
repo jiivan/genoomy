@@ -56,13 +56,13 @@
             <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
         </div>
         <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ><a href="{% url "faq" %}">FAQ</a></li>
-                <li><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></li>
+            <div>
+                <div ><a href="{% url "faq" %}">FAQ</a></div>
+                <div><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></>
                 {% for nav_page in nav_pages %}
-                   <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
+                   <div ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></div>
                 {% endfor %}
-            </ul>
+            </div>
             {% if not request.user.is_authenticated %}
                 <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
                     {% csrf_token %}
