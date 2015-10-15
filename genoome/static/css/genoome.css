@@ -236,7 +236,12 @@ table#genomeData.ci8 th:nth-child(8), table#genomeData.ci8 td:nth-child(8) {
 .checkbox-listinn input{
     float:right;
 }
-.container{}
+
+.lister-cog {
+    font-size: 2em;
+    line-height: 1em;
+	top:8px;
+}
 
 select{
     display: block;
