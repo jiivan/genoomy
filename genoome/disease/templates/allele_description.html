@@ -10,9 +10,13 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <div class="panel-body">
-        <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 26px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in{{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
-        <p>{{ your_allele.description|markdown }}</p>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color: {{ your_allele.color_alias.color }}">
+            <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
+        </div>
+        <div class="panel-body">
+            <p>{{ your_allele.description|markdown }}</p>
+        </div>
     </div>
     <br>
     <br>
@@ -32,17 +36,17 @@
             </div>
             <hr>
             <h4>What others see<h4>
-            {% for allele in colors %}
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
-                        {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                        <b>{{ allele.allele }}</b>
+                {% for allele in colors %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
+                            {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
+                            <b>{{ allele.allele }}</b>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ allele.description|markdown }}</p>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <p>{{ allele.description|markdown }}</p>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
         </div>
     </div>
     {{ article.footer|markdown }}
