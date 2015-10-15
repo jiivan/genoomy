@@ -4,20 +4,6 @@
 {% block title %}Browse your genome{% endblock title %}
 {% block page_title %}Browse your genome{% endblock page_title %}
 
-{% if analyzed %}
-    {% block extra_css %}
-        <style>
-            #genomeData tbody tr {
-                cursor: pointer;
-                cursor: hand;
-            }
-            #genomeData thead tr th span {
-                height: auto;
-            }
-        </style>
-    {% endblock extra_css %}
-{% endif %}
-
 {% block content %}
     {% if view.is_browsing_via_admin %}
         <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
