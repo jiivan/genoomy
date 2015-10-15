@@ -68,7 +68,7 @@
                         <input id="id_password" name="password" placeholder="Password" type="password">
                     </div>
                     <button type="submit" >Login</button>
-                    <a data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
+                    <a href="{% url "accounts:signup" %}">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
                 {% if request.user.is_staff %}
@@ -100,33 +100,16 @@
     {% block content %}
     {% endblock content %}
 
-
-    <div>
-        <div>
-            <div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-
-    <div>
-        <div>
-            <div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    {% block modals %}
-    {% endblock modals %}
-
-
 </div> <!-- /container -->
 
-<div><div> <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a> <a href="{% url "faq" %}">FAQ</a><a href="mailto:info@genoomy.com"><span></span> info@genoomy.com</a></div></div>
+<div>
+    <div>
+        <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
+        <a href="{% url "faq" %}">FAQ</a>
+        <a href="mailto:info@genoomy.com">info@genoomy.com</a>
+    </div>
+</div>
 
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 {% block extra_js %}{% endblock extra_js %}
 </body>
 </html>
