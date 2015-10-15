@@ -48,11 +48,6 @@
 <div>
     <div>
         <div>
-            <button type="button" >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
         </div>
         <div>
