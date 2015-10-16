@@ -152,14 +152,15 @@ a {
     height: 10rem;
     width: 35rem;
     background-color: #d3484a;
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 3.5rem;
     border-color: #d3484a;
 }
 .key-action-button-text {
     position: absolute;
-    top: 3rem;
+    top: 3.5rem;
     left: 3rem;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
 }
 .key-action-button-text a {
     text-align: center;
