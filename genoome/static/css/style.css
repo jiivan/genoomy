@@ -79,6 +79,9 @@ a {
 .input-yellow-interior {
     background-color: #fafec0;
 }
+.input-nav {
+    padding: 0.6rem;
+}
 
 .navbar-left {
     display: inline;
@@ -98,10 +101,11 @@ a {
     display: inline;
     position: absolute;
     right: 0;
-    top: 1rem;
+    top: 1.5rem;
 }
 .form-workaround {
     display: inline;
+    margin-right: 0;
 }
 .key-visual-frame {
     position: absolute;
@@ -164,4 +168,10 @@ a {
 }
 .key-action-button-text a {
     text-align: center;
+}
+.navbar-form {
+    display: inline;
+    position: absolute;
+    right: 10rem;
+    top: 1rem;
 }
