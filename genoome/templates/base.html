@@ -81,9 +81,11 @@
                 <button type="submit" >
                     Login
                 </button>
-                <a href="{% url "accounts:signup" %}">
-                    Register
-                </a>
+                <div class="navbar-element navbar-element-right button button-green-frame button-white-link">
+                    <a href="{% url "accounts:signup" %}">
+                        Register
+                    </a>
+                </div>
             </form>
         </div>
         {% elif request.user.is_authenticated %}
