@@ -62,14 +62,18 @@
                     info@genoomy.com
                 </a>
             </div>
+            
+            {% for nav_page in nav_pages %}
+            <div class="navbar-element navbar-element-left">
+                <a href="{{ nav_page.url }}">
+                    {{ nav_page.title }}
+                </a>
+            </div>
+            {% endfor %}
+
         </div>
     </div>
 </div>
-                {% for nav_page in nav_pages %}
-                    <a href="{{ nav_page.url }}">
-                        {{ nav_page.title }}
-                    </a>
-                {% endfor %}
             {% if not request.user.is_authenticated %}
             <form  method="post" action="{% url "accounts:signin" %}">
                 {% csrf_token %}
