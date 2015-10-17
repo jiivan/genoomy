@@ -87,14 +87,18 @@
             </form>
         </div>
         {% elif request.user.is_authenticated %}
-        {% if request.user.is_staff %}
-        <a type="button"  href="{% url "admin:index" %}">
-            Admin
-        </a>
-        {% endif %}
-        <a type="button" href="{% url "accounts:logout" %}">
-            Logout
-        </a>
+        <div class="navbar-right">
+            <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
+            {% if request.user.is_staff %}
+                <a type="button"  href="{% url "admin:index" %}">
+                    Admin
+                </a>
+            {% endif %}
+            <div class="navbar-element navbar-element-right button button-green-frame button-white-link">
+                <a type="button" href="{% url "accounts:logout" %}">
+                    Logout
+                </a>
+            </div>
         {% endif %}
 
     </div>
