@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
+    <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     {% block extra_css %}{% endblock extra_css %}
 </head>
@@ -36,14 +37,29 @@
 <div>
     <div>
         <div>
-            <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
+            <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
+                Genoomy
+            </a>
         </div>
         <div>
             <div>
-                <div ><a href="{% url "faq" %}">FAQ</a></div>
-                <div><a href="mailto:info@genoomy.com"><span></span> info@genoomy.com</a></>
+                <div >
+                    <a href="{% url "faq" %}">
+                        FAQ
+                    </a>
+                </div>
+                <div>
+                    <a href="mailto:info@genoomy.com">
+                        <span>
+                        </span>
+                        info@genoomy.com
+                    </a>
+                </div>
                 {% for nav_page in nav_pages %}
-                   <div ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></div>
+                <div >
+                    <a href="{{ nav_page.url }}">{{ nav_page.title }}
+                    </a>
+                </div>
                 {% endfor %}
             </div>
             {% if not request.user.is_authenticated %}
