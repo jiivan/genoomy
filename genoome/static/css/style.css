@@ -169,9 +169,3 @@ a {
 .key-action-button-text a {
     text-align: center;
 }
-.navbar-form {
-    display: inline;
-    position: absolute;
-    right: 10rem;
-    top: 0.7rem;
-}
