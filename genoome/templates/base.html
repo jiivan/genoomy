@@ -44,9 +44,17 @@
 
 
 
-            <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
-                Genoomy
-            </a>
+<div class="bar-block nav-colors">
+    <div class="navbar-subblock">
+        <div class="navbar-left">
+            <div class="navbar-element navbar-element-left">
+                <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
+                    Genoomy
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
                     <a href="{% url "faq" %}">
                         FAQ
                     </a>
