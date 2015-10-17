@@ -17,13 +17,18 @@
 <body>
 {% block tracking_code %}
     <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M9KMFL"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M9KMFL');</script>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M9KMFL"
+            height="0" width="0" style="display:none;visibility:hidden">
+        </iframe>
+    </noscript>
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-M9KMFL');
+    </script>
     <!-- End Google Tag Manager -->
     {% if request.user.is_authenticated %}
         <script>
@@ -56,32 +61,38 @@
                     </a>
                 </div>
                 {% for nav_page in nav_pages %}
-                <div >
-                    <a href="{{ nav_page.url }}">{{ nav_page.title }}
-                    </a>
-                </div>
+                    <div >
+                        <a href="{{ nav_page.url }}">
+                            {{ nav_page.title }}
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
-            {% if not request.user.is_authenticated %}
-                <form  method="post" action="{% url "accounts:signin" %}">
-                    {% csrf_token %}
-                    <div>
-                        <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
-                    </div>
-                    <div>
-                        <input id="id_password" name="password" placeholder="Password" type="password">
-                    </div>
-                    <button type="submit" >Login</button>
-                    <a href="{% url "accounts:signup" %}">Register</a>
-                </form>
-            {% elif request.user.is_authenticated %}
+                {% if not request.user.is_authenticated %}
+                    <form  method="post" action="{% url "accounts:signin" %}">
+                        {% csrf_token %}
+                        <div>
+                            <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                        </div>
+                        <div>
+                            <input id="id_password" name="password" placeholder="Password" type="password">
+                        </div>
+                        <button type="submit" >
+                            Login
+                        </button>
+                        <a href="{% url "accounts:signup" %}">Register</a>
+                    </form>
+                {% elif request.user.is_authenticated %}
                 {% if request.user.is_staff %}
-                    <a type="button"  href="{% url "admin:index" %}">Admin</a>
+                    <a type="button"  href="{% url "admin:index" %}">
+                        Admin
+                    </a>
                 {% endif %}
-                <a type="button" href="{% url "accounts:logout" %}">Logout</a>
-
+                <a type="button" href="{% url "accounts:logout" %}">
+                    Logout
+                </a>
             {% endif %}
-        </div><!--/.nav-collapse -->
+        </div>
     </div>
 </div>
 
