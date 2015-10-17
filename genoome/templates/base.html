@@ -73,7 +73,7 @@
         </div>
         
         {% if not request.user.is_authenticated %}
-        <div class="navbar-form">
+        <div class="navbar-right">
             <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">
                 {% csrf_token %}
                     <input class="navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
@@ -87,9 +87,7 @@
                     </a>
                 </div>
             </form>
-        </div>
-        {% elif request.user.is_authenticated %}
-        <div class="navbar-right">
+            {% elif request.user.is_authenticated %}
             <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
             {% if request.user.is_staff %}
                 <a type="button"  href="{% url "admin:index" %}">
@@ -102,7 +100,7 @@
                 </a>
             </div>
         {% endif %}
-
+        </div>
     </div>
 </div>
 
