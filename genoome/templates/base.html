@@ -5,13 +5,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Genoomy - Color your genes!{% endblock title %} </title>
+    <title>
+        {% block title %}
+            Genoomy - Color your genes!
+        {% endblock title %}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
     <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
-    {% block extra_css %}{% endblock extra_css %}
+    {% block extra_css %}
+    {% endblock extra_css %}
 </head>
 
 <body>
@@ -55,42 +60,42 @@
                 </div>
                 <div>
                     <a href="mailto:info@genoomy.com">
-                        <span>
-                        </span>
                         info@genoomy.com
                     </a>
                 </div>
                 {% for nav_page in nav_pages %}
-                    <div >
-                        <a href="{{ nav_page.url }}">
-                            {{ nav_page.title }}
-                        </a>
-                    </div>
+                <div >
+                    <a href="{{ nav_page.url }}">
+                        {{ nav_page.title }}
+                    </a>
+                </div>
                 {% endfor %}
             </div>
-                {% if not request.user.is_authenticated %}
-                    <form  method="post" action="{% url "accounts:signin" %}">
-                        {% csrf_token %}
-                        <div>
-                            <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
-                        </div>
-                        <div>
-                            <input id="id_password" name="password" placeholder="Password" type="password">
-                        </div>
-                        <button type="submit" >
-                            Login
-                        </button>
-                        <a href="{% url "accounts:signup" %}">Register</a>
-                    </form>
-                {% elif request.user.is_authenticated %}
-                {% if request.user.is_staff %}
-                    <a type="button"  href="{% url "admin:index" %}">
-                        Admin
-                    </a>
-                {% endif %}
-                <a type="button" href="{% url "accounts:logout" %}">
-                    Logout
+            {% if not request.user.is_authenticated %}
+            <form  method="post" action="{% url "accounts:signin" %}">
+                {% csrf_token %}
+                <div>
+                    <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                </div>
+                <div>
+                    <input id="id_password" name="password" placeholder="Password" type="password">
+                </div>
+                <button type="submit" >
+                    Login
+                </button>
+                <a href="{% url "accounts:signup" %}">
+                    Register
                 </a>
+            </form>
+            {% elif request.user.is_authenticated %}
+            {% if request.user.is_staff %}
+            <a type="button"  href="{% url "admin:index" %}">
+                Admin
+            </a>
+            {% endif %}
+            <a type="button" href="{% url "accounts:logout" %}">
+                Logout
+            </a>
             {% endif %}
         </div>
     </div>
