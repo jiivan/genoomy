@@ -44,42 +44,25 @@
 
 
 
-<div>
-    <div>
-        <div>
             <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
                 Genoomy
             </a>
-        </div>
-        <div>
-            <div>
-                <div >
                     <a href="{% url "faq" %}">
                         FAQ
                     </a>
-                </div>
-                <div>
                     <a href="mailto:info@genoomy.com">
                         info@genoomy.com
                     </a>
-                </div>
                 {% for nav_page in nav_pages %}
-                <div >
                     <a href="{{ nav_page.url }}">
                         {{ nav_page.title }}
                     </a>
-                </div>
                 {% endfor %}
-            </div>
             {% if not request.user.is_authenticated %}
             <form  method="post" action="{% url "accounts:signin" %}">
                 {% csrf_token %}
-                <div>
                     <input id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
-                </div>
-                <div>
                     <input id="id_password" name="password" placeholder="Password" type="password">
-                </div>
                 <button type="submit" >
                     Login
                 </button>
@@ -97,9 +80,6 @@
                 Logout
             </a>
             {% endif %}
-        </div>
-    </div>
-</div>
 
 
 {% block banner %}
