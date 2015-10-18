@@ -157,6 +157,7 @@ a {
     height: 30rem
 }
 .key-action-button {
+    color: white;
     position: absolute;
     right: 0;
     top: 13.5rem;
