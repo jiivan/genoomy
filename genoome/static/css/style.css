@@ -12,7 +12,6 @@ a {
     padding: 0;
     border: 0;
 }
-
 .navbar-element {
     display: inline;
 }
@@ -32,13 +31,35 @@ a {
     background: #212121;
     color: #9d9d9d;
 }
-
 .navbar-subblock {
     position: relative;
     margin: auto;
     width: 70rem;
     padding: 1rem;
     height: 2.046875rem;
+}
+.navbar-left {
+    display: inline;
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+}
+.navbar-left a:link {
+}
+.navbar-left a:visited {
+}
+.navbar-left a:hover {
+    color: white;
+}
+.navbar-right {
+    display: inline;
+    position: absolute;
+    right: 1rem;
+    top: 0.7rem;
+}
+.form-workaround {
+    display: inline;
+    margin-right: 0;
 }
 .add-subblock {
     position: relative;
@@ -69,11 +90,9 @@ a {
 .button-green-frame {
     border-color: #5fb760;
 }
-
 .button-white-link a {
     color: white;
 }
-
 .button-green-interior {
     background-color: #5fb760;
 }
@@ -82,31 +101,6 @@ a {
 }
 .input-nav {
    font-size: 1rem; 
-}
-
-.navbar-left {
-    display: inline;
-    position: absolute;
-    left: 0;
-    top: 1.5rem;
-}
-
-.navbar-left a:link {
-}
-.navbar-left a:visited {
-}
-.navbar-left a:hover {
-    color: white;
-}
-.navbar-right {
-    display: inline;
-    position: absolute;
-    right: 1rem;
-    top: 0.7rem;
-}
-.form-workaround {
-    display: inline;
-    margin-right: 0;
 }
 .key-visual-frame {
     position: absolute;
