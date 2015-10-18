@@ -81,6 +81,8 @@
                     <button class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-text" type="submit" >
                         Login
                     </button>
+            </form>
+            <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">
                 <a class="navbar-element navbar-element-right button button-green-frame button-white-text" href="{% url "accounts:signup" %}">
                     Register
                 </a>
