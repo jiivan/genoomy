@@ -83,7 +83,7 @@ a {
     font-size: 1rem; 
     text-decoration: none;
     border-radius: 0.4rem;
-    border: 0.15rem solid white;
+    border: 0.15rem solid;
     margin: 0.2rem;
     padding: 0.5rem;
 }
