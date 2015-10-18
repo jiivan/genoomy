@@ -50,7 +50,7 @@ a {
     right: 0;
     top: 0.625rem;
 }
-margin-zero {
+.margin-zero {
     margin: 0;
 }
 .navbar-left a:link {
