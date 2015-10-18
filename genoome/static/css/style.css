@@ -47,8 +47,8 @@ a {
 .navbar-right {
     display: inline;
     position: absolute;
-    right: 4rem;
-    top: 0.7rem;
+    right: 0;
+    top: 0.75rem;
 }
 .navbar-left a:link {
 }
