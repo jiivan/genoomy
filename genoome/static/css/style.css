@@ -157,7 +157,6 @@ a {
     height: 30rem
 }
 .key-action-button {
-    color: white;
     position: absolute;
     right: 0;
     top: 13.5rem;
@@ -166,6 +165,9 @@ a {
     background-color: #d3484a;
     font-size: 3.5rem;
     border-color: #d3484a;
+}
+.key-action-button a {
+    color: white;
 }
 .key-action-button-text {
     position: absolute;
