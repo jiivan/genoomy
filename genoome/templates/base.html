@@ -75,7 +75,6 @@
         {% if not request.user.is_authenticated %}
         <div class="navbar-right">
             <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">
-                {% csrf_token %}
                 <input class="navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
                 <input class="navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin"  id="id_password" name="password" placeholder="Password" type="password">
                 <div class="navbar-element navbar-element-right">    
