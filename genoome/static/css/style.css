@@ -44,18 +44,18 @@ a {
     left: 0;
     top: 1.5rem;
 }
+.navbar-right {
+    display: inline;
+    position: absolute;
+    right: 4rem;
+    top: 0.7rem;
+}
 .navbar-left a:link {
 }
 .navbar-left a:visited {
 }
 .navbar-left a:hover {
     color: white;
-}
-.navbar-right {
-    display: inline;
-    position: absolute;
-    right: 1rem;
-    top: 0.7rem;
 }
 .form-workaround {
     display: inline;
