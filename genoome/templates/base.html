@@ -78,14 +78,12 @@
                 {% csrf_token %}
                 <input class="navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
                 <input class="navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin"  id="id_password" name="password" placeholder="Password" type="password">
-                <div class="navbar-element navbar-element-right">    
-                    <button class="button button-green-frame button-green-interior button-white-text" type="submit" >
+                    <button class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-text" type="submit" >
                         Login
                     </button>
-                </div>
-                    <a class="navbar-element navbar-element-right button button-green-frame button-white-text" href="{% url "accounts:signup" %}">
-                        Register
-                    </a>
+                <a class="navbar-element navbar-element-right button button-green-frame button-white-text" href="{% url "accounts:signup" %}">
+                    Register
+                </a>
             </form>
             {% elif request.user.is_authenticated %}
             <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
