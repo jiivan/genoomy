@@ -83,11 +83,9 @@
                         Login
                     </button>
                 </div>
-                <div>
                     <a class="navbar-element navbar-element-right button button-green-frame button-white-link" href="{% url "accounts:signup" %}">
                         Register
                     </a>
-                </div>
             </form>
             {% elif request.user.is_authenticated %}
             <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
