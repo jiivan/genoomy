@@ -40,3 +40,7 @@ Desktop.ini
 
 # Pycharm project file
 /.idea
+node_modules
+genoome/static/dist
+genoome/static/vendor
+genoome/.ropeproject
