@@ -1,5 +1,6 @@
 'use strict';
 var gulp = require('gulp'),
+    sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
@@ -9,10 +10,12 @@ var tasks = {
     jsCompileTask:function(name, filelist) {
         return function() {
             gulp.src(filelist)
+                .pipe(sourcemaps.init())
                 .pipe(concat(name + '.js'))
                 .pipe(gulp.dest(config.dest))
                 .pipe(uglify())
                 .pipe(rename(name + '.min.js'))
+                .pipe(sourcemaps.write('.'))
                 .pipe(gulp.dest(config.dest));
         };
     },

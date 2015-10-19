@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
     <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/genoome.min.css" %}">
     {% block extra_css %}
     {% endblock extra_css %}
 </head>
@@ -23,7 +23,7 @@
 {% block body_wrapper %}
 
 
-    {% include 'tracking_code.html' %}
+    {% include 'includes/tracking_code.html' %}
     {% block tracking_code %}
     {% endblock tracking_code %}
 
@@ -55,5 +55,6 @@
 
 
 {% endblock body_wrapper %}
+<script src="{% static 'js/genoome.min.js' %}"></script>
 </body>
 </html>

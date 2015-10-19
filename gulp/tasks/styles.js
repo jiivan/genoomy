@@ -7,13 +7,13 @@ var gulp = require('gulp'),
     config = require('../config.js').css;
 
 var tasks = {
-    css: function () { // TODO (kniski) add css distros concat
+    css: function () {
         gulp.src(config.src)
             .pipe(sourcemaps.init())
             .pipe(postcss([autoprefixer({browsers: ['last 2 versions']})]))
             .pipe(concat(config.concatFilename))
             .pipe(minifyCss({compatibility: 'ie8'}))
-            .pipe(sourcemaps.write())
+            .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(config.dest));
     }
 };

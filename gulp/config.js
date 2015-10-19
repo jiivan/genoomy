@@ -14,7 +14,7 @@ function vendorFile(name) {
 module.exports = {
     css: {
         src: staticRoot + '/css/**/*.css',
-        concatFilename: 'build.css',
+        concatFilename: 'genoome.min.css',
         dest: distPath + '/css'
     },
     js: {
@@ -22,9 +22,6 @@ module.exports = {
         jsDistros: {
             genoome: [
                 file('js/genoome.js')
-            ],
-            "vendor-jquery": [
-                vendorFile('jquery/dist/jquery.min.js')
             ]
         }
     },
