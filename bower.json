@@ -1,0 +1,21 @@
+{
+  "name": "TrainingCharts",
+  "version": "0.0.0",
+  "authors": [
+    "Kamil Niski <kamil.niski@gmail.com>"
+  ],
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
