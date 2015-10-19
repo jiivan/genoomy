@@ -1,0 +1,60 @@
+<div class="bar-block nav-colors">
+    <div class="navbar-subblock">
+        <div class="navbar-left">
+            <div class="navbar-element navbar-element-left">
+                <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
+                    Genoomy
+                </a>
+            </div>
+            <div class="navbar-element navbar-element-left">
+                <a href="{% url "faq" %}">
+                    FAQ
+                </a>
+            </div>
+            <div class="navbar-element navbar-element-left">
+                <a href="mailto:info@genoomy.com">
+                    info@genoomy.com
+                </a>
+            </div>
+
+            {% for nav_page in nav_pages %}
+                <div class="navbar-element navbar-element-left">
+                    <a href="{{ nav_page.url }}">
+                        {{ nav_page.title }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if not request.user.is_authenticated %}
+            <div class="navbar-right">
+            <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">
+                {% csrf_token %}
+                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero"  id="id_password" name="password" placeholder="Password" type="password">
+                <button class="margin-zero navbar-element navbar-element-right button button-green-frame button-black-interior button-white-text margin-zero" type="submit" >
+                    Login
+                </button>
+            </form>
+            <form class="form-workaround" method="get" action="{% url "accounts:signup" %}">
+                <button class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-text" type="submit" >
+                    Register
+                </button>
+            </form>
+        {% elif request.user.is_authenticated %}
+            <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
+            {% if request.user.is_staff %}
+                <a type="button"  href="{% url "admin:index" %}">
+                    Admin
+                </a>
+            {% endif %}
+            <div class="navbar-element navbar-element-right button button-green-frame button-white-link">
+                <a type="button" href="{% url "accounts:logout" %}">
+                    Logout
+                </a>
+            </div>
+        {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
