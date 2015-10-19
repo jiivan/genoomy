@@ -1,19 +1,48 @@
 {% extends 'base.html' %}
 
-{% block page_title %}<span style="float:left;display:block;">Color Your Genome <span style="font-size:75%; color:#B7B7B7;">sample:</span></span>{% endblock page_title %}
+{% block page_title %}
+    <span>
+        Color Your Genome
+        <span>
+            sample:
+        </span>
+    </span>
+{% endblock page_title %}
 
 {% block banner %}
-    {% if not request.user.is_authenticated %}<div class="fullwidth">
-        <div class="col-sm-6 ratiokeeper"></div>
-        <div class="col-sm-6 smaller">
-            <h1>Understand your genes!</h1>
-            <h2>Colour your genes and get short human
-                readable desription how they work.</h2>
-
-            <a class="uploadgenome" href="{% url "disease:upload_genome" %}"><span>Upload genome</span></a>
-        </div></div>
+    {% if not request.user.is_authenticated %}
+        <div class="bar-block">
+            <div class="add-subblock">
+                <div class="key-visual-frame">
+                    <div class="key-visual">
+                    </div>
+                </div>
+                <div class="short-claim-frame">
+                    <div class="short-claim">
+                        <h1>
+                            Understand your genes!
+                        </h1>
+                    </div>
+                </div>
+                <div class="long-claim-frame">
+                    <div class="long-claim">
+                        <h2>
+                            Colour your genes and get short human
+                            readable description of how they work.
+                        </h2>
+                    </div>
+                </div>
+                    <div class="key-action-button button button-green-frame button-white-link">
+                        <div class="key-action-button-text">
+                           <a href="{% url "disease:upload_genome" %}">
+                                Upload genome
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
-    <div style="clear:both"></div>
 {% endblock banner %}
 
 {% block content %}
@@ -34,13 +63,4 @@
     {% include 'includes/color_legend.html' %}
     {% include 'includes/data_table.html' %}
 {% endblock content %}
-
-{% block modals %}
-    <div class="modal fade" id="modal-upload-genome">
-        <div class="modal-dialog">
-            <div id="modal_content" class="modal-content">
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-{% endblock modals %}
 

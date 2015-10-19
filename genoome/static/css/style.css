@@ -1,0 +1,181 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+a {
+    text-decoration: none;
+    color: #9d9d9d;
+}
+.bar-block {
+    display: block;
+    font-family: "Helvetica";
+    padding: 0;
+    border: 0;
+}
+.navbar-element {
+    display: inline;
+}
+
+.navbar-element-left {
+    padding-right: 0.5rem;
+    margin: 0rem;
+}
+.navbar-element-right {
+    margin: 0rem;
+}
+.nav-colors {
+    background: #212121;
+    color: #9d9d9d;
+}
+.footer-colors {
+    background: #212121;
+    color: #9d9d9d;
+}
+.navbar-subblock {
+    position: relative;
+    margin: auto;
+    width: 70rem;
+    padding: 1rem;
+    height: 2.046875rem;
+}
+.navbar-left {
+    display: inline;
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+}
+.navbar-right {
+    display: inline;
+    position: absolute;
+    right: 0;
+    top: 0.625rem;
+}
+.margin-zero {
+    margin: 0;
+}
+.navbar-left a:link {
+}
+.navbar-left a:visited {
+}
+.navbar-left a:hover {
+    color: white;
+}
+.form-workaround {
+    display: inline;
+    margin-right: 0;
+}
+.add-subblock {
+    position: relative;
+    margin: auto;
+    width: 70rem;
+    height: 25rem
+}
+.footer-subblock {
+    position: relative;
+    margin: auto;
+    width: 70rem;
+}
+.maintable-subblock {
+    position: relative;
+    margin: auto;
+    width: 70rem;
+    min-height: 20rem;
+}
+
+.button {
+    font-size: 1rem; 
+    text-decoration: none;
+    border-radius: 0.4rem;
+    border: 0.15rem solid;
+    margin: 0.25rem;
+    padding: 0.5rem;
+}
+.button-green-frame {
+    border-color: #5fb760;
+}
+.button-white-text {
+    color: white;
+}
+.button-green-interior {
+    background-color: #5fb760;
+}
+.button-black-interior {
+    background-color: #212121;
+}
+.button-green-interior {
+    background-color: #5fb760;
+}
+.button-green-interior {
+    background-color: #5fb760;
+}
+.input-yellow-interior {
+    background-color: #fafec0;
+}
+.input-nav {
+   font-size: 1rem; 
+}
+.key-visual-frame {
+    position: absolute;
+    width: 200rem;
+    right: 35rem;
+    top: 0;
+}
+.short-claim-frame {
+    position: absolute;
+    margin: 1rem;
+    right: 0rem;
+    top: 0;
+}
+.long-claim-frame {
+    position: absolute;
+    right: 0;
+    top: 6.5rem;
+}
+.short-claim {
+    width: 35rem;
+    color: #555555;
+}
+.short-claim  h1 {
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 2.75rem;
+}
+.long-claim {
+    width: 35rem;
+    color: #555555;
+}
+.long-claim  h2 {
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+    line-height: 2.4rem;
+}
+.key-visual {
+    background-image: url("happypeople.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    height: 30rem
+}
+.key-action-button {
+    position: absolute;
+    right: 0;
+    top: 13.5rem;
+    height: 10rem;
+    width: 35rem;
+    background-color: #d3484a;
+    font-size: 3.5rem;
+    border-color: #d3484a;
+}
+.key-action-button a {
+    color: white;
+}
+.key-action-button-text {
+    position: absolute;
+    top: 3.5rem;
+    left: 3rem;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+}
+.key-action-button-text a {
+    text-align: center;
+}

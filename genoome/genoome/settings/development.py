@@ -80,6 +80,12 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 
+########## CELERY CONFIGURATION
+# http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
+BROKER_URL = 'redis://localhost:6379/21'
+########## END CELERY CONFIGURATION
+
+
 ########## LOGGING CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
