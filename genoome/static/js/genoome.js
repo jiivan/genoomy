@@ -28,6 +28,7 @@ $(document).ready(function() {
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
         ],
+        "order": [[ 8, "desc" ]],
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
