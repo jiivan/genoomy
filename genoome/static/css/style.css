@@ -209,7 +209,8 @@ a {
 .legend {
     position: fixed;
     right: 0;
-    top: 5rem; 
+    top: 9rem; 
+    z-index: 5;
 }
 .legend ul li {
     padding: 1rem;
