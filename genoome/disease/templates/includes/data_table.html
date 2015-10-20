@@ -41,19 +41,6 @@
         <th>PRIORITY</th>
         <th>TAGS</th>
     </tr>
-    <tr>
-
-        <th>RSID</th>
-        <th>CHROMOSOME POS</th>
-        <th>RISK ALLELE</th>
-        <th>GENOTYPE</th>
-        <th>DISEASE TRAIT</th>
-        <th>P VALUE</th>
-        <th>OR</th>
-        <th>RISK</th>
-        <th>PRIORITY</th>
-        <th>TAGS</th>
-    </tr>
     </thead>
     <tfoot>
     <tr>
@@ -85,6 +72,5 @@
             <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
         </tr>
     {% endfor %}
-
     </tbody>
 </table>
