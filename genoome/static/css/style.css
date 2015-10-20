@@ -182,8 +182,6 @@ a {
 
 /* BEG STYLES FOR TABLE  */
 .table-settings {
-/*temporary hiding*/
-    display: none;
 }
 .genoomy-table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -223,7 +221,8 @@ a {
     margin: 0;
 }
 .titleoflegend {
+    display: none;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 3rem;
+    top: -2rem;
 }
