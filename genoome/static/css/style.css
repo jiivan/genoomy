@@ -190,8 +190,19 @@ a {
     width: 100%;
     border-collapse: collapse;
 }
-
-
-
+.genoomy-table tr{
+    color: #000000;
+    background-color: #EAF2D3;
+}
+.genoomy-table th{
+    font-size: 1rem;
+    text-align: left;
+    padding: 0.5rem;
+    background-color: #A7C942;
+    color: #ffffff;
+}
+.genoomy-table th{
+    background-color: green;
+}
 /* END STYLES FOR TABLE  */
 
