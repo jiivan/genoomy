@@ -7,7 +7,7 @@ GULPPATH=$VENVPATH/bin/gulp;
 source $VENVPATH/bin/activate;
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
-bower install && \
+../node_modules/.bin/bower install && \
 $GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist:css dist:js && \
 $PYPATH ./manage.py collectstatic --noinput --settings=genoome.settings.development && \
 sudo touch /etc/uwsgi/vassals/dev_genoome.ini && \
