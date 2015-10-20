@@ -212,7 +212,7 @@ a {
     top: 9rem; 
     z-index: 5;
     border-radius: 0.4rem;
-    border: 0.1250rem solid; 
+    border: 0.25rem solid; 
     border-color: white;
 }
 .legend ul li {
