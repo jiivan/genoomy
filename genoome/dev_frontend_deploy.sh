@@ -2,7 +2,7 @@
 
 VENVPATH=/home/ubuntu/.pyenv/versions/dev_venv
 PYPATH=$VENVPATH/bin/python;
-GULPPATH=$VENCPATH/bin/gulp;
+GULPPATH=$VENVPATH/bin/gulp;
 
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
