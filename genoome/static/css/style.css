@@ -206,3 +206,8 @@ a {
 }
 /* END STYLES FOR TABLE  */
 
+.legend {
+    position: fixed;
+    right: 0;
+    top: 5rem; 
+}
