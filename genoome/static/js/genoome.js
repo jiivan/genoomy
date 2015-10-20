@@ -55,7 +55,9 @@ $(document).ready(function() {
         ]
     });
 
-    $('.genomeData_advanced').click(function(e) {
-        $('#genomeData thead, .dataTables_length, .dataTables_filter').toggle();
-    });
+
+});
+
+$('.genomeData_advanced').click(function(e) {
+    $('#genomeData thead, .dataTables_length, .dataTables_filter').toggle();
 });
