@@ -8,7 +8,7 @@ source $VENVPATH/bin/activate;
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
 cd ../ && \
-../node_modules/.bin/bower install && \
+./node_modules/.bin/bower install && \
 cd - && \
 $GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist:css dist:js && \
 $PYPATH ./manage.py collectstatic --noinput --settings=genoome.settings.development && \
