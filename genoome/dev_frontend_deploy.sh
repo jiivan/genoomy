@@ -5,6 +5,7 @@ PYPATH=$VENVPATH/bin/python;
 GULPPATH=$VENVPATH/bin/gulp;
 
 eval "$(pyenv init -)";
+pyenv activate dev_venv;
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
 $GULPPATH ../gulpfile.js dist:css dist:js &&
