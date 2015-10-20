@@ -182,8 +182,6 @@ a {
 
 /* BEG STYLES FOR TABLE  */
 .table-settings {
-/*temporary hiding*/
-    display: none;
 }
 .genoomy-table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -207,10 +205,27 @@ a {
 /* END STYLES FOR TABLE  */
 
 .legend {
+    font-family: "Helvetica";
+    font-weight: 900;
     position: fixed;
     right: 0;
-    top: 5rem; 
+    top: 9rem; 
+    z-index: 5;
+    border-radius: 0.4rem;
+/*    border: 0.15rem solid; */
 }
 .legend ul li {
-    padding: 1rem;
+    padding: 0.75rem;
+    font-size: 2rem;
+}
+.legend ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.titleoflegend {
+    display: none;
+    position: absolute;
+    right: 3rem;
+    top: -2rem;
 }
