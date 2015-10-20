@@ -215,8 +215,8 @@ a {
 /*    border: 0.15rem solid; */
 }
 .legend ul li {
-    padding: 1rem;
-    font-size: 1.25rem;
+    padding: 0.75rem;
+    font-size: 2rem;
 }
 .legend ul {
     list-style-type: none;
