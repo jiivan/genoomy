@@ -206,6 +206,7 @@ a {
 
 .legend {
     font-family: "Helvetica";
+    font-weight: 900;
     position: fixed;
     right: 0;
     top: 9rem; 
