@@ -31,7 +31,7 @@
         {% include 'includes/navbar.html' %}
     {% endblock header %}
 
-    {% block banner %} {# (kniski) is it right place for this? Doubt it. #}
+    {% block banner %} {# (kniski) is it right place for this? Doubt it. - (mkowalczyk) so where? #}
     {% endblock banner %}
 
     <div  {% if not request.user.is_authenticated %} landing{% endif %}>

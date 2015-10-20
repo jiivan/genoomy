@@ -162,7 +162,8 @@ a {
     top: 13.5rem;
     height: 10rem;
     width: 35rem;
-    background-color: #d3484a;
+    background-color: black;
+/*    background-color: #d3484a; */
     font-size: 3.5rem;
     border-color: #d3484a;
 }
@@ -179,3 +180,19 @@ a {
 .key-action-button-text a {
     text-align: center;
 }
+
+/* BEG STYLES FOR TABLE  */
+.table-settings {
+/*temporary hiding*/
+    display: none;
+}
+.genoomy-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+
+/* END STYLES FOR TABLE  */
+

@@ -1,41 +1,33 @@
-<div class="container filter_labels">
+<div>
     {% for tag in allele_tags %}
-        <span class="label label-primary"><b>{{ tag.slug }}</b></span>
+    <span>
+        <b>
+            {{ tag.slug }}
+        </b>
+    </span>
     {% endfor %}
 </div>
 
-<div class="checkbox-list"><div class="checkbox-lister"><span class="glyphicon glyphicon-cog lister-cog" ></span>Change table fields</div>
-    <ul class="checkbox-listinn">
-        <li><label class="rounded-all">Rsid<input class="checkbox-row" id="ch3" name="3" type="checkbox" value="ci1"></label></li>
-        <li><label class="rounded-all">Chromosome pos.<input class="checkbox-row" id="ch1" name="1" type="checkbox" value="ci2"></label></li>
-        <li><label class="rounded-all">Risk Allele<input class="checkbox-row" id="ch2" name="2" type="checkbox" value="ci3"></label></li>
-        <li><label class="rounded-all">Genotype<input class="checkbox-row" id="ch7" name="7" type="checkbox" value="ci4"></label></li>
-        <li><label class="rounded-all">Disease Trait<input class="checkbox-row" id="ch8" name="8" type="checkbox" value="ci5"></label></li>
-
-        <li><label class="rounded-all">P walue <input class="checkbox-row" id="ch4" name="4" type="checkbox" value="ci6"></label> </li>
-        <li><label class="rounded-all">OR<input class="checkbox-row" id="ch5" name="5" type="checkbox" value="ci7"></label> </li>
-        <li><label class="rounded-all">Risk<input class="checkbox-row" id="ch6" name="6" type="checkbox" value="ci8"></label> </li>
+<div class="table-settings">
+    <div>
+        <span>
+        </span>
+        Change table fields
+    </div>
+    <ul>
+        <li><label>Rsid             <input id="ch3" name="3" type="checkbox" value="ci1"></label></li>
+        <li><label>Chromosome pos.  <input id="ch1" name="1" type="checkbox" value="ci2"></label></li>
+        <li><label>Risk Allele      <input id="ch2" name="2" type="checkbox" value="ci3"></label></li>
+        <li><label>Genotype         <input id="ch7" name="7" type="checkbox" value="ci4"></label></li>
+        <li><label>Disease Trait    <input id="ch8" name="8" type="checkbox" value="ci5"></label></li>
+        <li><label>P walue          <input id="ch4" name="4" type="checkbox" value="ci6"></label></li>
+        <li><label>OR               <input id="ch5" name="5" type="checkbox" value="ci7"></label></li>
+        <li><label>Risk             <input id="ch6" name="6" type="checkbox" value="ci8"></label></li>
         <li id="savebutton">Save</li>
         <li id="defaultbutton">Toggle default</li>
     </ul>
 </div>
-
-<div class="sk-circle">
-    <div class="sk-circle1 sk-child"></div>
-    <div class="sk-circle2 sk-child"></div>
-    <div class="sk-circle3 sk-child"></div>
-    <div class="sk-circle4 sk-child"></div>
-    <div class="sk-circle5 sk-child"></div>
-    <div class="sk-circle6 sk-child"></div>
-    <div class="sk-circle7 sk-child"></div>
-    <div class="sk-circle8 sk-child"></div>
-    <div class="sk-circle9 sk-child"></div>
-    <div class="sk-circle10 sk-child"></div>
-    <div class="sk-circle11 sk-child"></div>
-    <div class="sk-circle12 sk-child"></div>
-</div>
-
-<table id="genomeData" class="display" cellspacing="0" width="100%">
+<table class="genoomy-table">
     <thead>
     <tr>
         <th>RSID</th>
@@ -49,22 +41,7 @@
         <th>PRIORITY</th>
         <th>TAGS</th>
     </tr>
-    <tr>
-
-        <th>RSID</th>
-        <th>CHROMOSOME POS</th>
-        <th>RISK ALLELE</th>
-        <th>GENOTYPE</th>
-        <th>DISEASE TRAIT</th>
-        <th>P VALUE</th>
-        <th>OR</th>
-        <th>RISK</th>
-        <th>PRIORITY</th>
-        <th>TAGS</th>
-    </tr>
     </thead>
-
-
     <tfoot>
     <tr>
         <th>RSID</th>
@@ -82,6 +59,7 @@
     <tbody>
     {% for row in table %}
         <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
+<!-- ISSLT  <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}class="{{ row.color }}"{% endif %}>    -->
             <td>{{ row.rsid }}</td>
             <td>{{ row.chromosome_position }}</td>
             <td>{{ row.risk_allele }}</td>
@@ -94,6 +72,5 @@
             <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
         </tr>
     {% endfor %}
-
     </tbody>
 </table>
