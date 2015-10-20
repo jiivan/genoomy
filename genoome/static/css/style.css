@@ -211,3 +211,6 @@ a {
     right: 0;
     top: 5rem; 
 }
+.legend ul li {
+    padding: 1rem;
+}
