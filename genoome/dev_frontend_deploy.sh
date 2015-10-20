@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo $UID;
+echo $GID;
+
 VENVPATH=/home/ubuntu/.pyenv/versions/dev_venv;
 PYPATH=$VENVPATH/bin/python;
 GULPPATH=$VENVPATH/bin/gulp;
