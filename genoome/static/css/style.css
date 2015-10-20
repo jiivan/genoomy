@@ -207,6 +207,7 @@ a {
 /* END STYLES FOR TABLE  */
 
 .legend {
+    list-style-type: none;
     position: fixed;
     right: 0;
     top: 9rem; 
