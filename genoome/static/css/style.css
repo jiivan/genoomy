@@ -220,3 +220,8 @@ a {
 .legend ul {
     list-style-type: none;
 }
+.titleoflegend {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
