@@ -1,14 +1,10 @@
 #!/bin/bash
 
-echo $UID;
-echo $GID;
-
 VENVPATH=/home/ubuntu/.pyenv/versions/dev_venv;
 PYPATH=$VENVPATH/bin/python;
 GULPPATH=$VENVPATH/bin/gulp;
 
-eval "$(pyenv init -)";
-/home/ubuntu/.pyenv/bin/pyenv activate dev_venv;
+source $VENVPATH/bin/activate;
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
 $GULPPATH ../gulpfile.js dist:css dist:js && \
