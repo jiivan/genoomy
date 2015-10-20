@@ -25,9 +25,11 @@ $(document).ready(function() {
 
     var genomeData = $('#genomeData');
     var genomeTable = genomeData.dataTable({
+        "pageLength": 100,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
         ],
+        "order": [[ 8, "desc" ]],
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
