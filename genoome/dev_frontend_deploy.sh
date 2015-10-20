@@ -7,7 +7,7 @@ GULPPATH=$VENVPATH/bin/gulp;
 source $VENVPATH/bin/activate;
 cd /opt/dev_genoome/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin dev && \
-cd ../ &7 \
+cd ../ && \
 ../node_modules/.bin/bower install && \
 cd - && \
 $GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist:css dist:js && \
