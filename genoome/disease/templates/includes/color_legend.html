@@ -5,7 +5,9 @@
 	
     <ul class="list-group">
         {% for legend_row in legend_rows %}
-            <li class="list-group-item"><span class="label" style="background-color: {{ legend_row.color.color }}">{{ legend_row.content }}</span></li>
+        <li class="list-group-item label" style="background-color: {{ legend_row.color.color }}">
+            {{ legend_row.content }}
+        </li>
         {% endfor %}
     </ul>
 	<div class="titleoflegend">Legend </div>
