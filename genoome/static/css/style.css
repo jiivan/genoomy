@@ -213,7 +213,7 @@ a {
     z-index: 5;
     border-radius: 0.4rem;
     border: 0.25rem solid; 
-    border-color: white;
+    border-color: #212121;
 }
 .legend ul li {
     padding: 0.6525rem;
