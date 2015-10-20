@@ -25,6 +25,7 @@ $(document).ready(function() {
 
     var genomeData = $('#genomeData');
     var genomeTable = genomeData.dataTable({
+        "pageLength": 100,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
         ],
