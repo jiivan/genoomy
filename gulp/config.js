@@ -22,6 +22,9 @@ module.exports = {
         jsDistros: {
             genoome: [
                 file('js/genoome.js')
+            ],
+            dataTableFilter: [
+                vendorFile('jquery-datatables-columnfilter/jquery.dataTables.columnFilter.js')
             ]
         }
     },

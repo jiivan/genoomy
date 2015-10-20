@@ -54,36 +54,8 @@ $(document).ready(function() {
             { type: "select" }
         ]
     });
-var progressbar = $('.progress-bar');
-var interval;
 
-function updateBar(values) {
-    console.log(values);
-    var l = values.received;
-    var tot = values.size;
-
-    var perc = (l / tot) * (100.00);
-    console.log(perc);
-    progressbar.css('width', perc + '%');
-    if (values.status === 'done') {
-        window.clearInterval(interval);
-    }
-}
-
-$("form#upload_form").submit(function(e){
-    console.log('Form submitted');
-    var getProgress = function() {
-        $.ajax({
-            url: "/progress",
-            headers: {"X-Progress-ID": "{{ upload_id }}"},
-            dataType: 'json',
-            success: function(data) {
-                updateBar(data);
-            }
-        });
-    };
-    interval = window.setInterval(getProgress, 1000);
-});
-
-
+    $('.genomeData_advanced').click(function(e) {
+        $('#genomeData thead, .dataTables_length, .dataTables_filter').toggle();
+    });
 });
