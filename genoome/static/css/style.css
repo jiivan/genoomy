@@ -183,6 +183,7 @@ a {
 /* BEG STYLES FOR TABLE  */
 .table-settings {
     display: none;
+    padding: 1rem;
 }
 .genoomy-table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
