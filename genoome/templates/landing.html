@@ -1,14 +1,5 @@
 {% extends 'base.html' %}
 
-{% block page_title %}
-    <span>
-        Color Your Genome
-        <span>
-            sample:
-        </span>
-    </span>
-{% endblock page_title %}
-
 {% block banner %}
     {% if not request.user.is_authenticated %}
         <div class="bar-block">
