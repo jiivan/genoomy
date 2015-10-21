@@ -211,9 +211,6 @@ a {
     right: 0;
     top: 9rem; 
     z-index: 5;
-    border-radius: 0.4rem;
-    border: 0.25rem solid; 
-    border-color: white;
 }
 .legend ul li {
     padding: 0.6525rem;
