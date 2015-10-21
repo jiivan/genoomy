@@ -49,6 +49,8 @@ $(document).ready(function() {
             { type: "select" },
             { type: "number-range" },
             { type: "number-range" },
+            { type: "select" },
+            { type: "number-range" },
             { type: "select" }
         ]
     });
