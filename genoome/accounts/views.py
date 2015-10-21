@@ -16,6 +16,7 @@ from accounts.forms import ActivateAccountForm
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
 from configurable_elements.models import get_legend_rows
+from disease.models import CustomizedTag
 from disease.files_utils import get_genome_data
 
 storage = FileSystemStorage()
@@ -106,5 +107,6 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         sample_data_filepath = 'disease/{}'.format(self.sample_data_filename)
         kwargs['table'] = get_genome_data(sample_data_filepath)
+        kwargs['allele_tags'] = CustomizedTag.objects.all()
         kwargs['legend_rows'] = get_legend_rows()
         return super().get_context_data(**kwargs)
