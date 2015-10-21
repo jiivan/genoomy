@@ -183,6 +183,7 @@ a {
 /* BEG STYLES FOR TABLE  */
 .table-settings {
     display: none;
+    padding: 1rem;
 }
 .genoomy-table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -229,11 +230,22 @@ a {
     top: -2rem;
 }
 .show-advenced {
+    padding: 1rem;
     font-size: 1rem;
     background-color: #212121;
     color: #9d9d9d;
-    float: right;
 }
-.columns-check-list ul{
-    list-style-type: none;
+.columns-check-list li {
+    display: inline;
+}
+.big-header-text h1 {
+    display: inline;
+    font-size: 2rem;
+    color: black;
+}
+.small-sample-text {
+    font-size: 1rem;
+    display: inline;
+    padding: 1rem;
+    color: grey;
 }
