@@ -235,10 +235,10 @@ a {
     background-color: #212121;
     color: #9d9d9d;
 }
-.columns-check-list li{
+.columns-check-list li {
     display: inline;
 }
-.big-header-text {
+.big-header-text h1 {
     display: inline;
     font-size: 1rem;
     color: black;
