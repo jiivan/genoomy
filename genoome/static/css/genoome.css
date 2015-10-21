@@ -1,4 +1,5 @@
 .test-class {
     transform: rotate(0.5turn);
     background: green;
+    display: none;
 }
