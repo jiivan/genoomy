@@ -239,10 +239,13 @@ a {
     display: inline;
 }
 .big-header-text {
+    display: inline;
     font-size: 1rem;
     color: black;
 }
 .small-sample-text {
     font-size: 0.75rem;
+    display: inline;
+    padding: 1rem;
     color: grey;
 }
