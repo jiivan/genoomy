@@ -231,3 +231,6 @@ a {
 .show-advenced {
     font-size: 1rem;
 }
+.columns-check-list ul{
+    list-style-type: none;
+}
