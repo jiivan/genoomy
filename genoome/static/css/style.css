@@ -236,4 +236,12 @@ a {
 }
 .columns-check-list ul{
     list-style-type: none;
+
+.big-header-text {
+    font-size: 1rem;
+    color: black;
+}
+.small-sample-text {
+    font-size: 0.75rem;
+    color: grey;
 }
