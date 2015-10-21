@@ -20,10 +20,8 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
     return ((x < y) ?  1 : ((x > y) ? -1 : 0));
 };
 
-
+var genomeData = $('#genomeData');
 $(document).ready(function() {
-
-    var genomeData = $('#genomeData');
     var genomeTable = genomeData.dataTable({
         "pageLength": 100,
         "aoColumnDefs": [
@@ -55,9 +53,35 @@ $(document).ready(function() {
         ]
     });
 
-
 });
 
 $('.genomeData_advanced').click(function(e) {
     $('#genomeData thead, .dataTables_length, .dataTables_filter').toggle();
+});
+
+$(".checkbox-row input").change(function() {
+    var checked = $(this).is(":checked");
+    var index = $(this).parent().parent().index();
+    console.log(index);
+    $('#genomeData tbody tr').each(function() {
+        if(checked) {
+            $(this).find("td").eq(index).show();
+        } else {
+            $(this).find("td").eq(index).hide();
+        }
+    });
+    $('#genomeData thead tr').each(function() {
+        if(checked) {
+            $(this).find("th").eq(index).show();
+        } else {
+            $(this).find("th").eq(index).hide();
+        }
+    });
+    $('#genomeData tfoot tr').each(function() {
+        if(checked) {
+            $(this).find("th").eq(index).show();
+        } else {
+            $(this).find("th").eq(index).hide();
+        }
+    });
 });
