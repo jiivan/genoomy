@@ -201,7 +201,7 @@ a {
     color: #ffffff;
 }
 .genoomy-table th{
-    background-color: green;
+    background-color: #212121;
 }
 /* END STYLES FOR TABLE  */
 
@@ -227,4 +227,7 @@ a {
     position: absolute;
     right: 3rem;
     top: -2rem;
+}
+.show-advenced {
+    font-size: 1rem;
 }
