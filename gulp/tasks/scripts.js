@@ -39,6 +39,10 @@ function jsCompileDistros(){
         jsDistroNames.push(distroName);
     }
 
+
+    gulp.src(config.vendorFiles)
+        .pipe(gulp.dest(config.dest));
+
     gulp.task('dist:js', jsDistroNames.map(function(n){ return 'dist:js:' + n;}));
 
     gulp.task("watch:js", jsDistroNames.map(function(n) { return "watch:js:" + n; }));
