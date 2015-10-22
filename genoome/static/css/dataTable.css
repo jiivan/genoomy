@@ -23,6 +23,10 @@
     display: inline;
 }
 
+.genomeData_advanced {
+    cursor: pointer;
+}
+
 #genomeData thead tr.filter-visiblity, .dataTables_length, .dataTables_filter, .table-settings{
     display: none;
 }
