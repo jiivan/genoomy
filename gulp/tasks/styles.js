@@ -19,3 +19,6 @@ var tasks = {
 };
 
 gulp.task('dist:css', tasks.css);
+gulp.task('watch:css', function () {
+    gulp.watch(config.src, ["dist:css"]);
+});
