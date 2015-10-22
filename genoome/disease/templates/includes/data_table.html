@@ -10,10 +10,8 @@
 </h1>
 <div>
     {% for tag in allele_tags %}
-        <span>
-        <b>
-            {{ tag.slug }}
-        </b>
+    <span class="label label-primary">
+        {{ tag.slug }}
     </span>
     {% endfor %}
 </div>
