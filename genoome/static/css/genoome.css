@@ -25,7 +25,7 @@ body {
     color: #555555;
 }
 
-.banner-title {
+.banner-wrapper h1{
     font-weight: 900;
 }
 
