@@ -10,7 +10,7 @@
 </h1>
 <div>
     {% for tag in allele_tags %}
-    <span class="label label-primary">
+    <span class="label label-primary" style="background-color: {{ tag.color_on }}">
         {{ tag.slug }}
     </span>
     {% endfor %}
