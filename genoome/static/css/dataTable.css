@@ -11,6 +11,11 @@
     color: grey;
 }
 
+.columns-check-list {
+    display: inline;
+    list-style: none;
+}
+
 #genomeData thead, .dataTables_length, .dataTables_filter, .table-settings{
     display: none;
 }
