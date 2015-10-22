@@ -16,8 +16,15 @@ body {
     background-color: #f5f5f5;
 }
 
+/*Landing banner */
+.banner-wrapper {
+    font-family: 'Libre Baskerville', serif;
+}
+
 .btn-action {
     display: block;
     font-size: 40px;
     width: 100%;
 }
+
+/*End landing banner*/

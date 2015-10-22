@@ -3,7 +3,7 @@
 
 {% block banner %}
     {% if not request.user.is_authenticated %}
-        <div class="row">
+        <div class="banner-wrapper row">
             <div class="col-md-6">
                 <img src="{% static 'imgs/happypeople.png' %}" class="img-responsive" alt="Responsive image">
             </div>
