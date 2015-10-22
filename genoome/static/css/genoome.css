@@ -17,5 +17,7 @@ body {
 }
 
 .btn-action {
+    display: block;
     font-size: 40px;
+    width: 100%;
 }
