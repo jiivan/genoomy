@@ -87,3 +87,7 @@ $(".checkbox-row input").change(function() {
         }
     });
 });
+
+$(document).ready(function() {
+   $(".checkbox-row input").trigger('change');
+});
