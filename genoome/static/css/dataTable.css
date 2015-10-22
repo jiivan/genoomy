@@ -23,9 +23,9 @@
     display: none;
 }
 
-/*#genomeData th span.form-control {*/
-    /*border: none;*/
-/*}*/
+#genomeData th span.form-control {
+    height: auto;
+}
 
 /*#genomeData th span input.form-control {*/
     /*display: inherit;*/
