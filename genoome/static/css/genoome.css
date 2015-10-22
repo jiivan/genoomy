@@ -15,31 +15,3 @@ body {
     height: 60px;
     background-color: #f5f5f5;
 }
-
-/*Landing banner */
-.banner-wrapper {
-    font-family: 'Libre Baskerville', serif;
-}
-
-.banner-wrapper h1, .banner-wrapper h2 {
-    color: #555555;
-}
-
-.banner-wrapper h1 {
-    font-weight: 900;
-    font-size: 44px;
-}
-
-.banner-wrapper h2 {
-    font-size: 27px;
-    line-height: 1.5;
-}
-
-.btn-action {
-    display: block;
-    font-size: 56px;
-    font-weight: 900;
-    width: 100%;
-}
-
-/*End landing banner*/

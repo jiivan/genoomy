@@ -1,3 +1,16 @@
+.big-header-text h1 {
+    display: inline;
+    font-size: 2rem;
+    color: black;
+}
+
+.small-sample-text {
+    font-size: 3rem;
+    display: inline;
+    padding: 1rem;
+    color: grey;
+}
+
 #genomeData thead, .dataTables_length, .dataTables_filter, .table-settings{
     display: none;
 }
