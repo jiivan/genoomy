@@ -12,8 +12,11 @@
 }
 
 .columns-check-list {
-    display: inline;
     list-style: none;
+}
+
+.columns-check-list li {
+    display: inline;
 }
 
 #genomeData thead, .dataTables_length, .dataTables_filter, .table-settings{
