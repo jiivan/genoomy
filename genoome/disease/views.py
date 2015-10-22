@@ -240,6 +240,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
         job = AsyncResult(analyze_data_order.task_uuid)
         is_job_ready = job.ready()
+        ctx['is_job_ready'] = is_job_ready
         if is_job_ready:
             ctx['paid'] = paid
             if paid or is_admin:
@@ -250,7 +251,6 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             ctx['paypal_form'] = PayPalPaymentsForm(
                 initial=analyze_data_order.paypal_data(self.request))
         else:
-            ctx['is_job_ready'] = is_job_ready
             messages.add_message(self.request, messages.INFO,
                                  'Your genome data is being analyzed. Wait a few second and try this page again')
 
