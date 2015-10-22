@@ -22,3 +22,22 @@
 #genomeData thead, .dataTables_length, .dataTables_filter, .table-settings{
     display: none;
 }
+
+/*#genomeData th span.form-control {*/
+    /*border: none;*/
+/*}*/
+
+/*#genomeData th span input.form-control {*/
+    /*display: inherit;*/
+    /*width: inherit;*/
+    /*height: inherit;*/
+    /*padding:0;*/
+    /*font-size: inherit;*/
+    /*list-styleline-height: inherit;*/
+    /*color: inherit;*/
+    /*background-color: inherit;*/
+    /*background-image: none;*/
+    /*border-radius: 0;*/
+    /*box-shadow: none;*/
+    /*transition: none;*/
+/*}*/
