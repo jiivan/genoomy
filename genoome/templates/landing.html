@@ -3,38 +3,27 @@
 
 {% block banner %}
     {% if not request.user.is_authenticated %}
-{#        <div class="bar-block">#}
-{#            <div class="add-subblock">#}
-{#                <div class="key-visual-frame">#}
-{#                    <div class="key-visual">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="short-claim-frame">#}
-{#                    <div class="short-claim">#}
-{#                        <h1>#}
-{#                            Understand your genes!#}
-{#                        </h1>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="long-claim-frame">#}
-{#                    <div class="long-claim">#}
-{#                        <h2>#}
-{#                            Colour your genes and get short human#}
-{#                            readable description of how they work.#}
-{#                        </h2>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="key-action-button button button-green-frame button-white-link">#}
-{#                    <div class="key-action-button-text">#}
-{#                        <a href="{% url "disease:upload_genome" %}">#}
-{#                            Upload genome#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-        <div class="col-md-6"><img src="{% static 'imgs/happypeople.png' %}" class="img-responsive" alt="Responsive image"></div>
-        <div class="col-md-6"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{% static 'imgs/happypeople.png' %}" class="img-responsive" alt="Responsive image">
+            </div>
+            <div class="col-md-6">
+                <h1>
+                    Understand your genes!
+                </h1>
+
+                <h2>
+                    Colour your genes and get short human
+                    readable description of how they work.
+                </h2>
+
+                <div class="btn btn-danger">
+                    <a href="{% url "disease:upload_genome" %}">
+                        Upload genome
+                    </a>
+                </div>
+            </div>
+        </div>
     {% endif %}
 {% endblock banner %}
 
