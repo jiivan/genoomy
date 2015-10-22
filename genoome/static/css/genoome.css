@@ -25,9 +25,14 @@ body {
     color: #555555;
 }
 
-.banner-wrapper h1{
+.banner-wrapper h1 {
     font-weight: 900;
     font-size: 44px;
+}
+
+.banner-wrapper h2 {
+    font-size: 27px;
+    line-height: 1.5;
 }
 
 .btn-action {
