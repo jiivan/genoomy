@@ -19,7 +19,7 @@
     display: inline;
 }
 
-#genomeData thead, .dataTables_length, .dataTables_filter, .table-settings{
+#genomeData thead tr.filter-visiblity, .dataTables_length, .dataTables_filter, .table-settings{
     display: none;
 }
 

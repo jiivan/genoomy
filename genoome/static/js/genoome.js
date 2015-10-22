@@ -58,13 +58,12 @@ $(document).ready(function() {
 });
 
 $('.genomeData_advanced').click(function(e) {
-    $('#genomeData thead, .dataTables_length, .dataTables_filter, .table-settings').toggle();
+    $('#genomeData thead tr.filter-visiblity, .dataTables_length, .dataTables_filter, .table-settings').toggle();
 });
 
 $(".checkbox-row input").change(function() {
     var checked = $(this).is(":checked");
     var index = $(this).parent().parent().index();
-    console.log(index);
     $('#genomeData tbody tr').each(function() {
         if(checked) {
             $(this).find("td").eq(index).show();
