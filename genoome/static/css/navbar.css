@@ -2,8 +2,23 @@
     color: #FFF;
     border: 2px solid;
     border-color: #398439;
+    background-color: #000000;
 }
 
 .btn-login:hover {
     color: #FFF;
+}
+
+.btn-top-align {
+    margin-top: 7px;
+}
+
+.btn-logout {
+    background-color: #000000;
+    border: 2px solid #398439;
+}
+
+.btn-admin {
+    background-color: #000000;
+    border: 2px solid crimson;
 }
