@@ -10,7 +10,7 @@ git pull origin dev && \
 cd ../ && \
 ./node_modules/.bin/bower install && \
 cd - && \
-$GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist:css dist:js && \
+$GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist:css dist:js dist:imgs && \
 $PYPATH ./manage.py collectstatic --noinput --settings=genoome.settings.development && \
 sudo touch /etc/uwsgi/vassals/dev_genoome.ini && \
 sudo chown -R ubuntu:www-data /opt/dev_genoome/genoome/genoome/assets/;

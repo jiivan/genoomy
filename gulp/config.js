@@ -31,6 +31,10 @@ module.exports = {
             vendorFile('datatables/media/js/jquery.dataTables.min.js')
         ]
     },
+    images: {
+        imagesDirs: staticRoot + '/imgs/**/*.**',
+        imagesDest: distPath + '/imgs'
+    },
     clean: {
         distDir: distPath + '/'
     }
