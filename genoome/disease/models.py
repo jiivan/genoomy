@@ -87,6 +87,7 @@ class AnalyzeDataOrder(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     uploaded_filename = models.CharField(max_length=256)
     paid = models.DateTimeField(null=True)
+    task_uuid = models.CharField(max_length=256)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

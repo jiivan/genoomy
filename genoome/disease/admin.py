@@ -29,7 +29,7 @@ class SNPMarkerArticleAdmin(admin.ModelAdmin):
 
 
 class AnalyzeDataOrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'uploaded_filename', 'paid')
+    list_display = ('user', 'uploaded_filename', 'paid', 'task_uuid')
     search_fields = ('user', 'uploaded_filename')
 
 

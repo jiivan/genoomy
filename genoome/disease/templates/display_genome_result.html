@@ -5,13 +5,15 @@
 {% block page_title %}Browse your genome{% endblock page_title %}
 
 {% block content %}
-    {% if view.is_browsing_via_admin %}
-        <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
-    {% endif %}
-    {% if paid or is_admin %}
-        {% include 'includes/color_legend.html' %}
-        {% include 'includes/data_table.html' %}
-    {% else %}
-        {% include 'includes/payment_button.html' %}
+    {% if is_job_ready %}
+        {% if view.is_browsing_via_admin %}
+            <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
+        {% endif %}
+        {% if paid or is_admin %}
+            {% include 'includes/color_legend.html' %}
+            {% include 'includes/data_table.html' %}
+        {% else %}
+            {% include 'includes/payment_button.html' %}
+        {% endif %}
     {% endif %}
 {% endblock content %}

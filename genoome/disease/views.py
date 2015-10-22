@@ -5,9 +5,12 @@ import uuid
 import pickle
 import os
 
+from celery import uuid as celery_uuid
+from celery.result import AsyncResult
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login
+from django.contrib import messages
 from django.core.cache import cache
 from django.core.urlresolvers import reverse_lazy
 from django.core.files.storage import FileSystemStorage
@@ -129,13 +132,15 @@ class UploadGenome(GenomeFilePathMixin, FormView):
             user = self.request.user
 
         storage.save(self.get_filepath(raw_filename, user=user), raw_file)
-        analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user)
+        task_id = celery_uuid()
+        analyze_order = AnalyzeDataOrder(uploaded_filename=raw_filename, user=user, task_uuid=task_id)
 
         if user.is_staff and user.is_active:
             log.info('User %s skipping payment due to staff membership', user)
             analyze_order.paid = timezone.now()
         analyze_order.save()
-        recompute_genome_file.delay(self.get_filepath(raw_filename, user=user))
+        recompute_genome_file.apply_async(args=(self.get_filepath(raw_filename, user=user),),
+                                          task_id=task_id)
         # table = process_genoome_data(data)
         # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
         # if self.request.user.is_authenticated() and not file_exists:
@@ -233,14 +238,23 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
                 analyze_data_order.save()
                 paid = analyze_data_order.is_paid
 
-        ctx['paid'] = paid
-        if paid or is_admin:
-            ctx['table'] = self.get_genome_data()
-        ctx['bitpay_checkout_url'] = settings.BITPAY_API
-        ctx['analyze_order'] = analyze_data_order
-        ctx['pos_data'] = analyze_data_order.posData()
-        ctx['paypal_form'] = PayPalPaymentsForm(
-            initial=analyze_data_order.paypal_data(self.request))
+        job = AsyncResult(analyze_data_order.task_uuid)
+        is_job_ready = job.ready()
+        if is_job_ready:
+            ctx['paid'] = paid
+            if paid or is_admin:
+                ctx['table'] = self.get_genome_data()
+            ctx['bitpay_checkout_url'] = settings.BITPAY_API
+            ctx['analyze_order'] = analyze_data_order
+            ctx['pos_data'] = analyze_data_order.posData()
+            ctx['paypal_form'] = PayPalPaymentsForm(
+                initial=analyze_data_order.paypal_data(self.request))
+        else:
+            ctx['is_job_ready'] = is_job_ready
+            messages.add_message(self.request, messages.INFO,
+                                 'Your genome data is being analyzed. Wait a few second and try this page again')
+
+
         return ctx
 
 
