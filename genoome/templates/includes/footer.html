@@ -1,7 +1,7 @@
-<div>
-    <div>
+<footer class="footer">
+    <div class="container">
         <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
         <a href="{% url "faq" %}">FAQ</a>
         <a href="mailto:info@genoomy.com">info@genoomy.com</a>
     </div>
-</div>
+</footer>

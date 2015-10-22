@@ -1,60 +1,101 @@
-<div class="bar-block nav-colors">
-    <div class="navbar-subblock">
-        <div class="navbar-left">
-            <div class="navbar-element navbar-element-left">
-                <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">
-                    Genoomy
-                </a>
-            </div>
-            <div class="navbar-element navbar-element-left">
-                <a href="{% url "faq" %}">
-                    FAQ
-                </a>
-            </div>
-            <div class="navbar-element navbar-element-left">
-                <a href="mailto:info@genoomy.com">
-                    info@genoomy.com
-                </a>
-            </div>
+{#<div class="bar-block nav-colors">#}
+{#    <div class="navbar-subblock">#}
+{#        <div class="navbar-left">#}
+{#            <div class="navbar-element navbar-element-left">#}
+{#                <a href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">#}
+{#                    Genoomy#}
+{#                </a>#}
+{#            </div>#}
+{#            <div class="navbar-element navbar-element-left">#}
+{#                <a href="{% url "faq" %}">#}
+{#                    FAQ#}
+{#                </a>#}
+{#            </div>#}
+{#            <div class="navbar-element navbar-element-left">#}
+{#                <a href="mailto:info@genoomy.com">#}
+{#                    info@genoomy.com#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{#            {% for nav_page in nav_pages %}#}
+{#                <div class="navbar-element navbar-element-left">#}
+{#                    <a href="{{ nav_page.url }}">#}
+{#                        {{ nav_page.title }}#}
+{#                    </a>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{##}
+{#        {% if not request.user.is_authenticated %}#}
+{#            <div class="navbar-right">#}
+{#            <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">#}
+{#                {% csrf_token %}#}
+{#                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">#}
+{#                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero"  id="id_password" name="password" placeholder="Password" type="password">#}
+{#                <button class="margin-zero navbar-element navbar-element-right button button-green-frame button-black-interior button-white-text margin-zero" type="submit" >#}
+{#                    Login#}
+{#                </button>#}
+{#            </form>#}
+{#            <form class="form-workaround" method="get" action="{% url "accounts:signup" %}">#}
+{#                <button class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-text" type="submit" >#}
+{#                    Register#}
+{#                </button>#}
+{#            </form>#}
+{#        {% elif request.user.is_authenticated %}#}
+{#            <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">#}
+{#            {% if request.user.is_staff %}#}
+{#                <a type="button"  href="{% url "admin:index" %}">#}
+{#                    Admin#}
+{#                </a>#}
+{#            {% endif %}#}
+{#            <div class="navbar-element navbar-element-right button button-green-frame button-white-link">#}
+{#                <a type="button" href="{% url "accounts:logout" %}">#}
+{#                    Logout#}
+{#                </a>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#        </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
-            {% for nav_page in nav_pages %}
-                <div class="navbar-element navbar-element-left">
-                    <a href="{{ nav_page.url }}">
-                        {{ nav_page.title }}
-                    </a>
-                </div>
-            {% endfor %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}">Genoomy</a>
         </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ><a href="{% url "faq" %}">FAQ</a></li>
+                <li><a href="mailto:info@genoomy.com"><span class="glyphicon glyphicon-envelope"></span> info@genoomy.com</a></li>
+                {% for nav_page in nav_pages %}
+                    <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% if not request.user.is_authenticated %}
+                <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
+                    </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+                    <a class="btn btn-register" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
+                </form>
+            {% elif request.user.is_authenticated %}
+                {% if request.user.is_staff %}
+                    <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "admin:index" %}">Admin</a>
+                {% endif %}
+                <a type="button" class="btn btn-inverse btn-logout navbar-right" href="{% url "accounts:logout" %}">Logout</a>
 
-        {% if not request.user.is_authenticated %}
-            <div class="navbar-right">
-            <form class="form-workaround" method="post" action="{% url "accounts:signin" %}">
-                {% csrf_token %}
-                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
-                <input class="margin-zero navbar-element navbar-element-right input-nav button button-green-frame input-yellow-interior button-white-link input-nomargin margin-zero"  id="id_password" name="password" placeholder="Password" type="password">
-                <button class="margin-zero navbar-element navbar-element-right button button-green-frame button-black-interior button-white-text margin-zero" type="submit" >
-                    Login
-                </button>
-            </form>
-            <form class="form-workaround" method="get" action="{% url "accounts:signup" %}">
-                <button class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-text" type="submit" >
-                    Register
-                </button>
-            </form>
-        {% elif request.user.is_authenticated %}
-            <div class="navbar-element navbar-element-right button button-green-frame button-green-interior button-white-link">
-            {% if request.user.is_staff %}
-                <a type="button"  href="{% url "admin:index" %}">
-                    Admin
-                </a>
             {% endif %}
-            <div class="navbar-element navbar-element-right button button-green-frame button-white-link">
-                <a type="button" href="{% url "accounts:logout" %}">
-                    Logout
-                </a>
-            </div>
-        {% endif %}
-        </div>
-        </div>
+        </div><!--/.nav-collapse -->
     </div>
 </div>

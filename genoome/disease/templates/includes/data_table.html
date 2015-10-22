@@ -1,144 +1,142 @@
-<div class="maintable-subblock">
-    <span>
+<span>
         <span class="big-header-text">
             <h1>
-            Your Coloured Genome
+                Your Coloured Genome
             </h1>
         </span>
         <span class="small-sample-text">
             (sample)
         </span>
-    </span>
-    <div>
-        {% for tag in allele_tags %}
-            <span>
+</span>
+<div>
+    {% for tag in allele_tags %}
+        <span>
         <b>
             {{ tag.slug }}
         </b>
     </span>
-        {% endfor %}
-    </div>
-    <div class="show-advenced genomeData_advanced">
-        Advenced options 
+    {% endfor %}
+</div>
+<div class="show-advenced genomeData_advanced">
+    Advenced options
         <span class="settings-el">
             &#9881;
         </span>
-    </div>
-    <div class="table-settings">
-        <div>
-             Table fields:
-        </div>
-        <ul class="columns-check-list">
-            <li class="checkbox-row">
-                <label>Rsid
-                    <input type="checkbox" checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Chromosome pos.
-                    <input type="checkbox" checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Risk Allele
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Genotype
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Disease Trait
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>P walue
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>OR
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Risk
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Priority
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li class="checkbox-row">
-                <label>Tags
-                    <input type="checkbox"  checked="checked">
-                </label>
-            </li>
-            <li id="savebutton">Save</li>
-            <li id="defaultbutton">Toggle default</li>
-        </ul>
-    </div>
-    <table id="genomeData" class="genoomy-table">
-        <thead>
-        <tr>
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-        </tr>
-        <tr>
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-        </tr>
-        </tfoot>
-        <tbody>
-        {% for row in table %}
-            <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
-                <td>{{ row.rsid }}</td>
-                <td>{{ row.chromosome_position }}</td>
-                <td>{{ row.risk_allele }}</td>
-                <td>{{ row.genotype }}</td>
-                <td>{{ row.disease_trait }}</td>
-                <td>{{ row.p_value }}</td>
-                <td>{{ row.or_or_beta }}</td>
-                <td>{{ row.risk }}</td>
-                <td>{{ row.priority|default:0 }}</td>
-                <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 </div>
+<div class="table-settings">
+    <div>
+        Table fields:
+    </div>
+    <ul class="columns-check-list">
+        <li class="checkbox-row">
+            <label>Rsid
+                <input type="checkbox" checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Chromosome pos.
+                <input type="checkbox" checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Risk Allele
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Genotype
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Disease Trait
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>P walue
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>OR
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Risk
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Priority
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Tags
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li id="savebutton">Save</li>
+        <li id="defaultbutton">Toggle default</li>
+    </ul>
+</div>
+<table id="genomeData" class="genoomy-table">
+    <thead>
+    <tr>
+        <th>RSID</th>
+        <th>CHROMOSOME POS</th>
+        <th>RISK ALLELE</th>
+        <th>GENOTYPE</th>
+        <th>DISEASE TRAIT</th>
+        <th>P VALUE</th>
+        <th>OR</th>
+        <th>RISK</th>
+        <th>PRIORITY</th>
+        <th>TAGS</th>
+    </tr>
+    <tr>
+        <th>RSID</th>
+        <th>CHROMOSOME POS</th>
+        <th>RISK ALLELE</th>
+        <th>GENOTYPE</th>
+        <th>DISEASE TRAIT</th>
+        <th>P VALUE</th>
+        <th>OR</th>
+        <th>RISK</th>
+        <th>PRIORITY</th>
+        <th>TAGS</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>RSID</th>
+        <th>CHROMOSOME POS</th>
+        <th>RISK ALLELE</th>
+        <th>GENOTYPE</th>
+        <th>DISEASE TRAIT</th>
+        <th>P VALUE</th>
+        <th>OR</th>
+        <th>RISK</th>
+        <th>PRIORITY</th>
+        <th>TAGS</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    {% for row in table %}
+        <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
+            <td>{{ row.rsid }}</td>
+            <td>{{ row.chromosome_position }}</td>
+            <td>{{ row.risk_allele }}</td>
+            <td>{{ row.genotype }}</td>
+            <td>{{ row.disease_trait }}</td>
+            <td>{{ row.p_value }}</td>
+            <td>{{ row.or_or_beta }}</td>
+            <td>{{ row.risk }}</td>
+            <td>{{ row.priority|default:0 }}</td>
+            <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
