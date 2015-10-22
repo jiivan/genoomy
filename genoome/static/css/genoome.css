@@ -21,12 +21,12 @@ body {
     font-family: 'Libre Baskerville', serif;
 }
 
-.banner-title {
-    font-weight: 900;
+.banner-wrapper h1, .banner-wrapper h2 {
+    color: #555555;
 }
 
-.banner-subtitle {
-    color: #555555;
+.banner-title {
+    font-weight: 900;
 }
 
 .btn-action {
