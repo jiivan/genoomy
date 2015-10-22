@@ -87,7 +87,7 @@
                         <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
                     </div>
                     <button type="submit" class="btn btn-success">Login</button>
-                    <a class="btn btn-register" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
+                    <a class="btn btn-success" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
                 {% if request.user.is_staff %}
