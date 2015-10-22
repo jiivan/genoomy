@@ -14,11 +14,13 @@
 }
 
 .btn-logout {
+    color: #FFF;
     background-color: #000000;
     border: 2px solid #398439;
 }
 
 .btn-admin {
+    color: #FFF;
     background-color: #000000;
     border: 2px solid crimson;
 }
