@@ -37,7 +37,8 @@ body {
 
 .btn-action {
     display: block;
-    font-size: 40px;
+    font-size: 64px;
+    font-weight: 900;
     width: 100%;
 }
 
