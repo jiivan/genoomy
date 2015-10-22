@@ -1,5 +1,6 @@
 import logging
 
+from celery import uuid as celery_uuid
 from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin, messages
@@ -25,6 +26,7 @@ csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
 
 from .models import GenoomyUser
+from disease.models import AnalyzeDataOrder
 from disease.tasks import recompute_genome_file
 from disease.files_utils import get_genome_dirpath, get_genome_filepath, \
     process_filename, parse_raw_genome_file, \
@@ -71,7 +73,15 @@ class GenoomyUserAdmin(admin.ModelAdmin):
                         continue
                     log.debug('Processing file: %s', file)
                     genome_filepath = get_genome_filepath(user, file)
-                    recompute_genome_file.delay(genome_filepath)
+                    try:
+                        analyze_data_order = AnalyzeDataOrder.objects.get(uploaded_filename=file, user=user)
+                    except AnalyzeDataOrder.DoesNotExist:
+                        log.debug('AnalyzeDataOrder not found. File %s, user %s', file, user)
+                        continue
+                    analyze_data_order.task_uuid = celery_uuid()
+                    analyze_data_order.save()
+                    recompute_genome_file.apply_async(args=(genome_filepath,),
+                                                      task_id=analyze_data_order.task_uuid)
         self.message_user(request, 'Successfully added recomputation tasks for %s users' % len(queryset), level='SUCCESS')
     refresh_user_genome_data.short_descrition = 'Schedule recomputation of user genome data'
 
