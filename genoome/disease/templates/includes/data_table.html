@@ -1,43 +1,97 @@
-<div class="container filter_labels">
-    {% for tag in allele_tags %}
-        <span class="label label-primary"><b>{{ tag.slug }}</b></span>
-    {% endfor %}
+<h1>
+        <span class="big-header-text">
+
+                Your Coloured Genome
+
+        </span>
+        <span class="small-sample-text">
+            (sample)
+        </span>
+</h1>
+<div>
+    <h2>
+        {% for legend_row in legend_rows %}
+            <span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
+            {{ legend_row.content }}
+        </span>
+        {% endfor %}
+    </h2>
+    <div class="filter_labels">
+        <h3>
+            {% for tag in allele_tags %}
+                <span class="label label-tag" style="background-color: {{ tag.color_on }}">{{ tag.slug }}</span>
+            {% endfor %}
+        </h3>
+    </div>
 </div>
-
-<div class="checkbox-list"><div class="checkbox-lister"><span class="glyphicon glyphicon-cog lister-cog" ></span>Change table fields</div>
-    <ul class="checkbox-listinn">
-        <li><label class="rounded-all">Rsid<input class="checkbox-row" id="ch3" name="3" type="checkbox" value="ci1"></label></li>
-        <li><label class="rounded-all">Chromosome pos.<input class="checkbox-row" id="ch1" name="1" type="checkbox" value="ci2"></label></li>
-        <li><label class="rounded-all">Risk Allele<input class="checkbox-row" id="ch2" name="2" type="checkbox" value="ci3"></label></li>
-        <li><label class="rounded-all">Genotype<input class="checkbox-row" id="ch7" name="7" type="checkbox" value="ci4"></label></li>
-        <li><label class="rounded-all">Disease Trait<input class="checkbox-row" id="ch8" name="8" type="checkbox" value="ci5"></label></li>
-
-        <li><label class="rounded-all">P walue <input class="checkbox-row" id="ch4" name="4" type="checkbox" value="ci6"></label> </li>
-        <li><label class="rounded-all">OR<input class="checkbox-row" id="ch5" name="5" type="checkbox" value="ci7"></label> </li>
-        <li><label class="rounded-all">Risk<input class="checkbox-row" id="ch6" name="6" type="checkbox" value="ci8"></label> </li>
-        <li id="savebutton">Save</li>
-        <li id="defaultbutton">Toggle default</li>
+<div class="show-advenced genomeData_advanced">
+    Advenced optionssss
+        <span class="settings-el">
+            &#9881;
+        </span>
+</div>
+<div class="table-settings">
+    <div>
+        Table fields:
+    </div>
+    <ul class="columns-check-list">
+        <li class="checkbox-row">
+            <label>Rsid
+                <input type="checkbox">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Chromosome pos.
+                <input type="checkbox">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Risk Allele
+                <input type="checkbox">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Genotype
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Disease Trait
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>P walue
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>OR
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Risk
+                <input type="checkbox"  checked="checked">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Priority
+                <input type="checkbox">
+            </label>
+        </li>
+        <li class="checkbox-row">
+            <label>Tags
+                <input type="checkbox">
+            </label>
+        </li>
+        {#        <li id="savebutton">Save</li>#}
+        {#        <li id="defaultbutton">Toggle default</li>#}
     </ul>
 </div>
-
-<div class="sk-circle">
-    <div class="sk-circle1 sk-child"></div>
-    <div class="sk-circle2 sk-child"></div>
-    <div class="sk-circle3 sk-child"></div>
-    <div class="sk-circle4 sk-child"></div>
-    <div class="sk-circle5 sk-child"></div>
-    <div class="sk-circle6 sk-child"></div>
-    <div class="sk-circle7 sk-child"></div>
-    <div class="sk-circle8 sk-child"></div>
-    <div class="sk-circle9 sk-child"></div>
-    <div class="sk-circle10 sk-child"></div>
-    <div class="sk-circle11 sk-child"></div>
-    <div class="sk-circle12 sk-child"></div>
-</div>
-
-<table id="genomeData" class="display" cellspacing="0" width="100%">
+<table id="genomeData" class="table table-striped table-bordered genoomy-table">
     <thead>
-    <tr>
+    <tr class="filter-visiblity">
         <th>RSID</th>
         <th>CHROMOSOME POS</th>
         <th>RISK ALLELE</th>
@@ -49,8 +103,7 @@
         <th>PRIORITY</th>
         <th>TAGS</th>
     </tr>
-    <tr>
-	
+    <tr class="sorting-visiblity">
         <th>RSID</th>
         <th>CHROMOSOME POS</th>
         <th>RISK ALLELE</th>
@@ -63,8 +116,6 @@
         <th>TAGS</th>
     </tr>
     </thead>
-
-
     <tfoot>
     <tr>
         <th>RSID</th>
@@ -94,6 +145,5 @@
             <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
         </tr>
     {% endfor %}
-
     </tbody>
 </table>

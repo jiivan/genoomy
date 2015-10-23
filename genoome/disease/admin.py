@@ -32,8 +32,10 @@ class AnalyzeDataOrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'uploaded_filename', 'paid', 'task_uuid')
     search_fields = ('user', 'uploaded_filename')
 
+class CustomizedTagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'color_off', 'color_on', 'show_on_data', 'show_on_landing')
 
-admin.site.register(CustomizedTag)
+admin.site.register(CustomizedTag, CustomizedTagAdmin)
 admin.site.register(SNPMarker, SNPMarkerAdmin)
 admin.site.register(SNPMarkerArticle, SNPMarkerArticleAdmin)
 admin.site.register(AlleleColor, AlleleColorAdmin)

@@ -22,9 +22,9 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
 
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
-        var selected_tags = $('.filter_labels span.label-warning').map(function(k, v) {
-            return $(this).text();
-        }).get(),
+        var selected_tags = $('.filter_labels h3 span.tag-checked').map(function(k, v) {
+                return $(this).text();
+            }).get(),
             row_tags = aData[9].split(';');
 
         if (!selected_tags.length) { // nothing to filter out
@@ -45,28 +45,15 @@ $.fn.dataTableExt.afnFiltering.push(
     }
 );
 
-$(document).ready(function() {
 
-    var genomeData = $('#genomeData');
-    genomeData.on( 'draw.dt', function () {
-        genomeData.css('visibility', 'visible');
-        $('.sk-circle').css('display', 'none');
-    } );
+var genomeData = $('#genomeData');
+$(document).ready(function() {
     var genomeTable = genomeData.dataTable({
-        "pageLength": 50,
+        "pageLength": 100,
         "aoColumnDefs": [
-            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
-            { "bSearchable": true, "bVisible": false, "aTargets": [ 8, 9 ] }
+            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
         ],
         "order": [[ 8, "desc" ]],
-        "processing": true,
-        "columnDefs": [
-            {
-                "targets": [ 8, 9 ],
-                "visible": false,
-                "searchable": false
-            }
-        ],
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
@@ -88,138 +75,50 @@ $(document).ready(function() {
             { type: "select" },
             { type: "number-range" },
             { type: "number-range" },
+            { type: "select" },
             { type: "number-range" },
+            { type: "select" }
         ]
     });
-    var progressbar = $('.progress-bar');
-    var interval;
 
-    function updateBar(values) {
-        //console.log(values);
-        var l = values.received;
-        var tot = values.size;
+});
 
-        var perc = (l / tot) * (100.00);
-        //console.log(perc);
-        progressbar.css('width', perc + '%');
-        progressbar.text(perc + '%');
-        if (values.status === 'done') {
-            window.clearInterval(interval);
+$('.genomeData_advanced').click(function(e) {
+    $('#genomeData thead tr.filter-visiblity, .dataTables_length, .dataTables_filter, .table-settings').toggle();
+});
+
+$(".checkbox-row input").change(function() {
+    var checked = $(this).is(":checked");
+    var index = $(this).parent().parent().index();
+    $('#genomeData tbody tr').each(function() {
+        if(checked) {
+            $(this).find("td").eq(index).show();
+        } else {
+            $(this).find("td").eq(index).hide();
         }
-    }
-
-    $("form#upload_form").submit(function(e){
-        //console.log('Form submitted');
-        var getProgress = function() {
-            $.ajax({
-                url: "/progress",
-                headers: {"X-Progress-ID": $('#progress-bar').data('upload_id')},
-                dataType: 'json',
-                success: function(data) {
-                    updateBar(data);
-                }
-            });
-        };
-        interval = window.setInterval(getProgress, 1000);
     });
-
-    function purchase_data(payment) {
-        var container = $('.payment-choices'),
-            tid = container.data('tid'),
-            sku = container.data('sku');
-        dataLayer.push({
-            'ecommerce': {
-                'purchase': {
-                    'actionField': {
-                        'id': tid,
-                        'revenue': 19.00,
-                        'option': payment
-                    },
-                    'products': [
-                        {
-                            'name': 'Genome Data Analysis',
-                            'id': sku,
-                        }
-                    ]
-                }
-            }
-        });
-    }
-
-    $(document).on('submit', '.payment-choices .payment-bitpay form', function(e) {
-        //e.preventDefault();
-        e.stopPropagation();
-        purchase_data('Bitpay');
-        //console.log('Bitpay submitted');
+    $('#genomeData thead tr').each(function() {
+        if(checked) {
+            $(this).find("th").eq(index).show();
+        } else {
+            $(this).find("th").eq(index).hide();
+        }
     });
-    $(document).on('click', '.payment-choices .payment-coupon a', function(e) {
-        //e.preventDefault();
-        e.stopPropagation();
-        purchase_data('Coupon');
-        //console.log('Coupon submitted');
+    $('#genomeData tfoot tr').each(function() {
+        if(checked) {
+            $(this).find("th").eq(index).show();
+        } else {
+            $(this).find("th").eq(index).hide();
+        }
     });
-    $(document).on('submit', '.payment-choices .payment-paypal form', function(e) {
-        //e.preventDefault();
-        e.stopPropagation();
-        purchase_data('Paypal');
-        //console.log('Paypal submitted');
-    });
+});
 
-    $('div.legend').mouseenter(function(e) {
-        e.preventDefault();
-        $('div.legend').addClass('legend-active');
-    });
-	  $('div.legend').mouseleave(function(e) {
-        e.preventDefault();
-        $('div.legend').removeClass('legend-active');
-    });
+$(document).ready(function() {
+    $(".checkbox-row input").trigger('change');
+});
 
-    $('.form-control input:first-child').attr("placeholder","from");
-    $('.form-control input:last-child').attr("placeholder","to");
-
-    $(".checkbox-row").change(function() {
-        genomeData.toggleClass($(this).val());
-    });
-
-    $(".checkbox-lister").click(function(){
-        $(".checkbox-listinn").addClass('active');
-        $(document.createElement('div'))
-            .addClass('modal-backdrop in')
-            .appendTo($(document.body));
-        $('.modal-backdrop').click(function(e) {
-            $(".checkbox-listinn").removeClass('active');
-            $(e.target).remove();
-        });
-
-
-    });
-    $("#savebutton").click(function(){
-        $(".checkbox-listinn").removeClass('active');
-        $('.modal-backdrop').remove();
-    });
-
-    $('#defaultbutton').click(function() {
-        genomeData.addClass('ci1 ci2 ci3');
-        genomeData.removeClass('ci4 ci5 ci6 ci7 ci8');
-        $('#ch1').attr('checked', false);
-        $('#ch2').attr('checked', false);
-        $('#ch3').attr('checked', false);
-        $('#ch4').attr('checked', true);
-        $('#ch5').attr('checked', true);
-        $('#ch6').attr('checked', true);
-        $('#ch7').attr('checked', true);
-        $('#ch8').attr('checked', true);
-    });
-
-    $('#defaultbutton').trigger('click');
-
-    $(document).on('reload-page', function(e) {
-        location.reload();
-    });
-
-    $('.filter_labels span').on('click', function(e) {
-        var label = $(e.delegateTarget);
-        label.toggleClass('label-warning label-primary');
-        genomeData.DataTable().draw();
-    });
+$('.filter_labels h3 span.label').on('click', function(e) {
+    var label = $(e.delegateTarget);
+    label.toggleClass('tag-checked');
+    genomeData.DataTable().draw();
 });
