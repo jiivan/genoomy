@@ -39,6 +39,10 @@
     cursor: pointer;
 }
 
+.label-tag {
+    margin-right: 3px;
+}
+
 /*#genomeData th span input.form-control {*/
     /*display: inherit;*/
     /*width: inherit;*/
