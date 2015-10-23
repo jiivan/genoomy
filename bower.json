@@ -10,7 +10,9 @@
   "private": true,
   "dependencies": {
     "jquery": "^2.1.4",
-    "jquery-datatables-columnfilter": "0.0.1"
+    "jquery-datatables-columnfilter": "0.0.1",
+    "datatables": "1.10.7",
+    "select2": "4.0.0"
   },
   "ignore": [
     "**/.*",
