@@ -107,6 +107,6 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         sample_data_filepath = 'disease/{}'.format(self.sample_data_filename)
         kwargs['table'] = get_genome_data(sample_data_filepath)
-        kwargs['allele_tags'] = CustomizedTag.objects.all()
+        kwargs['allele_tags'] = CustomizedTag.objects.filter(show_on_landing=False)
         kwargs['legend_rows'] = get_legend_rows()
         return super().get_context_data(**kwargs)
