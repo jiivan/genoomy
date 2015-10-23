@@ -16,13 +16,13 @@
         </span>
         {% endfor %}
     </h2>
-    <h3>
-        {% for tag in allele_tags %}
-            <span class="label label-tag" style="background-color: {{ tag.color_on }}">
-        {{ tag.slug }}
-    </span>
-        {% endfor %}
-    </h3>
+    <div class="filter_labels">
+        <h3>
+            {% for tag in allele_tags %}
+                <span class="label label-tag" style="background-color: {{ tag.color_on }}">{{ tag.slug }}</span>
+            {% endfor %}
+        </h3>
+    </div>
 </div>
 <div class="show-advenced genomeData_advanced">
     Advenced optionssss

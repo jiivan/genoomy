@@ -20,6 +20,33 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
     return ((x < y) ?  1 : ((x > y) ? -1 : 0));
 };
 
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex) {
+        var selected_tags = $('.filter_labels h3 span.tag-checked').map(function(k, v) {
+                return $(this).text();
+            }).get(),
+            row_tags = aData[9].split(';');
+        console.log(selected_tags);
+
+        if (!selected_tags.length) { // nothing to filter out
+            return true;
+        } else {
+            if (!row_tags.length || (row_tags.length === 1 && row_tags[0] === "")) {
+                return false;
+            }
+            for (var i = 0; i < selected_tags.length; i++) {
+                for (var j = 0; j < row_tags.length; j++) {
+                    if (selected_tags[i] === row_tags[j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+);
+
+
 var genomeData = $('#genomeData');
 $(document).ready(function() {
     var genomeTable = genomeData.dataTable({
@@ -88,5 +115,12 @@ $(".checkbox-row input").change(function() {
 });
 
 $(document).ready(function() {
-   $(".checkbox-row input").trigger('change');
+    $(".checkbox-row input").trigger('change');
+});
+
+$('.filter_labels h3 span.label').on('click', function(e) {
+    var label = $(e.delegateTarget);
+    label.toggleClass('tag-checked');
+    label.
+    genomeData.DataTable().draw();
 });
