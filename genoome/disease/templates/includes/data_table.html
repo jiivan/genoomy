@@ -10,9 +10,11 @@
 </h1>
 <div>
     {% for tag in allele_tags %}
+        <h3>
     <span class="label label-primary" style="background-color: {{ tag.color_on }}">
         {{ tag.slug }}
     </span>
+        </h3>
     {% endfor %}
 </div>
 <div class="show-advenced genomeData_advanced">
