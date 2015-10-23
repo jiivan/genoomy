@@ -26,7 +26,6 @@ $.fn.dataTableExt.afnFiltering.push(
                 return $(this).text();
             }).get(),
             row_tags = aData[9].split(';');
-        console.log(selected_tags);
 
         if (!selected_tags.length) { // nothing to filter out
             return true;
@@ -121,6 +120,5 @@ $(document).ready(function() {
 $('.filter_labels h3 span.label').on('click', function(e) {
     var label = $(e.delegateTarget);
     label.toggleClass('tag-checked');
-    label.
     genomeData.DataTable().draw();
 });
