@@ -19,7 +19,7 @@
     <div class="filter_labels">
         <h3>
             {% for tag in allele_tags %}
-                <span class="label label-tag" style="background-color: {{ tag.color_on }}">{{ tag.slug }}</span>
+                <span class="label label-tag" style="background-color: {{ tag.color_on }}" data-color-on="{{ tag.color_on }}" data-color-off="{{ tag.color_off }}">{{ tag.slug }}</span>
             {% endfor %}
         </h3>
     </div>

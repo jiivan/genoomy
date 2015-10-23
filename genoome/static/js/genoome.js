@@ -118,7 +118,14 @@ $(document).ready(function() {
 });
 
 $('.filter_labels h3 span.label').on('click', function(e) {
-    var label = $(e.delegateTarget);
+    var label = $(e.delegateTarget),
+        labelColorOff = label.data('color-off'),
+        labelColorOn = label.data('color-on');
     label.toggleClass('tag-checked');
+    if (label.hasClass('tag-checked')) {
+        label.css('background-color', labelColorOn);
+    } else {
+        label.css('background-color', labelColorOff);
+    }
     genomeData.DataTable().draw();
 });
