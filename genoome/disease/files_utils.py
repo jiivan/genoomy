@@ -110,6 +110,9 @@ def process_genoome_data_gen(data):
                 row.update({'color': allele_color.color_alias.color,
                             'priority': allele_color.priority,
                             'tags': list(map(lambda x: x[0], allele_color.tags.all().values_list('slug')))})
+                if allele_color.short_description:
+                    row['disease_trait'] = allele_color.short_description
+
                 break
 
         yield row
