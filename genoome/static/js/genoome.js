@@ -1,3 +1,22 @@
+$.cssHooks.backgroundColor = {
+    get: function(elem) {
+        if (elem.currentStyle)
+            var bg = elem.currentStyle["backgroundColor"];
+        else if (window.getComputedStyle)
+            var bg = document.defaultView.getComputedStyle(elem,
+                null).getPropertyValue("background-color");
+        if (bg.search("rgb") == -1)
+            return bg;
+        else {
+            bg = bg.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            function hex(x) {
+                return ("0" + parseInt(x).toString(16)).slice(-2);
+            }
+            return "#" + hex(bg[1]) + hex(bg[2]) + hex(bg[3]);
+        }
+    }
+};
+
 $.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
     if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
 
@@ -45,15 +64,36 @@ $.fn.dataTableExt.afnFiltering.push(
     }
 );
 
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex) {
+        var selected_categories = $('.category_labels h2 span.tag-checked').map(function(k, v) {
+                return $(this).css('background-color');
+            }).get(),
+            row_color = aData[10];
+        if (!selected_categories.length) { // nothing to filter out
+            return true;
+        } else {
+            for (var i = 0; i < selected_categories.length; i++) {
+                if (selected_categories[i] === row_color) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+);
 
 var genomeData = $('#genomeData');
 $(document).ready(function() {
     var genomeTable = genomeData.dataTable({
         "pageLength": 100,
         "aoColumnDefs": [
-            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] }
+            { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
+            { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
         ],
+        "columnDefs": [{"targets": [ 8 ], "visible": false, "searchable": false}],
         "order": [[ 8, "desc" ]],
+        "processing": true,
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
@@ -127,5 +167,11 @@ $('.filter_labels h3 span.label').on('click', function(e) {
     } else {
         label.css('background-color', labelColorOff);
     }
+    genomeData.DataTable().draw();
+});
+
+$('.category_labels h2 span.label').on('click', function(e) {
+    var category = $(e.delegateTarget);
+    category.toggleClass('tag-checked');
     genomeData.DataTable().draw();
 });
