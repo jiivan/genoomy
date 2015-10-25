@@ -18,4 +18,5 @@
             <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">{{ row }}</a>
         {% endfor %}
     </div>
+    <small><a href="{% url 'accounts:disable' %}" class="text-danger"><i class="glyphicon glyphicon-remove"></i> Disable account</a></small>
 {% endblock content %}
