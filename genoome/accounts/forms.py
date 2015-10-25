@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 user_model = get_user_model()
 
+
 class SignInForm(AuthenticationForm):
     error_messages = {
         'invalid_login': _("Please enter a correct %(username)s and password. "
@@ -37,6 +38,13 @@ class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = user_model
         fields = ('email',)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if user_model.objects.filter(username=email).count():
+            raise ValidationError('User with this email already exists')
+
+        return email
 
     def save(self, commit=True):
         self.instance.username = self.cleaned_data.get('email', '')
