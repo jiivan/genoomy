@@ -129,3 +129,25 @@ $('.filter_labels h3 span.label').on('click', function(e) {
     }
     genomeData.DataTable().draw();
 });
+
+
+/**
+ * Layout expand
+ */
+function setLayout() {
+    if(window.localStorage['expand'] == 'true') {
+        $('.layout').removeClass('container container-fluid').addClass('container-fluid')
+            $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-full').removeClass('glyphicon-resize-full').addClass('glyphicon-resize-small')
+    } else {
+        $('.layout').removeClass('container container-fluid').addClass('container')
+            $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-small').removeClass('glyphicon-resize-small').addClass('glyphicon-resize-full')
+    }
+}
+
+setLayout();
+
+$('[data-toggle=layout-fluid]').click(function() {
+    window.localStorage['expand'] = String(!(window.localStorage['expand'] == 'true'));
+    setLayout();
+    return false;
+});
