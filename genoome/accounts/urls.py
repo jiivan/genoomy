@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^save-email/$', views.UserCreateWithEmail.as_view(), name='create_with_email'),
     url(r'^save-email-succes/$', views.UserCreateSuccess.as_view(), name='create_with_email_success'),
     url(r'^profile/$', csrf_exempt(login_required(views.UserProfileView.as_view(), login_url='/accounts/signin')), name='profile'),
+    url(r'^disable/$', login_required(views.AccountDisableView.as_view()), name='disable')
     # url(r'^view/$', views.special_case_2003),
 ]

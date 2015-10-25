@@ -8,7 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from disease.files_utils import get_genome_dirpath
 
+import time
+
 storage = FileSystemStorage()
+
 
 class GenoomyAbstractUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
@@ -63,6 +66,14 @@ class GenoomyAbstractUser(auth_models.AbstractBaseUser, auth_models.PermissionsM
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def disable(self):
+        """
+        Disables user account.
+        """
+        self.is_active = False
+        self.email = self.username = \
+            '%s-disabled.%d' % (self.username, time.time())
 
 
 class GenoomyUser(GenoomyAbstractUser):

@@ -2,8 +2,7 @@ import os
 
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth import get_user_model
-from django.contrib.auth import login
+from django.contrib.auth import get_user_model, login, logout
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView
@@ -11,6 +10,7 @@ from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
+from django.forms import Form
 
 from accounts.forms import ActivateAccountForm
 from accounts.forms import EmailUserCreateForm
@@ -47,11 +47,6 @@ class SignUpView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        try:
-            user = self.model.objects.get(email=kwargs.get('data', {}).get('email', [None]))
-            kwargs.update({'instance': user})
-        except self.model.DoesNotExist:
-            pass
         return kwargs
 
     def form_valid(self, form):
@@ -99,6 +94,18 @@ class AccountActivateView(SuccessMessageMixin, FormView):
         form.activate_user()
         return super().form_valid(form)
 
+class AccountDisableView(SuccessMessageMixin, FormView):
+    template_name = 'disable_account.html'
+    form_class = Form
+    success_url = reverse_lazy('landing_page')
+    success_message = 'Your account is now disabled.'
+
+    def form_valid(self, form):
+        self.request.user.disable()
+        self.request.user.save()
+        logout(self.request)
+
+        return super().form_valid(form)
 
 class LandingView(TemplateView):
     template_name = 'landing.html'
