@@ -47,11 +47,6 @@ class SignUpView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        try:
-            user = self.model.objects.get(email=kwargs.get('data', {}).get('email', [None]))
-            kwargs.update({'instance': user})
-        except self.model.DoesNotExist:
-            pass
         return kwargs
 
     def form_valid(self, form):
