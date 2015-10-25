@@ -223,7 +223,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['legend_rows'] = get_legend_rows()
-        ctx['allele_tags'] = CustomizedTag.objects.all()
+        ctx['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True).all()
         ctx['is_admin'] = is_admin = self.is_admin
 
         order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
