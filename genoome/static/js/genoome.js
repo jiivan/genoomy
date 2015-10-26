@@ -182,10 +182,10 @@ $('.category_labels h2 span.label').on('click', function(e) {
 function setLayout() {
     if(window.localStorage['expand'] == 'true') {
         $('.layout').removeClass('container container-fluid').addClass('container-fluid')
-            $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-full').removeClass('glyphicon-resize-full').addClass('glyphicon-resize-small')
+        $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-full').removeClass('glyphicon-resize-full').addClass('glyphicon-resize-small')
     } else {
         $('.layout').removeClass('container container-fluid').addClass('container')
-            $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-small').removeClass('glyphicon-resize-small').addClass('glyphicon-resize-full')
+        $('[data-toggle=layout-fluid] .glyphicon.glyphicon-resize-small').removeClass('glyphicon-resize-small').addClass('glyphicon-resize-full')
     }
 }
 
@@ -196,3 +196,10 @@ $('[data-toggle=layout-fluid]').click(function() {
     setLayout();
     return false;
 });
+
+
+if (window.location.href === '/disease/browse/') {
+       if ($('.alert.alert-info').length) {
+           location.reload();
+       }
+}
