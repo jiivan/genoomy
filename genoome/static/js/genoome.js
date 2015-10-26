@@ -123,6 +123,40 @@ $(document).ready(function() {
 
 });
 
+
+var progressbar = $('.progress-bar');
+var interval;
+
+function updateBar(values) {
+    console.log(values);
+    var l = values.received;
+    var tot = values.size;
+
+    var perc = (l / tot) * (100.00);
+    console.log(perc);
+    progressbar.css('width', perc + '%');
+    progressbar.text(perc + '%');
+    if (values.status === 'done') {
+        window.clearInterval(interval);
+    }
+}
+
+$("form#upload_form").submit(function(e){
+    console.log('Form submitted');
+    var getProgress = function() {
+        $.ajax({
+            url: "/progress",
+            headers: {"X-Progress-ID": $('#progress-bar').data('upload_id')},
+            dataType: 'json',
+            success: function(data) {
+                updateBar(data);
+            }
+        });
+    };
+    interval = window.setInterval(getProgress, 1000);
+});
+
+
 $('.genomeData_advanced').click(function(e) {
     $('#genomeData thead tr.filter-visiblity, .dataTables_length, .dataTables_filter, .table-settings').toggle();
 });
@@ -199,7 +233,12 @@ $('[data-toggle=layout-fluid]').click(function() {
 
 
 if (window.location.href === '/disease/browse/') {
-       if ($('.alert.alert-info').length) {
-           location.reload();
-       }
+    (function poll(){
+        setTimeout(function(){
+            if ($('.alert.alert-info').length) {
+                location.reload();
+                poll();
+            }
+        }, 1000);
+    })();
 }
