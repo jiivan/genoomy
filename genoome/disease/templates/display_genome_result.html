@@ -11,6 +11,7 @@
         {% endif %}
         {% if paid or is_admin %}
             {% include 'includes/color_legend.html' %}
+            <h1><span class="big-header-text">Your Coloured Genome</span></h1>
             {% include 'includes/data_table.html' %}
         {% else %}
             {% include 'includes/payment_button.html' %}
