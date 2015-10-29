@@ -1,0 +1,27 @@
+.payment-choice {
+    min-height: 100%
+}
+
+.payment-coupon a {
+    background-color: transparent;
+    color: #4cae4c;
+}
+
+.payment-coupon:before {
+    min-height: 56px;
+    display: block;
+    content: " ";
+}
+
+.payment-bitpay:before {
+    min-height: 56px;
+    display: block;
+    content: " ";
+}
+
+.payment-paypal form input[type="image"] {
+    max-width: 100%;
+    max-height: auto;
+    border: 2px solid #4cae4c;
+    border-radius: 5px
+}

@@ -42,7 +42,7 @@ class UserCreateSuccess(TemplateView):
 class SignUpView(CreateView):
     form_class = SignUpForm
     model = get_user_model()
-    success_url = reverse_lazy('accounts:signup_success')
+    success_url = reverse_lazy('accounts:profile')
     template_name = 'signup.html'
 
     def get_form_kwargs(self):
@@ -60,8 +60,7 @@ class SignUpView(CreateView):
         if self.object.is_active:
             ctx['activated'] = True
             messages.success(self.request, 'Your account is now active. You are logged in.')
-        resp = render_to_response('signup_success.html', context=ctx)
-        return resp
+        return super().form_valid(form)
 
     def get_template_names(self):
         if self.request.is_ajax():

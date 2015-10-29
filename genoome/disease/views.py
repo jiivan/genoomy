@@ -207,12 +207,6 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             data = pickle.load(f)
         return data
 
-    def is_genome_available(self):
-        filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
-        filepath = self.get_filepath(filename)
-
-        return os.path.exists(filepath)
-
     @property
     def is_admin(self):  # TODO use permissions?
         return bool(self.request.user.is_staff and self.request.user.is_active)
@@ -229,7 +223,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['legend_rows'] = get_legend_rows()
-        ctx['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True).all()
+        ctx['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True)
         ctx['is_admin'] = is_admin = self.is_admin
 
         order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
@@ -244,14 +238,9 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
                 analyze_data_order.save()
                 paid = analyze_data_order.is_paid
 
-        is_job_ready = self.is_genome_available()
-
-        if not is_job_ready:
-            job = AsyncResult(analyze_data_order.task_uuid)
-            is_job_ready = job.ready()
-
+        job = AsyncResult(analyze_data_order.task_uuid)
+        is_job_ready = job.ready()
         ctx['is_job_ready'] = is_job_ready
-
         if is_job_ready:
             ctx['paid'] = paid
             if paid or is_admin:

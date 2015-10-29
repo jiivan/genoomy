@@ -1,21 +1,13 @@
-<h1>
-        <span class="big-header-text">
-
-                Your Coloured Genome
-
-        </span>
-        <span class="small-sample-text">
-            (sample)
-        </span>
-</h1>
 <div>
-    <h2>
-        {% for legend_row in legend_rows %}
-            <span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
+    <div class="category_labels">
+        <h2>
+            {% for legend_row in legend_rows %}
+                <span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
             {{ legend_row.content }}
         </span>
-        {% endfor %}
-    </h2>
+            {% endfor %}
+        </h2>
+    </div>
     <div class="filter_labels">
         <h3>
             {% for tag in allele_tags %}
@@ -114,6 +106,7 @@
         <th>RISK</th>
         <th>PRIORITY</th>
         <th>TAGS</th>
+        <th>CATEGORY_COLOR</th>
     </tr>
     </thead>
     <tfoot>
@@ -128,6 +121,7 @@
         <th>RISK</th>
         <th>PRIORITY</th>
         <th>TAGS</th>
+        <th>CATEGORY_COLOR</th>
     </tr>
     </tfoot>
     <tbody>
@@ -143,6 +137,7 @@
             <td>{{ row.risk }}</td>
             <td>{{ row.priority|default:0 }}</td>
             <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
+            <td>{{ row.color }}</td>
         </tr>
     {% endfor %}
     </tbody>
