@@ -41,6 +41,11 @@
 
 .label-tag {
     margin-right: 3px;
+    cursor: pointer;
+}
+
+.tag-checked {
+    border: 2px solid #000000;
 }
 
 /*#genomeData th span input.form-control {*/
