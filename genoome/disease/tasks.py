@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 import logging
 from io import BytesIO
-import pickle
 import os
 import zipfile
 
 from celery import shared_task
 from django.core.files.storage import FileSystemStorage
+import msgpack
 
 from disease.files_utils import get_genome_filepath, process_filename, \
     parse_raw_genome_file, process_genoome_data, handle_zipped_genome_file
@@ -27,7 +27,7 @@ def recompute_genome_file(genome_filepath):
 
     data = process_genoome_data(parsed_data)
     buffer = BytesIO()
-    pickle.dump(data, buffer)
+    msgpack.pack(data, buffer)
     dirpath, filename = os.path.split(genome_filepath)
     filename = process_filename(filename, filename_suffix='_processed')
     filepath = os.path.join(dirpath, filename)

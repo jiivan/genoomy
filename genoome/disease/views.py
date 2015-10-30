@@ -2,7 +2,6 @@ from io import BytesIO
 import json
 import logging
 import uuid
-import pickle
 import os
 
 from celery import uuid as celery_uuid
@@ -24,6 +23,7 @@ from django.views.generic import FormView
 from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
 from django.utils import timezone
+import msgpack
 
 from paypal.standard.forms import PayPalPaymentsForm
 
@@ -204,7 +204,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
         filepath = self.get_filepath(filename)
         with storage.open(filepath) as f:
-            data = pickle.load(f)
+            data = msgpack.unpackb(f.read(), encoding='utf-8')
         return data
 
     @property
@@ -263,7 +263,6 @@ class PaymentStatusView(ProcessFormView, TemplateView):
 
     def post(self, request, *args, **kwargs):
         post_data = self.request.POST
-        print(post_data)
         if post_data['status'] in {'paid', 'complete', 'confirmed'}:
             posData = json.loads(post_data['posData'])
             analyze_order_pk = posData['analyze_order_pk']
