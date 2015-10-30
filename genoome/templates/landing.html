@@ -1,126 +1,141 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block banner %}
-    {% if not request.user.is_authenticated %}
-        <div class="banner-wrapper row">
-            <div class="col-md-6">
-                <img src="{% static 'imgs/happypeople.jpg' %}" class="img-responsive" alt="Responsive image">
-            </div>
-            <div class="col-md-6 text-center">
-                <h1>
-                    Understand your genes!
-                </h1>
-
-                <h2>
-                    Colour your genes and get short human
-                    readable description of how they work.
-                </h2>
-
-                <a class="btn btn-danger btn-action" href="{% url "disease:upload_genome" %}" role="button">
-                    Upload genome
-                </a>
-            </div>
+{% block header %}
+    <header>
+        <div class="container">
+            {% if not request.user.is_authenticated %}
+                <div class="banner-wrapper row">
+                    <div class="col-md-6">
+                        <img src="{% static 'imgs/happypeople.jpg' %}" class="img-responsive" alt="Responsive image">
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h1>
+                            Understand your genes!
+                        </h1>
+                        <h2>
+                            Colour your genes and get short human
+                            readable description of how they work.
+                        </h2>
+                        <a class="btn btn-danger btn-action" href="{% url "disease:upload_genome" %}" role="button">
+                            Upload genome
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-{% endblock banner %}
+    </header>
+{% endblock header %}
 
 {% block content %}
+    <section>
+        <div class="container">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
 
-
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                {#      <img src="http://placehold.it/1200x315" alt="...">#}
-                <div class="carousel-caption">
-                    <div class="col-md-8 carousel-caption-inner">
-                        <div class="col-md-4">
-                            <img class="img-thumbnail" src="http://placehold.it/80x80" alt="...">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        {#      <img src="http://placehold.it/1200x315" alt="...">#}
+                        <div class="carousel-caption">
+                            <div class="col-md-8 carousel-caption-inner">
+                                <div class="col-md-4">
+                                    <img class="img-thumbnail" src="http://placehold.it/80x80" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <h3>Great product, would recommend it</h3>
+                                    <p>Mr Social Proof</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <h3>Great product, would recommend it</h3>
-                            <p>Mr Social Proof</p>
+                    </div>
+                    <div class="item">
+                        {#      <img src="http://placehold.it/1200x315" alt="...">#}
+                        <div class="carousel-caption">
+                            <div class="col-md-8 carousel-caption-inner">
+                                <div class="col-md-4">
+                                    <img class="img-circle" src="http://placehold.it/80x80" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <h3>Great product, would recommend it</h3>
+                                    <p>Mr Social Proof</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        {#      <img src="http://placehold.it/1200x315" alt="...">#}
+                        <div class="carousel-caption">
+                            <div class="col-md-8 carousel-caption-inner">
+                                <div class="col-md-4">
+                                    <img class="img-rounded" src="http://placehold.it/80x80" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <h3>Great product, would recommend it</h3>
+                                    <p>Mr Social Proof</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
             </div>
-            <div class="item">
-                {#      <img src="http://placehold.it/1200x315" alt="...">#}
-                <div class="carousel-caption">
-                    <div class="col-md-8 carousel-caption-inner">
-                        <div class="col-md-4">
-                            <img class="img-circle" src="http://placehold.it/80x80" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <h3>Great product, would recommend it</h3>
-                            <p>Mr Social Proof</p>
-                        </div>
-                    </div>
+        </div> <!-- Carousel -->
+    </section><!-- Carousel section -->
+
+    <section id="features-sec">
+        <div class="container">
+            <div class="col-md-12 features text-center">
+                <h3>Features</h3>
+                <div class="col-md-4 feature">
+                    <img class="img-thumbnail" src="http://placehold.it/100x100" alt="...">
+                    <h4>Feature</h4>
+                </div>
+                <div class="col-md-4 feature">
+                    <img class="img-circle" src="http://placehold.it/100x100" alt="...">
+                    <h4>Feature</h4>
+                </div>
+                <div class="col-md-4 feature ">
+                    <img class="img-rounded" src="http://placehold.it/100x100" alt="...">
+                    <h4>Feature</h4>
                 </div>
             </div>
-            <div class="item">
-                {#      <img src="http://placehold.it/1200x315" alt="...">#}
-                <div class="carousel-caption">
-                    <div class="col-md-8 carousel-caption-inner">
-                        <div class="col-md-4">
-                            <img class="img-rounded" src="http://placehold.it/80x80" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <h3>Great product, would recommend it</h3>
-                            <p>Mr Social Proof</p>
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </section>
+
+
+    <section id="call-to-action">
+        <div class="container">
+            <div class="col-md-8 text-center">
+                <p>
+                    <strong>Simple pricing: </strong> 19$ ti get full analysis of your genoome
+                </p>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success btn-lg">Analyze your data now</button>
             </div>
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div> <!-- Carousel -->
-
-    <div class="col-md-12 features text-center">
-        <h3>Features</h3>
-        <div class="col-md-4 feature">
-            <img class="img-thumbnail" src="http://placehold.it/100x100" alt="...">
-            <h4>Feature</h4>
-        </div>
-        <div class="col-md-4 feature">
-            <img class="img-circle" src="http://placehold.it/100x100" alt="...">
-            <h4>Feature</h4>
-        </div>
-        <div class="col-md-4 feature ">
-            <img class="img-rounded" src="http://placehold.it/100x100" alt="...">
-            <h4>Feature</h4>
-        </div>
-    </div>
-
-{#    <div class="col-md-12 call-to-action">#}
-{#        <div class="col-md-8 text-center">#}
-{#            <p>#}
-{#                <strong>Simple pricing: </strong> 19$ ti get full analysis of your genoome#}
-{#            </p>#}
-{#        </div>#}
-{#        <div class="col-md-4">#}
-{#            <button class="btn btn-success btn-lg">Analyze your data now</button>#}
-{#        </div>#}
-{#    </div>#}
+    </section>
 
 
     {#    {% include 'includes/color_legend.html' %}#}
-    <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
-    {% include 'includes/data_table.html' %}
+    <section>
+        <div class="container">
+            <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
+            {% include 'includes/data_table.html' %}
+        </div>
+    </section>
 {% endblock content %}
 
