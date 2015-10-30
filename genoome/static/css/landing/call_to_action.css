@@ -1,6 +1,7 @@
 #call-to-action {
     background-color: #808080;
     padding: 15px;
+    font-size: 19px;
 }
 
 .call-to-action-inner {
@@ -10,10 +11,10 @@
 }
 
 #call-to-action p {
-    font-size: 19px;
+    /*font-size: 19px;*/
     margin: 1em 0;
 }
 
-/*#call-to-action .btn {*/
-    /*margin: 1em 0;*/
-/*}*/
+#call-to-action .btn {
+    margin: .6em 0;
+}
