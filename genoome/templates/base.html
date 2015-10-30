@@ -34,24 +34,20 @@
         {% include 'includes/navbar.html' %}
     {% endblock header %}
 
-    <div class="container layout">
-        {% block banner %} {# (kniski) is it right place for this? Doubt it. - (mkowalczyk) so where? #}
-        {% endblock banner %}
+    {% block banner %} {# (kniski) is it right place for this? Doubt it. - (mkowalczyk) so where? #}
+    {% endblock banner %}
 
 
-        <h1>{% block page_title %}{% endblock page_title %}</h1>
+    <h1>{% block page_title %}{% endblock page_title %}</h1>
 
-        {% block messages %}
-            {% include 'includes/messages.html' %}
-        {% endblock messages %}
+    {% block messages %}
+        {% include 'includes/messages.html' %}
+    {% endblock messages %}
 
-        {% block content %}
-        {% endblock content %}
+    {% block content %}
+    {% endblock content %}
 
-
-
-    </div> <!-- /container -->
-
+    
     {% block footer %}
         {% include 'includes/footer.html' %}
     {% endblock footer %}
