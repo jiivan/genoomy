@@ -1,0 +1,15 @@
+#call-to-action {
+    background-color: #808080;
+    padding: 15px;
+}
+
+.call-to-action-inner {
+    min-width: 100vw;
+    margin: 0 auto;
+    float: none;
+}
+
+#call-to-action p {
+    font-size: 19px;
+    margin: 0 0 auto;
+}

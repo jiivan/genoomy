@@ -16,14 +16,3 @@
     width: 300%;
     /*margin-left: -100%;*/
 }
-
-#call-to-action {
-    background-color: #808080;
-    padding: 15px;
-}
-
-.call-to-action-inner {
-    min-width: 100vw;
-    margin: 0 auto;
-    float: none;
-}
