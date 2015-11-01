@@ -1,0 +1,54 @@
+//colors
+$black: black;
+$gray: grey;
+
+.small-sample-text {
+	font-size: 3rem;
+	display: inline;
+	padding: 1rem;
+	color: $gray;
+}
+.columns-check-list {
+	list-style: none;
+	li {
+		display: inline;
+	}
+}
+.genomeData_advanced {
+	cursor: pointer;
+}
+#genomeData {
+	thead tr.filter-visiblity {
+		display: none;
+	}
+	th span.form-control {
+		height: auto;
+	}
+	tbody tr {
+		cursor: pointer;
+	}
+}
+.dataTables_length {
+	display: none;
+}
+.dataTables_filter {
+	display: none;
+}
+.table-settings {
+	display: none;
+}
+.label-tag {
+	margin-right: 3px;
+	cursor: pointer;
+}
+.tag-checked {
+	border: 2px solid $black;
+}
+.big-header-text h1 {
+	display: inline;
+	font-size: 2rem;
+	color: $black;
+}
+.checkbox-row label {
+	cursor: pointer;
+}

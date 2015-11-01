@@ -1,0 +1,36 @@
+//colors
+$black: #000000;
+$gray: #808080;
+
+.carousel-control {
+	color: $black;
+	&.left {
+		background-image: none;
+	}
+	&.right {
+		background-image: none;
+	}
+}
+.carousel-inner {
+	padding-bottom: 35px;
+}
+.carousel-caption {
+	position: static;
+	color: $gray;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: none;
+}
+.carousel-caption-inner {
+	height: auto;
+	margin: 0 auto;
+	float: none;
+}
+.carousel-indicators {
+	bottom: 10px;
+	li {
+		border: 2px solid $gray;
+		&.active {
+			background-color: $gray;
+		}
+	}
+}

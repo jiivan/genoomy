@@ -1,0 +1,28 @@
+//colors
+$white: #ffffff;
+
+//urls
+$url_0: url(/static/imgs/header-background.jpg);
+
+#landing-header {
+	.intro-text {
+		color: $white;
+		padding-bottom: 40px;
+		.name {
+			display: block;
+			font-size: 4.75em;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+		.subtitle {
+			font-weight: 500;
+			font-size: 1.75em;
+		}
+	}
+	div.container {
+		background: $url_0;
+		min-width: 100%;
+		height: auto;
+		text-align: center;
+	}
+}
