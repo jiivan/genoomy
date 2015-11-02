@@ -3,6 +3,8 @@
 from coupons.forms import CouponForm
 from coupons.models import Coupon
 from django import forms
+from django.conf import settings
+from django.core.mail import send_mail
 from django.core.validators import EMPTY_VALUES
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -69,3 +71,14 @@ class ActivateAccountForm(forms.Form):
         user = user_model.objects.get(email=email)
         user.is_active = True
         user.save()
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea)
+
+    def send_email(self):
+        user_email = self.cleaned_data['email']
+        message = self.cleaned_data['message']
+        subject = 'Contact form from {}'.format(user_email)
+        send_mail(subject, message, user_email, [settings.EMAIL_HOST_USER], fail_silently=True)
