@@ -32,7 +32,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = environ.get('EMAIL_HOST', 'mail.genoomy.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', 'genome123456')
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', 'genome12345')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'info@genoomy.com')
