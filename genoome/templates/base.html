@@ -34,10 +34,16 @@
         {% include 'includes/navbar.html' %}
     {% endblock navbar %}
 
-    {% block header %} {# (kniski) is it right place for this? Doubt it. - (mkowalczyk) so where? #}
+    {% block header %}
+        <section id="header">
+            <div class="container">
+                <h1>
+                    {% block page_title %}
+                    {% endblock page_title %}
+                </h1>
+            </div>
+        </section>
     {% endblock header %}
-
-    {% block page_title %}{% endblock page_title %}
 
     {% block messages %}
         {% include 'includes/messages.html' %}
