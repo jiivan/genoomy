@@ -2,6 +2,12 @@
 $black: #000000;
 $gray: #808080;
 
+#carousel {
+  	.container{
+	  margin-top: -11em;
+	}
+}
+
 .carousel-control {
 	color: $black;
 	&.left {
