@@ -2,7 +2,11 @@
 $black: #000000;
 $gray: #808080;
 
+
 #carousel {
+  background-color: $gray;
+  opacity: 0.6;
+
   	.container{
 	  margin-top: -11em;
 	}
