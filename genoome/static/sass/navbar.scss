@@ -1,3 +1,5 @@
+@import "variables/colors";
+
 //colors
 $white: #fff;
 $color_fern_green_approx: #398439;
@@ -13,6 +15,12 @@ $crimson:  crimson;
 		color: $white;
 	}
 }
+
+.btn-register {
+  background-color: $yellogreenish;
+  border-color: $yellogreenish;
+}
+
 .btn-top-align {
 	margin-top: 7px;
 }
