@@ -6,6 +6,10 @@ $color_fern_green_approx: #398439;
 $black: #000000;
 $crimson:  crimson;
 
+.navbar-inverse {
+  background-color: $navbar_col;
+}
+
 .btn-login {
 	color: $white;
 	border: 2px solid;

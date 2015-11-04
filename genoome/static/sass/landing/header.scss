@@ -33,10 +33,10 @@ $url_0: url(/static/imgs/header-background.jpg);
 		  .btn {
 			font-size: 36px;
 			padding: 20px 32px;
-		  }
-		  .btn-primary {
+			&:hover{
 			background-color: $yellogreenish;
 			border-color: $yellogreenish;
+		  }
 		  }
 		}
 	}
