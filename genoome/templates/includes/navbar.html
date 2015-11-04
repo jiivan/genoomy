@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}"><img src="{% static 'imgs/genoomy_logo_white.png' %}"></img></a>
+            <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}"><img src="{% static 'imgs/genoomy_logo_transparent.png' %}"></img></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">

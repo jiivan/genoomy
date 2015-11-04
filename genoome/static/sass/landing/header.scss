@@ -39,7 +39,7 @@ $url_0: url(/static/imgs/header-background.jpg);
 		  }
 		}
 	}
-	div.container {
+	div.container, div.container-fluid {
 		background: $url_0;
 	  	background-size: cover;
 		min-width: 100%;
