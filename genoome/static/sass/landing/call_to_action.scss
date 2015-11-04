@@ -4,25 +4,24 @@
 $gray: #808080;
 
 #call-to-action {
-	background-color: $gray;
-	padding: 15px;
-	font-size: 25px;
-	p {
-		margin: 1em 0;
+  background-color: $gray;
+  padding: 15px;
+  font-size: 25px;
+  p {
+	margin: 1em 0;
+  }
+  .btn {
+	margin: 1em 0;
+	background-color: $yellogreenish;
+	border-color: $yellogreenish;
+	&:hover {
+	  background-color: $orangish;
+	  border-color: $orangish;
 	}
-	.btn {
-		margin: 1em 0;
-	  	background-color: $yellogreenish;
-	  	border-color: $yellogreenish;
-	}
-  	.btn::hover {
-		margin: 1em 0;
-	  	background-color: $orangish;
-	  	border-color: $orangish;
-	}
+  }
 }
 .call-to-action-inner {
-	min-width: 100vw;
-	margin: 0 auto;
-	float: none;
+  min-width: 100vw;
+  margin: 0 auto;
+  float: none;
 }

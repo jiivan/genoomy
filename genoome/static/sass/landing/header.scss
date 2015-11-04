@@ -33,9 +33,11 @@ $url_0: url(/static/imgs/header-background.jpg);
 		  .btn {
 			font-size: 36px;
 			padding: 20px 32px;
-			&:hover{
 			background-color: $yellogreenish;
 			border-color: $yellogreenish;
+			&:hover{
+			  background-color: $orangish;
+			  border-color: $orangish;
 		  }
 		  }
 		}

@@ -23,6 +23,10 @@ $crimson:  crimson;
 .btn-register {
   background-color: $yellogreenish;
   border-color: $yellogreenish;
+  &:hover {
+	background-color: $orangish;
+	border-color: $orangish;
+  }
 }
 
 .btn-top-align {
