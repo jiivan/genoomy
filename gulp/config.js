@@ -36,6 +36,6 @@ module.exports = {
         imagesDest: distPath + '/imgs'
     },
     clean: {
-        distDir: distPath
+        distDir: distPath + '/**'
     }
 };
