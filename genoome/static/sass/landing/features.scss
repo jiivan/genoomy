@@ -1,14 +1,17 @@
 .features {
-	max-width: 100%;
-	margin: 20px auto;
+  max-width: 100%;
+  margin: 20px auto;
+  h4 {
+	font-size: 28px;
+  }
 }
 .feature {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .center-extended-container {
-	max-width: 100%;
-	margin: 0 auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 .extended-container {
-	width: 300%;
+  width: 300%;
 }
