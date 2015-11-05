@@ -40,7 +40,9 @@ $url_0: url(/static/imgs/header-background.jpg);
   }
   div.container, div.container-fluid {
 	background: $url_0;
-	background-size: 134% auto;
+	background-size: 88% auto;
+	background-position: 345px 0px;
+	background-repeat: no-repeat;
 	min-width: 100%;
 	height: auto;
 	text-align: center;
