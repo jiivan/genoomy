@@ -1,7 +1,7 @@
 @import "../variables/colors";
 
 #call-to-action {
-  background-color: $gray;
+  background-color: $whitish;
   padding: 15px;
   font-size: 25px;
   p {
@@ -9,8 +9,8 @@
   }
   .btn {
 	margin: 1em 0;
-	background-color: $yellogreenish;
-	border-color: $yellogreenish;
+	background-color: $bluish;
+	border-color: $anetish;
 	&:hover {
 	  background-color: $orangish;
 	  border-color: $orangish;

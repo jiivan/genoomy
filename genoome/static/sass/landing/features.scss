@@ -7,6 +7,9 @@
 }
 .feature {
   margin-bottom: 10px;
+  .img-thumbnail {
+	border: none;
+  }
 }
 .center-extended-container {
   max-width: 100%;
