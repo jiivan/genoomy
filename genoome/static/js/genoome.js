@@ -105,6 +105,8 @@ $(document).ready(function() {
                 var row = $(this);
                 window.open(row.data('url'));
             });
+            // Fix datatable for fluid container
+            genomeData.css('width', '');
         }
     }).columnFilter({ sPlaceHolder: "head:after",
         aoColumns: [
