@@ -4,13 +4,15 @@
   background-color: $whitish;
   padding: 15px;
   font-size: 25px;
+  margin-bottom: 1em;
   p {
-	margin: 1em 0;
+	margin: 1.8em 0;
   }
   .btn {
 	margin: 1em 0;
 	background-color: $bluish;
 	border-color: $anetish;
+    font-size: 30px;
 	&:hover {
 	  background-color: $orangish;
 	  border-color: $orangish;
