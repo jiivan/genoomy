@@ -16,25 +16,6 @@
                         </div>
                     </div>
 
-                    {#            {% if not request.user.is_authenticated %}#}
-                    {#                <div class="banner-wrapper row">#}
-                    {#                    <div class="col-md-6">#}
-                    {#                        <img src="{% static 'imgs/happypeople.jpg' %}" class="img-responsive" alt="Responsive image">#}
-                    {#                    </div>#}
-                    {#                    <div class="col-md-6 text-center">#}
-                    {#                        <h1>#}
-                    {#                            Understand your genes!#}
-                    {#                        </h1>#}
-                    {#                        <h2>#}
-                    {#                            Colour your genes and get short human#}
-                    {#                            readable description of how they work.#}
-                    {#                        </h2>#}
-                    {#                        <a class="btn btn-danger btn-action" href="{% url "disease:upload_genome" %}" role="button">#}
-                    {#                            Upload genome#}
-                    {#                        </a>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {#            {% endif %}#}
                 </div>
     </header>
 {% endblock header %}
