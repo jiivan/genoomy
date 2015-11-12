@@ -307,3 +307,9 @@ BITPAY_API = 'https://bitpay.com'
 PAYPAL_RECEIVER_EMAIL = "yourpaypalemail@example.com"
 PAYPAL_IMAGE = PAYPAL_SANDBOX_IMAGE = '/static/imgs/paypal.jpg'
 ########## END PAYPAL CONFIGURATION
+
+########## MESSAGES CONFIGURATION
+from django.contrib.messages import constants as message_constants
+DANGER = 50
+MESSAGE_TAGS = {DANGER: 'danger'}
+########## END MESSAGES CONFIGURATION
