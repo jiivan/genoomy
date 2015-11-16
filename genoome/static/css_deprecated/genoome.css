@@ -7,6 +7,11 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
+.header {
+    display: block;
+}
+
 .footer {
     position: absolute;
     bottom: 0;

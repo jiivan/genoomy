@@ -13,7 +13,7 @@ function vendorFile(name) {
 
 module.exports = {
     css: {
-        src: staticRoot + '/css/**/*.css',
+        src: staticRoot + '/sass/**/*.scss',
         concatFilename: 'genoome.min.css',
         dest: distPath + '/css'
     },
@@ -36,6 +36,6 @@ module.exports = {
         imagesDest: distPath + '/imgs'
     },
     clean: {
-        distDir: distPath + '/'
+        distDir: distPath + '/**'
     }
 };

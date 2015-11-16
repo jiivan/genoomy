@@ -1,0 +1,53 @@
+@import "../variables/colors";
+
+//urls
+$url_0: url(/static/imgs/header-background-cropped.jpg);
+
+#landing-header {
+  .intro-text {
+	color: $white;
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+	padding-bottom: 40px;
+	img {
+	  max-width: 90%;
+	  margin: 30px 10px;
+	}
+	.name {
+	  display: block;
+	  font-size: 5.2em;
+	  font-weight: 900;
+	  margin-top: 1em;
+	  margin-bottom: 1em;
+	  line-height: 1.9;
+	}
+	.subtitle {
+	  font-weight: 500;
+	  font-size: 1.75em;
+	}
+	.row {
+	  margin: 2.8em 0;
+	  .btn {
+		font-size: 36px;
+		padding: 20px 32px;
+		background-color: $bluish;
+		border-color: $anetish;
+		&:hover{
+		  background-color: $orangish;
+		  border-color: $orangish;
+		}
+	  }
+	}
+  }
+  div.container, div.container-fluid {
+	background: $url_0;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	height: auto;
+	text-align: center;
+	padding-bottom: 12em;
+  }
+}

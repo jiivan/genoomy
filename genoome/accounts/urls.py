@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^signin/$', login, {'template_name': 'signin.html', 'authentication_form': SignInForm}, name='signin'),
     url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
     url(r'^activate/$', views.AccountActivateView.as_view(), name='activate_account'),
+    url(r'^contact/$', views.ContactFormView.as_view(), name='contact'),
     url(r'^signup-success/$', views.SignupSuccessView.as_view(), name='signup_success'),
     url(r'^save-email/$', views.UserCreateWithEmail.as_view(), name='create_with_email'),
     url(r'^save-email-succes/$', views.UserCreateSuccess.as_view(), name='create_with_email_success'),

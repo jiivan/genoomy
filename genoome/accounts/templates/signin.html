@@ -4,7 +4,11 @@
 {% block page_title %}Login{% endblock page_title %}
 
 {% block content %}
-    {% include 'includes/signin_form.html' %}
+    <section id="content">
+        <div class="container layout">
+            {% include 'includes/signin_form.html' %}
+        </div>
+    </section>
 {% endblock content %}
 
 {% block modals %}

@@ -2,7 +2,6 @@ from io import BytesIO
 import json
 import logging
 import uuid
-import pickle
 import os
 
 from celery import uuid as celery_uuid
@@ -24,6 +23,7 @@ from django.views.generic import FormView
 from django.views.generic.edit import ProcessFormView
 from django.views.generic import TemplateView
 from django.utils import timezone
+import msgpack
 
 from paypal.standard.forms import PayPalPaymentsForm
 
@@ -204,7 +204,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
         filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
         filepath = self.get_filepath(filename)
         with storage.open(filepath) as f:
-            data = pickle.load(f)
+            data = msgpack.unpackb(f.read(), encoding='utf-8')
         return data
 
     @property
@@ -239,9 +239,10 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
                 paid = analyze_data_order.is_paid
 
         job = AsyncResult(analyze_data_order.task_uuid)
-        is_job_ready = job.ready()
-        ctx['is_job_ready'] = is_job_ready
-        if is_job_ready:
+        ctx['is_job_ready'] = is_job_ready = job.ready()
+        ctx['is_job_successful'] = is_job_successful = job.successful()
+        ctx['is_job_failure'] = is_job_failure = job.failed()
+        if is_job_ready and is_job_successful:
             ctx['paid'] = paid
             if paid or is_admin:
                 ctx['table'] = self.get_genome_data()
@@ -250,6 +251,9 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
             ctx['pos_data'] = analyze_data_order.posData()
             ctx['paypal_form'] = PayPalPaymentsForm(
                 initial=analyze_data_order.paypal_data(self.request))
+        elif is_job_ready and is_job_failure:
+            messages.add_message(self.request, settings.DANGER,
+                                 "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
         else:
             messages.add_message(self.request, messages.INFO,
                                  'Your genome data is being analyzed. Wait a few second and try this page again')
@@ -263,7 +267,6 @@ class PaymentStatusView(ProcessFormView, TemplateView):
 
     def post(self, request, *args, **kwargs):
         post_data = self.request.POST
-        print(post_data)
         if post_data['status'] in {'paid', 'complete', 'confirmed'}:
             posData = json.loads(post_data['posData'])
             analyze_order_pk = posData['analyze_order_pk']

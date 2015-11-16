@@ -2,7 +2,7 @@
 {% load django_markdown django_markdown_static %}
 
 {% block extra_css %}
-<link rel="stylesheet" type="text/css" href="{% static css %}" />
+    <link rel="stylesheet" type="text/css" href="{% static css %}" />
 {% endblock extra_css %}
 
 
@@ -10,5 +10,9 @@
 {% block page_title %}{{ flatpage.title }}{% endblock page_title %}
 
 {% block content %}
-    {{ flatpage.content|markdown }}
+    <section id="content">
+        <div class="container layout">
+            {{ flatpage.content|markdown }}
+        </div>
+    </section>
 {% endblock content %}

@@ -13,6 +13,7 @@ from django.shortcuts import render_to_response
 from django.forms import Form
 
 from accounts.forms import ActivateAccountForm
+from accounts.forms import ContactForm
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
 from configurable_elements.models import get_legend_rows
@@ -116,3 +117,14 @@ class LandingView(TemplateView):
         kwargs['allele_tags'] = CustomizedTag.objects.filter(show_on_landing=True)
         kwargs['legend_rows'] = get_legend_rows()
         return super().get_context_data(**kwargs)
+
+
+class ContactFormView(FormView):
+    form_class = ContactForm
+    template_name = 'contact.html'
+    success_url = reverse_lazy('accounts:contact')
+
+    def form_valid(self, form):
+        form.send_email()
+        messages.success(self.request, 'Thank you. Your message has been sent.')
+        return super().form_valid(form)
