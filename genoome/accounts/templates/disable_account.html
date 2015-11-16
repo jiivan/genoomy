@@ -4,9 +4,13 @@
 {% block page_title %}Disable account{% endblock page_title %}
 
 {% block content %}
-<form action="{% url "accounts:disable" %}" method="POST">
-    {% csrf_token %}
-    <p>Disabling your account will make all your data inaccessible. This cannot be undone.</p>
-    <button class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i> Disable account</button>
-</form>
+    <section id="content">
+        <div class="container layout">
+            <form action="{% url "accounts:disable" %}" method="POST">
+                {% csrf_token %}
+                <p>Disabling your account will make all your data inaccessible. This cannot be undone.</p>
+                <button class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i> Disable account</button>
+            </form>
+        </div>
+    </section>
 {% endblock content %}

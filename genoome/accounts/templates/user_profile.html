@@ -4,19 +4,23 @@
 {% block page_title %}Your profile{% endblock page_title %}
 
 {% block content %}
-    {% if is_admin %}
-        <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
-    {% endif %}
-    {% if request.user.can_upload_files %}
-        <a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}" >Upload your genome</a>
-    {% endif %}
-    {% if saved_genome_data %}
-        <p>By clicking on items below you can browse previously uploaded data.</p>
-    {% endif %}
-    <div class="list-group">
-        {% for row in saved_genome_data %}
-            <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">{{ row }}</a>
-        {% endfor %}
-    </div>
-    <small><a href="{% url 'accounts:disable' %}" class="text-danger"><i class="glyphicon glyphicon-remove"></i> Disable account</a></small>
+    <section id="content">
+        <div class="container layout">
+            {% if is_admin %}
+                <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
+            {% endif %}
+            {% if request.user.can_upload_files %}
+                <a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}" >Upload your genome</a>
+            {% endif %}
+            {% if saved_genome_data %}
+                <p>By clicking on items below you can browse previously uploaded data.</p>
+            {% endif %}
+            <div class="list-group">
+                {% for row in saved_genome_data %}
+                    <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">{{ row }}</a>
+                {% endfor %}
+            </div>
+            <small><a href="{% url 'accounts:disable' %}" class="text-danger"><i class="glyphicon glyphicon-remove"></i> Disable account</a></small>
+        </div>
+    </section>
 {% endblock content %}

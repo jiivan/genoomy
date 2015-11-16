@@ -10,45 +10,49 @@
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <div class="panel panel-default">
-        <div class="panel-heading" style="background-color: {{ your_allele.color_alias.color }}">
-            <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
-        </div>
-        <div class="panel-body">
-            <p>{{ your_allele.description|markdown }}</p>
-        </div>
-    </div>
-    <br>
-    <br>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>{{ article.title }}</h4>
-        </div>
-        <div class="panel-body allele-descr-panel-body">
+    <section id="content">
+        <div class="container layout">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    Description:
+                <div class="panel-heading" style="background-color: {{ your_allele.color_alias.color }}">
+                    <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
                 </div>
                 <div class="panel-body">
-                    {{ article.header|markdown }}
-
+                    <p>{{ your_allele.description|markdown }}</p>
                 </div>
             </div>
-            <hr>
-            <h4>What others see<h4>
-                {% for allele in colors %}
+            <br>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>{{ article.title }}</h4>
+                </div>
+                <div class="panel-body allele-descr-panel-body">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
-                            {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                            <b>{{ allele.allele }}</b>
+                        <div class="panel-heading">
+                            Description:
                         </div>
                         <div class="panel-body">
-                            <p>{{ allele.description|markdown }}</p>
+                            {{ article.header|markdown }}
+
                         </div>
                     </div>
-                {% endfor %}
+                    <hr>
+                    <h4>What others see<h4>
+                        {% for allele in colors %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
+                                    {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
+                                    <b>{{ allele.allele }}</b>
+                                </div>
+                                <div class="panel-body">
+                                    <p>{{ allele.description|markdown }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                </div>
+            </div>
+            {{ article.footer|markdown }}
+            <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
         </div>
-    </div>
-    {{ article.footer|markdown }}
-    <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
+    </section>
 {% endblock content %}

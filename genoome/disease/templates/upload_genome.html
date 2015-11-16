@@ -5,9 +5,13 @@
 {% block page_title %}Upload your genome{% endblock page_title %}
 
 {% block content %}
-    {% include 'includes/upload_genome_form.html' %}
-    <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">
-        <div class="progress-bar progress-bar-start" role="progressbar">
+    <section id="content">
+        <div class="container layout">
+            {% include 'includes/upload_genome_form.html' %}
+            <div id='progress-bar' class="progress" data-upload_id="{{ upload_id }}">
+                <div class="progress-bar progress-bar-start" role="progressbar">
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}
