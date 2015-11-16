@@ -15,6 +15,10 @@
 	}
 }
 
+.navbar-nav > li > a{
+	  color: $navbar_link_col;
+}
+
 .btn-login {
 	color: $white;
 	border: 2px solid;
@@ -39,12 +43,12 @@
 }
 .btn-logout {
 	color: $white;
-	background-color: $black;
+	background-color: $transparent;
 	border: 2px solid $color_fern_green_approx;
 }
 .btn-admin {
 	color: $white;
-	background-color: $black;
+	background-color: $transparent;
 	border: 2px solid $crimson;
 }
 .navbar-brand > img {
