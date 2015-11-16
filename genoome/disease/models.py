@@ -48,7 +48,7 @@ class CustomizedTag(TagBase):
     color_on = RGBColorField()
     show_on_data = models.BooleanField(default=True)
     show_on_landing = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='tags/')
+    image = models.ImageField(upload_to='tags/', blank=True, null=True)
 
     class Meta:
         verbose_name = _("Tag")
