@@ -8,7 +8,7 @@ GULPPATH=$VENVPATH/bin/gulp;
 source $VENVPATH/bin/activate;
 cd $PROJROOT/genoome/genoome/ && sudo git checkout -- . && \
 git pull origin master && \
-pip install -r ../requirements/production.txt \
+pip install -r $PROJROOT/genoome/requirements/production.txt \
 cd ../ && \
 npm install && \
 ./node_modules/.bin/bower install && \
