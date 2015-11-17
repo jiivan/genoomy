@@ -85,7 +85,22 @@ $.fn.dataTableExt.afnFiltering.push(
 
 var genomeData = $('#genomeData');
 $(document).ready(function() {
+    var genome_file = genomeData.data('file');
     var genomeTable = genomeData.dataTable({
+        "ajax": '/disease/browse/?file=' + genome_file,
+        "columns": [
+            {"data": "rsid" },
+            {"data": "chromosome_position" },
+            {"data": "risk_allele" },
+            {"data": "genotype" },
+            {"data": "disease_trait" },
+            {"data": "p_value" },
+            {"data": "or_or_beta" },
+            {"data": "risk" },
+            {"data": "priority", "defaultContent": "0" },
+            {"data": "tags", "defaultContent": ""},
+            {"data": "color", "defaultContent": ""}
+        ],
         "pageLength": 100,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },

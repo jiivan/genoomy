@@ -37,7 +37,7 @@ def parse_23andme(csv_reader):
     GENOTYPE = 3
     POSITION = 2
     for line in csv_reader:
-        if len(line) == 1:
+        if len(line) <= 1:
             continue
         if not line[RSID].startswith('rs'):
             continue

@@ -17,7 +17,7 @@
     </div>
 </div>
 <div class="show-advenced genomeData_advanced">
-    Advenced optionssss
+    Advanced options
         <span class="settings-el">
             &#9881;
         </span>
@@ -81,7 +81,7 @@
         {#        <li id="defaultbutton">Toggle default</li>#}
     </ul>
 </div>
-<table id="genomeData" class="table table-striped table-bordered genoomy-table">
+<table id="genomeData" class="table table-striped table-bordered genoomy-table" data-file="{{ genome_file }}">
     <thead>
     <tr class="filter-visiblity">
         <th>RSID</th>
@@ -124,21 +124,21 @@
         <th>CATEGORY_COLOR</th>
     </tr>
     </tfoot>
-    <tbody>
-    {% for row in table %}
-        <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>
-            <td>{{ row.rsid }}</td>
-            <td>{{ row.chromosome_position }}</td>
-            <td>{{ row.risk_allele }}</td>
-            <td>{{ row.genotype }}</td>
-            <td>{{ row.disease_trait }}</td>
-            <td>{{ row.p_value }}</td>
-            <td>{{ row.or_or_beta }}</td>
-            <td>{{ row.risk }}</td>
-            <td>{{ row.priority|default:0 }}</td>
-            <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>
-            <td>{{ row.color }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+{#    <tbody>#}
+{#    {% for row in table %}#}
+{#        <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>#}
+{#            <td>{{ row.rsid }}</td>#}
+{#            <td>{{ row.chromosome_position }}</td>#}
+{#            <td>{{ row.risk_allele }}</td>#}
+{#            <td>{{ row.genotype }}</td>#}
+{#            <td>{{ row.disease_trait }}</td>#}
+{#            <td>{{ row.p_value }}</td>#}
+{#            <td>{{ row.or_or_beta }}</td>#}
+{#            <td>{{ row.risk }}</td>#}
+{#            <td>{{ row.priority|default:0 }}</td>#}
+{#            <td>{% for tag in row.tags %}{{ tag }}{% if not forloop.last %};{% endif %}{% endfor %}</td>#}
+{#            <td>{{ row.color }}</td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#    </tbody>#}
 </table>
