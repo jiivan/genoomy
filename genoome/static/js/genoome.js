@@ -122,6 +122,28 @@ $(document).ready(function() {
             });
             // Fix datatable for fluid container
             genomeData.css('width', '');
+
+            // Ugly way to make table columns show/hide on init as requested
+            var checkbox_settings = [
+                false, // RSID
+                false, // CHROMOSOME POS
+                false, // RISK ALLELE
+                true, // GENOTYPE
+                true, // DISEASE TRAIT
+                true, // P VALUE
+                true, // OR
+                true, // RISK
+                false, // PRIORITY
+                false, // TAGS
+                false  // CATEGORY COLOR
+            ];
+            var checkboxes = $(".checkbox-row input");
+            checkbox_settings.forEach(function(element, index) {
+                console.log(element);
+                var checkbox = $(checkboxes[index]);
+                checkbox.trigger('change')
+                    .attr('checked', element);
+            })
         }
     }).columnFilter({ sPlaceHolder: "head:after",
         aoColumns: [
@@ -204,9 +226,9 @@ $(".checkbox-row input").change(function() {
     });
 });
 
-$(document).ready(function() {
-    $(".checkbox-row input").trigger('change');
-});
+//$(document).ready(function() {
+//    $(".checkbox-row input").trigger('change');
+//});
 
 $('.filter_labels h3 span.label').on('click', function(e) {
     var label = $(e.delegateTarget),
