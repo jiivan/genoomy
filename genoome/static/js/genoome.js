@@ -139,11 +139,12 @@ $(document).ready(function() {
             ];
             var checkboxes = $(".checkbox-row input");
             checkbox_settings.forEach(function(element, index) {
-                console.log(element);
                 var checkbox = $(checkboxes[index]);
                 checkbox.trigger('change')
                     .attr('checked', element);
-            })
+            });
+
+            rowRender()
         }
     }).columnFilter({ sPlaceHolder: "head:after",
         aoColumns: [
@@ -160,6 +161,15 @@ $(document).ready(function() {
         ]
     });
 
+    function rowRender() {
+        $('#genomeData').DataTable().rows().every(function() {
+            var row = $(this.node()),
+                rowData = this.data();
+            row.data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype))
+                .css('background-color', rowData.color);
+        });
+    }
+
 });
 
 
@@ -167,12 +177,10 @@ var progressbar = $('.progress-bar');
 var interval;
 
 function updateBar(values) {
-    console.log(values);
     var l = values.received;
     var tot = values.size;
 
     var perc = (l / tot) * (100.00);
-    console.log(perc);
     progressbar.css('width', perc + '%');
     progressbar.text(perc + '%');
     if (values.status === 'done') {
@@ -181,7 +189,6 @@ function updateBar(values) {
 }
 
 $("form#upload_form").submit(function(e){
-    console.log('Form submitted');
     var getProgress = function() {
         $.ajax({
             url: "/progress",
