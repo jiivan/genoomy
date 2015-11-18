@@ -11,7 +11,7 @@
                         <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
                         <div class="col-md-offset-3 col-md-6">
                             <div>
-                                <div class="row"><button class="btn btn-primary btn-lg">Upload Genome</button></div>
+                                <div class="row"><a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}">Upload Genome</a></div>
                             </div>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                 </p>
             </div>
             <div class="col-md-4">
-                <button class="btn btn-success btn-lg">Analyze your data now</button>
+                <a class="btn btn-success btn-lg" href="{% url "disease:upload_genome" %}">Analyze your data now</a>
             </div>
         </div>
     </section>

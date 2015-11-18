@@ -35,7 +35,7 @@
                         <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
                     </div>
                     <button type="submit" class="btn btn-login">Login</button>
-                    <a class="btn btn-success btn-register" data-toggle="modal" href="{% url "accounts:signup" %}" data-target="#modal-signup">Register</a>
+                    <a class="btn btn-register" href="{% url "accounts:signup" %}">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
                 <a type="button" class="btn btn-logout btn-top-align navbar-right" href="{% url "accounts:logout" %}">Logout</a>
