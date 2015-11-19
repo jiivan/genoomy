@@ -29,6 +29,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 from configurable_elements.models import get_legend_rows
 from disease.files_utils import process_filename
+from disease.files_utils import get_genome_data
 from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .models import CustomizedTag
@@ -77,6 +78,23 @@ class GenomeFilePathMixin(object):
         if user is None:
             user = self.request.user
         return get_genome_filepath(user, filename)
+
+
+class JSONResponseMixin(object):
+    """
+    A mixin that can be used to render a JSON response.
+    """
+    def render_to_json_response(self, context, **response_kwargs):
+        """
+        Returns a JSON response, transforming 'context' to make the payload.
+        """
+        return JsonResponse(
+            self.get_data(context),
+            **response_kwargs
+        )
+
+    def get_data(self, context):
+        return context
 
 
 class UploadGenome(GenomeFilePathMixin, FormView):
@@ -191,7 +209,7 @@ class UploadGenomeSuccessView(TemplateView):
         return super().get_context_data(**kwargs)
 
 
-class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
+class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
     template_name = 'display_genome_result.html'
 
     def get(self, request, *args, **kwargs):
@@ -239,6 +257,7 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
                 paid = analyze_data_order.is_paid
 
         job = AsyncResult(analyze_data_order.task_uuid)
+        ctx['genome_data_url'] = '{}?file={}'.format(reverse_lazy('disease:browse_genome'), self.request.GET['file'])
         ctx['is_job_ready'] = is_job_ready = job.ready()
         ctx['is_job_successful'] = is_job_successful = job.successful()
         ctx['is_job_failure'] = is_job_failure = job.failed()
@@ -260,6 +279,35 @@ class DisplayGenomeResult(GenomeFilePathMixin, TemplateView):
 
 
         return ctx
+
+    def get_data(self, context):
+        order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
+        paid = False
+
+        try:
+            analyze_data_order = AnalyzeDataOrder.objects.get(**order_kwargs)
+            paid = analyze_data_order.is_paid
+        except AnalyzeDataOrder.DoesNotExist:
+            if not self.is_browsing_via_admin:
+                analyze_data_order = AnalyzeDataOrder(**order_kwargs)
+                analyze_data_order.save()
+                paid = analyze_data_order.is_paid
+        result = []
+        if paid or is_admin:
+            result = self.get_genome_data()
+        return {'data': result}
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.is_ajax():
+            return self.render_to_json_response(context)
+        else:
+            return super().render_to_response(context, **response_kwargs)
+
+
+def landing_genome_data(request):
+    sample_data_filepath = 'disease/samplegenotype'
+    data = {'data': get_genome_data(sample_data_filepath)}
+    return JsonResponse(data)
 
 
 class PaymentStatusView(ProcessFormView, TemplateView):

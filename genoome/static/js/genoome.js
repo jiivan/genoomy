@@ -85,7 +85,22 @@ $.fn.dataTableExt.afnFiltering.push(
 
 var genomeData = $('#genomeData');
 $(document).ready(function() {
+    var genome_url = genomeData.data('genome_url');
     var genomeTable = genomeData.dataTable({
+        "ajax": genome_url,
+        "columns": [
+            {"data": "rsid" },
+            {"data": "chromosome_position" },
+            {"data": "risk_allele" },
+            {"data": "genotype" },
+            {"data": "disease_trait" },
+            {"data": "p_value" },
+            {"data": "or_or_beta" },
+            {"data": "risk" },
+            {"data": "priority", "defaultContent": "0" },
+            {"data": "tags", "defaultContent": ""},
+            {"data": "color", "defaultContent": ""}
+        ],
         "pageLength": 100,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
@@ -107,6 +122,29 @@ $(document).ready(function() {
             });
             // Fix datatable for fluid container
             genomeData.css('width', '');
+
+            // Ugly way to make table columns show/hide on init as requested
+            var checkbox_settings = [
+                false, // RSID
+                false, // CHROMOSOME POS
+                false, // RISK ALLELE
+                true, // GENOTYPE
+                true, // DISEASE TRAIT
+                true, // P VALUE
+                true, // OR
+                true, // RISK
+                false, // PRIORITY
+                false, // TAGS
+                false  // CATEGORY COLOR
+            ];
+            var checkboxes = $(".checkbox-row input");
+            checkbox_settings.forEach(function(element, index) {
+                var checkbox = $(checkboxes[index]);
+                checkbox.trigger('change')
+                    .attr('checked', element);
+            });
+
+            rowRender()
         }
     }).columnFilter({ sPlaceHolder: "head:after",
         aoColumns: [
@@ -123,6 +161,15 @@ $(document).ready(function() {
         ]
     });
 
+    function rowRender() {
+        $('#genomeData').DataTable().rows().every(function() {
+            var row = $(this.node()),
+                rowData = this.data();
+            row.data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype))
+                .css('background-color', rowData.color);
+        });
+    }
+
 });
 
 
@@ -130,12 +177,10 @@ var progressbar = $('.progress-bar');
 var interval;
 
 function updateBar(values) {
-    console.log(values);
     var l = values.received;
     var tot = values.size;
 
     var perc = (l / tot) * (100.00);
-    console.log(perc);
     progressbar.css('width', perc + '%');
     progressbar.text(perc + '%');
     if (values.status === 'done') {
@@ -144,7 +189,6 @@ function updateBar(values) {
 }
 
 $("form#upload_form").submit(function(e){
-    console.log('Form submitted');
     var getProgress = function() {
         $.ajax({
             url: "/progress",
@@ -189,9 +233,9 @@ $(".checkbox-row input").change(function() {
     });
 });
 
-$(document).ready(function() {
-    $(".checkbox-row input").trigger('change');
-});
+//$(document).ready(function() {
+//    $(".checkbox-row input").trigger('change');
+//});
 
 $('.filter_labels h3 span.label').on('click', function(e) {
     var label = $(e.delegateTarget),
