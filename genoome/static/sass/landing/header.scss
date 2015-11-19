@@ -16,7 +16,6 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	-1px 1px 0 #000,
 	1px 1px 0 #000;
 	padding-bottom: 40px;
-	width: 63vw;
 	img {
 	  max-width: 90%;
 	  margin: 30px 10px;
@@ -65,4 +64,8 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	margin: 0 auto;
 	width: 68%;
   }
+}
+
+.row-relative-scaling {
+  width: 72%;
 }
