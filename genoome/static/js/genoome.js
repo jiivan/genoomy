@@ -85,9 +85,9 @@ $.fn.dataTableExt.afnFiltering.push(
 
 var genomeData = $('#genomeData');
 $(document).ready(function() {
-    var genome_file = genomeData.data('file');
+    var genome_url = genomeData.data('genome_url');
     var genomeTable = genomeData.dataTable({
-        "ajax": '/disease/browse/?file=' + genome_file,
+        "ajax": genome_url,
         "columns": [
             {"data": "rsid" },
             {"data": "chromosome_position" },

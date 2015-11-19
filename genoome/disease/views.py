@@ -29,6 +29,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 from configurable_elements.models import get_legend_rows
 from disease.files_utils import process_filename
+from disease.files_utils import get_genome_data
 from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .models import CustomizedTag
@@ -256,7 +257,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
                 paid = analyze_data_order.is_paid
 
         job = AsyncResult(analyze_data_order.task_uuid)
-        ctx['genome_file'] = self.request.GET['file']
+        ctx['genome_data_url'] = '{}?file={}'.format(reverse_lazy('disease:browse_genome'), self.request.GET['file'])
         ctx['is_job_ready'] = is_job_ready = job.ready()
         ctx['is_job_successful'] = is_job_successful = job.successful()
         ctx['is_job_failure'] = is_job_failure = job.failed()
@@ -301,6 +302,12 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
             return self.render_to_json_response(context)
         else:
             return super().render_to_response(context, **response_kwargs)
+
+
+def landing_genome_data(request):
+    sample_data_filepath = 'disease/samplegenotype'
+    data = {'data': get_genome_data(sample_data_filepath)}
+    return JsonResponse(data)
 
 
 class PaymentStatusView(ProcessFormView, TemplateView):
