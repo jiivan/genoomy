@@ -4,6 +4,10 @@
 $url_0: url(/static/imgs/header-background-cropped.jpg);
 
 #landing-header {
+  .row {
+	position: absolute;
+	top: 2em;
+  }
   .intro-text {
 	color: $white;
 	text-shadow:
@@ -43,11 +47,21 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	}
   }
   div.container, div.container-fluid {
-	background: $url_0;
-	background-size: 100% auto;
-	background-repeat: no-repeat;
+	//background: $url_0;
+	//background-size: 100% auto;
+	//background-repeat: no-repeat;
 	height: auto;
 	text-align: center;
 	padding-bottom: 12em;
+  }
+}
+
+.fake-img-background {
+  padding: 0 0;
+  width: 300%;
+  margin-left: -100%;
+  .fake-img-background-inner {
+	margin: 0 auto;
+	width: 45%;
   }
 }
