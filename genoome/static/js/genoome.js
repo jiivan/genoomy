@@ -233,9 +233,10 @@ $(".checkbox-row input").change(function() {
     });
 });
 
-//$(document).ready(function() {
-//    $(".checkbox-row input").trigger('change');
-//});
+$(document).ready(function() {
+    var headerFontSize = $('header#landing-header .layout').width() / 12.91;
+    $('.intro-text span.name').css('font-size', headerFontSize + 'px');
+});
 
 $('.filter_labels h3 span.label').on('click', function(e) {
     var label = $(e.delegateTarget),
@@ -290,3 +291,4 @@ if (window.location.href === '/disease/browse/') {
         }, 1000);
     })();
 }
+
