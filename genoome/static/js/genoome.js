@@ -274,6 +274,8 @@ setLayout();
 $('[data-toggle=layout-fluid]').click(function() {
     window.localStorage['expand'] = String(!(window.localStorage['expand'] == 'true'));
     setLayout();
+    var headerFontSize = $('header#landing-header .layout').width() / 12.91;
+    $('.intro-text span.name').css('font-size', headerFontSize + 'px');
     return false;
 });
 
