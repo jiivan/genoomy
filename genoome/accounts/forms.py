@@ -18,10 +18,14 @@ user_model = get_user_model()
 
 class SignInForm(AuthenticationForm):
     error_messages = {
-        'invalid_login': _("Please enter a correct %(username)s and password. "
+        'invalid_login': _("Please enter a correct email and password. "
                            "Note that both fields may be case-sensitive."),
         'inactive': _("This account is inactive. You need activation code to login."),
     }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = 'Email'
 
 
 class EmailUserCreateForm(forms.ModelForm):
