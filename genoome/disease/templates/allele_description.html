@@ -13,18 +13,18 @@
     <section id="content">
         <div class="container layout">
             <div class="panel panel-default">
-                <div class="panel-heading" style="background-color: {{ your_allele.color_alias.color }}">
-                    <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
-                </div>
                 <div class="panel-body">
                     <p>{{ your_allele.description|markdown }}</p>
+                </div>
+                <div class="panel-footer allele-description-footer" style="background-color: {{ your_allele.color_alias.color }}">
+                    <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
                 </div>
             </div>
             <br>
             <br>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>{{ article.title }}</h4>
+                    <h4>Know more about <span class="glyphicon glyphicon-arrow-right"></span> {{ article.title }}</h4>
                 </div>
                 <div class="panel-body allele-descr-panel-body">
                     <div class="panel panel-default">
