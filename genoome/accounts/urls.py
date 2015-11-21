@@ -19,7 +19,7 @@ urlpatterns = [
                                                       'from_email': 'noreply@genoomy.com',
                                                       'post_reset_redirect': 'accounts:password_reset_done',
                                                       'html_email_template_name': 'registration/password_reset_email.html',
-                                                      'template_name': 'registration/password_reset_email.txt'},
+                                                      'email_template_name': 'registration/password_reset_email.txt'},
         name='password_reset'),
     url(r'^password-reset/done/$', password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
