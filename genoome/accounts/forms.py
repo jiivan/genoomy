@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm as AuthPasswordResetForm
 from django.utils.translation import ugettext_lazy as _
 
 user_model = get_user_model()
@@ -82,3 +83,10 @@ class ContactForm(forms.Form):
         message = self.cleaned_data['message']
         subject = 'Contact form from {}'.format(user_email)
         send_mail(subject, message, user_email, [settings.EMAIL_HOST_USER], fail_silently=True)
+
+class PasswordResetForm(AuthPasswordResetForm):
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not get_user_model().objects.filter(is_active=True, email__iexact=email).exists():
+            raise forms.ValidationError('User with given email does not exist.', 'invalid')
+        return email
