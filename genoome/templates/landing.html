@@ -9,39 +9,27 @@
                     <img class="img-responsive" src="{% static "imgs/header-background-wide.jpg" %}"></img>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8 row-relative-scaling">
-                    <div class="intro-text">
-                        <span class="name">What your DNA <br> says about you?</span>
-                        <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
-                        <div class="col-md-offset-3 col-md-6">
-                            <div>
-                                <div class="row"><a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}">Upload Genome</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {#            {% if not request.user.is_authenticated %}#}
-                    {#                <div class="banner-wrapper row">#}
-                    {#                    <div class="col-md-6">#}
-                    {#                        <img src="{% static 'imgs/happypeople.jpg' %}" class="img-responsive" alt="Responsive image">#}
-                    {#                    </div>#}
-                    {#                    <div class="col-md-6 text-center">#}
-                    {#                        <h1>#}
-                    {#                            Understand your genes!#}
-                    {#                        </h1>#}
-                    {#                        <h2>#}
-                    {#                            Colour your genes and get short human#}
-                    {#                            readable description of how they work.#}
-                    {#                        </h2>#}
-                    {#                        <a class="btn btn-danger btn-action" href="{% url "disease:upload_genome" %}" role="button">#}
-                    {#                            Upload genome#}
-                    {#                        </a>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {#            {% endif %}#}
+            <div class="row-relative-scaling-outer">
+                <div class="intro-text">
+                    <span class="name">What your DNA <br> says about you?</span>
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
+                </div>
+            </div>
+
+            {#            <div class="row-relative-scaling-outer">#}
+            {#                <div class="col-lg-8 col-md-8 col-sm-8 row-relative-scaling">#}
+            {#                    <div class="intro-text">#}
+            {#                        <span class="name">What your DNA <br> says about you?</span>#}
+            {#                        <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>#}
+            {#                        <div class="col-md-offset-3 col-md-6">#}
+            {#                            <div>#}
+            {#                                <div class="row"><a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}">Upload Genome</a></div>#}
+            {#                            </div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
     </header>
 {% endblock header %}
 
