@@ -5,7 +5,7 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 
 #landing-header {
   .row {
-	position: absolute;
+	//position: absolute;
 	top: 2em;
   }
   .intro-text {
@@ -22,7 +22,7 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	}
 	.name {
 	  display: block;
-	  font-size: 5.2em;
+	  font-size: 5.8vw;
 	  font-weight: 900;
 	  margin-top: 1em;
 	  margin-bottom: 0.5em;
@@ -46,10 +46,10 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	  }
 	}
   }
-  div.container, div.container-fluid {
-	//background: $url_0;
-	//background-size: 100% auto;
-	//background-repeat: no-repeat;
+  div.header-container {
+	background: $url_0;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
 	height: auto;
 	text-align: center;
 	padding-bottom: 12em;
