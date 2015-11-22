@@ -13,9 +13,6 @@
     background-color: $bluish;
     border-color: $anetish;
     font-size: 2vw;
-    #btn-call-to-action {
-      padding: 1vw 2vw;
-    }
     &:hover {
       background-color: $orangish;
       border-color: $orangish;
@@ -26,4 +23,8 @@
   min-width: 100vw;
   margin: 0 auto;
   float: none;
+}
+
+#btn-call-to-action {
+  padding: 1vw 2vw;
 }
