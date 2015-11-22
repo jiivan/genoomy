@@ -13,10 +13,8 @@
     background-color: $bluish;
     border-color: $anetish;
     font-size: 2vw;
-    a#btn-call-to_action {
-      .btn-lg {
-        padding: 1vw 2vw;
-      }
+    #btn-call-to-action {
+      padding: 1vw 2vw;
     }
     &:hover {
       background-color: $orangish;
