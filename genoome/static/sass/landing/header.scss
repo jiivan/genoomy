@@ -17,7 +17,7 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	1px 1px 0 #000;
 	padding-bottom: 40px;
 	img {
-	  max-width: 90%;
+	  max-width: 45vw;
 	  margin: 30px 10px;
 	}
 	.name {
@@ -35,14 +35,17 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	.row {
 	  margin: 2.8em 0;
 	  .btn {
-		font-size: 3em;
-		padding: 0.5em 1em;
+		font-size: 3vw;
+		padding: 1.2vw 2.3vw;
 		background-color: $bluish;
 		border-color: $anetish;
 		&:hover{
 		  background-color: $orangish;
 		  border-color: $orangish;
 		}
+	  }
+	  .btn-lg {
+		border-radius: 0.5vw;
 	  }
 	}
   }

@@ -4,17 +4,19 @@
 {% block header %}
     <header id="landing-header">
         <div class="header-container">
-{#            <div class="fake-img-background">#}
-{#                <div class="fake-img-background-inner">#}
-{#                    <img class="img-responsive" src="{% static "imgs/header-background-cropped.jpg" %}"></img>#}
-{#                </div>#}
-{#            </div>#}
+            {#            <div class="fake-img-background">#}
+            {#                <div class="fake-img-background-inner">#}
+            {#                    <img class="img-responsive" src="{% static "imgs/header-background-cropped.jpg" %}"></img>#}
+            {#                </div>#}
+            {#            </div>#}
 
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8 row-relative-scaling">
                     <div class="intro-text">
                         <span class="name">What your DNA <br> says about you?</span>
-                        <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
+                        <div class="col-md-offset-3 col-md-6">
+                            <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
+                        </div>
                         <div class="col-md-offset-3 col-md-6">
                             <div>
                                 <div class="row"><a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}">Upload Genome</a></div>
