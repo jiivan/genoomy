@@ -3,10 +3,10 @@
 
 {% block header %}
     <header id="landing-header">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div class="fake-img-background">
                 <div class="fake-img-background-inner">
-                    <img class="img-responsive" src="{% static "imgs/header-background-wide.jpg" %}"></img>
+                    <img class="img-responsive" src="{% static "imgs/header-background-cropped.jpg" %}"></img>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
 
 {% block content %}
     <section id="carousel">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -114,7 +114,7 @@
     </section><!-- Carousel section -->
 
     <section id="features-sec">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div class="col-md-12 features text-center">
                 <div class="col-md-4 feature">
                     <img class="img-thumbnail" src="{% static "imgs/foodish.png" %}" alt="...">
@@ -134,7 +134,7 @@
 
 
     <section id="call-to-action">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div class="col-md-8 text-center">
                 <p>
                     <strong>Simple pricing: </strong> 19$ to get analysis of your genoome
@@ -149,7 +149,7 @@
 
     {#    {% include 'includes/color_legend.html' %}#}
     <section>
-        <div class="container layout">
+        <div class="container-fluid layout">
             <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
             {% include 'includes/data_table.html' %}
         </div>

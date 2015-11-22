@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container layout">
+    <div class="container-fluid layout">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -18,13 +18,13 @@
                     <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
                 {% endfor %}
             </ul>
-            <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-                <li>
-                    <a type="button" href="#" data-toggle="layout-fluid">
-                        <i class="glyphicon glyphicon-resize-full"></i>
-                    </a>
-                </li>
-            </ul>
+{#            <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">#}
+{#                <li>#}
+{#                    <a type="button" href="#" data-toggle="layout-fluid">#}
+{#                        <i class="glyphicon glyphicon-resize-full"></i>#}
+{#                    </a>#}
+{#                </li>#}
+{#            </ul>#}
             {% if not request.user.is_authenticated %}
                 <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
                     {% csrf_token %}
