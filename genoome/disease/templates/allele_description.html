@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <p>Your genome: {{ your_allele.description|markdown }}</p>
+                    <p>Your genome: {{ your_allele.description }}</p>
                 </div>
                 <div class="panel-footer allele-description-footer" style="background-color: {{ your_allele.color_alias.color }}">
                     <h2>Your genotype is <span class="label label-genome" style="background: {{ your_allele.color_alias.color }};"><b>{{ your_allele.allele }}</b></span><span style="font-size: 21px;"> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
@@ -32,7 +32,7 @@
                             Description:
                         </div>
                         <div class="panel-body">
-                            {{ article.header|markdown }}
+                            {{ article.header }}
 
                         </div>
                     </div>
@@ -45,13 +45,13 @@
                                     <b>{{ allele.allele }}</b>
                                 </div>
                                 <div class="panel-body">
-                                    <p>{{ allele.description|markdown }}</p>
+                                    <p>{{ allele.description }}</p>
                                 </div>
                             </div>
                         {% endfor %}
                 </div>
             </div>
-            {{ article.footer|markdown }}
+            {{ article.footer }}
             <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
         </div>
     </section>
