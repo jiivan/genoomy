@@ -39,6 +39,10 @@
 	margin-right: 3px;
 	cursor: pointer;
 }
+
+.label-tag:last-child {
+  margin-left: 3vw;
+}
 .tag-checked {
 	border: 2px solid $black;
 }
