@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container layout">
+    <div class="container-fluid layout">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -18,18 +18,18 @@
                     <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
                 {% endfor %}
             </ul>
-            <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-                <li>
-                    <a type="button" href="#" data-toggle="layout-fluid">
-                        <i class="glyphicon glyphicon-resize-full"></i>
-                    </a>
-                </li>
-            </ul>
+{#            <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">#}
+{#                <li>#}
+{#                    <a type="button" href="#" data-toggle="layout-fluid">#}
+{#                        <i class="glyphicon glyphicon-resize-full"></i>#}
+{#                    </a>#}
+{#                </li>#}
+{#            </ul>#}
             {% if not request.user.is_authenticated %}
                 <form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Username" type="text">
+                        <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Email" type="text">
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
@@ -38,7 +38,7 @@
                     <a class="btn btn-register" href="{% url "accounts:signup" %}">Register</a>
                 </form>
             {% elif request.user.is_authenticated %}
-                <a type="button" class="btn btn-logout btn-top-align navbar-right" href="{% url "accounts:logout" %}">Logout</a>
+                <a id="logout-button" type="button" class="btn btn-logout btn-top-align navbar-right" href="{% url "accounts:logout" %}">Logout</a>
                 {% if request.user.is_staff %}
                     <a type="button" class="btn btn-admin btn-top-align navbar-right" href="{% url "admin:index" %}">Admin</a>
                 {% endif %}

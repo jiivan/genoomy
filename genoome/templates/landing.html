@@ -3,18 +3,45 @@
 
 {% block header %}
     <header id="landing-header">
-        <div class="container layout">
-            <div class="fake-img-background">
-                <div class="fake-img-background-inner">
-                    <img class="img-responsive" src="{% static "imgs/header-background-wide.jpg" %}"></img>
-                </div>
-            </div>
-            <div class="row-relative-scaling-outer">
-                <div class="intro-text">
-                    <span class="name">What your DNA <br> says about you?</span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
+        <div class="header-container">
+            {#            <div class="fake-img-background">#}
+            {#                <div class="fake-img-background-inner">#}
+            {#                    <img class="img-responsive" src="{% static "imgs/header-background-cropped.jpg" %}"></img>#}
+            {#                </div>#}
+            {#            </div>#}
+
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 row-relative-scaling">
+                    <div class="intro-text">
+                        <div class="col-md-offset-1 col-md-8">
+                            <span class="name">What your DNA <br> says about you?</span>
+                            <img class="img-responsive" src="{% static "imgs/superman.png" %}"></img>
+
+                            <div>
+                                <div class="row"><a class="btn btn-primary btn-lg" href="{% url "disease:upload_genome" %}">Upload Genome</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {#            {% if not request.user.is_authenticated %}#}
+                    {#                <div class="banner-wrapper row">#}
+                    {#                    <div class="col-md-6">#}
+                    {#                        <img src="{% static 'imgs/happypeople.jpg' %}" class="img-responsive" alt="Responsive image">#}
+                    {#                    </div>#}
+                    {#                    <div class="col-md-6 text-center">#}
+                    {#                        <h1>#}
+                    {#                            Understand your genes!#}
+                    {#                        </h1>#}
+                    {#                        <h2>#}
+                    {#                            Colour your genes and get short human#}
+                    {#                            readable description of how they work.#}
+                    {#                        </h2>#}
+                    {#                        <a class="btn btn-danger btn-action" href="{% url "disease:upload_genome" %}" role="button">#}
+                    {#                            Upload genome#}
+                    {#                        </a>#}
+                    {#                    </div>#}
+                    {#                </div>#}
+                    {#            {% endif %}#}
                 </div>
             </div>
 
@@ -35,7 +62,7 @@
 
 {% block content %}
     <section id="carousel">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -54,7 +81,7 @@
                                     <img class="img-circle" src="{% static "imgs/carousel_1.jpg" %}" alt="...">
                                 </div>
                                 <div class="col-md-8">
-                                    <h3>Genoomy.com really helped me more than dietician!</h3>
+                                    <h3>Genoomy.com really helped me more than dietician!</br>&nbsp;</h3>
                                     <p>Cristina Barrios</p>
                                 </div>
                             </div>
@@ -102,8 +129,9 @@
     </section><!-- Carousel section -->
 
     <section id="features-sec">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div class="col-md-12 features text-center">
+                <h3 id="features-header">Discover how genes affect your health and behaviour.</h3>
                 <div class="col-md-4 feature">
                     <img class="img-thumbnail" src="{% static "imgs/foodish.png" %}" alt="...">
                     <h4>Food</h4>
@@ -122,14 +150,14 @@
 
 
     <section id="call-to-action">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <div class="col-md-8 text-center">
                 <p>
                     <strong>Simple pricing: </strong> 19$ to get analysis of your genoome
                 </p>
             </div>
             <div class="col-md-4">
-                <a class="btn btn-success btn-lg" href="{% url "disease:upload_genome" %}">Analyze your data now</a>
+                <a id="btn-call-to-action" class="btn btn-success btn-lg" href="{% url "disease:upload_genome" %}">Analyze your data now</a>
             </div>
         </div>
     </section>
@@ -137,7 +165,7 @@
 
     {#    {% include 'includes/color_legend.html' %}#}
     <section>
-        <div class="container layout">
+        <div class="container-fluid layout">
             <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
             {% include 'includes/data_table.html' %}
         </div>

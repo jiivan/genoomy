@@ -4,9 +4,8 @@
 $url_0: url(/static/imgs/header-background-cropped.jpg);
 
 #landing-header {
-  .row-relative-scaling-outer {
-	position: absolute;
-	border: #000000 solid 2px;
+  .row {
+	//position: absolute;
 	top: 2em;
 	min-width: 80vw;
   }
@@ -20,39 +19,45 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	padding-bottom: 40px;
 	max-width: 55%;
 	img {
-	  max-width: 90%;
-	  margin: 30px 10px;
+	  max-width: 46vw;
+	  margin-top: 5vw;
+	  margin-bottom: 5vw;
 	}
 	.name {
 	  display: block;
-	  font-size: 5.7vw;
+	  font-size: 5.8vw;
 	  font-weight: 900;
-	  margin-top: 1em;
+	  margin-top: 4.5vw;
 	  margin-bottom: 0.5em;
-	  line-height: 1.5;
+	  line-height: 1.15;
+	  text-align: center;
 	}
 	.subtitle {
 	  font-weight: 500;
 	  font-size: 1.75em;
 	}
 	.row {
-	  margin: 2.8em 0;
+	  margin: 4.5vw 0;
 	  .btn {
-		font-size: 3em;
-		padding: 0.5em 1em;
+		font-size: 3vw;
+		padding: 1.2vw 2.3vw;
 		background-color: $bluish;
 		border-color: $anetish;
+		text-shadow: none;
 		&:hover{
 		  background-color: $orangish;
 		  border-color: $orangish;
 		}
 	  }
+	  .btn-lg {
+		border-radius: 0.5vw;
+	  }
 	}
   }
-  div.container, div.container-fluid {
-	//background: $url_0;
-	//background-size: 100% auto;
-	//background-repeat: no-repeat;
+  div.header-container {
+	background: $url_0;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
 	height: auto;
 	text-align: center;
 	padding-bottom: 12em;
@@ -61,11 +66,11 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 
 .fake-img-background {
   padding: 0 0;
-  width: 300%;
-  margin-left: -100%;
+  width: 100%;
+  //margin-left: -100%;
   .fake-img-background-inner {
 	margin: 0 auto;
-	width: 68%;
+	//width: 68%;
   }
 }
 

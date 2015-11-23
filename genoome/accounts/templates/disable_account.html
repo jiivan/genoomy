@@ -5,7 +5,7 @@
 
 {% block content %}
     <section id="content">
-        <div class="container layout">
+        <div class="container-fluid layout">
             <form action="{% url "accounts:disable" %}" method="POST">
                 {% csrf_token %}
                 <p>Disabling your account will make all your data inaccessible. This cannot be undone.</p>

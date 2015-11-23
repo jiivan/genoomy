@@ -1,6 +1,6 @@
 {% if messages %}
     <section>
-        <div class="container layout">
+        <div class="container-fluid layout">
             {% for message in messages %}
                 <div class="alert alert-{{ message.level_tag|lower }}" role="alert">{{ message }}</div>
             {% endfor %}
