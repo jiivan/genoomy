@@ -1,56 +1,59 @@
 @import "variables/colors";
 
 .small-sample-text {
-	font-size: 3rem;
-	display: inline;
-	padding: 1rem;
-	color: $gray;
+  font-size: 3rem;
+  display: inline;
+  padding: 1rem;
+  color: $gray;
 }
 .columns-check-list {
-	list-style: none;
-	li {
-		display: inline;
-	}
+  list-style: none;
+  li {
+	display: inline;
+  }
 }
 .genomeData_advanced {
-	cursor: pointer;
+  cursor: pointer;
 }
 #genomeData {
-	thead tr.filter-visiblity {
-		display: none;
-	}
-	th span.form-control {
-		height: auto;
-	}
-	tbody tr {
-		cursor: pointer;
-	}
+  thead tr.filter-visiblity {
+	display: none;
+  }
+  th span.form-control {
+	height: auto;
+  }
+  tbody tr {
+	cursor: pointer;
+  }
 }
 .dataTables_length {
-	display: none;
+  display: none;
 }
 .dataTables_filter {
-	display: none;
+  display: none;
 }
 .table-settings {
-	display: none;
+  display: none;
 }
 .label-tag {
-	margin-right: 3px;
-	cursor: pointer;
+  margin-right: 3px;
+  cursor: pointer;
 }
 
-.label-tag:last-child {
-  margin-left: 3vw;
+.category_labels {
+  .label-tag:last-child {
+	margin-left: 3vw;
+  }
 }
+
 .tag-checked {
-	border: 2px solid $black;
+  border: 2px solid $black;
 }
 .big-header-text h1 {
-	display: inline;
-	font-size: 2rem;
-	color: $black;
+  display: inline;
+  font-size: 2rem;
+  color: $black;
 }
 .checkbox-row label {
-	cursor: pointer;
+  cursor: pointer;
 }
