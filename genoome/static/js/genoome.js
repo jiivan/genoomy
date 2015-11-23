@@ -130,9 +130,9 @@ $(document).ready(function() {
                 false, // RISK ALLELE
                 true, // GENOTYPE
                 true, // DISEASE TRAIT
-                true, // P VALUE
-                true, // OR
-                true, // RISK
+                false, // P VALUE
+                false, // OR
+                false, // RISK
                 false, // PRIORITY
                 false, // TAGS
                 false  // CATEGORY COLOR
