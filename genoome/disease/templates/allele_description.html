@@ -20,13 +20,13 @@
                     <a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
                 {% endif %}
                 <div class="panel-heading" style="background: {{ your_allele.color_alias.color }};">
-                    Your genome: <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span>
+                    Your genome:
                 </div>
                 <div class="panel-body">
                     <p>{{ your_allele.description|safe }}</p>
                 </div>
                 <div class="panel-footer allele-description-footer">
-                    <h2><span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
+                    <h2>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
                 </div>
             </div>
             <br>
