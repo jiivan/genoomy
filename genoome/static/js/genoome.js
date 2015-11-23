@@ -266,7 +266,7 @@ function setLayout() {
     }
 }
 
-setLayout();
+//setLayout();
 
 $('[data-toggle=layout-fluid]').click(function() {
     window.localStorage['expand'] = String(!(window.localStorage['expand'] == 'true'));
