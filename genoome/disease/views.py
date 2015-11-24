@@ -259,7 +259,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
         job = AsyncResult(analyze_data_order.task_uuid)
         ctx['genome_data_url'] = '{}?file={}'.format(reverse_lazy('disease:browse_genome'), self.request.GET['file'])
         if self.is_browsing_via_admin:
-            ctx['genome_data_url'] += 'pk={}'.format(self.user.pk)
+            ctx['genome_data_url'] += '&pk={}'.format(self.user.pk)
 
         ctx['is_job_ready'] = is_job_ready = job.ready()
         ctx['is_job_successful'] = is_job_successful = job.successful()
