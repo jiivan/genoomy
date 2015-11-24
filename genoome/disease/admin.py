@@ -15,7 +15,7 @@ class SNPMarkerAdmin(admin.ModelAdmin):
 
 class AlleleColorAdminForm(forms.ModelForm):
     description = forms.CharField(widget=AdminMarkdownWidget)
-    short_description = forms.CharField(widget=AdminMarkdownWidget)
+    short_description = forms.CharField(widget=AdminMarkdownWidget, max_length=256)
 
 
 class AlleleColorAdmin(admin.ModelAdmin):

@@ -64,7 +64,7 @@ class AlleleColor(models.Model):
     priority = models.PositiveIntegerField(default=100)
     color_alias = models.ForeignKey(ColorAlias, default=1)
     allele = models.CharField(max_length=128)
-    short_description = models.CharField(max_length=128, blank=True, null=True,
+    short_description = models.CharField(max_length=256, blank=True, null=True,
                                          help_text='Variant description')
     description = MarkdownField()
     snp_marker = models.ForeignKey(SNPMarker, related_name='allele_colors')

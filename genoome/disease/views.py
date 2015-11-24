@@ -293,7 +293,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
                 analyze_data_order.save()
                 paid = analyze_data_order.is_paid
         result = []
-        if paid or is_admin:
+        if paid or self.is_admin:
             result = self.get_genome_data()
         return {'data': result}
 
