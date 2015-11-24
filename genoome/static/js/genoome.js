@@ -44,7 +44,7 @@ $.fn.dataTableExt.afnFiltering.push(
         var selected_tags = $('.filter_labels h3 span.tag-checked').map(function(k, v) {
                 return $(this).text();
             }).get(),
-            row_tags = aData[9].split(';');
+            row_tags = aData[9].split(',');
 
         if (!selected_tags.length) { // nothing to filter out
             return true;
@@ -98,7 +98,7 @@ $(document).ready(function() {
             {"data": "or_or_beta" },
             {"data": "risk" },
             {"data": "priority", "defaultContent": "0" },
-            {"data": "tags", "defaultContent": ""},
+            {"data": "tags", "defaultContent": " "},
             {"data": "color", "defaultContent": ""}
         ],
         "pageLength": 100,
@@ -157,6 +157,8 @@ $(document).ready(function() {
             { type: "number-range" },
             { type: "select" },
             { type: "number-range" },
+            { type: "select" },
+            { type: "select" },
             { type: "select" }
         ]
     });
