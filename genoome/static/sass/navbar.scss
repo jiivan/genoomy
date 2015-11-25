@@ -15,6 +15,14 @@
 	}
 }
 
+.respect-margin {
+  margin-right: 0;
+}
+
+ul.navbar-right {
+  margin-bottom: 0;
+}
+
 .navbar-inverse .navbar-nav > li > a{
 	  color: $navbar_link_col;
 }
