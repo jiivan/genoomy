@@ -42,6 +42,11 @@ MANAGERS = ADMINS
 ########## END MANAGER CONFIGURATION
 
 
+########## EMAIL CONFIGURATION
+SERVER_EMAIL = 'server@genoomy.com'
+########## END EMAIL CONFIGURATION
+
+
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
