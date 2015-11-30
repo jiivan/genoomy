@@ -38,7 +38,7 @@ from .models import AnalyzeDataOrder
 from .models import AlleleColor
 from .models import SNPMarker
 from .models import SNPMarkerArticle
-from .tasks import recompute_genome_file
+from disease.tasks import recompute_genome_file
 
 log = logging.getLogger(__name__)
 
