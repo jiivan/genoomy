@@ -102,3 +102,8 @@ SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY')
 PAYPAL_RECEIVER_EMAIL = "info@genoomy.com"
 PAYPAL_TEST = False
 ########## END PAYPAL CONFIGURATION
+
+########## CELERY CONFIGURATION
+# http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
+BROKER_URL = 'redis://localhost:6379/1'
+########## END CELERY CONFIGURATION

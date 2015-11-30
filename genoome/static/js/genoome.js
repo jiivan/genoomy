@@ -118,7 +118,7 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
-                window.open(row.data('url'));
+                window.open(row.data('url'), 'Your genome', "height=" + window.screen.height +",width=" + window.screen.width);
             });
             // Fix datatable for fluid container
             genomeData.css('width', '');

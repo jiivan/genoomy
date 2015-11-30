@@ -33,12 +33,18 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Your Name', 'your_email@example.com'),
+    ('Kamil Niski', 'kaczuh@gmail.com'),
+    ('Mateusz Kowalczyk', 'szuetam@gmail.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 ########## END MANAGER CONFIGURATION
+
+
+########## EMAIL CONFIGURATION
+SERVER_EMAIL = 'server@genoomy.com'
+########## END EMAIL CONFIGURATION
 
 
 ########## DATABASE CONFIGURATION
@@ -291,14 +297,11 @@ FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o770
 
 ########## CELERY CONFIGURATION
 # http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
-BROKER_URL = 'redis://localhost:6379/1'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
+# BROKER_URL = 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_ACCEPT_CONTENT = ['json']  # Ignore other content
-# CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Warsaw'
 CELERY_ENABLE_UTC = True
+CELERY_SEND_TASK_ERROR_EMAILS = True
 ########## END CELERY CONFIGURATION
 
 ########## BITPAY CONFIGURATION
