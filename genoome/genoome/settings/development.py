@@ -80,12 +80,6 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 
-########## CELERY CONFIGURATION
-# http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
-BROKER_URL = 'redis://localhost:6379/21'
-########## END CELERY CONFIGURATION
-
-
 ########## LOGGING CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
@@ -112,3 +106,8 @@ SECRET_KEY = get_env_setting('DEV_DJANGO_SECRET_KEY')
 ########## BITPAY CONFIGURATION
 BITPAY_API = 'https://test.bitpay.com'
 ########## END BITPAY CONFIGURATION
+
+########## CELERY CONFIGURATION
+# http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
+BROKER_URL = 'redis://localhost:6379/1'
+########## END CELERY CONFIGURATION
