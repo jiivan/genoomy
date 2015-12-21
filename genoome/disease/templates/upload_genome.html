@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load disease_tags %}
 {% load staticfiles %}
 
 {% block title %}Upload your genome{% endblock title %}
@@ -12,6 +13,12 @@
                 <div class="progress-bar progress-bar-start" role="progressbar">
                 </div>
             </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid layout">
+            <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
+            {% data_table %}
         </div>
     </section>
 {% endblock content %}
