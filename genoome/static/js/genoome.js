@@ -183,7 +183,6 @@ function updateBar(values) {
     var tot = values.size;
 
     var perc = (l / tot) * (100.00);
-    progressbar.show();
     progressbar.css('width', perc + '%');
     progressbar.text(perc + '%');
     if (values.status === 'done') {
@@ -192,6 +191,8 @@ function updateBar(values) {
 }
 
 $("form#upload_form").submit(function(e){
+    $('form#upload_form input[type=submit]').hide();
+    progressbar.show();
     var getProgress = function() {
         $.ajax({
             url: "/progress",
