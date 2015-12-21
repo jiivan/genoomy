@@ -183,6 +183,7 @@ function updateBar(values) {
     var tot = values.size;
 
     var perc = (l / tot) * (100.00);
+    progressbar.show();
     progressbar.css('width', perc + '%');
     progressbar.text(perc + '%');
     if (values.status === 'done') {
