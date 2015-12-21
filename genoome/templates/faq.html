@@ -21,8 +21,9 @@
     {% endcomment %}
 
     {% get_flatpages '/faq/' as faq_pages %}
-    {% for page in faq_pages %}
+    {% for flatpage in faq_pages %}
         <section id="content content-allele-description">
+            <h2>{{ flatpage.title }}</h2>
             <div class="container-fluid">
                 {{ flatpage.content|markdown }}
             </div>
