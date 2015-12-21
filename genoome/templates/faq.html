@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load django_markdown django_markdown_static %}
 {% load flatpages %}
 
 {% block title %}FAQ{% endblock title %}
 {% block page_title %}FAQ{% endblock page_title %}
 
 {% block content %}
+    {% comment %}
+    Poprzednia wersja z linkami.
     <section>
         <div class="container-fluid layout">
             {% get_flatpages '/faq/' as faq_pages %}
@@ -15,4 +18,14 @@
             </div>
         </div>
     </section>
+    {% endcomment %}
+
+    {% get_flatpages '/faq/' as faq_pages %}
+    {% for page in faq_pages %}
+        <section id="content content-allele-description">
+            <div class="container-fluid">
+                {{ flatpage.content|markdown }}
+            </div>
+        </section>
+    {% endfor %}
 {% endblock content %}
