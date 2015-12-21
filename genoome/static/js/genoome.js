@@ -192,6 +192,7 @@ function updateBar(values) {
 
 $("form#upload_form").submit(function(e){
     $('form#upload_form input[type=submit]').hide();
+    console.log('progress bar: %o', progressbar);
     progressbar.show();
     var getProgress = function() {
         $.ajax({
