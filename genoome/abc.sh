@@ -6,6 +6,6 @@ GULPPATH=$VENVPATH/bin/gulp;
 
 source $VENVPATH/bin/activate;
 $GULPPATH --gulpfile ../gulpfile.js --cwd ../ dist && \
-$PYPATH ./manage.py collectstatic --noinput --settings=genoome.settings.production && \
+$PYPATH ./manage.py collectstatic --noinput && \
 sudo touch /etc/uwsgi/vassals/genoome.ini && \
 sudo chown -R ubuntu:www-data /opt/genoome/genoome/genoome/assets/;
