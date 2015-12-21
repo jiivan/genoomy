@@ -13,6 +13,6 @@ register = template.Library()
 def data_table(context):
     inner_context = {}
     inner_context['legend_rows'] = get_legend_rows()
-    inner_context['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True)
+    inner_context['allele_tags'] = CustomizedTag.objects.filter(show_on_landing=True)
     inner_context['genome_data_url'] = reverse_lazy('disease:landing_json_data')
     return inner_context
