@@ -17,6 +17,11 @@
         </div>
     </section>
     {% if flatpage.url == '/navbar/howitworks/' %}
-        {% data_table %}
+        <section>
+            <div class="container-fluid layout">
+                <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
+                {% data_table %}
+            </div>
+        </section>
     {% endif %}
 {% endblock content %}
