@@ -7,6 +7,7 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
   .row {
 	//position: absolute;
 	top: 2em;
+	min-width: 80vw;
   }
   .intro-text {
 	color: $white;
@@ -16,6 +17,7 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 	-1px 1px 0 #000,
 	1px 1px 0 #000;
 	padding-bottom: 40px;
+	max-width: 55%;
 	img {
 	  max-width: 46vw;
 	  margin-top: 5vw;
@@ -73,5 +75,5 @@ $url_0: url(/static/imgs/header-background-cropped.jpg);
 }
 
 .row-relative-scaling {
-  width: 77%;
+  width: 71%;
 }
