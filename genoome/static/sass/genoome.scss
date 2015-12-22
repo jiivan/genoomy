@@ -27,3 +27,7 @@ body {
 .progress {
 	margin-top: 10px;
 }
+
+#upload_form input[type=file],#upload_form input[type=email] {
+	width: 50vw;
+}
