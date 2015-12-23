@@ -89,7 +89,6 @@ var reset_checkboxes = function(checkbox_settings) {
     var checkboxes = $(".checkbox-row input");
     checkbox_settings.forEach(function(element, index) {
         var checkbox = $(checkboxes[index]);
-        console.log('trigger: %o %o->%o', index, checkboxes[index], element);
         checkbox.prop('checked', element).trigger('change');
     });
 
