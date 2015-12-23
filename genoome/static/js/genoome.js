@@ -85,7 +85,6 @@ $.fn.dataTableExt.afnFiltering.push(
 
 var genomeData = $('#genomeData');
 var reset_checkboxes = function(checkbox_settings) {
-    console.log('reset checkboxes: %o', checkbox_settings);
     var checkboxes = $(".checkbox-row input");
     checkbox_settings.forEach(function(element, index) {
         var checkbox = $(checkboxes[index]);
