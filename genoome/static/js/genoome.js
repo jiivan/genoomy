@@ -137,12 +137,8 @@ $(document).ready(function() {
                 false, // TAGS
                 false  // CATEGORY COLOR
             ];
-            var checkboxes = $(".checkbox-row input");
-            checkbox_settings.forEach(function(element, index) {
-                var checkbox = $(checkboxes[index]);
-                checkbox.trigger('change')
-                    .attr('checked', element);
-            });
+            $('.table-settings').data('default-values', checkbox_settings);
+            reset_checkboxes($('.table-settings').data('default-values'));
 
             rowRender()
         }
@@ -236,7 +232,18 @@ $(".checkbox-row input").change(function() {
         }
     });
 });
+var reset_checkboxes = function(checkbox_settings) {
+    var checkboxes = $(".checkbox-row input");
+    checkbox_settings.forEach(function(element, index) {
+        var checkbox = $(checkboxes[index]);
+        checkbox.trigger('change')
+            .attr('checked', element);
+    });
 
+};
+$(".table-settings #defaultbutton").click(function() {
+    reset_checkboxes($('.table-settings').data('default-values'));
+});
 
 $('.filter_labels h3 span.label').on('click', function(e) {
     var label = $(e.delegateTarget),
