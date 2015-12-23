@@ -8,23 +8,22 @@
 {% block content %}
     {% comment %}
     Poprzednia wersja z linkami.
+    {% endcomment %}
+
+    {% get_flatpages '/faq/' as faq_pages %}
     <section>
         <div class="container-fluid layout">
-            {% get_flatpages '/faq/' as faq_pages %}
             <div class="list-group">
-                {% for page in faq_pages %}
-                    <a class="list-group-item" href="{{ page.url }}">{{ page.title }}</a>
+                {% for flatpage in faq_pages %}
+                    <a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
                 {% endfor %}
             </div>
         </div>
     </section>
-    {% endcomment %}
-
-    {% get_flatpages '/faq/' as faq_pages %}
     {% for flatpage in faq_pages %}
         <section id="content content-allele-description">
             <div class="container-fluid">
-                <h2>{{ flatpage.title }}</h2>
+                <h2 id="faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</h2>
                 {{ flatpage.content|markdown }}
             </div>
         </section>
