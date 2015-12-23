@@ -84,6 +84,16 @@ $.fn.dataTableExt.afnFiltering.push(
 );
 
 var genomeData = $('#genomeData');
+var reset_checkboxes = function(checkbox_settings) {
+    console.log('reset checkboxes: %o', checkbox_settigns);
+    var checkboxes = $(".checkbox-row input");
+    checkbox_settings.forEach(function(element, index) {
+        var checkbox = $(checkboxes[index]);
+        checkbox.trigger('change')
+            .attr('checked', element);
+    });
+
+};
 $(document).ready(function() {
     var genome_url = genomeData.data('genome_url');
     var genomeTable = genomeData.dataTable({
@@ -232,17 +242,9 @@ $(".checkbox-row input").change(function() {
         }
     });
 });
-var reset_checkboxes = function(checkbox_settings) {
-    var checkboxes = $(".checkbox-row input");
-    checkbox_settings.forEach(function(element, index) {
-        var checkbox = $(checkboxes[index]);
-        checkbox.trigger('change')
-            .attr('checked', element);
-    });
-
-};
-$(".table-settings #defaultbutton").click(function() {
+$(".table-settings .defaultbutton").click(function() {
     reset_checkboxes($('.table-settings').data('default-values'));
+    return false;
 });
 
 $('.filter_labels h3 span.label').on('click', function(e) {
