@@ -45,3 +45,6 @@ genoome/assets
 genoome/static/dist
 genoome/static/vendor
 genoome/.ropeproject
+
+# Deployment files
+genoome/templates/includes/version.txt
