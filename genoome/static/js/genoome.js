@@ -119,6 +119,7 @@ $(document).ready(function() {
         "processing": true,
         "rowCallback": function(row, data, index) {
             var $row = $(row);
+            console.log('data: %o', data);
             $row.css('background-color', $row.data('color'])).data('url', encodeURI($row.data('link') + '?allele=' + $row.data('genotype')));
         },
         "drawCallback": function( settings ) {
