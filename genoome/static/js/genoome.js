@@ -213,17 +213,14 @@ $(".checkbox-row input").change(function() {
     var checked = $(this).is(":checked");
     var index = $(this).parent().parent().index();
     $('#genomeData tbody tr').each(function() {
-        var got_first = false;
         var $cell = $(this).find("td").eq(index);
         if(checked) {
             $cell.show();
-            if (!got_first) {
-                $cell.addClass('first');
-                got_first = true;
-            }
         } else {
-            $cell.hide().removeClass('first');
+            $cell.hide();
         }
+        $('td.first', this).removeClass('first');
+        $('td:visible:first', this).addClass('first');
     });
     $('#genomeData thead tr').each(function() {
         if(checked) {
