@@ -32,10 +32,11 @@ body {
 	width: 50vw;
 }
 
-table#genomeData tbody td:visible:first .color-mark {
+table#genomeData tbody td.first .color-mark {
+    display: block;
     padding-right: 5px;
     margin-right: 3px;
 }
-table#genomeData tbody td:not(:visible:first) .color-mark {
+table#genomeData tbody td .color-mark {
     display: none;
 }
