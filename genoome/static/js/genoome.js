@@ -212,16 +212,17 @@ $('.genomeData_advanced').click(function(e) {
 $(".checkbox-row input").change(function() {
     var checked = $(this).is(":checked");
     var index = $(this).parent().parent().index();
-    var got_first = false;
     $('#genomeData tbody tr').each(function() {
+        var got_first = false;
+        var $cell = $(this).find("td").eq(index);
         if(checked) {
-            $(this).find("td").eq(index).show();
+            $cell.show();
             if (!got_first) {
-                $(this).addClass('first');
+                $cell.addClass('first');
                 got_first = true;
             }
         } else {
-            $(this).find("td").eq(index).hide().removeClass('first');
+            $cell.hide().removeClass('first');
         }
     });
     $('#genomeData thead tr').each(function() {
