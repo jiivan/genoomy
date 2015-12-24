@@ -119,8 +119,8 @@ $(document).ready(function() {
         "processing": true,
         "rowCallback": function(row, data, index) {
             var $row = $(row);
-            console.log('data: %o', data);
-            $row.css('background-color', data['color']).data('url', encodeURI(data['link'] + '?allele=' + data['genotype']));
+            $row.data('url', encodeURI(data['link'] + '?allele=' + data['genotype']));
+            $row.prepend('<span style="width: 5px; background-color: '+data['color']+'">&nbsp;</span>');
         },
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
