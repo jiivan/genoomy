@@ -117,6 +117,9 @@ $(document).ready(function() {
         "columnDefs": [{"targets": [ 8 ], "visible": false, "searchable": false}],
         "order": [[ 8, "desc" ]],
         "processing": true,
+        "rowCallback": function(row, data, index) {
+            row.css('background-color', row.data()['color']).data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype));
+        },
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
 
@@ -148,7 +151,6 @@ $(document).ready(function() {
             $('.table-settings').data('default-values', checkbox_settings);
             reset_checkboxes($('.table-settings').data('default-values'));
 
-            rowRender()
         }
     }).columnFilter({ sPlaceHolder: "head:after",
         aoColumns: [
@@ -166,16 +168,6 @@ $(document).ready(function() {
             { type: "select" }
         ]
     });
-
-    function rowRender() {
-        $('#genomeData').DataTable().rows().every(function() {
-            var row = $(this.node()),
-                rowData = this.data();
-            row.data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype))
-                .css('background-color', rowData.color);
-        });
-    }
-
 });
 
 
