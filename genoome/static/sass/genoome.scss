@@ -40,3 +40,6 @@ table#genomeData tbody td.first .color-mark {
 table#genomeData tbody td .color-mark {
     display: none;
 }
+table#genomeData rbody tr:hover {
+    background-color: light-grey;
+}
