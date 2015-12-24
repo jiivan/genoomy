@@ -119,7 +119,7 @@ $(document).ready(function() {
         "processing": true,
         "rowCallback": function(row, data, index) {
             var $row = $(row);
-            $row.css('background-color', $row.data()['color']).data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype));
+            $row.css('background-color', $row.data('color'])).data('url', encodeURI($row.data('link') + '?allele=' + $row.data('genotype')));
         },
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
