@@ -1,9 +1,4 @@
 Deploy
 ========
 
-Redis
------
-
-Redis db numbers 0-19 are reserved for prod.
-
-db#1 - Celery broker
+This is where you describe how the project is deployed in production.

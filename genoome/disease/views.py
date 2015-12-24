@@ -38,7 +38,7 @@ from .models import AnalyzeDataOrder
 from .models import AlleleColor
 from .models import SNPMarker
 from .models import SNPMarkerArticle
-from disease.tasks import recompute_genome_file
+from .tasks import recompute_genome_file
 
 log = logging.getLogger(__name__)
 
@@ -125,6 +125,9 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         return reverse_lazy('disease:upload_success', kwargs={'pk': self.analyze_order_pk})
 
     def form_valid(self, form):
+        # save file
+        # create AnalyzeFileOrder
+        # raw_filepath = self.get_filepath(raw_filename)
         cd = form.cleaned_data
         email = cd.get('email', None)
         raw_file = cd.get('file', None)
@@ -156,6 +159,12 @@ class UploadGenome(GenomeFilePathMixin, FormView):
         analyze_order.save()
         recompute_genome_file.apply_async(args=(self.get_filepath(raw_filename, user=user),),
                                           task_id=task_id)
+        # table = process_genoome_data(data)
+        # file_exists = os.path.isfile(os.path.join(settings.MEDIA_ROOT, self.get_filepath(self.process_filename(raw_filename, filename_suffix='_processed'))))
+        # if self.request.user.is_authenticated() and not file_exists:
+        #     self.save_processed_data(table)
+
+        # ctx = self.get_context_data(form=form, table=table, analyzed=True)
         self.analyze_order_pk = analyze_order.pk
         return super().form_valid(form)
 
