@@ -118,7 +118,8 @@ $(document).ready(function() {
         "order": [[ 8, "desc" ]],
         "processing": true,
         "rowCallback": function(row, data, index) {
-            row.css('background-color', row.data()['color']).data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype));
+            var $row = $(row);
+            $row.css('background-color', $row.data()['color']).data('url', encodeURI(rowData.link + '?allele=' + rowData.genotype));
         },
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
