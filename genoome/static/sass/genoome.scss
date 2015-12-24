@@ -31,3 +31,11 @@ body {
 #upload_form input[type=file],#upload_form input[type=email] {
 	width: 50vw;
 }
+
+table#genomeData tbody td:visible:first .color-mark {
+    padding-right: 5px;
+    margin-right: 3px;
+}
+table#genomeData tbody td:not(:visible:first) .color-mark {
+    display: none;
+}
