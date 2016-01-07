@@ -132,7 +132,12 @@ $(document).ready(function() {
                 e.preventDefault();
                 var row = $(this);
                 console.log('get %o', row.data('url'));
-                $.get(row.data('url'), {'ajax':'1'}).done(function(data) {
+                $.get(row.data('url'), {'ajax':'1'})
+                .fail(function(data) {
+                    console.log('get %o error', row.data('url'));
+                    $('#genomeDataDestination').text('error');
+                })
+                .done(function(data) {
                     console.log('get %o done', row.data('url'));
                     $('#genomeDataDestination').html(data);
                 });
