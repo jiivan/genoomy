@@ -135,7 +135,7 @@ $(document).ready(function() {
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
                     console.log('get %o error: %o', row.data('url'), data);
-                    $('#genomeDataDestination').text('error');
+                    $('#genomeDataDestination').text('error<br>'+data.statusCode()+' '+data.statusText+'<br><pre>'+data.responseText+'</pre>');
                 })
                 .done(function(data) {
                     console.log('get %o done', row.data('url'));
