@@ -131,6 +131,10 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
+                $.get(row.data('url'), {'ajax':'1'}).done(function(data) {
+                    $('#genomeDataDestination').html(data);
+                });
+                return false;
                 window.open(row.data('url'), 'Your genome', "height=" + window.screen.height +",width=" + window.screen.width);
             });
             // Fix datatable for fluid container

@@ -182,10 +182,15 @@ def allele_description(request, pk):
         return redirect(marker.link)
     colours = AlleleColor.objects.filter(snp_marker=marker)
     your_allele = colours.get(allele=allele)
-    ctx = {'marker': marker,
-           'article': article,
-           'colors': colours,
-           'your_allele': your_allele}
+    ctx = {
+        'marker': marker,
+        'article': article,
+        'colors': colours,
+        'your_allele': your_allele,
+        'base_template': 'base.html',
+    }
+    if 'ajax' in request.REQUEST:
+        ctx['base_template'] = 'allele_ajax.html'
     return render(request, 'allele_description.html', ctx)
 
 
