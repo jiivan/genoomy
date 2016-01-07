@@ -131,9 +131,12 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
+                console.log('get %o', row.data('url'));
                 $.get(row.data('url'), {'ajax':'1'}).done(function(data) {
+                    console.log('get %o done', row.data('url'));
                     $('#genomeDataDestination').html(data);
                 });
+                console.log('get %o after', row.data('url'));
                 return false;
                 window.open(row.data('url'), 'Your genome', "height=" + window.screen.height +",width=" + window.screen.width);
             });
