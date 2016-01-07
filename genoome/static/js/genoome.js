@@ -134,7 +134,7 @@ $(document).ready(function() {
                 $.get(row.data('url'), {'ajax':'1'})
                 .then(function() {
                     $('#genomeDataDestination').text('Loading...');
-                }).
+                })
                 .fail(function(data) {
                     $('#genomeDataDestination').text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
                 })
