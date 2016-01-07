@@ -131,10 +131,8 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
+                $('#genomeDataDestination').text('Loading...');
                 $.get(row.data('url'), {'ajax':'1'})
-                .then(function() {
-                    $('#genomeDataDestination').text('Loading...');
-                })
                 .fail(function(data) {
                     $('#genomeDataDestination').text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
                 })
