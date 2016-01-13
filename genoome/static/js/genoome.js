@@ -110,7 +110,6 @@ $(document).ready(function() {
             {"data": "color", "defaultContent": ""}
         ],
         "pageLength": 100,
-        "bSort": false,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
             { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
@@ -121,7 +120,7 @@ $(document).ready(function() {
         "rowCallback": function(row, data, index) {
             var $row = $(row);
             $row.data('url', encodeURI(data['link'] + '?allele=' + data['genotype']));
-            $('td', row).prepend('<span class="color-mark" style="background-color: '+data['color']+'">&nbsp;</span>');
+            $('td:not(.color-marked)', row).prepend('<span class="color-mark" style="background-color: '+data['color']+'">&nbsp;</span>').addClass('color-marked');
         },
         "drawCallback": function( settings ) {
             var rows = $('#genomeData tbody tr');
