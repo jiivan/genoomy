@@ -316,6 +316,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
 def landing_genome_data(request):
     sample_data_filepath = 'disease/samplegenotype'
     data = {'data': get_genome_data(sample_data_filepath)}
+    data['data'] = list(reversed(sorted(data['data'], key=lambda r: r['priority'])))
     return JsonResponse(data)
 
 
