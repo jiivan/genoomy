@@ -228,7 +228,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
         filepath = self.get_filepath(filename)
         with storage.open(filepath) as f:
             data = msgpack.unpackb(f.read(), encoding='utf-8')
-        data = list(sorted(data, key=lambda r: r[8]), reverse=True)
+        data = list(reversed(sorted(data, key=lambda r: r.get('priority', -1))))
         return data
 
     @property
