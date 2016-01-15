@@ -110,6 +110,7 @@ $(document).ready(function() {
             {"data": "color", "defaultContent": ""}
         ],
         "pageLength": 100,
+        'aSort': false,
         "aoColumnDefs": [
             { "sType": "numeric_ignore_nan", "aTargets": [ 5, 6 ] },
             { "bSearchable": false, "bVisible": false, "aTargets": [ 8 ] }
