@@ -307,7 +307,6 @@ if (window.location.href === '/disease/browse/') {
 
 $(function() {
     $(window).scroll(function() {
-        console.log('window scroll');
         var doc_top = $(document).scrollTop();
         var doc_height = $(window).height();
         $('.stay-visible').each(function() {
@@ -319,13 +318,18 @@ $(function() {
             }
             var elem_top = $this.data('original_top');
             var elem_bottom = elem_top + $this.height();
-            if (doc_top < elem_top)  {
-                $this.css('top', doc_top);
+            var computed_top;
+            if (doc_top > elem_top) && (doc_top + doc_height < elem_bottom) {
+                console.log('1 doc_top: %o', doc_top);
+                computed_top = doc_top;
             } else if (doc_top > elem_bottom) {
-                $this.css('top', doc_top + doc_height - $this.height());
+                computed_top = doc_top + doc_height - $this.height();
+                console.log('2 doc_top + doc_height - this.height %o', computed_top);
             } else {
-                $this.css('top', elem_top);
+                computed_top = elem_top;
+                console.log('3 elem_top %o', computed_top);
             }
+            $this.css('top', computed_top);
         });
     });
 });
