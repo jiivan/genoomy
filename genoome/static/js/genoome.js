@@ -353,7 +353,7 @@ $(function() {
                 computed_top = border_bottom - $this.height();
             }
 
-            $this.css('top', computed_top);
+            $this.animate({'top': computed_top});
         });
     });
 });
