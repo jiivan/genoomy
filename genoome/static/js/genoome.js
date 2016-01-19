@@ -137,13 +137,7 @@ $(document).ready(function() {
                 var destination = $('#genomeDataDestination');
                 var doc_top = $(document).scrollTop()+100;
                 var table_top = $('#genomeData tbody').offset().top;
-                var computed_top;
-                if (doc_top > table_top) {
-                    computed_top = doc_top;
-                } else {
-                    computed_top = table_top;
-                }
-                destination.text('Loading...').data('original_top', computed_top);
+                destination.text('Loading...');
                 $(window).scroll();
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
@@ -320,12 +314,15 @@ if (window.location.href === '/disease/browse/') {
 
 
 $(function() {
+    var last_top = 0;
     $(window).scroll(function() {
         var header_height = $('.navbar:first').height() + 10;
         var doc_top = $(document).scrollTop() + header_height;
         var doc_height = $(window).height() - header_height -10;
         var border_top = $('#genomeData tbody').offset().top;
         var border_bottom = $('footer').offset().top - 10;
+        top_delta = doc_top - last_top;
+        last_top = doc_top;
         $('.stay-visible').each(function() {
             var $this = $(this);
             if (!$this.data('original_top')) {
@@ -334,6 +331,7 @@ $(function() {
                 $this.css('position', 'absolute').css('top', elem_offset.top).css('left', elem_offset.left);
             }
             var elem_top = $this.data('original_top');
+            var scroll_mode = $this.data('stay_visible');
             var elem_bottom = elem_top + $this.height();
             var computed_top;
 
@@ -356,7 +354,7 @@ $(function() {
             }
 
             if (is_chrome) {
-                $this.animate({'top': computed_top}, 100);
+                $this.animate({'top': computed_top}, 50);
             } else {
                 $this.css('top', computed_top);
             }
