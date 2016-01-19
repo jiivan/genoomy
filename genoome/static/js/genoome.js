@@ -356,7 +356,7 @@ $(function() {
             }
 
             if (is_chrome) {
-                $this.animate({'top': computed_top}, 10);
+                $this.animate({'top': computed_top}, 100);
             } else {
                 $this.css('top', computed_top);
             }
