@@ -313,8 +313,9 @@ $(function() {
         $('.stay-visible').each(function() {
             var $this = $(this);
             if (!$this.data('original_top')) {
-                $this.data('original_top', $this.offset().top);
-                $this.css('position', 'absolute');
+                var elem_offset = $this.offset()
+                $this.data('original_top', elem_offset.top);
+                $this.css('position', 'absolute').css('top', elem_offset.top).css('left', elem_offset.left);
             }
             var elem_top = $this.data('original_top');
             var elem_bottom = elem_top + $this.height();
