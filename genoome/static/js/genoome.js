@@ -304,3 +304,27 @@ if (window.location.href === '/disease/browse/') {
     })();
 }
 
+
+$(function() {
+    var $window = $(window);
+    $window.scroll(function() {
+        var doc_top = $(document).scrollTop();
+        var doc_height = $window.height();
+        $('.stay-visible').each(function() {
+            var $this = $(this);
+            if (!$this.data('original_top')) {
+                $this.data('original_top', $this.offset().top);
+                $this.css('position', 'absolute');
+            }
+            var elem_top = $this.data('original_top');
+            var elem_bottom = elem_top + $this.height();
+            if (doc_top < elem_top)  {
+                $this.css('top', doc_top);
+            } else if (doc_top > elem_bottom) ) {
+                $this.css('top', doc_top + doc_height - $this.height());
+            } else {
+                $this.css('top', elem_top);
+            }
+        });
+    });
+});
