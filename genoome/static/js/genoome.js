@@ -134,12 +134,15 @@ $(document).ready(function() {
                 var row = $(this);
                 var destination = $('#genomeDataDestination');
                 destination.text('Loading...').data('original_top', $(document).scrollTop()+100);
+                $(window).scroll();
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
                     destination.text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
+                    $(window).scroll();
                 })
                 .done(function(data) {
                     destination.html(data);
+                    $(window).scroll();
                 });
                 return false;
                 window.open(row.data('url'), 'Your genome', "height=" + window.screen.height +",width=" + window.screen.width);
