@@ -349,7 +349,7 @@ $(function() {
 
             if (computed_top < border_top) {
                 computed_top = border_top;
-            } else if (computed_top > border_bottom) {
+            } else if (computed_top + $this.height() > border_bottom) {
                 computed_top = border_bottom - $this.height();
             }
 
