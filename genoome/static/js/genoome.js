@@ -319,7 +319,7 @@ $(function() {
             var elem_top = $this.data('original_top');
             var elem_bottom = elem_top + $this.height();
             var computed_top;
-            if (doc_top > elem_bottom) {
+            if (doc_top + doc_height > elem_bottom) {
                 computed_top = doc_top + doc_height - $this.height();
                 console.log('2 doc_top + doc_height - this.height %o', computed_top);
             } else {
