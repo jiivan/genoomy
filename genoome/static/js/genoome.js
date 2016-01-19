@@ -133,7 +133,15 @@ $(document).ready(function() {
                 e.preventDefault();
                 var row = $(this);
                 var destination = $('#genomeDataDestination');
-                destination.text('Loading...').data('original_top', $(document).scrollTop()+100);
+                var doc_top = $(document).scrollTop()+100;
+                var table_top = $('#genomeData tbody').offset().top;
+                var computed_top;
+                if (doc_top > table_top) {
+                    computed_top = doc_top;
+                } else {
+                    computed_top = table_top;
+                }
+                destination.text('Loading...').data('original_top', computed_top);
                 $(window).scroll();
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
@@ -325,10 +333,8 @@ $(function() {
             var computed_top;
             if (doc_top + doc_height > elem_bottom) {
                 computed_top = doc_top + doc_height - $this.height();
-                console.log('2 doc_top + doc_height - this.height %o', computed_top);
             } else {
                 computed_top = elem_top;
-                console.log('3 elem_top %o', computed_top);
             }
             $this.css('top', computed_top);
         });
