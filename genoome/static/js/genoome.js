@@ -308,6 +308,7 @@ if (window.location.href === '/disease/browse/') {
 $(function() {
     var $window = $(window);
     $window.scroll(function() {
+        console.log('window scroll');
         var doc_top = $(document).scrollTop();
         var doc_height = $window.height();
         $('.stay-visible').each(function() {
