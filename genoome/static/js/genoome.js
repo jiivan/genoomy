@@ -321,6 +321,8 @@ $(function() {
     $(window).scroll(function() {
         var doc_top = $(document).scrollTop();
         var doc_height = $(window).height();
+        var border_top = $('#genomeData').offset().top;
+        var border_bottom = $('footer').offset().top;
         $('.stay-visible').each(function() {
             var $this = $(this);
             if (!$this.data('original_top')) {
@@ -331,6 +333,7 @@ $(function() {
             var elem_top = $this.data('original_top');
             var elem_bottom = elem_top + $this.height();
             var computed_top;
+
             if (doc_top + doc_height > elem_bottom) {
                 if ($this.height() < doc_height) {
                     computed_top = doc_top;
@@ -340,6 +343,13 @@ $(function() {
             } else {
                 computed_top = elem_top;
             }
+
+            if (computed_top < border_top) {
+                computed_top = border_top;
+            } else if (computed_top > border_bottom) {
+                computed_top = border_bottom - $this.height();
+            }
+
             $this.css('top', computed_top);
         });
     });
