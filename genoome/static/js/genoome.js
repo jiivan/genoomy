@@ -332,7 +332,11 @@ $(function() {
             var elem_bottom = elem_top + $this.height();
             var computed_top;
             if (doc_top + doc_height > elem_bottom) {
-                computed_top = doc_top + doc_height - $this.height();
+                if ($this.height() < doc_height) {
+                    computed_top = doc_top;
+                } else {
+                    computed_top = doc_top + doc_height - $this.height();
+                }
             } else {
                 computed_top = elem_top;
             }
