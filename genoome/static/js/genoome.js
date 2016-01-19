@@ -324,7 +324,6 @@ $(function() {
         var doc_height = $(window).height() - header_height;
         var border_top = $('#genomeData tbody').offset().top;
         var border_bottom = $('footer').offset().top;
-        console.log('doc_top: %o doc_hgh: %o header_hgh: %o', doc_top, doc_height, header_height);
         $('.stay-visible').each(function() {
             var $this = $(this);
             if (!$this.data('original_top')) {
