@@ -319,8 +319,9 @@ if (window.location.href === '/disease/browse/') {
 
 $(function() {
     $(window).scroll(function() {
-        var doc_top = $(document).scrollTop();
-        var doc_height = $(window).height();
+        var header_height = $('.navbar:first').offset().top;
+        var doc_top = $(document).scrollTop() + header_height;
+        var doc_height = $(window).height() - header_height;
         var border_top = $('#genomeData tbody').offset().top;
         var border_bottom = $('footer').offset().top;
         $('.stay-visible').each(function() {
