@@ -134,7 +134,6 @@ $(document).ready(function() {
                 var row = $(this);
                 var destination = $('genomeDataDestination');
                 destination.text('Loading...').data('original_top', $(document).scrollTop()+100);
-                $this.data('original_top', elem_offset.top);
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
                     destination.text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
