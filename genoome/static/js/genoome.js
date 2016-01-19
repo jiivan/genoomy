@@ -337,6 +337,8 @@ $(function() {
 
             if (doc_top < elem_top) {
                 computed_top = doc_top;
+            } else if ( (doc_top > elem_top) && (doc_top + doc_height < elem_bottom) ) { //inside
+                computed_top = $this.offset().top + top_delta;
             } else if (doc_top + doc_height > elem_bottom) {
                 if ($this.height() < doc_height) {
                     computed_top = doc_top;
