@@ -338,18 +338,17 @@ $(function() {
 
             console.log('top_delta %o curr %o', top_delta, elem_current_top);
 
-            if (doc_top < elem_top) {
+            if (doc_top < elem_current_top) { // top of
                 computed_top = doc_top;
-            } else if ( (doc_top > elem_current_top) && (doc_top + doc_height < elem_current_bottom) ) { //inside
-                computed_top = $this.offset().top + top_delta;
-            } else if (doc_top + doc_height > elem_bottom) {
+            } else if (doc_top + doc_height > elem_current_bottom) { // bottom of
                 if ($this.height() < doc_height) {
                     computed_top = doc_top;
                 } else {
                     computed_top = doc_top + doc_height - $this.height();
                 }
-            } else {
-                computed_top = elem_top;
+            } else { // inside
+                console.log('inside');
+                computed_top = elem_current_top; // stay still
             }
 
             if (computed_top < border_top) {
