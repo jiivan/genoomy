@@ -1,3 +1,5 @@
+$.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()); 
+
 $.cssHooks.backgroundColor = {
     get: function(elem) {
         if (elem.currentStyle)
@@ -319,11 +321,11 @@ if (window.location.href === '/disease/browse/') {
 
 $(function() {
     $(window).scroll(function() {
-        var header_height = $('.navbar:first').height();
+        var header_height = $('.navbar:first').height() + 10;
         var doc_top = $(document).scrollTop() + header_height;
         var doc_height = $(window).height() - header_height;
         var border_top = $('#genomeData tbody').offset().top;
-        var border_bottom = $('footer').offset().top - 20;
+        var border_bottom = $('footer').offset().top - 10;
         $('.stay-visible').each(function() {
             var $this = $(this);
             if (!$this.data('original_top')) {
@@ -353,7 +355,11 @@ $(function() {
                 computed_top = border_bottom - $this.height();
             }
 
-            $this.animate({'top': computed_top}, 10);
+            if ($.browser.chrome) {
+                $this.animate({'top': computed_top}, 10);
+            } else {
+                $this.css('top', computed_top);
+            }
         });
     });
 });
