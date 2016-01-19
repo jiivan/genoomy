@@ -331,13 +331,14 @@ $(function() {
                 $this.css('position', 'absolute').css('top', elem_offset.top).css('left', elem_offset.left);
             }
             var elem_top = $this.data('original_top');
-            var scroll_mode = $this.data('stay_visible');
             var elem_bottom = elem_top + $this.height();
+            var elem_current_top = $this.offset().top;
+            var elem_current_bottom = elem_current_top + $this.height();
             var computed_top;
 
             if (doc_top < elem_top) {
                 computed_top = doc_top;
-            } else if ( (doc_top > elem_top) && (doc_top + doc_height < elem_bottom) ) { //inside
+            } else if ( (doc_top > elem_current_top) && (doc_top + doc_height < elem_current_bottom) ) { //inside
                 computed_top = $this.offset().top + top_delta;
             } else if (doc_top + doc_height > elem_bottom) {
                 if ($this.height() < doc_height) {
