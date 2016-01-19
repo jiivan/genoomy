@@ -132,7 +132,7 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
-                var destination = $('genomeDataDestination');
+                var destination = $('#genomeDataDestination');
                 destination.text('Loading...').data('original_top', $(document).scrollTop()+100);
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
