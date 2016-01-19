@@ -132,13 +132,15 @@ $(document).ready(function() {
             rows.click(function(e) {
                 e.preventDefault();
                 var row = $(this);
-                $('#genomeDataDestination').text('Loading...');
+                var destination = $('genomeDataDestination');
+                destination.text('Loading...').data('original_top', $(document).scrollTop()+100);
+                $this.data('original_top', elem_offset.top);
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
-                    $('#genomeDataDestination').text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
+                    destination.text('error\n'+data.statusCode()+' '+data.statusText+'\n\n'+data.responseText);
                 })
                 .done(function(data) {
-                    $('#genomeDataDestination').html(data);
+                    destination.html(data);
                 });
                 return false;
                 window.open(row.data('url'), 'Your genome', "height=" + window.screen.height +",width=" + window.screen.width);
