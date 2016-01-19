@@ -1,4 +1,4 @@
-$.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()); 
+is_chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()); 
 
 $.cssHooks.backgroundColor = {
     get: function(elem) {
@@ -355,7 +355,7 @@ $(function() {
                 computed_top = border_bottom - $this.height();
             }
 
-            if ($.browser.chrome) {
+            if (is_chrome) {
                 $this.animate({'top': computed_top}, 10);
             } else {
                 $this.css('top', computed_top);
