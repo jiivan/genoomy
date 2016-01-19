@@ -321,7 +321,7 @@ $(function() {
     $(window).scroll(function() {
         var doc_top = $(document).scrollTop();
         var doc_height = $(window).height();
-        var border_top = $('#genomeData').offset().top;
+        var border_top = $('#genomeData tbody').offset().top;
         var border_bottom = $('footer').offset().top;
         $('.stay-visible').each(function() {
             var $this = $(this);
