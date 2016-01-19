@@ -336,6 +336,8 @@ $(function() {
             var elem_current_bottom = elem_current_top + $this.height();
             var computed_top;
 
+            console.log('top_delta %o curr %o', top_delta, elem_current_top);
+
             if (doc_top < elem_top) {
                 computed_top = doc_top;
             } else if ( (doc_top > elem_current_top) && (doc_top + doc_height < elem_current_bottom) ) { //inside
