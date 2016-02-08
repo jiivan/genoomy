@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^disease/', include('disease.urls', namespace='disease')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^payments/', include('payments.urls', namespace='payments')),
+    url(r'^23andme/', include('twentythree.urls', namespace='23andme')),
 
     url('^markdown/', include('django_markdown.urls')),
 
