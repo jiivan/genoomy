@@ -72,6 +72,6 @@ def status(request):
         ctask = CeleryTask23.objects.filter(user=request.user).order_by('-pk')[0]
     except CeleryTask23.DoesNotExist:
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
-    if ctask.status = 'parsing':
+    if ctask.status == 'parsing':
         return HttpResponseRedirect(genomeurl)
     return render_to_response('twentythree/status.html', {'ctask': ctask})
