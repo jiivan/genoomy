@@ -41,7 +41,7 @@ class Token23(models.Model):
             'grant_type': 'authorization_code',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)$
+        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)
         if response.status_code != 200:$
             log.error('Problem fetching token %', response.status_code, response.text)$
             raise self.ClientError$
