@@ -42,10 +42,10 @@ class Token23(models.Model):
             'redirect_uri': settings.COMEBACK_URL23,
         }
         response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)
-        if response.status_code != 200:$
-            log.error('Problem fetching token %', response.status_code, response.text)$
-            raise self.ClientError$
-        data = response.json()$
+        if response.status_code != 200:
+            log.error('Problem fetching token %', response.status_code, response.text)
+            raise self.ClientError
+        data = response.json()
         return klass.objects.create(user=user, access_token=data['access_token'], refresh_token=data['refresh_token'], scope=data['scope'])
 
     def refresh(self):
