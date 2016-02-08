@@ -91,6 +91,10 @@ LOGGING['handlers']['file'] = {
 }
 LOGGING['loggers']['django.request']['handlers'].append('file')
 LOGGING['loggers']['disease']['handlers'].append('file')
+LOGGING['root'] = {
+    'handlers': ['file',],
+    'level': 'DEBUG',
+}
 
 
 ########## SECRET CONFIGURATION

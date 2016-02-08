@@ -279,7 +279,11 @@ LOGGING = {
             'handlers': ['mail_admins', 'console'],
             'level': 'DEBUG',
             'propagate': True
-        }
+        },
+        'genoome': {
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     }
 }
 ########## END LOGGING CONFIGURATION
@@ -322,3 +326,10 @@ from django.contrib.messages import constants as message_constants
 DANGER = 50
 MESSAGE_TAGS = {DANGER: 'danger'}
 ########## END MESSAGES CONFIGURATION
+
+########## 23andme
+CLIENT_ID23 = '0bbaf82af17dc28e5b621897237d7985'
+CLIENT_SECRET23 = '241bd347833909955f33d336a5c51c60'
+COMEBACK_URL23 = 'https://genoomy.com/23andme/comeback/'
+
+########## END 23andme
