@@ -89,8 +89,6 @@ LOGGING['handlers']['file'] = {
     'maxBytes': 5242880,
     'formatter': 'verbose'
 }
-LOGGING['loggers']['django.request']['handlers'].append('file')
-LOGGING['loggers']['disease']['handlers'].append('file')
 LOGGING['root'] = {
     'handlers': ['file',],
     'level': 'DEBUG',
