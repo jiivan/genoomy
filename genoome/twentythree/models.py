@@ -57,11 +57,11 @@ class Token23(models.Model):
             'grant_type': 'refresh_token',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)$
-        if response.status_code != 200:$
-            log.error('Problem refreshing token %', response.status_code, response.text)$
-            raise self.ClientError$
-        data = response.json()$
+        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)
+        if response.status_code != 200:
+            log.error('Problem refreshing token %', response.status_code, response.text)
+            raise self.ClientError
+        data = response.json()
         self.access_token = data['access_token']
         self.refresh_token = data['refresh_token']
         self.scope = data['scope']
