@@ -9,7 +9,7 @@ class Token23(models.Model):
     access_token = models.TextField()
     refresh_token = models.TextField()
     scope = models.TextField()
-    created_at = models.DateTimeField(auto_add_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     def _api_get(self, url):
