@@ -215,6 +215,7 @@ LOCAL_APPS = (
     'payment_bitpay',
     'payments',
     'taggit',
+    'twentythree',
 
     'widget_tweaks',
     'coupons',
