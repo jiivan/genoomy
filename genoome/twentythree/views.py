@@ -18,7 +18,7 @@ def token_required(f):
         return f(request, *args, **kwargs)
     return inner
 
-@login_required
+@login_required(login_url=reverse_lazy('accounts:signin'))
 def login23(request):
     # https://api.23andme.com/docs/authentication/ 
     url = 'https://api.23andme.com/authorize/?redirect_uri=%s&response_type=code&client_id=%s&scope=basic%20genomes'
@@ -64,9 +64,9 @@ class ChooseProfileView(FormView):
         form.save()
         return super().form_valid(form)
 
-profiles = login_required(token_required(ChooseProfileView.as_view()))
+profiles = login_required(token_required(ChooseProfileView.as_view()), login_url=reverse_lazy('accounts:signin'))
 
-@login_required
+@login_required(login_url=reverse_lazy('accounts:signin'))
 @token_required
 def status(request):
     try:
