@@ -8,4 +8,5 @@
 
 {% block submit_button %}
     <input class="btn btn-primary" type="submit" value="Upload your genome" />
+    <a class="btn btn-primary btn-lg" href="{% url "23andme:login" %}">Fetch your genome from 23andme</a>
 {% endblock submit_button %}
