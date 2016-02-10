@@ -9,6 +9,7 @@ import logging
 import requests
 import time
 
+from disease.files_utils import get_genome_filepath
 from disease.tasks import recompute_genome_file
 from twentythree.models import CeleryTask23
 from twentythree.models import Token23

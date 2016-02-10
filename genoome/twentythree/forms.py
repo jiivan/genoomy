@@ -3,7 +3,6 @@ from django import forms
 import itertools
 import logging
 
-from disease.files_utils import get_genome_filepath
 from twentythree.tasks import fetch_genome_and_push_forward
 from twentythree.models import CeleryTask23
 
