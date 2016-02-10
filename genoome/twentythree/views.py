@@ -8,6 +8,7 @@ import logging
 import urllib.parse
 
 from twentythree.forms import ChooseProfileForm
+from twentythree.models import Token23
 
 log = logging.getLogger('genoome.twentythree.views')
 
@@ -37,7 +38,7 @@ def comeback(request):
         return HttpResponseRedirect(reverse_lazy('23andme:login'))
     try:
         token = Token.get_by_code(request.user, code)
-    except Token.ClientError:
+    except Token23.ClientError:
         log.error('Failed token(%r). Redirecting to 23andme_login(%s)', code, request.user)
     return HttpResponseRedirect(reverse_lazy('23andme:profiles'))
 
