@@ -37,7 +37,7 @@ def comeback(request):
         log.info('No code. Redirecting to 23andme_login(%s)', request.user)
         return HttpResponseRedirect(reverse_lazy('23andme:login'))
     try:
-        token = Token.get_by_code(request.user, code)
+        token = Token23.get_by_code(request.user, code)
     except Token23.ClientError:
         log.error('Failed token(%r). Redirecting to 23andme_login(%s)', code, request.user)
     return HttpResponseRedirect(reverse_lazy('23andme:profiles'))
