@@ -63,7 +63,7 @@ class ChooseProfileView(FormView, TokenMixin):
         return super().get(request, *args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = self.get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['profiles'] = self.get_token().get_profiles()
         kwargs['user'] = self.request.user
         return kwargs
