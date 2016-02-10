@@ -12,6 +12,9 @@ class Token23(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    class ClientError(Exception):
+        pass
+
     def _api_get(self, url):
         headers = {
             'Authorization': 'Bearer %s' % self.access_token,
