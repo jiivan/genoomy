@@ -85,4 +85,4 @@ def status(request):
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
     if ctask.status == 'parsing':
         return HttpResponseRedirect(genomeurl)
-    return render('twentythree/status.html', {'ctask': ctask})
+    return render(request, 'twentythree/status.html', {'ctask': ctask})
