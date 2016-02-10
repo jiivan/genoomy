@@ -24,8 +24,24 @@ def token_required(f):
         return f(request, *args, **kwargs)
     return inner
 
+class TokenMixin(object):
+    def get_token(self):
+        token = Token23.objects.get(user=self.request.user)
+        return token
+
 @login_required(login_url=reverse_lazy('accounts:signin'))
 def login23(request):
+    try:
+        token = Token23.objects.get(user=request.user)
+    except Token23.DoesNotExist:
+        pass
+    else:
+        log.info('Trying to refresh old token...')
+        try:
+            token.refresh()
+            return HttpResponseRedirect(reverse_lazy('23andme:profiles'))
+        except Token23.ClientError:
+            log.info('Refreshing token failed. Asking for a new one...')
     # https://api.23andme.com/docs/authentication/ 
     url = 'https://api.23andme.com/authorize/?redirect_uri=%s&response_type=code&client_id=%s&scope=basic%%20genomes'
     url %= (
@@ -46,11 +62,6 @@ def comeback(request):
         log.error('Failed token(%r). Redirecting to 23andme_login(%s)', code, request.user)
         return HttpResponseRedirect(reverse_lazy('23andme:login'))
     return HttpResponseRedirect(reverse_lazy('23andme:profiles'))
-
-class TokenMixin(object):
-    def get_token(self):
-        token = Token23.objects.get(user=self.request.user)
-        return token
 
 class ChooseProfileView(FormView, TokenMixin):
     form_class = ChooseProfileForm
