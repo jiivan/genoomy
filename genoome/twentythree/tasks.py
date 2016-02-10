@@ -37,6 +37,9 @@ def twentythree_snp_mapping():
                 log.debug('Ignoring: %r', row)
                 continue
             index, rsid, chromosome, position = row
+            if not index.isdigit():
+                log.debug('idx notdigit. Inoring: %r', row)
+                continue
             index = int(index)
             yield index*2, rsid, chromosome, position
 
