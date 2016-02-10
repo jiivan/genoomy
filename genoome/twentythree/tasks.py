@@ -34,6 +34,7 @@ def twentythree_snp_mapping():
         csv_reader = csv.reader(snp_mapping_f)
         for row in csv_reader:
             if len(row) == 1:
+                log.debug('Ignoring: %r', row)
                 continue
             index, rsid, chromosome, position = row
             index = int(index)
@@ -54,8 +55,10 @@ def fetch_genome_and_push_forward(ctask_pk):
         from django.core.files.storage import FileSystemStorage
         storage = FileSystemStorage()
         token = Token23.objects.get(user_id=user_pk)
+        log.info('Fetching genome...')
         try:
             genome = token.get_genome(profile_id)
+            log.info('Got genome len(%d)', len(genome))
         except Token23.ClientError as e:
             if e.json()['error'] == 'access_denied':
                 log.warning('Got access_denied. Refreshing token:%s', token.pk)
@@ -70,9 +73,12 @@ def fetch_genome_and_push_forward(ctask_pk):
             csv_file.write('# fetched from api\n')
             csv_writer = csv.writer(csv_file)
             for index, rsid, chromosome, position in twentythree_snp_mapping():
+                log.debug('index: %r rsid: %r chromosome: %r position: %s', index, rsid, chromosome, position)
                 if not rsid.startswith('rs'):
+                    log.debug('ignoring: %r', rsid)
                     continue
                 genotype = genome[index:index+1]
+                log.debug('genotype: %r', genotype)
                 csv_writer.writerow([rsid, chromosome, position, genotype])
             log.info('Saving csv to storage...')
             storage.save(filepath, django.core.files.File(csv_file))
