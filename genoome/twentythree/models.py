@@ -56,7 +56,7 @@ class Token23(models.Model):
             'refresh_token': data['refresh_token'],
             'scope': data['scope'],
         }
-        instance, created = klass.objects.get_or_create(user=user, initial=initial)
+        instance, created = klass.objects.get_or_create(user=user, defaults=initial)
         if not created:
             log.warning('Updating initial token for %s', user)
             for key in initial:
