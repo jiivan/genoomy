@@ -20,6 +20,7 @@ class Token23(models.Model):
         headers = {
             'Authorization': 'Bearer %s' % self.access_token,
         }
+        url = "https://api.23andme.com%s" % (url,)
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
             # https://api.23andme.com/docs/errors/ 
@@ -45,7 +46,7 @@ class Token23(models.Model):
             'grant_type': 'authorization_code',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)
+        response = requests.post('https://api.23andme.com/token/', data=post_data, timeout=30.00, verify=True)
         if response.status_code != 200:
             log.error('Problem fetching token %', response.status_code, response.text)
             raise self.ClientError
@@ -61,7 +62,7 @@ class Token23(models.Model):
             'grant_type': 'refresh_token',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)
+        response = requests.post('https://api.23andme.com/token/', data=post_data, timeout=30.00, verify=True)
         if response.status_code != 200:
             log.error('Problem refreshing token %', response.status_code, response.text)
             raise self.ClientError
