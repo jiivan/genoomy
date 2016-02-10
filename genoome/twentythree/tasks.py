@@ -76,12 +76,12 @@ def fetch_genome_and_push_forward(ctask_pk):
             csv_file.write('# fetched from api\n')
             csv_writer = csv.writer(csv_file, delimiter='\t')
             for index, rsid, chromosome, position in twentythree_snp_mapping():
-                log.debug('index: %r rsid: %r chromosome: %r position: %s', index, rsid, chromosome, position)
+                #log.debug('index: %r rsid: %r chromosome: %r position: %s', index, rsid, chromosome, position)
                 if not rsid.startswith('rs'):
                     log.debug('ignoring: %r', rsid)
                     continue
                 genotype = genome[index:index+2]
-                log.debug('genotype: %r', genotype)
+                #log.debug('genotype: %r', genotype)
                 csv_writer.writerow([rsid, chromosome, position, genotype])
             log.info('Saving csv to storage...')
             storage.save(filepath, django.core.files.File(csv_file))
