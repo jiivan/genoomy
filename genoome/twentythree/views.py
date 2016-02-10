@@ -54,7 +54,7 @@ class ChooseProfileView(FormView, TokenMixin):
     template_name = 'twentythree/choose_profile.html'
 
     def get(self, request, *args, **kwargs):
-        self.get_token().get_profiles()
+        profiles = self.get_token().get_profiles()
         genotyped_profiles = [p for p in profiles if p['genotyped']]
         if len(genotyped_profiles) == 1:
             # use this profile
