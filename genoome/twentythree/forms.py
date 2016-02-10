@@ -31,6 +31,6 @@ class ChooseProfileForm(forms.Form):
             profile_id = self.cleaned_data['profile']
         celery_task_id = celery_uuid()
 
-        ctask = CeleryTask23.objects.create(user=user, chosen_profile=profile_id, fetch_task_id=celery_task_id)
+        ctask = CeleryTask23.objects.create(user=self.user, chosen_profile=profile_id, fetch_task_id=celery_task_id)
         fetch_genome_and_push_forward.apply_async(args=(ctask.pk), task_id=ctask.fetch_task_id)
         return ctask
