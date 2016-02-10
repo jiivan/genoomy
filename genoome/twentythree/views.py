@@ -84,5 +84,6 @@ def status(request):
     except CeleryTask23.DoesNotExist:
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
     if ctask.status == 'parsing':
-        return HttpResponseRedirect(reverse_lazy('disease:browse_genome'))
+        file = ctask.analyze_order.uploaded_filename
+        return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
     return render(request, 'twentythree/status.html', {'ctask': ctask})
