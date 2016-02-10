@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 import logging
+import requests
 
 log = logging.getLogger('genoome.twentythree.models')
 
