@@ -90,9 +90,9 @@ def status(request):
     #    file = ctask.analyze_order.uploaded_filename
     #    return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
     if not job.ready():
-        messages.add_message(self.request, messages.INFO,
+        messages.add_message(request, messages.INFO,
                              'Your genome data is being fetched. Wait a few second and try this page again')
     elif job.failed():
-        messages.add_message(self.request, settings.DANGER,
+        messages.add_message(request, settings.DANGER,
                              "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
     return render(request, 'twentythree/status.html', {'ctask': ctask, 'job': job})
