@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse_lazy
@@ -83,7 +84,14 @@ def status(request):
         ctask = CeleryTask23.objects.filter(user=request.user).order_by('-pk')[0]
     except CeleryTask23.DoesNotExist:
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
-    if ctask.status == 'parsing':
-        file = ctask.analyze_order.uploaded_filename
-        return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
-    return render(request, 'twentythree/status.html', {'ctask': ctask})
+    job = AsyncResult(ctask.fetch_task_id)
+    #if ctask.status == 'parsing':
+    #    file = ctask.analyze_order.uploaded_filename
+    #    return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
+    if not job.ready():
+        messages.add_message(self.request, messages.INFO,
+                             'Your genome data is being fetched. Wait a few second and try this page again')
+    elif job.failed():
+        messages.add_message(self.request, settings.DANGER,
+                             "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
+    return render(request, 'twentythree/status.html', {'ctask': ctask, 'job': job})

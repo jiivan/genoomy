@@ -1,5 +1,20 @@
-<pre>
-{{ ctask.pk }}
-{{ ctask.status }}
-</pre>
-<a href="/23andme/profiles/">profiles</a>
+{% extends 'base.html' %}
+
+{% block title %}Fetching genome status{% endblock title %}
+
+{% block content %}
+
+<section id="content">
+    <div class="container-fluid layout">
+        job.ready(): {{ job.ready }}
+        job.successful(): {{ job.successful }}
+        job.failed(): {{ job.failed }}
+        <pre>
+        {{ ctask.pk }}
+        {{ ctask.status }}
+        </pre>
+        <a href="/23andme/profiles/">profiles</a>
+
+    </div>
+</section>
+{% endblock content %}

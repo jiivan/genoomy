@@ -78,7 +78,7 @@ def fetch_genome_and_push_forward(ctask_pk):
             for index, rsid, chromosome, position in twentythree_snp_mapping():
                 #log.debug('index: %r rsid: %r chromosome: %r position: %s', index, rsid, chromosome, position)
                 if not rsid.startswith('rs'):
-                    log.debug('ignoring: %r', rsid)
+                    #log.debug('ignoring: %r', rsid)
                     continue
                 genotype = genome[index:index+2]
                 #log.debug('genotype: %r', genotype)
