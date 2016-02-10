@@ -17,7 +17,7 @@ class ChooseProfileForm(forms.Form):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         cnt = itertools.count()
-        self.fields['profile'].choices = [ (cnt.next(), p_id) for p_id in sorted(self.genotyped_profiles) ]
+        self.fields['profile'].choices = [ (next(cnt), p_id) for p_id in sorted(self.genotyped_profiles) ]
 
     def clean_profile(self):
         profile_id = self.genotyped_profiles[int(self.cleaned_data['profile'])]
