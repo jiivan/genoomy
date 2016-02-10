@@ -14,6 +14,24 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'imgs/favicon.png' %}"/>
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
+
+    <!-- for Facebook -->
+    {% comment %}
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
+    {% endcomment %}
+    <meta property="og:image" content="{% static "imgs/favicon.png" %}" />
+
+    {% comment %}
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+    {% endcomment %}
+
     <link href='https://fonts.googleapis.com/css?family=Lato:400,900,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">
