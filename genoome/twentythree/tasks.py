@@ -7,6 +7,7 @@ import django.core.files
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import logging
+import os.path
 import requests
 import tempfile
 import time
