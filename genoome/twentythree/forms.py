@@ -39,6 +39,7 @@ class ChooseProfileForm(forms.Form):
             log.warning('Updating old task for %s', self.user)
             for key in defaults:
                 setattr(ctask, key, defaults[key])
+            ctask.save()
         fetch_genome_and_push_forward.apply_async(args=(ctask.pk,), task_id=ctask.fetch_task_id)
         log.info('Created celery task: %s for %s', ctask.fetch_task_id, self.user)
         return ctask
