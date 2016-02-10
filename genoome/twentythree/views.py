@@ -58,7 +58,7 @@ class ChooseProfileView(FormView, TokenMixin):
         genotyped_profiles = [p for p in profiles if p['genotyped']]
         if len(genotyped_profiles) == 1:
             # use this profile
-            form = self.get_form()(self.get_form_kwargs())
+            form = self.get_form()
             return self.form_valid(form)
         return super().get(request, *args, **kwargs)
 
