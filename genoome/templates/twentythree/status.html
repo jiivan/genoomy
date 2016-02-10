@@ -14,7 +14,7 @@
             ctask.status: {{ ctask.status }}
             ctask.fetch_task_id: {{ ctask.fetch_task_id }}
             ctask.analyze_order: {{ ctask.analyze_order }}
-            {% if ctask.anaylze_order %}
+            {% if ctask.analyze_order %}
                 {{ ctask.analyze_order.task_uuid }}
                 analyze_job.ready(): {{ analyze_job.ready }}
                 analyze_job.successful(): {{ analyze_job.successful }}
