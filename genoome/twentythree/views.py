@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views.generic.edit import FormView
 import logging
 import urllib.parse
@@ -84,4 +85,4 @@ def status(request):
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
     if ctask.status == 'parsing':
         return HttpResponseRedirect(genomeurl)
-    return render_to_response('twentythree/status.html', {'ctask': ctask})
+    return render('twentythree/status.html', {'ctask': ctask})
