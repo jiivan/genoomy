@@ -43,7 +43,7 @@ def fetch_genome_and_push_forward(ctask_pk):
         profile_id = ctask.chosen_profile
 
         filename = 'twentythree_%s_%s_%s.csv' % (user_pk, slugify(profile_id), int(time.time()))
-        filepath = get_genome_filepath(user, filename)
+        filepath = get_genome_filepath(ctask.user, filename)
 
         from django.core.files.storage import FileSystemStorage
         storage = FileSystemStorage()
