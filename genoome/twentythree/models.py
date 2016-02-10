@@ -48,8 +48,8 @@ class Token23(models.Model):
         }
         response = requests.post('https://api.23andme.com/token/', data=post_data, timeout=30.00, verify=True)
         if response.status_code != 200:
-            log.error('Problem fetching token %', response.status_code, response.text)
-            raise self.ClientError
+            log.error('Problem fetching token %s %s', response.status_code, response.text)
+            raise klass.ClientError
         data = response.json()
         return klass.objects.create(user=user, access_token=data['access_token'], refresh_token=data['refresh_token'], scope=data['scope'])
 
