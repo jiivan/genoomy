@@ -8,6 +8,7 @@ import logging
 import urllib.parse
 
 from twentythree.forms import ChooseProfileForm
+from twentythree.models import CeleryTask23
 from twentythree.models import Token23
 
 log = logging.getLogger('genoome.twentythree.views')
