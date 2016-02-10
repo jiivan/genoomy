@@ -33,8 +33,9 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Kamil Niski', 'kaczuh@gmail.com'),
+    #('Kamil Niski', 'kaczuh@gmail.com'),
     ('Mateusz Kowalczyk', 'szuetam@gmail.com'),
+    ('Mikołaj Zając', 'darek.rybi@bitstar.pl'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
