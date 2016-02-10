@@ -26,7 +26,8 @@ class ChooseProfileForm(forms.Form):
     def save(self):
         if len(self.genotyped_profiles) == 1:
             profile_id = self.genotyped_profiles[0]
-        profile_id = self.cleaned_data['profile']
+        else:
+            profile_id = self.cleaned_data['profile']
         celery_task_id = celery_uuid()
 
         ctask = CeleryTask23.objects.create(user=user, chosen_profile=profile_id, fetch_task_id=celery_task_id)
