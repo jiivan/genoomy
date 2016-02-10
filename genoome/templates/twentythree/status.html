@@ -6,12 +6,17 @@
 
 <section id="content">
     <div class="container-fluid layout">
-        job.ready(): {{ job.ready }}
-        job.successful(): {{ job.successful }}
-        job.failed(): {{ job.failed }}
         <pre>
-        {{ ctask.pk }}
-        {{ ctask.status }}
+            job.ready(): {{ job.ready }}
+            job.successful(): {{ job.successful }}
+            job.failed(): {{ job.failed }}
+            ctask.pk: {{ ctask.pk }}
+            ctask.status: {{ ctask.status }}
+            ctask.fetch_task_id: {{ ctask.fetch_task_id }}
+            ctask.analyze_order: {{ ctask.analyze_order }}
+            {% if ctask.anaylze_order %}
+                {{ ctask.analyze_order.task_uuid }}
+            {% endif %}
         </pre>
         <a href="/23andme/profiles/">profiles</a>
 

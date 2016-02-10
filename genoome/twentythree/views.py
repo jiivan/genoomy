@@ -91,7 +91,7 @@ def status(request):
     #    return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
     if not job.ready():
         messages.add_message(request, messages.INFO,
-                             'Your genome data is being fetched. Wait a few second and try this page again')
+                             'Your genome data is being fetched. Wait a few seconds and try this page again')
     elif job.failed():
         messages.add_message(request, settings.DANGER,
                              "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
