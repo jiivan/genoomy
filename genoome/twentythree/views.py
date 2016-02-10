@@ -22,7 +22,7 @@ def token_required(f):
 @login_required(login_url=reverse_lazy('accounts:signin'))
 def login23(request):
     # https://api.23andme.com/docs/authentication/ 
-    url = 'https://api.23andme.com/authorize/?redirect_uri=%s&response_type=code&client_id=%s&scope=basic%20genomes'
+    url = 'https://api.23andme.com/authorize/?redirect_uri=%s&response_type=code&client_id=%s&scope=basic%%20genomes'
     url %= (
         urllib.parse.quote(settings.COMEBACK_URL23),
         settings.CLIENT_ID23,
