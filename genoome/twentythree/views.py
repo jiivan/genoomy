@@ -85,14 +85,21 @@ def status(request):
         ctask = CeleryTask23.objects.filter(user=request.user).order_by('-pk')[0]
     except CeleryTask23.DoesNotExist:
         return HttpResponseRedirect(raverse_lazy('23andme:profiles'))
-    job = AsyncResult(ctask.fetch_task_id)
+    context = {}
+    context['ctask'] = ctask
+    context['job'] = job = AsyncResult(ctask.fetch_task_id)
     #if ctask.status == 'parsing':
     #    file = ctask.analyze_order.uploaded_filename
     #    return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
+    if ctask.analyze_order:
+        analyze_job = AsyncResult(ctask.analyze_order.task_uuid)
+    else:
+        analyze_job = None
+    context['analyze_job'] = analyze_job
     if not job.ready():
         messages.add_message(request, messages.INFO,
                              'Your genome data is being fetched. Wait a few seconds and try this page again')
     elif job.failed():
         messages.add_message(request, settings.DANGER,
                              "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
-    return render(request, 'twentythree/status.html', {'ctask': ctask, 'job': job})
+    return render(request, 'twentythree/status.html', context)

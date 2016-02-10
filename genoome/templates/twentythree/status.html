@@ -16,6 +16,9 @@
             ctask.analyze_order: {{ ctask.analyze_order }}
             {% if ctask.anaylze_order %}
                 {{ ctask.analyze_order.task_uuid }}
+                analyze_job.ready(): {{ analyze_job.ready }}
+                analyze_job.successful(): {{ analyze_job.successful }}
+                analyze_job.failed(): {{ analyze_job.failed }}
             {% endif %}
         </pre>
         <a href="/23andme/profiles/">profiles</a>
