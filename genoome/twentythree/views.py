@@ -43,7 +43,12 @@ def comeback(request):
         return HttpResponseRedirect(reverse_lazy('23andme:login'))
     return HttpResponseRedirect(reverse_lazy('23andme:profiles'))
 
-class ChooseProfileView(FormView):
+class TokenMixin(object):
+    def get_token(self):
+        token = Token23.objects.get(user=self.request.user)
+        return token
+
+class ChooseProfileView(FormView, TokenMixin):
     form_class = ChooseProfileForm
     success_url = reverse_lazy('23andme:status')
     template_name = 'twentythree/choose_profile.html'
