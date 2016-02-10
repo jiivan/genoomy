@@ -6,6 +6,8 @@
 
 <section id="content">
     <div class="container-fluid layout">
+        {% if request.user.is_staff %}
+        Staff only debug data:
         <pre>
             job.ready(): {{ job.ready }}
             job.successful(): {{ job.successful }}
@@ -22,6 +24,7 @@
             {% endif %}
         </pre>
         <a href="/23andme/profiles/">profiles</a>
+        {% endif %}
 
     </div>
 </section>

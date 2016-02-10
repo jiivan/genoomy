@@ -88,9 +88,6 @@ def status(request):
     context = {}
     context['ctask'] = ctask
     context['job'] = job = AsyncResult(ctask.fetch_task_id)
-    #if ctask.status == 'parsing':
-    #    file = ctask.analyze_order.uploaded_filename
-    #    return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
     if ctask.analyze_order:
         analyze_job = AsyncResult(ctask.analyze_order.task_uuid)
     else:
@@ -98,8 +95,20 @@ def status(request):
     context['analyze_job'] = analyze_job
     if not job.ready():
         messages.add_message(request, messages.INFO,
-                             'Your genome data is being fetched. Wait a few seconds and try this page again')
+                             'Your genome data is being fetched. Please wait a few seconds...')
     elif job.failed():
         messages.add_message(request, settings.DANGER,
                              "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
+    else:
+        if (analyze_job is None) or (not analyze_job.ready()):
+            messages.add_message(request, messages.INFO,
+                                 'Your genome data is being analyzed. Please wait a few seconds...')
+        elif analyze_job.failed():
+            messages.add_message(self.request, settings.DANGER,
+                                 "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
+        else:
+            # redirect
+            # file = ctask.analyze_order.uploaded_filename
+            # return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
+            pass
     return render(request, 'twentythree/status.html', context)
