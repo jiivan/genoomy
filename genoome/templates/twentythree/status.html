@@ -6,6 +6,13 @@
 
 <section id="content">
     <div class="container-fluid layout">
+        {% if not job.ready %}
+            <script type="text/javascript">window.setTimeout(window.location.reload, 1000);</script>
+        {% else %}
+            {% if analyze_job and not analyze_job.ready %}
+                <script type="text/javascript">window.setTimeout(window.location.reload, 1000);</script>
+            {% endif %}
+        {% endif %}
         {% if request.user.is_staff %}
         Staff only debug data:
         <pre>

@@ -108,7 +108,6 @@ def status(request):
                                  "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
         else:
             # redirect
-            # file = ctask.analyze_order.uploaded_filename
-            # return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
-            pass
+            file = ctask.analyze_order.uploaded_filename
+            return HttpResponseRedirect("%s?file=%s" % (reverse_lazy('disease:browse_genome'), urllib.parse.quote(file)))
     return render(request, 'twentythree/status.html', context)
