@@ -108,6 +108,6 @@ class CeleryTask23(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     chosen_profile = models.TextField()
     fetch_task_id = models.TextField()
-    analyze_order = models.ForeignKey('disease.models.AnalyzeDataOrder', null=True)
+    analyze_order = models.ForeignKey('disease.AnalyzeDataOrder', null=True)
     process_task_id = models.TextField(null=True)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
