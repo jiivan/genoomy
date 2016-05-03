@@ -1,0 +1,37 @@
+body {
+  padding-top:80px;
+}
+.promo {
+  min-height:580px;
+
+  .overview {
+    padding-top:50px;
+    padding-bottom:50px;
+    margin-top:80px;
+    background:$color-slate-gray-transparent;
+
+    .title {
+      margin-left:40px;
+    }
+  }
+
+  .hero-pattern {
+    background:url(../imgs/layout/pattern-hero.png) 50% 0;
+    background-size:cover;
+    min-height:580px;
+  }
+}
+.img-rounded {
+  border-radius:50%;
+}
+.btn.btn-primary {
+  background:$color-river-bed;
+  border:darken($color-river-bed, 10%);
+
+  &:hover, &:active, &:focus {
+    background:darken($color-river-bed, 10%);
+  }
+}
+.testimonials {
+  padding:80px 0 50px;
+}

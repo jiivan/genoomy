@@ -1,0 +1,21 @@
+.has-pattern {
+    background-image: url('../imgs/layout/pattern-1.png');
+    background-repeat: repeat;
+    background-position: left top;
+    &.section {
+        background-color: $smoky-white;
+    }
+}
+
+.section {
+    padding: 80px 0;
+    &.has-bg-color {
+        background-color: $color;
+        color: #fff;
+    }
+    h2 {
+        &.title {
+            margin: 0 0 30px;
+        }
+    }
+}
