@@ -14,9 +14,15 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'imgs/favicon.png' %}"/>
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,900,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+	<meta property="og:url" content=""/>
+	<meta property="og:title" content="Genoomy"/>
+	<meta property="og:description" content=""/>
+	<meta property="og:image" content=""/>
+
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!--<link href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{% static "css/genoome.min.css" %}">
     {% block extra_css %}
     {% endblock extra_css %}
@@ -36,7 +42,7 @@
 
     {% block header %}
         <section id="header">
-            <div class="container-fluid">
+            <div class="container">
                 <h1>
                     {% block page_title %}
                     {% endblock page_title %}
@@ -59,12 +65,13 @@
 
 
 {% endblock body_wrapper %}
-<script src="{% static "js/jquery.min.js" %}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-<script src="{% static "js/jquery.dataTables.min.js" %}"></script>
-<script src="{% static "js/select2.full.min.js" %}"></script>
-<script src="{% static "js/jquery.dataTables.columnFilter.js" %}"></script>
-<script src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+<!--<script src="{% static "js/jquery.min.js" %}"></script>-->
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<!--<script src="{% static "js/jquery.dataTables.min.js" %}"></script>-->
+<!--<script src="{% static "js/select2.full.min.js" %}"></script>-->
+<!--<script src="{% static "js/jquery.dataTables.columnFilter.js" %}"></script>-->
+<!--<script src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>-->
 <script src="{% static 'js/genoome.min.js' %}"></script>
 </body>
 </html>

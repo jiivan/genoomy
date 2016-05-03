@@ -11,21 +11,27 @@
     {% endcomment %}
 
     {% get_flatpages '/faq/' as faq_pages %}
-    <section>
-        <div class="container-fluid layout">
-            <div class="list-group">
-                {% for flatpage in faq_pages %}
-                    <a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+<section class="faq section">
+	<div class="container">
+		<!--TODO:nawigacja?-->
+		<div class="list-group">
+			{% for flatpage in faq_pages %}
+				<a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
+			{% endfor %}
+		</div>
+
     {% for flatpage in faq_pages %}
-        <section id="content content-allele-description">
-            <div class="container-fluid">
-                <h2 id="faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</h2>
-                {{ flatpage.content|markdown }}
-            </div>
-        </section>
+		<div class="row">
+			<h2 id="faq-section-{{ flatpage.pk }}" class="title text-center">{{ flatpage.title }}</h2>
+			<div class="faq-col col-md-12 col-sm-12 col-xs-12">
+				<div class="item">
+					<div class="answer">
+						{{ flatpage.content|markdown }}
+					</div>
+				</div>
+			</div>
+		</div>
     {% endfor %}
+	</div>
+</section>
 {% endblock content %}

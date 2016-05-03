@@ -3,20 +3,20 @@
 {% load django_markdown django_markdown_static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static css %}" />
+    <!--<link rel="stylesheet" type="text/css" href="{% static css %}" />-->
 {% endblock extra_css %}
-
 
 {% block title %}{{ flatpage.title }}{% endblock title %}
 {% block page_title %}{{ flatpage.title }}{% endblock page_title %}
 
 {% block content %}
-    <section id="content content-allele-description">
-        <div class="container-fluid">
+    <section id="content">
+        <div class="container">
             {{ flatpage.content|markdown }}
         </div>
     </section>
     {% if flatpage.url == '/navbar/howitworks/' %}
+		<!--TODO:tabelka-->
         <section>
             <div class="container-fluid layout">
                 <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>

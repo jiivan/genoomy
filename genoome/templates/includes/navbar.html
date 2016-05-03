@@ -1,50 +1,54 @@
 {% load staticfiles %}
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid layout">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}"><img src="{% static 'imgs/genoomy_logo_transparent.png' %}"></img></a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ><a href="{% url "faq" %}">FAQ</a></li>
-                <li><a href="{% url "accounts:contact" %}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-                {% for nav_page in nav_pages %}
-                    <li ><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
-                {% endfor %}
-            </ul>
-{#            <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">#}
-{#                <li>#}
-{#                    <a type="button" href="#" data-toggle="layout-fluid">#}
-{#                        <i class="glyphicon glyphicon-resize-full"></i>#}
-{#                    </a>#}
-{#                </li>#}
-{#            </ul>#}
-            <ul class="navbar-right {% if request.user.is_authenticated %}respect-margin{% endif %}">
-            {% if not request.user.is_authenticated %}
-                <form class="navbar-form" method="post" action="{% url "accounts:signin" %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Email" type="text">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
-                    </div>
-                    <button type="submit" class="btn btn-login">Login</button>
-                    <a class="btn btn-register" href="{% url "accounts:signup" %}">Register</a>
-                </form>
-            {% elif request.user.is_authenticated %}
-                {% if request.user.is_staff %}
-                    <a type="button" class="btn btn-admin navbar-btn" href="{% url "admin:index" %}">Admin</a>
-                {% endif %}
-                <a id="logout-button" type="button" class="btn btn-logout navbar-btn" href="{% url "accounts:logout" %}">Logout</a>
-            {% endif %}
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
+<header id="top" class="header navbar-fixed-top">
+	<div class="container">
+		<h1 class="logo pull-left">
+			<a href="{% url 'landing_page' %}">
+				<img id="logo-image" class="logo-image" src="{% static 'imgs/layout/genoomy-logo.png' %}" alt="Genoomy">
+			</a>
+			<!--TODO: <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}"><img src="{% static 'imgs/genoomy_logo_transparent.png' %}"></img></a>-->
+		</h1><!--//logo-->
+		<nav id="main-nav" class="main-nav navbar-right" role="navigation">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!--//nav-toggle-->
+			</div>
+			<!--//navbar-header-->
+			<div class="navbar-collapse collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="nav-item"><a href="{% url "faq" %}">FAQ</a></li>
+					<li class="nav-item"><a href="{% url "accounts:contact" %}">Contact</a></li>
+					{% for nav_page in nav_pages %}
+					<li class="nav-item"><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
+					{% endfor %}
+				</ul>
+				<!--//nav-->
+				{% if not request.user.is_authenticated %}
+				<form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
+					{% csrf_token %}
+					<div class="form-group">
+						<input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Email" type="text">
+					</div>
+					<div class="form-group">
+						<input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
+					</div>
+					<button type="submit" class="btn btn-default">Login</button>
+					<a class="btn btn-default" href="{% url "accounts:signup" %}">Register</a>
+				</form>
+				{% elif request.user.is_authenticated %}
+				{% if request.user.is_staff %}
+				<!--TODO:po co klasy btn-admin, btn-logout-->
+				<a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a>
+				{% endif %}
+				<a id="logout-button" class="btn btn-logout btn-default" href="{% url "accounts:logout" %}">Logout</a>
+				{% endif %}
+			</div>
+			<!--//navabr-collapse-->
+		</nav>
+		<!--//main-nav-->
+	</div>
+</header>
