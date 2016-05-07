@@ -1184,7 +1184,7 @@ select {
 
 /* ======= Contact Section ======= */
 
-.contact {
+.form {
     .title {
         margin-bottom: 30px;
         margin-top: 0;
@@ -1213,7 +1213,7 @@ select {
             }
         }
     }
-    .contact-form {
+    .cnt-form {
         .form-control {
             border-color: #fff;
             height: auto;
@@ -1222,6 +1222,11 @@ select {
         .btn-theme {
             background-color: darken($color, 20%);
             margin-top: 15px;
+        }
+        .has-error {
+            .form-control {
+                border-color: #de5a6a;
+            }
         }
     }
     .social-icons {
@@ -1461,6 +1466,22 @@ select {
         color: #fff;
         .fa {
             color: #fff;
+        }
+    }
+}
+
+
+.form-group {
+    .errorlist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: left;
+        li {
+            color: #a94442;
+            display: inline;
+            font-size: 11px;
+            margin: 0 4px;
         }
     }
 }
