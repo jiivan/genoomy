@@ -25,26 +25,30 @@
 					{% for nav_page in nav_pages %}
 					<li class="nav-item"><a href="{{ nav_page.url }}">{{ nav_page.title }}</a></li>
 					{% endfor %}
+					{% if request.user.is_authenticated %}
+						<li class="nav-item"><a href="{% url "accounts:profile" %}">Profile</a></li>
+						<li class="nav-item"><a href="{% url "accounts:logout" %}">Logout</a></li>
+					{% endif %}
 				</ul>
 				<!--//nav-->
 				{% if not request.user.is_authenticated %}
-				<form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
-					{% csrf_token %}
-					<div class="form-group">
-						<input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Email" type="text">
-					</div>
-					<div class="form-group">
-						<input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
-					</div>
-					<button type="submit" class="btn btn-default">Login</button>
-					<a class="btn btn-default" href="{% url "accounts:signup" %}">Register</a>
-				</form>
+					<form class="navbar-form navbar-right" method="post" action="{% url "accounts:signin" %}">
+						{% csrf_token %}
+						<div class="form-group">
+							<input class="form-control" id="id_username" maxlength="254" name="username" placeholder="Email" type="text">
+						</div>
+						<div class="form-group">
+							<input class="form-control" id="id_password" name="password" placeholder="Password" type="password">
+						</div>
+						<button type="submit" class="btn btn-default">Login</button>
+						<a class="btn btn-default" href="{% url "accounts:signup" %}">Register</a>
+					</form>
 				{% elif request.user.is_authenticated %}
-				{% if request.user.is_staff %}
-				<!--TODO:po co klasy btn-admin, btn-logout-->
-				<a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a>
-				{% endif %}
-				<a id="logout-button" class="btn btn-logout btn-default" href="{% url "accounts:logout" %}">Logout</a>
+					{% if request.user.is_staff %}
+						<!--TODO:po co klasy btn-admin, btn-logout-->
+						<a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a>
+					{% endif %}
+					<a id="logout-button" class="btn btn-logout btn-default" href="{% url "accounts:logout" %}">Logout</a>
 				{% endif %}
 			</div>
 			<!--//navabr-collapse-->
