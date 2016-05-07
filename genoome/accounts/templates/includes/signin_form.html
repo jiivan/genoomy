@@ -14,9 +14,3 @@
 {% endblock non_form_errors %}
 
 {% block form_action %}{% url "accounts:signin" %}{% endblock form_action %}
-
-{% block submit_button %}
-    <input class="btn btn-primary" type="submit" value="Login" />
-    <a class="btn btn-default" href="{% url "accounts:password_reset" %}" data-target="">Forgot your password?</a>
-    <a class="btn btn-default" href="{% url "accounts:signup" %}">Don't have an account?</a>
-{% endblock submit_button %}
