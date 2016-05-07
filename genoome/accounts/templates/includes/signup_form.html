@@ -2,9 +2,7 @@
 
 {% block form_action %}{% url "accounts:signup" %}{% endblock form_action %}
 
-{% block submit_button %}
-    <input class="btn btn-primary" type="submit" value="Register" />
-{% endblock submit_button %}
+{% block submit_text %}Register{% endblock submit_text %}
 
 {% block additional_attributes %}
     id="signup_form"
