@@ -33,7 +33,9 @@
                 {% endif %}
                 <div class="list-group">
                     {% for row in saved_genome_data %}
-                        <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">{{ row }}</a>
+                    <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">
+                        <i class="fa fa-database" aria-hidden="true"></i> {{ row }}
+                    </a>
                     {% endfor %}
                 </div>
             </div>
