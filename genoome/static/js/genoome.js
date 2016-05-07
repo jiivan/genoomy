@@ -206,14 +206,14 @@ function updateBar(values) {
 
     var perc = (l / tot) * (100.00);
     progressbar.css('width', perc + '%');
-    progressbar.text(perc + '%');
+    progressbar.text(perc.toFixed(2) + '%');
     if (values.status === 'done') {
         window.clearInterval(interval);
     }
 }
 
 $("form#upload_form").submit(function(e){
-    $('form#upload_form input[type=submit]').hide();
+    $('form#upload_form .form-row').hide();
     progressbar.parent().show();
     var getProgress = function() {
         $.ajax({
