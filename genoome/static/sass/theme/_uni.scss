@@ -30,6 +30,12 @@
     }
 }
 
+.section-messages {
+    + .section {
+        padding-top: 30px;
+    }
+}
+
 .text-content {
     p,
     ul,
