@@ -3,10 +3,24 @@
 {% block title %}Activate account{% endblock title %}
 {% block page_title %}Activate account{% endblock page_title %}
 
+{% block header %}
+{% endblock header %}
+
 {% block content %}
-    <section id="content">
-        <div class="container-fluid layout">
-            {% include 'includes/activate_account_form.html' %}
+    <section class="form section has-pattern">
+        <div class="container">
+
+            <div class="row text-center">
+                <h1 class="title">Activate account</h1>
+            </div>
+
+            <div class="row text-center">
+                <div class="cnt-form col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+                    {% include 'includes/activate_account_form.html' %}
+
+                </div>
+            </div>
         </div>
     </section>
 {% endblock content %}
