@@ -1,130 +1,72 @@
-<div>
-    <div class="category_labels">
-        <h2>
-            {% for legend_row in legend_rows %}
-                <span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
-            {{ legend_row.content }}
-        </span>
-            {% endfor %}
-        </h2>
-    </div>
-    <div class="filter_labels">
-        <h3>
-            {% for tag in allele_tags %}
-                <span class="label label-tag" style="background-color: {{ tag.color_on }}" data-color-on="{{ tag.color_on }}" data-color-off="{{ tag.color_off }}">{{ tag.slug }}</span>
-            {% endfor %}
-        </h3>
-    </div>
+<div class="tags">
+	<div class="heading">Display traits that are:</div>
+	{% for legend_row in legend_rows %}
+	<span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
+		{{ legend_row.content }}
+	</span>
+	{% endfor %}
+
+	<div class="heading">and relate to:</div>
+	{% for tag in allele_tags %}
+	<span class="label label-default" style="background-color: {{ tag.color_on }}" data-color-on="{{ tag.color_on }}" data-color-off="{{ tag.color_off }}">{{ tag.slug }}</span>
+	{% endfor %}
+
+	<div class="row">
+		<div class="col-sm-3">
+			<label for="search" class="heading">filter by:</label>
+			<input id="search" type="search" class="form-control" placeholder="keyword" aria-controls="genomeData">
+		</div>
+	</div>
 </div>
-<div class="show-advenced genomeData_advanced">
-    Advanced options
-        <span class="settings-el">
-            &#9881;
-        </span>
+
+<div class="viewing-options form-inline">
+	<div class="form-group">
+		<label for="show">Show</label>
+		<select id="show" name="genomeData_length" aria-controls="genomeData" class="form-control">
+			<option value="10">10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select> entries
+	</div>
+	<div class="form-group">
+		<label for="sort">Sort by</label>
+		<select id="sort" name="sort" aria-controls="genomeData" class="form-control">
+			<option value="">Rsid</option>
+			<option value="">Chromosome pos.</option>
+			<option value="">Risk Allele</option>
+			<option value="">Genotype</option>
+			<option value="">Disease Trait</option>
+			<option value="">P value</option>
+			<option value="">OR</option>
+			<option value="">Risk</option>
+			<option value="">Priority</option>
+			<option value="">Tags</option>
+		</select>
+	</div>
 </div>
-<div class="table-settings">
-    <div>
-        Table fields:
-    </div>
-    <ul class="columns-check-list">
-        <li class="checkbox-row">
-            <label>Rsid
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Chromosome pos.
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Risk Allele
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Genotype
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Disease Trait
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>P walue
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>OR
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Risk
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Priority
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        <li class="checkbox-row">
-            <label>Tags
-                <input type="checkbox"  checked="checked">
-            </label>
-        </li>
-        {#        <li id="savebutton">Save</li>#}
-        <li><a class="defaultbutton" href="#">Toggle default</a></li>
-    </ul>
+
+<div id="genome-listing" class="accordion genome-listing" data-genome-url="{{ genome_data_url }}">
+	Processing...
 </div>
-<div class="col-sm-6">
-    <table id="genomeData" class="table table-striped table-bordered genoomy-table" data-genome_url="{{ genome_data_url }}">
-        <thead>
-        <tr class="filter-visiblity">
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-        </tr>
-        <tr class="sorting-visiblity">
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-            <th>CATEGORY_COLOR</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th>RSID</th>
-            <th>CHROMOSOME POS</th>
-            <th>RISK ALLELE</th>
-            <th>GENOTYPE</th>
-            <th>DISEASE TRAIT</th>
-            <th>P VALUE</th>
-            <th>OR</th>
-            <th>RISK</th>
-            <th>PRIORITY</th>
-            <th>TAGS</th>
-            <th>CATEGORY_COLOR</th>
-        </tr>
-        </tfoot>
+
+<div id="genome-navigation" class="row">
+	<div class="col-sm-3">
+		<div class="page-counter" role="status" aria-live="polite">Showing 1 to 50 of 50 entries</div>
+	</div>
+	<div class="col-sm-9">
+		<ul class="pagination">
+			<li class="paginate_button previous disabled" id="genomeData_previous">
+				<a href="#" aria-controls="genomeData" data-dt-idx="0" tabindex="0">Previous</a>
+			</li>
+			<li class="paginate_button active">
+				<a href="#" aria-controls="genomeData" data-dt-idx="1" tabindex="0">1</a></li>
+			<li class="paginate_button next disabled" id="genomeData_next">
+				<a href="#" aria-controls="genomeData" data-dt-idx="2" tabindex="0">Next</a></li>
+		</ul>
+	</div>
+</div>
+
     {#    <tbody>#}
     {#    {% for row in table %}#}
     {#        <tr data-url="{{ row.link }}?allele={{ row.genotype }}" {% if row.color %}style="background-color: {{ row.color }}"{% endif %}>#}
@@ -142,8 +84,3 @@
     {#        </tr>#}
     {#    {% endfor %}#}
     {#    </tbody>#}
-    </table>
-</div>
-<div id="genomeDataDestination" class="col-sm-6 stay-visible">
-    <h1>Click item for extended description</h1>
-</div>
