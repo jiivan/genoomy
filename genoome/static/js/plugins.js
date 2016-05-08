@@ -176,6 +176,7 @@
 
 		_this.$perPage.on('change', function(){
 			_this.perPage = _this.$perPage.val();
+			_this.page = 1;
 			_this.updateList();
 			_this.buildPagination();
 			_this.updateCounter();
