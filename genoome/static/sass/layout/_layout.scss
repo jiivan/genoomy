@@ -147,6 +147,20 @@ body {
 .pagination {
   margin-top:0;
 
+  & > li > a,
+  & > li > span {
+    color: $color-river-bed;
+  }
+
+  & > .active > a,
+  & > .active > a:focus,
+  & > .active > a:hover,
+  & > .active > span,
+  & > .active > span:focus,
+  & > .active > span:hover {
+    background:$color-river-bed;
+  }
+
   @include media-query(notphone) {
     float:right;
   }

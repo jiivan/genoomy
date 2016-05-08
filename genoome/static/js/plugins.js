@@ -138,6 +138,9 @@
 		_this.pagination = {
 			$el: $(_this.options.pagination)
 		};
+		_this.$labels = $(_this.options.labels);
+		_this.$tags = $(_this.options.tags);
+		_this.$search = $(_this.options.search);
 		_this.$counter = $(_this.options.counter);
 		_this.$perPage = $(_this.options.perPage);
 		_this.scrollOffset = $('.navbar-fixed-top').outerHeight() + 10;
@@ -145,12 +148,43 @@
 		_this.page = 0;
 		_this.perPage = 10;
 
+		_this.filters = {
+			excludeLabel: [],
+			excludeTag: [],
+			keyword: ''
+		};
+
 		$.getJSON(_this.options.url, function(data) {
 			if (data) {
-				_this.buildList(data.data);
-				_this.updateCounter();
-				_this.buildPagination();
+				_this.data = data.data;
+				_this.buildList();
 			}
+		});
+
+		_this.$labels.on('click', '.label', function(){
+			var $this = $(this);
+
+			$this.toggleClass('off');
+			_this.filters.excludeLabel = updateArray($this.data('val'), _this.filters.excludeLabel, $this.hasClass('off'));
+
+			_this.buildList();
+		});
+
+		_this.$tags.on('click', '.label', function(){
+			var $this = $(this);
+
+			$this.toggleClass('off');
+			_this.filters.excludeTag = updateArray($this.data('val'), _this.filters.excludeTag, $this.hasClass('off'));
+
+			_this.buildList();
+		});
+
+		_this.$search.on('keyup', function(){
+			var $this = $(this);
+
+			_this.filters.keyword = $(this).val();
+
+			_this.buildList();
 		});
 
 		_this.pagination.$el
@@ -176,40 +210,90 @@
 
 		_this.$perPage.on('change', function(){
 			_this.perPage = _this.$perPage.val();
-			_this.page = 1;
+			_this.page = 0;
 			_this.updateList();
 			_this.buildPagination();
 			_this.updateCounter();
 		});
 	};
 
-	Genome.prototype.buildList = function(data) {
+	var updateArray = function(value, array, isAdd) {
+		if (isAdd) {
+			array.push(value);
+		} else {
+			var i = $.inArray(value, array);
+			array.splice(i, 1);
+		}
+
+		return array;
+	};
+
+	var isMatch = function(keyword, item) {
+		var escapedKeyword = keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'),
+			regex = new RegExp(escapedKeyword, 'i');
+		return ((keyword === '') ||
+		item.disease_trait && item.disease_trait.match(regex) ||
+		item.rsid && item.rsid.match(regex) ||
+		item.chromosome_position && item.chromosome_position.match(regex) ||
+		item.risk_allele && item.risk_allele.match(regex) ||
+		item.genotype && item.genotype.match(regex) ||
+		item.p_value && String(item.p_value).match(regex) ||
+		item.or_or_beta && String(item.or_or_beta).match(regex) ||
+		item.risk && String(item.risk).match(regex) ||
+		item.tags && item.tags.join(' ').match(regex)
+		);
+	};
+
+	var anyInArray = function(needles, haystack) {
+		var any = false;
+
+		if (needles.length === 0 || haystack.length === 0) return true;
+
+		for (var i = 0, n = needles.length; i < n; i++) {
+			var needle = needles[i];
+			any = any || $.inArray(needle, haystack) === -1;
+		}
+
+		console.log(any, needles, haystack);
+		return any;
+	};
+
+	Genome.prototype.buildList = function() {
 		var _this = this;
 		var html = '';
 
-		for (var i in data) {
-			if (data.hasOwnProperty(i)) {
-				var item = data[i];
+		_this.total = 0;
 
-				html += '<div class="acc'+ (i >= _this.perPage ? ' off-page' : '') +'">'+
-				'<div class="acc-header">'+
-				'<div class="heading">'+
-				'<div class="value-label">disease trait</div>'+
-				'<span class="label label-tag" style="background-color: '+ item.color +'" title="interesting">&nbsp;</span>'+ item.disease_trait +'</div>'+
-				'<div class="row properties">'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">rsid</div>'+ (item.rsid ? item.rsid : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-2"><div class="value-label">chromosome position</div>'+ (item.chromosome_position ? item.chromosome_position : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">risk allele</div>'+ (item.risk_allele ? item.risk_allele : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">genotype</div>'+ (item.genotype ? item.genotype : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">p value</div>'+ (item.p_value ? item.p_value : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>'+ (item.or_or_beta ? item.or_or_beta : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>'+ (item.risk ? item.risk : '') +'</div>'+
-				'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>'+ (item.tags ? item.tags.join(', ') : '') +'</div>'+
-				'<div class="col-sm-1"><a href="#" data-url="'+ (item.link ? item.link : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
-				'</div>'+
-				'</div>'+
-				'<div class="acc-content"></div>'
-				+'</div>';
+		for (var i in _this.data) {
+			if (_this.data.hasOwnProperty(i)) {
+				var item = _this.data[i];
+
+				if ($.inArray(item.color, _this.filters.excludeLabel) === -1 &&
+					(!item.tags || anyInArray(item.tags, _this.filters.excludeTag)) &&
+					isMatch(_this.filters.keyword, item)
+				) {
+					html += '<div class="acc' + (_this.total >= _this.perPage ? ' off-page' : '') + '">' +
+					'<div class="acc-header">' +
+					'<div class="heading">' +
+					'<div class="value-label">disease trait</div>' +
+					'<span class="label label-tag" style="background-color: ' + item.color + '" title="interesting">&nbsp;</span>' + item.disease_trait + '</div>' +
+					'<div class="row properties">' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">rsid</div>' + (item.rsid ? item.rsid : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-2"><div class="value-label">chromosome position</div>' + (item.chromosome_position ? item.chromosome_position : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk allele</div>' + (item.risk_allele ? item.risk_allele : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">genotype</div>' + (item.genotype ? item.genotype : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">p value</div>' + (item.p_value ? item.p_value : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>' + (item.or_or_beta ? item.or_or_beta : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>' + (item.risk ? item.risk : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>' + (item.tags ? item.tags.join(', ') : '') + '</div>' +
+					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link ? item.link : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
+					'</div>' +
+					'</div>' +
+					'<div class="acc-content"></div>'
+					+ '</div>';
+
+					_this.total++;
+				}
 			}
 		}
 
@@ -218,10 +302,12 @@
 			.accordion();
 
 		_this.page = 0;
-		_this.total = data.length;
 
 		_this.$items = _this.$el.find('.acc');
 		_this.$visible = _this.$items.not('.hidden');
+
+		_this.updateCounter();
+		_this.buildPagination();
 	};
 
 	Genome.prototype.buildPagination = function() {
@@ -267,7 +353,7 @@
 			text = _this.options.counterText;
 
 		text = text.replace('%1', _this.page * _this.perPage + 1);
-		text = text.replace('%2', (_this.page+1) * _this.perPage);
+		text = text.replace('%2', Math.min((_this.page+1) * _this.perPage, _this.total));
 		text = text.replace('%3', _this.$visible.length);
 
 		_this.$counter.html(text);

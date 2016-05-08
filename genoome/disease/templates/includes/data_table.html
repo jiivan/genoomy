@@ -1,20 +1,24 @@
 <div class="tags">
 	<div class="heading">Display traits that are:</div>
-	{% for legend_row in legend_rows %}
-	<span class="label label-tag" style="background-color: {{ legend_row.color.color }}">
-		{{ legend_row.content }}
-	</span>
-	{% endfor %}
+	<div id="genome-labels">
+		{% for legend_row in legend_rows %}
+		<span class="label label-tag" style="background-color: {{ legend_row.color.color }}" data-val="{{ legend_row.color.color }}">
+			{{ legend_row.content }}
+		</span>
+		{% endfor %}
+	</div>
 
 	<div class="heading">and relate to:</div>
-	{% for tag in allele_tags %}
-	<span class="label label-default" style="background-color: {{ tag.color_on }}">{{ tag.slug }}</span>
-	{% endfor %}
+	<div id="genome-tags">
+		{% for tag in allele_tags %}
+		<span class="label label-default" style="background-color: {{ tag.color_on }}" data-val="{{ tag.slug }}">{{ tag.slug }}</span>
+		{% endfor %}
+	</div>
 
 	<div class="row">
 		<div class="col-sm-3">
-			<label for="search" class="heading">filter by:</label>
-			<input id="search" type="search" class="form-control" placeholder="keyword" aria-controls="genomeData">
+			<label for="genome-search" class="heading">filter by:</label>
+			<input id="genome-search" type="search" class="form-control" placeholder="keyword" aria-controls="genomeData">
 		</div>
 	</div>
 </div>

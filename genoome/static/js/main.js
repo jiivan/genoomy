@@ -20,6 +20,9 @@
 		if ($genome.length) {
 			$genome.genome({
 				url: $genome.data('genome-url'),
+				labels: $('#genome-labels'),
+				tags: $('#genome-tags'),
+				search: $('#genome-search'),
 				pagination: $('#genome-navigation .pagination'),
 				counter: $('#genome-navigation .page-counter'),
 				perPage: $('#show')
