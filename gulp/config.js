@@ -21,14 +21,16 @@ module.exports = {
         dest: distPath + '/js',
         jsDistros: {
             genoome: [
+                file('js/plugins.js'),
+                file('js/main.js'),
                 file('js/genoome.js')
             ]
         },
         vendorFiles: [
-            vendorFile('jquery-datatables-columnfilter/jquery.dataTables.columnFilter.js'),
-            vendorFile('select2/dist/js/select2.full.min.js'),
-            vendorFile('jquery/dist/jquery.min.js'),
-            vendorFile('datatables/media/js/jquery.dataTables.min.js')
+            //vendorFile('jquery-datatables-columnfilter/jquery.dataTables.columnFilter.js'),
+            //vendorFile('select2/dist/js/select2.full.min.js'),
+            //vendorFile('jquery/dist/jquery.min.js'),
+            //vendorFile('datatables/media/js/jquery.dataTables.min.js')
         ]
     },
     images: {
