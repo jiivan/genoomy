@@ -16,18 +16,18 @@
 	};
 
 	App.prototype.plugins = function($context) {
-		//var _this = this;
-
-		//$context = $context || $('body');
-
 		var $genome = $('#genome-listing');
 		if ($genome.length) {
-			$genome.genome({url: $genome.data('genome-url')});
+			$genome.genome({
+				url: $genome.data('genome-url'),
+				pagination: $('#genome-navigation .pagination'),
+				counter: $('#genome-navigation .page-counter'),
+				perPage: $('#show')
+			});
 		}
 	};
 
 	App.prototype.events = function() {
-		//var _this = this;
 
 	};
 

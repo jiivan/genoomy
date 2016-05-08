@@ -119,7 +119,8 @@
 (function ( $, window, document, undefined ) {
 
 	var defaults = {
-		url: 'data/genome-data.json'
+		url: 'data/genome-data.json',
+		counterText: 'Showing %1 to %2 of %3 entries'
 	};
 
 	function Genome( element, options ) {
@@ -134,39 +135,141 @@
 	Genome.prototype.init = function () {
 		var _this = this;
 
+		_this.pagination = {
+			$el: $(_this.options.pagination)
+		};
+		_this.$counter = $(_this.options.counter);
+		_this.$perPage = $(_this.options.perPage);
+		_this.scrollOffset = $('.navbar-fixed-top').outerHeight() + 10;
+
+		_this.page = 0;
+		_this.perPage = 10;
+
 		$.getJSON(_this.options.url, function(data) {
-			var html = '';
-
-			for (var i in data.data) {
-				if (data.data.hasOwnProperty(i)) {
-					var item = data.data[i];
-
-					html += '<div class="acc">'+
-					'<div class="acc-header">'+
-					'<div class="heading">'+
-					'<div class="value-label">disease trait</div>'+
-					'<span class="label label-tag" style="background-color: '+ item.color +'" title="interesting">&nbsp;</span>'+ item.disease_trait +'</div>'+
-					'<div class="row properties">'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">rsid</div>'+ (item.rsid ? item.rsid : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-2"><div class="value-label">chromosome position</div>'+ (item.chromosome_position ? item.chromosome_position : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk allele</div>'+ (item.risk_allele ? item.risk_allele : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">genotype</div>'+ (item.genotype ? item.genotype : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">p value</div>'+ (item.p_value ? item.p_value : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>'+ (item.or_or_beta ? item.or_or_beta : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>'+ (item.risk ? item.risk : '') +'</div>'+
-					'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>'+ (item.tags ? item.tags.join(', ') : '') +'</div>'+
-					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link && item.genotype ? item.link +'?allele='+ item.genotype +'&ajax=1' : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
-					'</div>'+
-					'</div>'+
-					'<div class="acc-content"><div class="loading">Loading...</div></div>'
-					+'</div>';
-				}
+			if (data) {
+				_this.buildList(data.data);
+				_this.updateCounter();
+				_this.buildPagination();
 			}
-
-			_this.$el
-				.html(html)
-				.accordion();
 		});
+
+		_this.pagination.$el
+			.on('click', 'li', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+
+				if ($this.hasClass('disabled'))
+					return false;
+
+				if ($this.hasClass('prev')) {
+					_this.page--;
+				} else if ($this.hasClass('next')){
+					_this.page++;
+				} else {
+					_this.page = $(this).data('page');
+				}
+
+				_this.updateList();
+				_this.updatePagination();
+				_this.updateCounter();
+			});
+
+		_this.$perPage.on('change', function(){
+			_this.perPage = _this.$perPage.val();
+			_this.updateList();
+			_this.buildPagination();
+			_this.updateCounter();
+		});
+	};
+
+	Genome.prototype.buildList = function(data) {
+		var _this = this;
+		var html = '';
+
+		for (var i in data) {
+			if (data.hasOwnProperty(i)) {
+				var item = data[i];
+
+				html += '<div class="acc'+ (i >= _this.perPage ? ' off-page' : '') +'">'+
+				'<div class="acc-header">'+
+				'<div class="heading">'+
+				'<div class="value-label">disease trait</div>'+
+				'<span class="label label-tag" style="background-color: '+ item.color +'" title="interesting">&nbsp;</span>'+ item.disease_trait +'</div>'+
+				'<div class="row properties">'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">rsid</div>'+ (item.rsid ? item.rsid : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-2"><div class="value-label">chromosome position</div>'+ (item.chromosome_position ? item.chromosome_position : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">risk allele</div>'+ (item.risk_allele ? item.risk_allele : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">genotype</div>'+ (item.genotype ? item.genotype : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">p value</div>'+ (item.p_value ? item.p_value : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>'+ (item.or_or_beta ? item.or_or_beta : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>'+ (item.risk ? item.risk : '') +'</div>'+
+				'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>'+ (item.tags ? item.tags.join(', ') : '') +'</div>'+
+				'<div class="col-sm-1"><a href="#" data-url="'+ (item.link ? item.link : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
+				'</div>'+
+				'</div>'+
+				'<div class="acc-content"></div>'
+				+'</div>';
+			}
+		}
+
+		_this.$el
+			.html(html)
+			.accordion();
+
+		_this.page = 0;
+		_this.total = data.length;
+
+		_this.$items = _this.$el.find('.acc');
+		_this.$visible = _this.$items.not('.hidden');
+	};
+
+	Genome.prototype.buildPagination = function() {
+		var _this = this,
+			html = '<li class="prev disabled"><a href="#" aria-controls="genome-listing" tabindex="0">Previous</a></li>';
+
+		_this.maxPage = Math.ceil(_this.total / _this.perPage);
+
+		for (var i = 0; i < _this.maxPage; i++) {
+			html += '<li class="page page-'+ i +' '+ (i === 0 ? ' active' : '') +'" data-page="'+ i +'"><a href="#" class="" aria-controls="genome-listing" tabindex="0">'+ (i+1) +'</a></li>';
+		}
+
+		html += '<li class="next'+ (_this.maxPage === 1 ? ' disabled' : '') +'"><a href="#" aria-controls="genome-listing" tabindex="0">Next</a></li>';
+
+		_this.pagination.$el.html(html);
+		_this.pagination.$prev = _this.pagination.$el.find('.prev');
+		_this.pagination.$next = _this.pagination.$el.find('.next');
+	};
+
+	Genome.prototype.updateList = function() {
+		var _this = this;
+
+		_this.$items.addClass('off-page')
+			.slice(_this.page * _this.perPage, (_this.page+1) * _this.perPage).removeClass('off-page');
+
+		$('html, body').animate({
+			scrollTop: _this.$el.offset().top - _this.scrollOffset
+		}, 300);
+	};
+
+	Genome.prototype.updatePagination = function() {
+		var _this = this;
+
+		_this.pagination.$el.find('.active').removeClass('active');
+		_this.pagination.$el.find('.page-'+ _this.page).addClass('active');
+
+		_this.pagination.$prev.toggleClass('disabled', _this.page == 0);
+		_this.pagination.$next.toggleClass('disabled', _this.page == _this.maxPage-1);
+	};
+
+	Genome.prototype.updateCounter = function() {
+		var _this = this,
+			text = _this.options.counterText;
+
+		text = text.replace('%1', _this.page * _this.perPage + 1);
+		text = text.replace('%2', (_this.page+1) * _this.perPage);
+		text = text.replace('%3', _this.$visible.length);
+
+		_this.$counter.html(text);
 	};
 
 	$.fn.genome = function(options) {
