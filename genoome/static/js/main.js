@@ -20,13 +20,6 @@
 
 		//$context = $context || $('body');
 
-		$('.owl-carousel').owlCarousel({
-			loop: true,
-			margin: 0,
-			items: 1,
-			nav: true
-		});
-
 		var $genome = $('#genome-listing');
 		if ($genome.length) {
 			$genome.genome({url: $genome.data('genome-url')});
