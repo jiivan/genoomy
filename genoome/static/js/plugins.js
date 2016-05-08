@@ -155,7 +155,7 @@
 					'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>'+ (item.or_or_beta ? item.or_or_beta : '') +'</div>'+
 					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>'+ (item.risk ? item.risk : '') +'</div>'+
 					'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>'+ (item.tags ? item.tags.join(', ') : '') +'</div>'+
-					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link ? item.link : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
+					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link && item.risk_allele ? item.link +'?allele='+ item.risk_allele +'&ajax=1' : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
 					'</div>'+
 					'</div>'+
 					'<div class="acc-content"></div>'
