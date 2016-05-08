@@ -124,6 +124,22 @@ body {
   .value-label {
     font-size:11px;
   }
+
+  .loading {
+    padding:40px 0;
+    vertical-align:middle;
+    text-align:center;
+
+    &:before {
+      content:'';
+      display:inline-block;
+      width:80px;
+      height:40px;
+      margin-right:10px;
+      vertical-align:middle;
+      background:url('../imgs/layout/preloader.gif') no-repeat 0 50%;
+    }
+  }
 }
 .page-counter {
   margin-bottom:20px;
