@@ -158,7 +158,7 @@
 					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link && item.risk_allele ? item.link +'?allele='+ item.risk_allele +'&ajax=1' : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
 					'</div>'+
 					'</div>'+
-					'<div class="acc-content"></div>'
+					'<div class="acc-content"><div class="loading">Loading...</div></div>'
 					+'</div>';
 				}
 			}
