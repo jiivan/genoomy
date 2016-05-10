@@ -143,6 +143,7 @@
 		_this.$search = $(_this.options.search);
 		_this.$counter = $(_this.options.counter);
 		_this.$perPage = $(_this.options.perPage);
+		_this.$sort = $(_this.options.sort);
 		_this.scrollOffset = $('.navbar-fixed-top').outerHeight() + 10;
 
 		_this.page = 0;
@@ -215,6 +216,14 @@
 			_this.buildPagination();
 			_this.updateCounter();
 		});
+
+		_this.$sort.on('change', function(){
+			_this.page = 0;
+			_this.sort(this.value, $(this).find(':selected').data('type'));
+			_this.buildList();
+			_this.updatePagination();
+			_this.updateCounter();
+		});
 	};
 
 	var updateArray = function(value, array, isAdd) {
@@ -254,7 +263,6 @@
 			any = any || $.inArray(needle, haystack) === -1;
 		}
 
-		console.log(any, needles, haystack);
 		return any;
 	};
 
@@ -357,6 +365,55 @@
 		text = text.replace('%3', _this.$visible.length);
 
 		_this.$counter.html(text);
+	};
+
+	Genome.prototype.sort = function(field, type) {
+		var compare;
+
+		switch(type) {
+			case 'string': compare = compareStrings(field); break;
+			case 'number': compare = compareNumbers(field); break;
+			case 'array': compare = compareArrays(field); break;
+			default: break;
+		}
+
+		this.data.sort(compare);
+	};
+
+	var compareNumbers = function(field){
+		return function(a, b){
+			return a[field] - b[field];
+		}
+	};
+
+	var compareStrings = function(field) {
+		return function(a, b) {
+			var valueA = a[field].replace(/<.+?>/g, '').replace(/^\s*/g, '').toUpperCase(),
+				valueB = b[field].replace(/<.+?>/g, '').replace(/^\s*/g, '').toUpperCase();
+
+			if (valueA < valueB) {
+				return -1;
+			}
+			if (valueA > valueB) {
+				return 1;
+			}
+			return 0;
+		}
+	};
+
+	var compareArrays = function(field){
+		return function(a, b){
+			var arrA = a[field] ? a[field].join() : '',
+				arrB = b[field] ? b[field].join() : '';
+
+			if (arrA < arrB) {
+				return -1;
+			}
+			if (arrA > arrB) {
+				return 1;
+			}
+			return 0;
+		}
 	};
 
 	$.fn.genome = function(options) {

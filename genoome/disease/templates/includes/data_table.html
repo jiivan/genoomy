@@ -36,16 +36,17 @@
 	<div class="form-group">
 		<label for="sort">Sort by</label>
 		<select id="sort" name="sort" aria-controls="genomeData" class="form-control">
-			<option value="">Rsid</option>
-			<option value="">Chromosome pos.</option>
-			<option value="">Risk Allele</option>
-			<option value="">Genotype</option>
-			<option value="">Disease Trait</option>
-			<option value="">P value</option>
-			<option value="">OR</option>
-			<option value="">Risk</option>
-			<option value="">Priority</option>
-			<option value="">Tags</option>
+			<option value="">- choose -</option>
+			<option value="rsid" data-type="number">Rsid</option>
+			<option value="chromosome_position" data-type="number">Chromosome pos.</option>
+			<option value="risk_allele" data-type="string">Risk Allele</option>
+			<option value="genotype" data-type="string">Genotype</option>
+			<option value="disease_trait" data-type="string">Disease Trait</option>
+			<option value="p_value" data-type="number">P value</option>
+			<option value="or_or_beta" data-type="number">OR</option>
+			<option value="risk" data-type="number">Risk</option>
+			<option value="priority" data-type="number">Priority</option>
+			<option value="tags" data-type="array">Tags</option>
 		</select>
 	</div>
 </div>
