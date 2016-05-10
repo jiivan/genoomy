@@ -2,71 +2,58 @@
 {% load django_markdown django_markdown_static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static css %}" />
 {% endblock extra_css %}
-
 
 {% block title %}{{ article.title }}{% endblock title %}
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block content %}
-    <section{% if not request.REQUEST.ajax %} id="content"{% endif %} class="content-allele-description">
-        <div class="container-fluid">
+{% if not request.REQUEST.ajax %}
+<section id="content" class="section">
+	<div class="container">
+{% else %}
+	<div>
+{% endif %}
             {% if request.user.is_staff %}
                 <a class="btn btn-danger" href="{% url "admin:disease_snpmarkerarticle_change" article.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
             {% endif %}
-            <div class="panel panel-default">
-                {% if request.user.is_staff %}
-                    <a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
-                {% endif %}
-                <div class="panel-heading" style="background: {{ your_allele.color_alias.color }};">
-                    Your genome:
-                </div>
-                <div class="panel-body">
-                    <p>{{ your_allele.description|safe }}</p>
-                </div>
-                <div class="panel-footer allele-description-footer">
-                    <h2>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></h2>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>Know more about <span class="glyphicon glyphicon-arrow-right"></span> {{ article.title }}</h4>
-                </div>
-                <div class="panel-body allele-descr-panel-body">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Description:
-                        </div>
-                        <div class="panel-body">
-                            {{ article.header|safe }}
 
-                        </div>
-                    </div>
-                    <hr>
-                    <h4>What others see</h4>
-                    {% for allele in colors %}
-                        <div class="panel panel-default">
-                            {% if request.user.is_staff %}
-                                <a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
-                            {% endif %}
-                            <div class="panel-heading" style="background-color: {{ allele.color_alias.color }}">
-                                {#                <h3 class="panel-title">{{ allele.header }}</h3>#}
-                                <b>{{ allele.allele }}</b>
-                            </div>
-                            <div class="panel-body">
-                                <p>{{ allele.description|safe }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <div class="bibliography">
-                        {{ article.footer|safe }}
-                    </div>
-                </div>
-            </div>
-            <a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
-        </div>
+			{% if request.user.is_staff %}
+				<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
+			{% endif %}
+			<div class="desc">
+				<span class="label label-tag" style="background: {{ your_allele.color_alias.color }};">&nbsp;</span>
+				Your genome:
+				<p>{{ your_allele.description|safe }}</p>
+				<p>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></p>
+			</div>
+
+            <div class="info">
+                <h4>Know more about <span class="glyphicon glyphicon-arrow-right"></span> {{ article.title }}</h4>
+                {{ article.header|safe }}
+			</div>
+
+			<div class="">
+				<h4>What others see</h4>
+				{% for allele in colors %}
+					<div class="">
+						{% if request.user.is_staff %}
+							<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
+						{% endif %}
+						<span class="label label-tag" style="background-color: {{ allele.color_alias.color }}">&nbsp;</span>
+						<b>{{ allele.allele }}</b>
+						<p>{{ allele.description|safe }}</p>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="bibliography">
+				{{ article.footer|safe }}
+			</div>
+		</div>
+
+		<a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
+	</div>
+{% if not request.REQUEST.ajax %}
     </section>
+{% endif %}
 {% endblock content %}

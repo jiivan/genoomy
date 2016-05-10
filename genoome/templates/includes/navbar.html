@@ -5,7 +5,6 @@
 			<a href="{% url 'landing_page' %}">
 				<img id="logo-image" class="logo-image" src="{% static 'imgs/layout/genoomy-logo.png' %}" alt="Genoomy">
 			</a>
-			<!--TODO: <a class="navbar-brand" href="{% if request.user.is_authenticated %}{% url "accounts:profile" %}{% else %}{% url 'landing_page' %}{% endif %}"><img src="{% static 'imgs/genoomy_logo_transparent.png' %}"></img></a>-->
 		</h1><!--//logo-->
 		<nav id="main-nav" class="main-nav navbar-right" role="navigation">
 			<div class="navbar-header">
@@ -45,7 +44,6 @@
 					</form>
 				{% elif request.user.is_authenticated %}
 					{% if request.user.is_staff %}
-						<!--TODO:po co klasy btn-admin, btn-logout-->
 						<a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a>
 					{% endif %}
 				{% endif %}
