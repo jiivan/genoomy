@@ -1,9 +1,16 @@
-{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+{% extends 'base.html' %}
+{% load staticfiles %}
 
-{% templatetag openblock %} block title {% templatetag closeblock %}Page Not found{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% block header %}
+{% endblock header %}
 
-{% templatetag openblock %} block page_title {% templatetag closeblock %}Page Not found{% templatetag openblock %} endblock page_title {% templatetag closeblock %}
-
-{% templatetag openblock %} block content {% templatetag closeblock %}
-<p>This is not the page you were looking for.</p>
-{% templatetag openblock %} endblock content {% templatetag closeblock %}
+{% block content %}
+<section class="section-404 offset-header has-pattern">
+	<div class="container text-center">
+		<h2 class="title title-404">404</h2>
+		<p class="intro">Oops! Sorry, we can't find the page you're looking for...</p>
+		<p class="guide">You may have typed the address incorrectly or you may have used an outdated link.</p>
+		<a class="btn btn-lg btn-theme" href="/">Back to Home</a>
+	</div><!--//container-->
+</section><!--//404-->
+{% endblock content %}
