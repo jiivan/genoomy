@@ -25,7 +25,8 @@
 				search: $('#genome-search'),
 				pagination: $('#genome-navigation .pagination'),
 				counter: $('#genome-navigation .page-counter'),
-				perPage: $('#show')
+				perPage: $('#show'),
+				sort: $('#sort')
 			});
 		}
 	};
