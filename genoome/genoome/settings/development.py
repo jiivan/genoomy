@@ -112,3 +112,9 @@ SECRET_KEY = get_env_setting('DEV_DJANGO_SECRET_KEY')
 ########## BITPAY CONFIGURATION
 BITPAY_API = 'https://test.bitpay.com'
 ########## END BITPAY CONFIGURATION
+
+
+########## PAYPAL CONFIGURATION
+PAYPAL_RECEIVER_EMAIL = "info@genoomy.com"
+PAYPAL_TEST = True
+########## END PAYPAL CONFIGURATION
