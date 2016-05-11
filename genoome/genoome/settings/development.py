@@ -115,6 +115,6 @@ BITPAY_API = 'https://test.bitpay.com'
 
 
 ########## PAYPAL CONFIGURATION
-PAYPAL_RECEIVER_EMAIL = "info@genoomy.com"
+PAYPAL_RECEIVER_EMAIL = "jiivan-facilitator@o2.pl"
 PAYPAL_TEST = True
 ########## END PAYPAL CONFIGURATION
