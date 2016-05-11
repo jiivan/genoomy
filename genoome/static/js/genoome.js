@@ -19,7 +19,7 @@ $.cssHooks.backgroundColor = {
     }
 };
 
-$.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
+/*$.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
     if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
 
     if (isNaN(x)) return 1;
@@ -28,9 +28,9 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-asc']  = function(x,y) {
     x = parseFloat( x );
     y = parseFloat( y );
     return ((x < y) ? -1 : ((x > y) ?  1 : 0));
-};
+};*/
 
-$.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
+/*$.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
     if (isNaN(x) && isNaN(y)) return ((x < y) ? 1 : ((x > y) ?  -1 : 0));
 
     if (isNaN(x)) return 1;
@@ -39,9 +39,9 @@ $.fn.dataTableExt.oSort['numeric_ignore_nan-desc'] = function(x,y) {
     x = parseFloat( x );
     y = parseFloat( y );
     return ((x < y) ?  1 : ((x > y) ? -1 : 0));
-};
+};*/
 
-$.fn.dataTableExt.afnFiltering.push(
+/*$.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
         var selected_tags = $('.filter_labels h3 span.tag-checked').map(function(k, v) {
                 return $(this).text();
@@ -64,9 +64,9 @@ $.fn.dataTableExt.afnFiltering.push(
             return false;
         }
     }
-);
+);*/
 
-$.fn.dataTableExt.afnFiltering.push(
+/*$.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
         var selected_categories = $('.category_labels h2 span.tag-checked').map(function(k, v) {
                 return $(this).css('background-color');
@@ -83,7 +83,7 @@ $.fn.dataTableExt.afnFiltering.push(
         }
         return false;
     }
-);
+);*/
 
 var genomeData = $('#genomeData');
 var reset_checkboxes = function(checkbox_settings) {
@@ -95,7 +95,7 @@ var reset_checkboxes = function(checkbox_settings) {
 
 };
 $(document).ready(function() {
-    var genome_url = genomeData.data('genome_url');
+    /*var genome_url = genomeData.data('genome_url');
     var genomeTable = genomeData.dataTable({
         "ajax": genome_url,
         "columns": [
@@ -193,7 +193,7 @@ $(document).ready(function() {
             { type: "select" },
             { type: "select" }
         ]
-    });
+    });*/
 });
 
 
@@ -206,14 +206,14 @@ function updateBar(values) {
 
     var perc = (l / tot) * (100.00);
     progressbar.css('width', perc + '%');
-    progressbar.text(perc + '%');
+    progressbar.text(perc.toFixed(2) + '%');
     if (values.status === 'done') {
         window.clearInterval(interval);
     }
 }
 
 $("form#upload_form").submit(function(e){
-    $('form#upload_form input[type=submit]').hide();
+    $('form#upload_form .form-row').hide();
     progressbar.parent().show();
     var getProgress = function() {
         $.ajax({
@@ -319,6 +319,7 @@ if (window.location.href === '/disease/browse/') {
 }
 
 
+/*
 $(function() {
     $(window).scroll(function() {
         var header_height = $('.navbar:first').height() + 10;
@@ -363,3 +364,4 @@ $(function() {
         });
     });
 });
+*/

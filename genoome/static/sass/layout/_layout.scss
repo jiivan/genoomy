@@ -35,3 +35,155 @@ body {
 .testimonials {
   padding:80px 0 50px;
 }
+.accordion {
+  text-align:left;
+
+  .acc {
+    position:relative;
+    clear:both;
+
+    .acc-switch {
+      .on-close { display:block; }
+      .on-open { display:none; }
+    }
+
+    &.open {
+      .acc-switch {
+        .on-close { display:none; }
+        .on-open { display:block; }
+      }
+
+      .acc-content {
+        opacity:1;
+        visibility:visible;
+
+        > div {
+          border-top:1px solid #efefef;
+        }
+      }
+    }
+  }
+
+  .acc-content {
+    height:0;
+    opacity:0;
+    visibility:hidden;
+    overflow:hidden;
+    transition:all 400ms ease-in-out;
+    backface-visibility:hidden;
+
+    > div {
+      margin:0 15px;
+      padding:10px 0 30px;
+    }
+  }
+}
+.tags {
+  margin-bottom:40px;
+  font-size:20px;
+  //  text-align:center;
+
+  .heading {
+    font-weight:normal;
+    margin:0 0 10px;
+  }
+  .label {
+    display:inline-block;
+    margin-bottom:10px;
+    cursor:pointer;
+
+    &.off {
+      opacity:.3;
+    }
+  }
+}
+.viewing-options {
+  @include media-query(notphone) {
+    text-align:right;
+
+    .form-group + .form-group {
+      margin-left:20px;
+    }
+  }
+}
+.genome-listing {
+  margin:20px 0;
+  background:$color-white;
+
+  .label {
+    margin-right:10px;
+  }
+  .heading {
+    padding:20px 15px 30px;
+    background:#cbcfd8;
+    font-size:18px;
+  }
+  .properties {
+    padding:10px 15px 30px;
+  }
+  .value-label {
+    font-size:11px;
+  }
+
+  .loading {
+    padding:40px 0;
+    vertical-align:middle;
+    text-align:center;
+
+    &:before {
+      content:'';
+      display:inline-block;
+      width:80px;
+      height:40px;
+      margin-right:10px;
+      vertical-align:middle;
+      background:url('../imgs/layout/preloader.gif') no-repeat 0 50%;
+    }
+  }
+
+  .off-page {
+    display:none;
+  }
+}
+.page-counter {
+  margin-bottom:20px;
+}
+.pagination {
+  margin-top:0;
+
+  & > li > a,
+  & > li > span {
+    color: $color-river-bed;
+  }
+
+  & > .active > a,
+  & > .active > a:focus,
+  & > .active > a:hover,
+  & > .active > span,
+  & > .active > span:focus,
+  & > .active > span:hover {
+    background:$color-river-bed;
+  }
+
+  @include media-query(notphone) {
+    float:right;
+  }
+}
+
+.info {
+  border-left: 5px solid $color-slate-gray;
+  padding: 15px 30px;
+  background: #f5f5f5;
+
+  .fa {
+    font-size:18px;
+    margin-right:10px;
+    color:$color-slate-gray;
+  }
+  h4 {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: $color-slate-gray;
+  }
+}

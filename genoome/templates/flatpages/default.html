@@ -10,18 +10,19 @@
 {% block page_title %}{{ flatpage.title }}{% endblock page_title %}
 
 {% block content %}
-    <section id="content">
+    <section id="content" class="section">
         <div class="container">
-            {{ flatpage.content|markdown }}
+            <div class="text-content">
+                {{ flatpage.content|markdown }}
+            </div>
         </div>
     </section>
     {% if flatpage.url == '/navbar/howitworks/' %}
-		<!--TODO:tabelka-->
-        <section>
-            <div class="container-fluid layout">
-                <h1><span class="big-header-text">Your Coloured Genome</span><span class="small-sample-text">(sample)</span></h1>
-                {% data_table %}
-            </div>
-        </section>
+	<section class="section has-pattern">
+		<div class="container">
+			<h2 class="title">Your Coloured Genome <small>(sample)</small></h2>
+			{% data_table %}
+		</div>
+	</section>
     {% endif %}
 {% endblock content %}

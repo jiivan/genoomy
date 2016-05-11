@@ -3,10 +3,34 @@
 {% block title %}Contact{% endblock title %}
 {% block page_title %}Contact{% endblock page_title %}
 
+{% block header %}
+{% endblock header %}
+
 {% block content %}
-    <section id="contact-form">
-        <div class="container-fluid layout">
-            {% include 'includes/contact_form.html' %}
+    <section class="form section has-pattern">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                    <h1 class="title">Contact</h1>
+                    <div class="intro">
+
+                        <p>We’d love to hear from you. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut erat magna. Aliquam porta sem a lacus imperdiet posuere. Integer semper eget ligula id eleifend.</p>
+                        <ul class="list-unstyled contact-details">
+                            <li><i class="fa fa-envelope"></i><a href="mailto:info@genoomy.com">info@genoomy.com</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="cnt-form col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+                    {% include 'includes/contact_form.html' %}
+
+                </div>
+            </div>
         </div>
     </section>
 {% endblock content %}

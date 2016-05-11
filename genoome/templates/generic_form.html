@@ -21,9 +21,9 @@
         {% block form_fields %}
             {% for field in form.visible_fields %}
                 <div class="form-group{% if field.errors %} has-error has-feedback{% endif %}">
-                    {{ field.errors }}
-                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    <label class="sr-only" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                     {% render_field field class+="form-control" placeholder=field.label %}
+                    {{ field.errors }}
                 </div>
             {% endfor %}
             {% for field in form.hidden_fields %}
@@ -32,7 +32,7 @@
         {% endblock form_fields %}
         <div class="form-row">
             {% block submit_button %}
-            <input class="btn btn-default" type="submit" value="{% block submit_text %}{% endblock submit_text %}" />
+            <button type="submit" class="btn btn-lg btn-theme">{% block submit_text %}{% endblock submit_text %}</button>
             {% endblock submit_button %}
         </div>
     </form>
