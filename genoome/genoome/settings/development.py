@@ -82,7 +82,7 @@ CACHES = {
 
 ########## CELERY CONFIGURATION
 # http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#configuration
-BROKER_URL = 'redis://localhost:6379/21'
+BROKER_URL = 'redis://localhost:6379/10'
 ########## END CELERY CONFIGURATION
 
 
