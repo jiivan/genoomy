@@ -197,6 +197,9 @@ def allele_description(request, pk):
 class UploadGenomeSuccessView(TemplateView):
     template_name = 'upload_success.html'
 
+    def post(self, *args, **kwargs):
+        return self.get(*args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         self.analyze_data_order = AnalyzeDataOrder.objects.get(pk=kwargs['pk'])
         user = request.user
