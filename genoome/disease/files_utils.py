@@ -114,7 +114,7 @@ def process_genoome_data(data):
     for row in process_genoome_data_gen(data):
         table.append(row)
     log.debug('PID: %s filling colors cache', os.getpid())
-    data = allele_colorize(data, update=False)
+    allele_colorize(table, update=False)
     log.debug('PID; %s colors cache filled', os.getpid())
     return table
 
