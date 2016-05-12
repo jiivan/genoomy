@@ -286,15 +286,15 @@
 					'<div class="value-label">disease trait</div>' +
 					'<span class="label label-tag" style="background-color: ' + item.color + '" title="interesting">&nbsp;</span>' + item.disease_trait + '</div>' +
 					'<div class="row properties">' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">rsid</div>' + (item.rsid ? item.rsid : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-2"><div class="value-label">chromosome position</div>' + (item.chromosome_position ? item.chromosome_position : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk allele</div>' + (item.risk_allele ? item.risk_allele : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">genotype</div>' + (item.genotype ? item.genotype : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">p value</div>' + (item.p_value ? item.p_value : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">or</div>' + (item.or_or_beta ? item.or_or_beta : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-1"><div class="value-label">risk</div>' + (item.risk ? item.risk : '') + '</div>' +
-					'<div class="col-xs-6 col-sm-3"><div class="value-label">tags</div>' + (item.tags ? item.tags.join(', ') : '') + '</div>' +
-					'<div class="col-sm-1"><a href="#" data-url="'+ (item.link && item.genotype ? item.link +'?allele='+ item.genotype +'&ajax=1' : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
+					'<div class="col-xs-6 col-sm-1 col-md-1"><div class="value-label">rsid</div>' + (item.rsid ? item.rsid : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-2 col-md-2"><div class="value-label">chromosome position</div>' + (item.chromosome_position ? item.chromosome_position : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1 col-md-1"><div class="value-label">risk allele</div>' + (item.risk_allele ? item.risk_allele : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1 col-md-1"><div class="value-label">genotype</div>' + (item.genotype ? item.genotype : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-2 col-md-1"><div class="value-label">p value</div>' + (item.p_value ? item.p_value : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1 col-md-1"><div class="value-label">or</div>' + (item.or_or_beta ? item.or_or_beta : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-1 col-md-1"><div class="value-label">risk</div>' + (item.risk ? item.risk : '') + '</div>' +
+					'<div class="col-xs-6 col-sm-2 col-md-3"><div class="value-label">tags</div>' + (item.tags ? item.tags.join(', ') : '') + '</div>' +
+					'<div class="col-sm-1 col-md-1"><a href="#" data-url="'+ (item.link && item.genotype ? item.link +'?allele='+ item.genotype +'&ajax=1' : '') +'" class="acc-switch pull-right"><span class="on-close">more <i class="fa fa-caret-down"></i></span><span class="on-open">less <i class="fa fa-caret-up"></i></span></a></div>'+
 					'</div>' +
 					'</div>' +
 					'<div class="acc-content"></div>'
