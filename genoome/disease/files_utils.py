@@ -147,7 +147,7 @@ def allele_colorize(data, update=True):
     for row in data:
         row_colors = get_marker_color_cached(row['rsid'], row['genotype'])
         if update:
-        data.update(row_colors)
+            data.update(row_colors)
     return data
 
 def marker_color_key(rsid, genotype):
@@ -179,7 +179,7 @@ def get_marker_color(rsid, genotype):
     color_data = {}
     color_data['color'] = alcolor.color_alias.color
     color_data['priority'] = alcolor.priority
-    color_data['tags'] = list(map(lambda x: x[0], alcolor.tags.all().values_list('slug')))})
+    color_data['tags'] = list(map(lambda x: x[0], alcolor.tags.all().values_list('slug')))
     if alcolor.short_description:
         color_data['disease_trait'] = alcolor.short_description
     return color_data
