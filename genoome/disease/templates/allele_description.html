@@ -22,10 +22,26 @@
 				<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
 			{% endif %}
 			<div class="desc">
-				<span class="label label-tag" style="background: {{ your_allele.color_alias.color }};">&nbsp;</span>
-				Your genome:
-				<p>{{ your_allele.description|safe }}</p>
 				<p>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></p>
+
+				<h4>Your genome</h4>
+				<div class="allele" style="border-color: {{ your_allele.color_alias.color }}">
+					<b>{{ your_allele.allele }}</b>
+					<p>{{ your_allele.description|safe }}</p>
+				</div>
+
+				<h4>What others see</h4>
+				{% for allele in colors %}
+				{% if allele == your_allele %}mine{% endif %}
+				<div class="allele" style="border-color: {{ allele.color_alias.color }}">
+					{% if request.user.is_staff %}
+					<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
+					{% endif %}
+					<b>{{ allele.allele }}</b>
+					<p>{{ allele.description|safe }}</p>
+				</div>
+				{% endfor %}
+
 			</div>
 
             <div class="info">
@@ -34,19 +50,6 @@
 				<div>{{ article.header|safe }}</div>
 			</div>
 
-			<div class="">
-				<h4>What others see</h4>
-				{% for allele in colors %}
-					<div class="">
-						{% if request.user.is_staff %}
-							<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
-						{% endif %}
-						<span class="label label-tag" style="background-color: {{ allele.color_alias.color }}">&nbsp;</span>
-						<b>{{ allele.allele }}</b>
-						<p>{{ allele.description|safe }}</p>
-					</div>
-				{% endfor %}
-			</div>
 			<div class="bibliography">
 				{{ article.footer|safe }}
 			</div>
