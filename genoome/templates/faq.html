@@ -26,18 +26,20 @@
 				</div>
 			</div>
 
-			{% for flatpage in faq_pages %}
-				<div class="row">
-					<h2 id="faq-section-{{ flatpage.pk }}" class="title text-center">{{ flatpage.title }}</h2>
-					<div class="faq-col col-md-12 col-sm-12 col-xs-12">
-						<div class="item">
-							<div class="answer">
-								{{ flatpage.content|markdown }}
-							</div>
-						</div>
+			<div class="faq-col col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+				{% for flatpage in faq_pages %}
+
+					<div class="item" id="faq-section-{{ flatpage.pk }}">
+						<h3 class="question"><i class="fa fa-question-circle"></i>{{ flatpage.title }}</h3>
+						<p class="answer">
+							{{ flatpage.content|markdown }}
+						</p>
 					</div>
-				</div>
-			{% endfor %}
+
+				{% endfor %}
+
+			</div>
 
 		</div>
 	</section>
