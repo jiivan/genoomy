@@ -29,7 +29,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 from configurable_elements.models import get_legend_rows
 from disease.files_utils import process_filename
-from disease.files_utils import get_genome_data
+from disease.files_utils import get_genome_data as _get_genome_data
 from disease.files_utils import get_genome_dirpath
 from disease.files_utils import get_genome_filepath
 from .models import CustomizedTag
@@ -229,8 +229,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
     def get_genome_data(self):
         filename = self.process_filename(self.request.GET['file'], filename_suffix='_processed')
         filepath = self.get_filepath(filename)
-        with storage.open(filepath) as f:
-            data = msgpack.unpackb(f.read(), encoding='utf-8')
+        data = _get_genome_data(filepath)
         data = list(reversed(sorted(data, key=lambda r: r.get('priority', -1))))
         return data
 
@@ -318,7 +317,7 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
 
 def landing_genome_data(request):
     sample_data_filepath = 'disease/samplegenotype'
-    data = {'data': get_genome_data(sample_data_filepath)}
+    data = {'data': _get_genome_data(sample_data_filepath)}
     data['data'] = list(reversed(sorted(data['data'], key=lambda r: r.get('priority', -1))))
     return JsonResponse(data)
 
