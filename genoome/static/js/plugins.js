@@ -147,7 +147,7 @@
 		_this.scrollOffset = $('.navbar-fixed-top').outerHeight() + 10;
 
 		_this.page = 0;
-		_this.perPage = 10;
+		_this.perPage = _this.$perPage.val();
 
 		_this.filters = {
 			excludeLabel: [],
