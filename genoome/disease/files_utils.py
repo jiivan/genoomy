@@ -168,6 +168,7 @@ def get_marker_color_cached(rsid, genotype):
     return result
 
 def invalidate_marker_color(rsid, genotype):
+    log.debug('invalidate_marker_color(%r, %r)', rsid, genotype)
     cache_key = marker_color_key(rsid, genotype)
     cache.delete(cache_key)
 
