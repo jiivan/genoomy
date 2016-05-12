@@ -42,6 +42,10 @@ class SNPMarker(models.Model):
         #     url = link
         return url
 
+    def invalidate_colors(self):
+        from disease.files_utils import invalidate_marker_color
+        invalidate_marker_color(self.rsid, self.genotype)
+
 
 class CustomizedTag(TagBase):
     color_off = RGBColorField()
@@ -53,6 +57,11 @@ class CustomizedTag(TagBase):
     class Meta:
         verbose_name = _("Tag")
         verbose_name_plural = _("Tags")
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        for marker in SNPMarker.objects.filter(allele_colors__tags__in=self):
+            marker.invalidate_colors()
 
 
 class TaggedWhatever(GenericTaggedItemBase):
@@ -76,6 +85,12 @@ class AlleleColor(models.Model):
     def __str__(self):
         return self.color_alias.alias
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            db_instance = self.__class__.get(pk=self.pk)
+            db_instance.snp_marker.invalidate_colors()
+        super().save(*args, **kwargs)
+        self.snp_marker.invalidate_colors()
 
 class SNPMarkerArticle(models.Model):
     snp_marker = models.ForeignKey(SNPMarker, related_name='snp_article')

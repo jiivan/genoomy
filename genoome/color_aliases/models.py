@@ -11,3 +11,9 @@ class ColorAlias(models.Model):
 
     def __str__(self):
         return self.alias
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from disease.models import SNPMarker
+        for marker in SNPMarker.objects.filter(allele_colors__color_alias=self):
+            marker.invalidate_colors()

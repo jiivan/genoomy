@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import csv
-import logging
 import io
+import logging
+import msgpack
 import os
 import zipfile
 
-from django.utils.encoding import force_text
+from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
-import msgpack
+from django.utils.encoding import force_text
 
+from disease.models import AlleleColor
 from disease.models import SNPMarker
 
 log = logging.getLogger(__name__)
@@ -87,10 +89,10 @@ def parse_raw_genome_file(file):
 
 def process_genoome_data_gen(data):
     log.debug('PID: %s, PROCESING MARKERS', os.getpid())
-    markers = SNPMarker.objects.prefetch_related('allele_colors').filter(rsid__in=data.keys())
+    markers = SNPMarker.objects.filter(rsid__in=data.keys())
     for marker in markers:
         mrsid = str(marker.rsid)
-        if mrsid not in data:
+        if mrsid not in data: # wwhat? -JK
             continue
 
         row = {'rsid': mrsid,
@@ -103,18 +105,6 @@ def process_genoome_data_gen(data):
                'risk': data[mrsid]['genotype'].count(marker.risk_allele),
                'link': marker.get_absolute_url()
                }
-
-        allele_colors = marker.allele_colors.all()
-        for allele_color in allele_colors:
-            if row['genotype'] == allele_color.allele:
-                row.update({'color': allele_color.color_alias.color,
-                            'priority': allele_color.priority,
-                            'tags': list(map(lambda x: x[0], allele_color.tags.all().values_list('slug')))})
-                if allele_color.short_description:
-                    row['disease_trait'] = allele_color.short_description
-
-                break
-
         yield row
     log.debug('PID: %s, MARKERS PROCESSED', os.getpid())
 
@@ -123,6 +113,9 @@ def process_genoome_data(data):
     table = []
     for row in process_genoome_data_gen(data):
         table.append(row)
+    log.debug('PID: %s filling colors cache', os.getpid())
+    data = allele_colorize(data, update=False)
+    log.debug('PID; %s colors cache filled', os.getpid())
     return table
 
 
@@ -147,8 +140,49 @@ def get_genome_data(filepath):
     storage = FileSystemStorage()
     with storage.open(filepath) as f:
         data = msgpack.unpackb(f.read(), encoding='utf-8')
+    data = allele_colorize(data)
     return data
 
+def allele_colorize(data, update=True):
+    for row in data:
+        row_colors = get_marker_color_cached(row['rsid'], row['genotype'])
+        if update:
+        data.update(row_colors)
+    return data
+
+def marker_color_key(rsid, genotype):
+    cache_key = 'marker_color:%s:%s' % (rsid, genotype)
+    return cache_key
+
+def get_marker_color_cached(rsid, genotype):
+    # cache invalidated by:
+    #  AlleleColor.save()
+    #  Tags.save()
+    #  ColorAlias.save()
+    cache_key = marker_color_key(rsid, genotype)
+    result = cache.get(cache_key)
+    if result is not None:
+        return result
+    result = get_marker_color(rsid, genotype)
+    cache.set(cache_key, result, None)
+    return result
+
+def invalidate_marker_color(rsid, genotype):
+    cache_key = marker_color_key(rsid, genotype)
+    cache.delete(cache_key)
+
+def get_marker_color(rsid, genotype):
+    alcolor = AlleleColor.objects.filter(snp_marker__rsid=rsid, genotype=genotype)[:1]
+    if not alcolors:
+        return {}
+    alcolor = alcolors[0]
+    color_data = {}
+    color_data['color'] = alcolor.color_alias.color
+    color_data['priority'] = alcolor.priority
+    color_data['tags'] = list(map(lambda x: x[0], alcolor.tags.all().values_list('slug')))})
+    if alcolor.short_description:
+        color_data['disease_trait'] = alcolor.short_description
+    return color_data
 
 def handle_zipped_genome_file(genome_file):
     parsed_file = None
