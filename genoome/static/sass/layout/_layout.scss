@@ -154,7 +154,7 @@ body {
 
   & > li > a,
   & > li > span {
-    color: $color-river-bed;
+    color:$color-river-bed;
   }
 
   & > .active > a,
@@ -170,17 +170,14 @@ body {
     float:right;
   }
 }
-
 .desc, .info {
   h4 {
-    font-size: 1em;
-    font-weight: bold;
+    font-size:1em;
+    font-weight:bold;
   }
 }
-.desc {
-  .your-genotype {
-    font-size:18px;
-  }
+.your-genotype {
+  font-size:18px;
 }
 .allele {
   border-left:5px solid;
@@ -195,6 +192,9 @@ body {
     color:$color-slate-gray;
   }
   h4 {
-    color: $color-slate-gray;
+    color:$color-slate-gray;
   }
+}
+.bibliography {
+  margin:10px 0;
 }
