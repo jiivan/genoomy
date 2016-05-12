@@ -145,6 +145,14 @@ body {
   .off-page {
     display:none;
   }
+
+  @include media-query(tablet) {
+    font-size:12px;
+
+    .value-label {
+      font-size:10px;
+    }
+  }
 }
 .page-counter {
   margin-bottom:20px;
