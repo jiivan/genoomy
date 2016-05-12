@@ -73,7 +73,6 @@ body {
     backface-visibility:hidden;
 
     > div {
-      margin:0 15px;
       padding:10px 0 30px;
       overflow:hidden;
     }
@@ -175,7 +174,11 @@ body {
   h4 {
     font-size: 1em;
     font-weight: bold;
-    margin-bottom: 20px;
+  }
+}
+.desc {
+  .your-genotype {
+    font-size:18px;
   }
 }
 .allele {
