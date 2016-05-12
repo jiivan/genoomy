@@ -43,6 +43,20 @@
     }
 }
 
+.tags {
+    .label {
+        padding: 0;
+        .label-inside {
+            background: $color;
+            color: $color-black;
+            display: block;
+            font-weight: normal;
+            margin-left: 1.6em;
+            padding: 0.2em 0.6em 0.3em;
+        }
+    }
+}
+
 .text-content {
     p,
     ul,

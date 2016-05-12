@@ -11,7 +11,9 @@
 	<div class="heading">and relate to:</div>
 	<div id="genome-tags">
 		{% for tag in allele_tags %}
-		<span class="label label-default" style="background-color: {{ tag.color_on }}" data-val="{{ tag.slug }}">{{ tag.slug }}</span>
+		<span class="label label-default" style="background-color: {{ tag.color_on }}" data-val="{{ tag.slug }}">
+			<span class="label-inside">{{ tag.slug }}</span>
+		</span>
 		{% endfor %}
 	</div>
 
