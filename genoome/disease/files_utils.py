@@ -173,6 +173,7 @@ def invalidate_marker_color(rsid, genotype):
     cache.delete(cache_key)
 
 def get_marker_color(rsid, genotype):
+    log.debug('get_marker_color(%r, %r)', rsid, genotype)
     alcolors = AlleleColor.objects.filter(snp_marker__rsid=rsid, allele=genotype)[:1]
     if not alcolors:
         return {}
