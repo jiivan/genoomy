@@ -56,7 +56,7 @@ class CustomizedTag(TagBase):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        for alcolor in AlleleColor.objects.filter(tags__in=self):
+        for alcolor in AlleleColor.objects.filter(tags=self):
             alcolor.invalidate_colors()
 
 
