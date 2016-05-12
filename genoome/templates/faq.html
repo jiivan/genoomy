@@ -11,27 +11,34 @@
     {% endcomment %}
 
     {% get_flatpages '/faq/' as faq_pages %}
-<section class="faq section">
-	<div class="container">
-		<!--TODO:nawigacja?-->
-		<div class="list-group">
-			{% for flatpage in faq_pages %}
-				<a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
-			{% endfor %}
-		</div>
+	<section class="faq section">
+		<div class="container">
 
-    {% for flatpage in faq_pages %}
-		<div class="row">
-			<h2 id="faq-section-{{ flatpage.pk }}" class="title text-center">{{ flatpage.title }}</h2>
-			<div class="faq-col col-md-12 col-sm-12 col-xs-12">
-				<div class="item">
-					<div class="answer">
-						{{ flatpage.content|markdown }}
-					</div>
+			<div class="row">
+				<div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+					<ol>
+						{% for flatpage in faq_pages %}
+						<a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
+						{% endfor %}
+					</ol>
+
 				</div>
 			</div>
+
+			{% for flatpage in faq_pages %}
+				<div class="row">
+					<h2 id="faq-section-{{ flatpage.pk }}" class="title text-center">{{ flatpage.title }}</h2>
+					<div class="faq-col col-md-12 col-sm-12 col-xs-12">
+						<div class="item">
+							<div class="answer">
+								{{ flatpage.content|markdown }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
 		</div>
-    {% endfor %}
-	</div>
-</section>
+	</section>
 {% endblock content %}
