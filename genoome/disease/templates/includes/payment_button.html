@@ -1,6 +1,4 @@
 <div class="text-center payment-choices" data-tid="{{ analyze_order.pk }}" data-sku="{{ analyze_order.uploaded_filename }}">
-    <h2>It's only 19$!</h2>
-    <h4 class="choose-payment-sub">Choose your payment method</h4>
     <div class="row">
         <div class="col-md-4 payment-choice payment-bitpay">
             <form action="{{ bitpay_checkout_url }}/checkout" method="post" >

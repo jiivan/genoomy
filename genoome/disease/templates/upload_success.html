@@ -4,10 +4,33 @@
 {% block title %}Payment{% endblock title %}
 {% block page_title %}Payment{% endblock page_title %}
 
+{% block header %}
+{% endblock header %}
+
 {% block content %}
-    <section id="content">
-        <div class="container-fluid layout">
-            {% include 'includes/payment_button.html' %}
+    <section class="section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                    <h1 class="title">Payment</h1>
+                    <div class="intro">
+
+                        <h2>It's only 19$!</h2>
+                        <p>Choose your payment method</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+                    {% include 'includes/payment_button.html' %}
+
+                </div>
+            </div>
+
         </div>
     </section>
 {% endblock content %}
