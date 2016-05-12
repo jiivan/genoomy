@@ -75,6 +75,7 @@ body {
     > div {
       margin:0 15px;
       padding:10px 0 30px;
+      overflow:hidden;
     }
   }
 }
@@ -153,7 +154,7 @@ body {
 
   & > li > a,
   & > li > span {
-    color: $color-river-bed;
+    color:$color-river-bed;
   }
 
   & > .active > a,
@@ -169,13 +170,14 @@ body {
     float:right;
   }
 }
-
 .desc, .info {
   h4 {
-    font-size: 1em;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-size:1em;
+    font-weight:bold;
   }
+}
+.your-genotype {
+  font-size:18px;
 }
 .allele {
   border-left:5px solid;
@@ -190,6 +192,9 @@ body {
     color:$color-slate-gray;
   }
   h4 {
-    color: $color-slate-gray;
+    color:$color-slate-gray;
   }
+}
+.bibliography {
+  margin:30px 0 10px;
 }
