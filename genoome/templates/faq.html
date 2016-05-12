@@ -19,7 +19,7 @@
 
 					<ol>
 						{% for flatpage in faq_pages %}
-						<a class="list-group-item" href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a>
+						<li><a href="#faq-section-{{ flatpage.pk }}">{{ flatpage.title }}</a></li>
 						{% endfor %}
 					</ol>
 
