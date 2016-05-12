@@ -5,14 +5,23 @@
 {% block page_title %}FAQ{% endblock page_title %}
 
 {% block content %}
-    <section id="content">
-        <div class="container-fluid layout">
-            {% get_flatpages '/faq/' as faq_pages %}
-            <div class="list-group">
-                {% for page in faq_pages %}
-                    <a class="list-group-item" href="{{ page.url }}">{{ page.title }}</a>
-                {% endfor %}
+    <section class="section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+
+                    {% get_flatpages '/faq/' as faq_pages %}
+                    <ol>
+                        {% for page in faq_pages %}
+                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                        {% endfor %}
+                    </ol>
+
+                </div>
             </div>
+
+
         </div>
     </section>
 {% endblock content %}
