@@ -3,7 +3,7 @@
 	<div id="genome-labels">
 		{% for legend_row in legend_rows %}
 		<span class="label label-tag" style="background-color: {{ legend_row.color.color }}" data-val="{{ legend_row.color.color }}">
-			{{ legend_row.content }}
+			<span class="label-inside">{{ legend_row.content }}</span>
 		</span>
 		{% endfor %}
 	</div>
