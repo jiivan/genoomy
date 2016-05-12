@@ -244,7 +244,7 @@ select {
 /* ======= Header ======= */
 
 .header {
-    padding: 15px 0;
+    padding: 5px 0;
     background: $color;
     z-index: 9999;
     @include box-shadow (0 0 4px rgba(0,0,0,0.4));
