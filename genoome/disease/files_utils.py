@@ -147,7 +147,7 @@ def allele_colorize(data, update=True):
     for row in data:
         row_colors = get_marker_color_cached(row['rsid'], row['genotype'])
         if update:
-            data.update(row_colors)
+            row.update(row_colors)
     return data
 
 def marker_color_key(rsid, genotype):
