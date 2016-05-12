@@ -22,9 +22,10 @@
 			<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
 		{% endif %}
 		<div class="row">
-			<div class="desc col-sm-6">
+			<div class="col-sm-12">
 				<p class="your-genotype">Your genotype is <b>{{ your_allele.allele }}</b> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</p>
-
+			</div>
+			<div class="desc col-sm-6">
 				<h4>Your genome</h4>
 				<div class="allele" style="border-color: {{ your_allele.color_alias.color }}">
 					<b>{{ your_allele.allele }}</b>
@@ -49,10 +50,10 @@
 				<h4><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 					Know more about <em>{{ article.title }}</em></h4>
 				<div>{{ article.header|safe }}</div>
-			</div>
 
-			<div class="bibliography col-sm-12">
-				{{ article.footer|safe }}
+				<div class="bibliography">
+					{{ article.footer|safe }}
+				</div>
 			</div>
 
 			<div class="col-sm-12">
