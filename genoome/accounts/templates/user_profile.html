@@ -7,36 +7,41 @@
     <section class="section">
         <div class="container">
 
-            {% if is_admin %}
-                <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
-            {% endif %}
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
 
-            <div class="text-content">
-
-                <ul class="unstyled">
-                    {% if request.user.can_upload_files %}
-                    <li>
-                        <a href="{% url "disease:upload_genome" %}">
-                            <i class="fa fa-upload" aria-hidden="true"></i> Upload your genome
-                        </a>
-                    </li>
+                    {% if is_admin %}
+                    <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
                     {% endif %}
-                    <li>
-                        <a href="{% url 'accounts:disable' %}">
-                            <i class="fa fa-times" aria-hidden="true"></i> Disable account
-                        </a>
-                    </li>
-                </ul>
 
-                {% if saved_genome_data %}
-                    <p>By clicking on items below you can browse previously uploaded data.</p>
-                {% endif %}
-                <div class="list-group">
-                    {% for row in saved_genome_data %}
-                    <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">
-                        <i class="fa fa-database" aria-hidden="true"></i> {{ row }}
-                    </a>
-                    {% endfor %}
+                    <div class="text-content">
+
+                        <ul class="unstyled">
+                            {% if request.user.can_upload_files %}
+                            <li>
+                                <a href="{% url "disease:upload_genome" %}">
+                                <i class="fa fa-upload" aria-hidden="true"></i> Upload your genome
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="{% url 'accounts:disable' %}">
+                                    <i class="fa fa-times" aria-hidden="true"></i> Disable account
+                                </a>
+                            </li>
+                        </ul>
+
+                        {% if saved_genome_data %}
+                        <p>By clicking on items below you can browse previously uploaded data.</p>
+                        {% endif %}
+                        <div class="list-group">
+                            {% for row in saved_genome_data %}
+                            <a href="{% url "disease:browse_genome" %}?file={{ row|urlencode }}{% if is_admin %}&pk={{ user_pk }}{% endif %}" class="list-group-item">
+                            <i class="fa fa-database" aria-hidden="true"></i> {{ row }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
