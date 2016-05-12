@@ -14,25 +14,25 @@
 {% else %}
 	<div>
 {% endif %}
-            {% if request.user.is_staff %}
-                <a class="btn btn-danger" href="{% url "admin:disease_snpmarkerarticle_change" article.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
-            {% endif %}
+		{% if request.user.is_staff %}
+			<a class="btn btn-danger" href="{% url "admin:disease_snpmarkerarticle_change" article.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
+		{% endif %}
 
-			{% if request.user.is_staff %}
-				<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
-			{% endif %}
-			<div class="desc">
-				<p>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></p>
+		{% if request.user.is_staff %}
+			<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" your_allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
+		{% endif %}
+		<div class="desc col-sm-6">
+			<p>Your genotype is <span class="label label-genome"><b>{{ your_allele.allele }}</b></span><span> in Rsid {{ marker.rsid }}{% if article.gene_area %} in {{ article.gene_area|default_if_none:"" }} gene area{% endif %}</span></p>
 
-				<h4>Your genome</h4>
-				<div class="allele" style="border-color: {{ your_allele.color_alias.color }}">
-					<b>{{ your_allele.allele }}</b>
-					<p>{{ your_allele.description|safe }}</p>
-				</div>
+			<h4>Your genome</h4>
+			<div class="allele" style="border-color: {{ your_allele.color_alias.color }}">
+				<b>{{ your_allele.allele }}</b>
+				<p>{{ your_allele.description|safe }}</p>
+			</div>
 
-				<h4>What others see</h4>
-				{% for allele in colors %}
-				{% if allele == your_allele %}mine{% endif %}
+			<h4>What others see</h4>
+			{% for allele in colors %}
+				{% if allele != your_allele %}
 				<div class="allele" style="border-color: {{ allele.color_alias.color }}">
 					{% if request.user.is_staff %}
 					<a class="btn btn-danger" href="{% url "admin:disease_allelecolor_change" allele.pk %}"><span class="glyphicon glyphicon-pencil"> Edytuj</a>
@@ -40,19 +40,19 @@
 					<b>{{ allele.allele }}</b>
 					<p>{{ allele.description|safe }}</p>
 				</div>
-				{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</div>
 
-			</div>
+		<div class="info col-sm-6">
+			<h4><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+				Know more about <em>{{ article.title }}</em></h4>
+			<div>{{ article.header|safe }}</div>
+		</div>
 
-            <div class="info">
-				<h4><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                	Know more about <em>{{ article.title }}</em></h4>
-				<div>{{ article.header|safe }}</div>
-			</div>
-
-			<div class="bibliography">
-				{{ article.footer|safe }}
-			</div>
+		<div class="bibliography col-sm-12">
+			{{ article.footer|safe }}
+		</div>
 
 		<a class="btn btn-primary" href="mailto:info@genoomy.com?subject={{ request.build_absolute_uri|urlencode }}">Comment</a>
 	</div>
