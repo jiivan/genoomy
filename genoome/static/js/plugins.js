@@ -95,7 +95,7 @@
 	Accordion.prototype.resize = function() {
 		var _this = this;
 
-		_this.$node.find('.acc.open > a').each(function() {
+		_this.$node.find('.acc.open .acc-switch').each(function() {
 			$(this).parents('.acc').find('.acc-content').height(_this.setHeight($(this)));
 		});
 	};
