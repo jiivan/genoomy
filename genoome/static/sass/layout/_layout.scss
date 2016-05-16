@@ -1,6 +1,13 @@
 body {
   padding-top:60px;
 }
+.btn-admin {
+  margin:8px 0;
+
+  @include media-query(tablet) {
+    margin:0 -5px 15px;
+  }
+}
 .promo {
   min-height:580px;
 

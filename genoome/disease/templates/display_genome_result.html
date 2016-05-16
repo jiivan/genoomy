@@ -4,20 +4,20 @@
 {% block title %}Browse your genome{% endblock title %}
 
 {% block content %}
-    <section id="content">
-        <div class="container-fluid layout">
-            {% if is_job_ready and is_job_successful %}
-                {% if view.is_browsing_via_admin %}
-                    <div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
-                {% endif %}
-                {% if paid or is_admin %}
-                    {% include 'includes/color_legend.html' %}
-                    <h1><span class="big-header-text">Your Coloured Genome</span></h1>
-                    {% include 'includes/data_table.html' %}
-                {% else %}
-                    {% include 'includes/payment_button.html' %}
-                {% endif %}
-            {% endif %}
-        </div>
-    </section>
+<section id="genome" class="section has-pattern">
+	<div class="container">
+		{% if is_job_ready and is_job_successful %}
+			{% if view.is_browsing_via_admin %}
+				<div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
+			{% endif %}
+			{% if paid or is_admin %}
+				{% include 'includes/color_legend.html' %}
+				<h2 class="title">Your Coloured Genome</h2>
+				{% include 'includes/data_table.html' %}
+			{% else %}
+				{% include 'includes/payment_button.html' %}
+			{% endif %}
+		{% endif %}
+	</div>
+</section>
 {% endblock content %}

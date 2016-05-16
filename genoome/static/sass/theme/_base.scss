@@ -389,6 +389,8 @@ select {
 /* ======= Promo Section ======= */
 
 .promo {
+    max-width:1600px;
+    margin:0 auto;
     color: #fff;
     padding: 0;
     background-color: $color;

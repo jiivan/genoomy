@@ -27,6 +27,9 @@
 					{% if request.user.is_authenticated %}
 						<li class="nav-item"><a href="{% url "accounts:profile" %}">Profile</a></li>
 						<li class="nav-item"><a href="{% url "accounts:logout" %}">Logout</a></li>
+						{% if request.user.is_staff %}
+						<li class="nav-item"><a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a></li>
+						{% endif %}
 					{% endif %}
 				</ul>
 				<!--//nav-->
@@ -42,10 +45,6 @@
 						<button type="submit" class="btn btn-default">Login</button>
 						<a class="btn btn-default" href="{% url "accounts:signup" %}">Register</a>
 					</form>
-				{% elif request.user.is_authenticated %}
-					{% if request.user.is_staff %}
-						<a class="btn btn-admin btn-default" href="{% url "admin:index" %}">Admin</a>
-					{% endif %}
 				{% endif %}
 			</div>
 			<!--//navabr-collapse-->
