@@ -59,7 +59,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dev_genoome_db',
+        'NAME': 'dev_genoome_db_2016_05_17',
         'USER': 'dev_genoome_user',
         'PASSWORD': 'dev_genoome_password',
         'HOST': '127.0.0.1',
