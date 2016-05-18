@@ -10,11 +10,9 @@
 $(function() {
     var check = function() {
         $.getJSON('{{ genome_data_url }}').done(function(data) {
-            console.log('got json: %o', data);
             if (data.is_ready) window.location.reload();
             window.setTimeout(check, 500);
         }).fail(function() {
-            console.log('fail');
             window.setTimeout(check, 1000);
         });
     };
