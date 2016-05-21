@@ -110,8 +110,8 @@ input[type="email"],
 input[type="password"],
 input[type="submit"],
 input[type="button"],
-textarea,
-select {
+textarea/*,
+select*/ {
     appearance: none;  /* for mobile safari */
     -webkit-appearance: none;
 }
