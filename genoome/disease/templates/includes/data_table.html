@@ -1,6 +1,6 @@
 <div class="tags">
 	<div class="heading">Display traits that are:</div>
-	<div id="genome-labels">
+	<div id="genome-labels" class="genome-labels">
 		{% for legend_row in legend_rows %}
 		<span class="label label-tag" style="background-color: {{ legend_row.color.color }}" data-val="{{ legend_row.color.color }}">
 			<span class="label-inside">{{ legend_row.content }}</span>
@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="heading">and relate to:</div>
-	<div id="genome-tags">
+	<div id="genome-tags" class="genome-tags">
 		{% for tag in allele_tags %}
 		<span class="label label-default" style="background-color: {{ tag.color_on }}" data-val="{{ tag.slug }}">
 			<span class="label-inside">{{ tag.slug }}</span>
