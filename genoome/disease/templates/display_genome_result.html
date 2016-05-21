@@ -3,6 +3,25 @@
 
 {% block title %}Browse your genome{% endblock title %}
 
+{% block extra_js %}
+{{ block.super }}
+{% if not is_job_ready %}
+<script type="text/javascript">
+$(function() {
+    var check = function() {
+        $.getJSON('{{ genome_data_url }}').done(function(data) {
+            if (data.is_ready) window.location.reload();
+            window.setTimeout(check, 500);
+        }).fail(function() {
+            window.setTimeout(check, 1000);
+        });
+    };
+    check();
+});
+</script>
+{% endif %}
+{% endblock extra_js %}
+
 {% block content %}
 <section id="genome" class="section has-pattern">
 	<div class="container">
