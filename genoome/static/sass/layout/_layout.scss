@@ -170,6 +170,13 @@ body {
 .pagination {
   margin-top:0;
 
+  &.start-gap .prev:after,
+  &.end-gap .next:before {
+    content:'...';
+    float:left;
+    padding:6px 12px;
+  }
+
   & > li > a,
   & > li > span {
     color:$color-river-bed;
