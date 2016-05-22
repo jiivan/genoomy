@@ -320,7 +320,8 @@
 
 	Genome.prototype.buildPagination = function() {
 		var _this = this,
-			html = '<li class="prev disabled"><a href="#" aria-controls="genome-listing" tabindex="0">Previous</a></li>';
+			html = '<li class="page-0"><a href="#" aria-controls="genome-listing" tabindex="0">First</a></li>'+
+				'<li class="prev disabled"><a href="#" aria-controls="genome-listing" tabindex="0">Previous</a></li>';
 
 		_this.maxPage = Math.ceil(_this.total / _this.perPage);
 
@@ -328,7 +329,8 @@
 			html += '<li class="page page-'+ i +' '+ (i === 0 ? ' active' : '') +'" data-page="'+ i +'"><a href="#" class="" aria-controls="genome-listing" tabindex="0">'+ (i+1) +'</a></li>';
 		}
 
-		html += '<li class="next'+ (_this.maxPage === 1 ? ' disabled' : '') +'"><a href="#" aria-controls="genome-listing" tabindex="0">Next</a></li>';
+		html += '<li class="next'+ (_this.maxPage === 1 ? ' disabled' : '') +'"><a href="#" aria-controls="genome-listing" tabindex="0">Next</a></li>'+
+		'<li class="page-'+ (_this.maxPage-1) +'"><a href="#" aria-controls="genome-listing" tabindex="0">Last</a></li>';
 
 		_this.pagination.$el.html(html);
 		_this.pagination.$prev = _this.pagination.$el.find('.prev');
