@@ -334,6 +334,7 @@
 		'<li class="last '+ (_this.maxPage === 1 ? 'disabled' : '') +'" data-page="'+ (_this.maxPage-1) +'"><a href="#" aria-controls="genome-listing" tabindex="0">Last</a></li>';
 
 		_this.pagination.$el.html(html);
+		_this.pagination.$pages = _this.pagination.$el.find('.page');
 		_this.pagination.$prev = _this.pagination.$el.find('.prev');
 		_this.pagination.$next = _this.pagination.$el.find('.next');
 		_this.pagination.$first = _this.pagination.$el.find('.first');
