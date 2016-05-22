@@ -345,8 +345,8 @@
 
 	Genome.prototype.shortenPagination = function() {
 		var _this = this,
-			end = Math.min(_this.page + _this.paginationSteps, _this.maxPage-1),
-			start = Math.max(end - _this.paginationSteps, 0);
+			end = Math.min(_this.page + _this.options.paginationSteps, _this.maxPage-1),
+			start = Math.max(end - _this.options.paginationSteps, 0);
 
 		_this.pagination.$pages.hide().slice(start, end).show();
 		_this.pagination.$el.toggleClass('start-gap', start !== 0);
