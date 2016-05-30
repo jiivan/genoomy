@@ -33,8 +33,9 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Kamil Niski', 'kaczuh@gmail.com'),
+    #('Kamil Niski', 'kaczuh@gmail.com'),
     ('Mateusz Kowalczyk', 'szuetam@gmail.com'),
+    ('Mikołaj Zając', 'darek.rybi@bitstar.pl'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -215,6 +216,7 @@ LOCAL_APPS = (
     'payment_bitpay',
     'payments',
     'taggit',
+    'twentythree',
 
     'widget_tweaks',
     'coupons',
@@ -331,5 +333,6 @@ MESSAGE_TAGS = {DANGER: 'danger'}
 CLIENT_ID23 = '0bbaf82af17dc28e5b621897237d7985'
 CLIENT_SECRET23 = '241bd347833909955f33d336a5c51c60'
 COMEBACK_URL23 = 'https://genoomy.com/23andme/comeback/'
+SNP_MAPPING_FILEPATH23 = normpath(join(MEDIA_ROOT, 'snp_23andme_mapping.csv'))
 
 ########## END 23andme

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Fetching genome status{% endblock title %}
+
+{% block content %}
+
+<section id="content">
+    <div class="container-fluid layout">
+        {% if not job.ready %}
+            <script type="text/javascript">rl = function() { window.location.reload() }; window.setTimeout(rl, 3000);</script>
+        {% else %}
+            {% if analyze_job and not analyze_job.ready %}
+                <script type="text/javascript">rl = function() { window.location.reload() }; window.setTimeout(rl, 3000);</script>
+            {% endif %}
+        {% endif %}
+        {% if request.user.is_staff %}
+        Staff only debug data:
+        <pre>
+            job.ready(): {{ job.ready }}
+            job.successful(): {{ job.successful }}
+            job.failed(): {{ job.failed }}
+            ctask.pk: {{ ctask.pk }}
+            ctask.status: {{ ctask.status }}
+            ctask.fetch_task_id: {{ ctask.fetch_task_id }}
+            ctask.analyze_order: {{ ctask.analyze_order }}
+            {% if ctask.analyze_order %}
+                {{ ctask.analyze_order.task_uuid }}
+                analyze_job.ready(): {{ analyze_job.ready }}
+                analyze_job.successful(): {{ analyze_job.successful }}
+                analyze_job.failed(): {{ analyze_job.failed }}
+            {% endif %}
+        </pre>
+        <a href="/23andme/profiles/">profiles</a>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock content %}

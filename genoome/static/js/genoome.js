@@ -137,13 +137,7 @@ $(document).ready(function() {
                 var destination = $('#genomeDataDestination');
                 var doc_top = $(document).scrollTop()+100;
                 var table_top = $('#genomeData tbody').offset().top;
-                var computed_top;
-                if (doc_top > table_top) {
-                    computed_top = doc_top;
-                } else {
-                    computed_top = table_top;
-                }
-                destination.text('Loading...').data('original_top', computed_top);
+                destination.text('Loading...');
                 $(window).scroll();
                 $.get(row.data('url'), {'ajax':'1'})
                 .fail(function(data) {
@@ -334,20 +328,21 @@ $(function() {
                 $this.data('original_top', elem_offset.top);
                 $this.css('position', 'absolute').css('top', elem_offset.top).css('left', elem_offset.left);
             }
-            var elem_top = $this.data('original_top');
-            var elem_bottom = elem_top + $this.height();
+            var elem_current_top = $this.offset().top;
+            var elem_current_bottom = elem_current_top + $this.height();
             var computed_top;
 
-            if (doc_top < elem_top) {
+
+            if (doc_top < elem_current_top) { // top of
                 computed_top = doc_top;
-            } else if (doc_top + doc_height > elem_bottom) {
+            } else if (doc_top + doc_height > elem_current_bottom) { // bottom of
                 if ($this.height() < doc_height) {
                     computed_top = doc_top;
                 } else {
                     computed_top = doc_top + doc_height - $this.height();
                 }
-            } else {
-                computed_top = elem_top;
+            } else { // inside
+                computed_top = elem_current_top; // stay still
             }
 
             if (computed_top < border_top) {
@@ -357,7 +352,7 @@ $(function() {
             }
 
             if (is_chrome) {
-                $this.animate({'top': computed_top}, 10);
+                $this.animate({'top': computed_top}, 50);
             } else {
                 $this.css('top', computed_top);
             }

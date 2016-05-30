@@ -15,10 +15,22 @@
     <meta name="description" content="">
     <meta name="author" content="Kamil Niski, Aneta Borkowska, Mateusz Kowalczyk">
 
-	<meta property="og:url" content=""/>
-	<meta property="og:title" content="Genoomy"/>
-	<meta property="og:description" content=""/>
-	<meta property="og:image" content=""/>
+    <!-- for Facebook -->
+    {% comment %}
+    <meta property="og:title" content="Genoomy" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
+    {% endcomment %}
+    <meta property="og:image" content="{% static "imgs/favicon.png" %}" />
+
+    {% comment %}
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+    {% endcomment %}
 
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
