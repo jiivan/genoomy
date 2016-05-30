@@ -146,6 +146,8 @@ def get_genome_data(filepath):
 
 def allele_colorize(data, update=True):
     for row in data:
+        if 'marker_id' not in row:
+            continue
         row_colors = get_marker_color_cached(row['marker_id'], row['genotype'])
         if update:
             row.update(row_colors)
