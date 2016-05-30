@@ -18,7 +18,6 @@ urlpatterns = patterns('',
     url(r'^$', LandingView.as_view(), name='landing_page'),
     url(r'^faq/$', TemplateView.as_view(template_name='faq.html'), name='faq'),
     url(r'^genotype-description', flatpage, name='genotype_description'),
-    url(r'^23andme/', include('twentythree.urls', namespace='23andme')),
 
     # Examples:
     # url(r'^$', 'genoome.views.home', name='home'),
