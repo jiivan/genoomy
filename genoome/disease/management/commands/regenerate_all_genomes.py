@@ -12,4 +12,4 @@ class Command(BaseCommand):
         for user in get_user_model().objects.all().order_by('-pk'):
             for filename in user.uploaded_files:
                 filepath = get_genome_filepath(user, filename)
-                recompute_genome_file.apply_async(args=(filepath,), task_id=task_id)
+                recompute_genome_file.apply_async(args=(filepath,))
