@@ -283,11 +283,11 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
             ctx['paypal_form'] = PayPalPaymentsForm(
                 initial=analyze_data_order.paypal_data(self.request))
         elif is_job_ready and is_job_failure:
-            messages.add_message(self.request, settings.DANGER,
-                                 "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
+            if not self.request.is_ajax():
+                messages.add_message(self.request, settings.DANGER, "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
         else:
-            messages.add_message(self.request, messages.INFO,
-                                 'Your genome data is being analyzed. Wait a few second and try this page again')
+            if not self.request.is_ajax():
+                messages.add_message(self.request, messages.INFO, 'Your genome data is being analyzed. Wait a few second and try this page again')
 
 
         return ctx
