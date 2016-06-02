@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^signin/$', login, {'template_name': 'signin.html', 'authentication_form': SignInForm}, name='signin'),
     url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
     url(r'^password-reset/$', password_reset, kwargs={'password_reset_form': PasswordResetForm,
-                                                      'from_email': 'noreply@genoomy.com',
+                                                      'from_email': '"genoomy.com team" <noreply@genoomy.com>',
                                                       'post_reset_redirect': 'accounts:password_reset_done',
                                                       'html_email_template_name': 'registration/password_reset_email.html',
                                                       'email_template_name': 'registration/password_reset_email.txt'},
