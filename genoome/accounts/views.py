@@ -1,6 +1,3 @@
-import os
-
-from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib import messages
@@ -9,23 +6,18 @@ from django.views.generic import CreateView
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.template.loader import get_template
-from django.shortcuts import render_to_response
 from django.forms import Form
 
 from accounts.forms import ActivateAccountForm
 from accounts.forms import ContactForm
 from accounts.forms import EmailUserCreateForm
 from accounts.forms import SignUpForm
-from configurable_elements.models import get_legend_rows
-from disease.models import CustomizedTag
 
-storage = FileSystemStorage()
-user_model = get_user_model()
 
 class UserCreateWithEmail(CreateView):
     template_name = 'save_email.html'
     form_class = EmailUserCreateForm
-    model = user_model
+    model = get_user_model()
     # fields = ('email',)
     success_url = reverse_lazy('accounts:create_with_email_success')
 
@@ -108,14 +100,6 @@ class AccountDisableView(SuccessMessageMixin, FormView):
 
 class LandingView(TemplateView):
     template_name = 'landing.html'
-    sample_data_filename = 'samplegenotype'
-
-    def get_context_data(self, **kwargs):
-        kwargs['genome_data_url'] = reverse_lazy('disease:landing_json_data')
-        kwargs['allele_tags'] = CustomizedTag.objects.filter(show_on_landing=True)
-        kwargs['legend_rows'] = get_legend_rows()
-        return super().get_context_data(**kwargs)
-
 
 class ContactFormView(FormView):
     form_class = ContactForm

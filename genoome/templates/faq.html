@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load disease_tags %}
 {% load django_markdown django_markdown_static %}
 {% load flatpages %}
 
@@ -33,7 +34,13 @@
 					<div class="item" id="faq-section-{{ flatpage.pk }}">
 						<h3 class="question"><i class="fa fa-question-circle"></i>{{ flatpage.title }}</h3>
 						<p class="answer">
-							{{ flatpage.content|markdown }}
+                                                {% if flatpage.url == "/faq/meaning-of-colors" %}
+                                                    <b>Colors are only approximate information, to learn more please click on specific bar.</b>
+                                                    <hr>
+                                                    {% color_legend %}
+                                                {% else %}
+                                                    {{ flatpage.content|markdown }}
+                                                {% endif %}
 						</p>
 					</div>
 

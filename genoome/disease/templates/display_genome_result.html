@@ -30,7 +30,6 @@ $(function() {
 				<div class="alert alert-warning" role="alert"><strong>Warning!</strong>  You are browsing user data from admin</div>
 			{% endif %}
 			{% if paid or is_admin %}
-				{% include 'includes/color_legend.html' %}
 				<h2 class="title">Your Coloured Genome</h2>
 				{% include 'includes/data_table.html' %}
 			{% else %}

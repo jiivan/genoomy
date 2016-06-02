@@ -27,7 +27,6 @@ import msgpack
 
 from paypal.standard.forms import PayPalPaymentsForm
 
-from configurable_elements.models import get_legend_rows
 from disease.files_utils import process_filename
 from disease.files_utils import get_genome_data as _get_genome_data
 from disease.files_utils import get_genome_dirpath
@@ -258,7 +257,6 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['legend_rows'] = get_legend_rows()
         ctx['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True)
         ctx['is_admin'] = is_admin = self.is_admin
 

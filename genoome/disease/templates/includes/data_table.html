@@ -1,11 +1,8 @@
+{% load disease_tags %}
 <div class="tags">
 	<div class="heading">Display traits that are:</div>
 	<div id="genome-labels" class="genome-labels">
-		{% for legend_row in legend_rows %}
-		<span class="label label-tag" style="background-color: {{ legend_row.color.color }}" data-val="{{ legend_row.color.color }}">
-			<span class="label-inside">{{ legend_row.content }}</span>
-		</span>
-		{% endfor %}
+    {% color_legend %}
 	</div>
 
 	<div class="heading">and relate to:</div>
