@@ -83,7 +83,7 @@ class AlleleColor(models.Model):
 
     def invalidate_colors(self):
         from disease.files_utils import invalidate_marker_color
-        invalidate_marker_color(self.snp_marker.rsid, self.allele)
+        invalidate_marker_color(self.snp_marker_id, self.allele)
 
     def save(self, *args, **kwargs):
         if self.pk:

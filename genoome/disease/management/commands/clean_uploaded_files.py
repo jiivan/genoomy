@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files.storage import FileSystemStorage
@@ -24,13 +22,3 @@ class Command(BaseCommand):
         dirs, files = storage.listdir(genome_files_dir)
         for file in files:
             storage.delete(get_genome_filepath(user, file))
-
-
-
-
-
-
-
-
-
-

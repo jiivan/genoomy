@@ -246,23 +246,24 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
             return get_genome_filepath(self.user, filename)
         return super().get_filepath(filename)
 
+    def get_analyze_data_order(self):
+        order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
+        try:
+            analyze_data_order = AnalyzeDataOrder.objects.get(**order_kwargs)
+        except AnalyzeDataOrder.DoesNotExist:
+            if not self.is_browsing_via_admin:
+                analyze_data_order = AnalyzeDataOrder(**order_kwargs)
+                analyze_data_order.save()
+        return analyze_data_order
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['legend_rows'] = get_legend_rows()
         ctx['allele_tags'] = CustomizedTag.objects.filter(show_on_data=True)
         ctx['is_admin'] = is_admin = self.is_admin
 
-        order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
-        paid = False
-
-        try:
-            analyze_data_order = AnalyzeDataOrder.objects.get(**order_kwargs)
-            paid = analyze_data_order.is_paid
-        except AnalyzeDataOrder.DoesNotExist:
-            if not self.is_browsing_via_admin:
-                analyze_data_order = AnalyzeDataOrder(**order_kwargs)
-                analyze_data_order.save()
-                paid = analyze_data_order.is_paid
+        analyze_data_order = self.get_analyze_data_order()
+        paid = analyze_data_order.is_paid
 
         job = AsyncResult(analyze_data_order.task_uuid)
         ctx['genome_data_url'] = '{}?file={}'.format(reverse_lazy('disease:browse_genome'), self.request.GET['file'])
@@ -282,31 +283,28 @@ class DisplayGenomeResult(JSONResponseMixin, GenomeFilePathMixin, TemplateView):
             ctx['paypal_form'] = PayPalPaymentsForm(
                 initial=analyze_data_order.paypal_data(self.request))
         elif is_job_ready and is_job_failure:
-            messages.add_message(self.request, settings.DANGER,
-                                 "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
+            if not self.request.is_ajax():
+                messages.add_message(self.request, settings.DANGER, "An error occured while processing your genome data. Let us check what is going on. And we will contact you soon.")
         else:
-            messages.add_message(self.request, messages.INFO,
-                                 'Your genome data is being analyzed. Wait a few second and try this page again')
+            if not self.request.is_ajax():
+                messages.add_message(self.request, messages.INFO, 'Your genome data is being analyzed. Wait a few second and try this page again')
 
 
         return ctx
 
     def get_data(self, context):
-        order_kwargs = dict(uploaded_filename=self.request.GET['file'], user=self.user)
-        paid = False
-
-        try:
-            analyze_data_order = AnalyzeDataOrder.objects.get(**order_kwargs)
+        analyze_data_order = self.get_analyze_data_order()
+        if analyze_data_order is not None:
             paid = analyze_data_order.is_paid
-        except AnalyzeDataOrder.DoesNotExist:
-            if not self.is_browsing_via_admin:
-                analyze_data_order = AnalyzeDataOrder(**order_kwargs)
-                analyze_data_order.save()
-                paid = analyze_data_order.is_paid
+
         result = []
+        job = AsyncResult(analyze_data_order.task_uuid)
         if paid or self.is_admin:
             result = self.get_genome_data()
-        return {'data': result}
+        return {
+            'data': result,
+            'is_ready': job.ready(),
+        }
 
     def render_to_response(self, context, **response_kwargs):
         if self.request.is_ajax():

@@ -120,7 +120,8 @@
 
 	var defaults = {
 		url: 'data/genome-data.json',
-		counterText: 'Showing %1 to %2 of %3 entries'
+		counterText: 'Showing %1 to %2 of %3 entries',
+		paginationSteps: 5
 	};
 
 	function Genome( element, options ) {
@@ -320,7 +321,8 @@
 
 	Genome.prototype.buildPagination = function() {
 		var _this = this,
-			html = '<li class="prev disabled"><a href="#" aria-controls="genome-listing" tabindex="0">Previous</a></li>';
+			html = '<li class="first disabled" data-page="0"><a href="#" aria-controls="genome-listing" tabindex="0">First</a></li>'+
+				'<li class="prev disabled"><a href="#" aria-controls="genome-listing" tabindex="0">Previous</a></li>';
 
 		_this.maxPage = Math.ceil(_this.total / _this.perPage);
 
@@ -328,11 +330,27 @@
 			html += '<li class="page page-'+ i +' '+ (i === 0 ? ' active' : '') +'" data-page="'+ i +'"><a href="#" class="" aria-controls="genome-listing" tabindex="0">'+ (i+1) +'</a></li>';
 		}
 
-		html += '<li class="next'+ (_this.maxPage === 1 ? ' disabled' : '') +'"><a href="#" aria-controls="genome-listing" tabindex="0">Next</a></li>';
+		html += '<li class="next'+ (_this.maxPage === 1 ? ' disabled' : '') +'"><a href="#" aria-controls="genome-listing" tabindex="0">Next</a></li>'+
+		'<li class="last '+ (_this.maxPage === 1 ? 'disabled' : '') +'" data-page="'+ (_this.maxPage-1) +'"><a href="#" aria-controls="genome-listing" tabindex="0">Last</a></li>';
 
 		_this.pagination.$el.html(html);
+		_this.pagination.$pages = _this.pagination.$el.find('.page');
 		_this.pagination.$prev = _this.pagination.$el.find('.prev');
 		_this.pagination.$next = _this.pagination.$el.find('.next');
+		_this.pagination.$first = _this.pagination.$el.find('.first');
+		_this.pagination.$last = _this.pagination.$el.find('.last');
+
+		_this.shortenPagination();
+	};
+
+	Genome.prototype.shortenPagination = function() {
+		var _this = this,
+			end = Math.min(_this.page + _this.options.paginationSteps, _this.maxPage-1),
+			start = Math.max(end - _this.options.paginationSteps, 0);
+
+		_this.pagination.$pages.hide().slice(start, end).show();
+		_this.pagination.$el.toggleClass('start-gap', start !== 0);
+		_this.pagination.$el.toggleClass('end-gap', end !== _this.maxPage-1);
 	};
 
 	Genome.prototype.updateList = function() {
@@ -352,8 +370,10 @@
 		_this.pagination.$el.find('.active').removeClass('active');
 		_this.pagination.$el.find('.page-'+ _this.page).addClass('active');
 
-		_this.pagination.$prev.toggleClass('disabled', _this.page == 0);
-		_this.pagination.$next.toggleClass('disabled', _this.page == _this.maxPage-1);
+		_this.pagination.$prev.add(_this.pagination.$first).toggleClass('disabled', _this.page == 0);
+		_this.pagination.$next.add(_this.pagination.$last).toggleClass('disabled', _this.page == _this.maxPage-1);
+
+		_this.shortenPagination();
 	};
 
 	Genome.prototype.updateCounter = function() {

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 import logging
+import requests
 
 log = logging.getLogger('genoome.twentythree.models')
 
@@ -9,13 +10,17 @@ class Token23(models.Model):
     access_token = models.TextField()
     refresh_token = models.TextField()
     scope = models.TextField()
-    created_at = models.DateTimeField(auto_add_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    class ClientError(Exception):
+        pass
 
     def _api_get(self, url):
         headers = {
             'Authorization': 'Bearer %s' % self.access_token,
         }
+        url = "https://api.23andme.com%s" % (url,)
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
             # https://api.23andme.com/docs/errors/ 
@@ -41,12 +46,24 @@ class Token23(models.Model):
             'grant_type': 'authorization_code',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)$
-        if response.status_code != 200:$
-            log.error('Problem fetching token %', response.status_code, response.text)$
-            raise self.ClientError$
-        data = response.json()$
-        return klass.objects.create(user=user, access_token=data['access_token'], refresh_token=data['refresh_token'], scope=data['scope'])
+        response = requests.post('https://api.23andme.com/token/', data=post_data, timeout=30.00, verify=True)
+        if response.status_code != 200:
+            log.error('Problem fetching token %s %s', response.status_code, response.text)
+            raise klass.ClientError
+        data = response.json()
+        initial = {
+            'access_token': data['access_token'],
+            'refresh_token': data['refresh_token'],
+            'scope': data['scope'],
+        }
+        instance, created = klass.objects.get_or_create(user=user, defaults=initial)
+        if not created:
+            log.warning('Updating initial token for %s', user)
+            for key in initial:
+                setattr(instance, key, initial[key])
+            instance.save()
+        log.debug('Token for %s ready!', user)
+        return instance
 
     def refresh(self):
         post_data = {
@@ -57,11 +74,11 @@ class Token23(models.Model):
             'grant_type': 'refresh_token',
             'redirect_uri': settings.COMEBACK_URL23,
         }
-        response = requests.post('/token/', data=post_data, timeout=30.00, verify=True)$
-        if response.status_code != 200:$
-            log.error('Problem refreshing token %', response.status_code, response.text)$
-            raise self.ClientError$
-        data = response.json()$
+        response = requests.post('https://api.23andme.com/token/', data=post_data, timeout=30.00, verify=True)
+        if response.status_code != 200:
+            log.error('Problem refreshing token %s %s', response.status_code, response.text)
+            raise self.ClientError
+        data = response.json()
         self.access_token = data['access_token']
         self.refresh_token = data['refresh_token']
         self.scope = data['scope']
@@ -103,6 +120,6 @@ class CeleryTask23(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     chosen_profile = models.TextField()
     fetch_task_id = models.TextField()
-    analyze_order = models.ForeignKey('disease.models.AnalyzeDataOrder', null=True)
+    analyze_order = models.ForeignKey('disease.AnalyzeDataOrder', null=True)
     process_task_id = models.TextField(null=True)
     status = models.TextField(choices=STATUS_CHOICES, default='new')

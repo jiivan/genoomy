@@ -91,6 +91,9 @@ body {
   font-size:20px;
   //  text-align:center;
 
+  .genome-labels {
+    font-size:30px;
+  }
   .heading {
     font-weight:normal;
     margin:0 0 10px;
@@ -166,6 +169,13 @@ body {
 }
 .pagination {
   margin-top:0;
+
+  &.start-gap .prev:after,
+  &.end-gap .next:before {
+    content:'...';
+    float:left;
+    padding:6px 12px;
+  }
 
   & > li > a,
   & > li > span {

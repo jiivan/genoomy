@@ -95,7 +95,8 @@ def process_genoome_data_gen(data):
         if mrsid not in data: # wwhat? -JK
             continue
 
-        row = {'rsid': mrsid,
+        row = {'marker_id': marker.pk,
+               'rsid': mrsid,
                'risk_allele': marker.risk_allele,
                'chromosome_position': data[mrsid]['position'],
                'disease_trait': marker.disease_trait,
@@ -145,36 +146,38 @@ def get_genome_data(filepath):
 
 def allele_colorize(data, update=True):
     for row in data:
-        row_colors = get_marker_color_cached(row['rsid'], row['genotype'])
+        if 'marker_id' not in row:
+            continue
+        row_colors = get_marker_color_cached(row['marker_id'], row['genotype'])
         if update:
             row.update(row_colors)
     return data
 
-def marker_color_key(rsid, genotype):
-    cache_key = 'marker_color:%s:%s' % (rsid, genotype)
+def marker_color_key(marker_id, genotype):
+    cache_key = 'marker_color2:%s:%s' % (marker_id, genotype)
     return cache_key
 
-def get_marker_color_cached(rsid, genotype):
+def get_marker_color_cached(marker_id, genotype):
     # cache invalidated by:
     #  AlleleColor.save()
     #  Tags.save()
     #  ColorAlias.save()
-    cache_key = marker_color_key(rsid, genotype)
+    cache_key = marker_color_key(marker_id, genotype)
     result = cache.get(cache_key)
     if result is not None:
         return result
-    result = get_marker_color(rsid, genotype)
+    result = get_marker_color(marker_id, genotype)
     cache.set(cache_key, result, None)
     return result
 
-def invalidate_marker_color(rsid, genotype):
-    log.debug('invalidate_marker_color(%r, %r)', rsid, genotype)
-    cache_key = marker_color_key(rsid, genotype)
+def invalidate_marker_color(marker_id, genotype):
+    log.debug('invalidate_marker_color(%r, %r)', marker_id, genotype)
+    cache_key = marker_color_key(marker_id, genotype)
     cache.delete(cache_key)
 
-def get_marker_color(rsid, genotype):
-    log.debug('get_marker_color(%r, %r)', rsid, genotype)
-    alcolors = AlleleColor.objects.filter(snp_marker__rsid=rsid, allele=genotype)[:1]
+def get_marker_color(marker_id, genotype):
+    log.debug('get_marker_color(%r, %r)', marker_id, genotype)
+    alcolors = AlleleColor.objects.filter(snp_marker=marker_id, allele=genotype)[:1]
     if not alcolors:
         return {}
     alcolor = alcolors[0]
