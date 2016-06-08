@@ -9,6 +9,7 @@ from celery import shared_task
 from django.core.files.storage import FileSystemStorage
 import msgpack
 
+from disease.exceptions import DiseaseError
 from disease.files_utils import get_genome_filepath, process_filename, \
     parse_raw_genome_file, process_genoome_data, handle_zipped_genome_file
 
@@ -16,7 +17,7 @@ log = logging.getLogger(__name__)
 
 storage = FileSystemStorage()
 
-@shared_task
+@shared_task(throws=DiseaseError)
 def recompute_genome_file(genome_filepath):
     log.debug('Genome filepath: %s', genome_filepath)
     with storage.open(genome_filepath, 'r') as raw_file:
