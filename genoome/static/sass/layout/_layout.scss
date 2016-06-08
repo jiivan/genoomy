@@ -117,6 +117,25 @@ body {
     }
   }
 }
+
+.genome-labels,
+.genome-tags {
+  .label {
+    padding-right: 1.5em;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0.35em;
+      right: 0.35em;
+      width: 0.8em;
+      height: 0.8em;
+      border: 1px solid $color-black;
+      border-radius: 2px;
+      opacity: 0.75;
+    }
+  }
+}
+
 .genome-listing {
   margin:20px 0;
   background:$color-white;
