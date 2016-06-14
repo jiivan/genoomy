@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.utils.encoding import force_text
 
+from disease.exceptions import ParserError
 from disease.models import AlleleColor
 from disease.models import SNPMarker
 
@@ -41,6 +42,9 @@ def parse_23andme(csv_reader):
     for line in csv_reader:
         if len(line) <= 1:
             continue
+        if len(line) < max(RSID, GENOTYPE, POSITION)+1:
+            log.warning('Invalid line %r. Ignoring', line)
+            continue
         if not line[RSID].startswith('rs'):
             continue
         rsid = line[RSID].replace('rs', '', 1)
@@ -54,19 +58,22 @@ def get_parser(file):
     # log.debug('%s, file mod %s', get_parser.__name__, file.mode)
     choosen_parser = None
     break_outer = False
-    for line in file:
-        for key, parser in parsers.items():
-            if key in force_text(line).lower():
-                choosen_parser = parser
-                log.debug('%s file detected, chosing apropriate parser', key)
-                break_outer = True
+    try:
+        for line in file:
+            for key, parser in parsers.items():
+                if key in force_text(line).lower():
+                    choosen_parser = parser
+                    log.debug('%s file detected, chosing apropriate parser', key)
+                    break_outer = True
+                    break
+            if break_outer:
                 break
-        if break_outer:
-            break
+    except UnicodeDecodeError:
+        raise ParserError('Invalid encoding')
 
     # file.seek(0, 0)
     if choosen_parser is None:
-        raise ValueError('Cannot determine file format')
+        raise ParserError('Cannot determine file format')
     return choosen_parser
 
 
