@@ -126,7 +126,7 @@ body {
     &::after {
       content: '';
       background: no-repeat url('/static/imgs/tick.png') 50% 50%;
-      background-size: 120% 120%;
+      background-size: contain;
       position: absolute;
       top: 0.35em;
       right: 0.35em;
