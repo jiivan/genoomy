@@ -87,7 +87,7 @@ class AlleleColor(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk:
-            db_instance = self.__class__.get(pk=self.pk)
+            db_instance = self.__class__.objects.get(pk=self.pk)
             db_instance.invalidate_colors()
         super().save(*args, **kwargs)
         self.invalidate_colors()
