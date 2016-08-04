@@ -122,8 +122,11 @@ body {
 .genome-tags {
   .label {
     padding-right: 1.5em;
+    position: relative;
     &::after {
       content: '';
+      background: no-repeat url('/static/imgs/tick.png') 50% 50%;
+      background-size: contain;
       position: absolute;
       top: 0.35em;
       right: 0.35em;
@@ -131,7 +134,11 @@ body {
       height: 0.8em;
       border: 1px solid $color-black;
       border-radius: 2px;
-      opacity: 0.75;
+    }
+    &.off {
+      &::after {
+        content: none;
+      }
     }
   }
 }
@@ -228,6 +235,9 @@ body {
   padding:15px 30px;
   margin-bottom:10px;
   background:#f5f5f5;
+  &-yours {
+    font-size: 18px;
+  }
 }
 .info {
   .fa {
